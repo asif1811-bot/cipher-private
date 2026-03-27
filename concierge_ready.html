@@ -262,7 +262,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
       <div id="login-error" class="auth-error"></div>
       <div class="field"><label>Email Address</label><input type="email" id="login-email" placeholder="your@email.com" autocomplete="email"></div>
       <div class="field"><label>Password</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
-      <button class="btn-gold" id="btn-login" id="btn-login">Sign In</button>
+      <button class="btn-gold" id="btn-login">Sign In</button>
       <div class="auth-switch">Don't have an account? <a id="link-to-register">Request access</a></div>
     </div>
 
@@ -285,7 +285,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
           <option value="elite">Elite — Tier Three</option>
         </select>
       </div>
-      <button class="btn-gold" id="btn-register" id="btn-register">Request Membership</button>
+      <button class="btn-gold" id="btn-register">Request Membership</button>
       <div class="auth-switch">Already a member? <a id="link-to-login">Sign in</a></div>
     </div>
   </div>
@@ -315,7 +315,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
       <div class="nav-item" data-panel="admin-messages"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages</div>
     </div>
     <div id="admin-toggle-wrap" style="display:none;padding-top:8px">
-      <button class="admin-toggle" id="role-toggle" id="role-toggle">Admin View →</button>
+      <button class="admin-toggle" id="role-toggle">Admin View →</button>
     </div>
     <div class="sidebar-user">
       <div class="sidebar-user-name" id="user-name">—</div>
@@ -359,7 +359,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
     </div>
     <div class="modal-btns">
       <button class="btn-outline" data-close-modal="modal-request">Cancel</button>
-      <button class="btn-submit-modal" id="btn-req-submit" id="btn-req-submit">Submit Request</button>
+      <button class="btn-submit-modal" id="btn-req-submit">Submit Request</button>
     </div>
   </div>
 </div>
@@ -374,7 +374,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
       <div style="font-size:11px;color:#C0BAB0;margin-top:4px">PDF, DOCX, XLSX, JPG, PNG · Max 10MB</div>
       <div id="selected-file-name" style="margin-top:10px;font-size:12px;color:var(--gold);display:none"></div>
     </div>
-    <input type="file" id="file-input" style="display:none" id="file-input" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt">
+    <input type="file" id="file-input" style="display:none" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt">
     <div class="field"><label>Document Name</label><input type="text" id="doc-name" placeholder="e.g. Passport, Property Contract..."></div>
     <div class="field"><label>Category</label>
       <select id="doc-category">
@@ -389,7 +389,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
     </div>
     <div class="modal-btns">
       <button class="btn-outline" data-close-modal="modal-upload">Cancel</button>
-      <button class="btn-submit-modal" id="btn-upload" id="btn-upload">Encrypt & Upload</button>
+      <button class="btn-submit-modal" id="btn-upload">Encrypt & Upload</button>
     </div>
   </div>
 </div>
@@ -416,7 +416,7 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
     </div>
     <div class="modal-btns">
       <button class="btn-outline" data-close-modal="modal-share">Close</button>
-      <button class="btn-submit-modal" id="btn-send-otp" id="btn-send-otp">Generate OTP & Send Link</button>
+      <button class="btn-submit-modal" id="btn-send-otp">Generate OTP & Send Link</button>
     </div>
   </div>
 </div>
@@ -650,7 +650,7 @@ async function renderDashboard(c) {
     <div class="chat-box" id="chat-msgs">${
       (msgs||[]).length ? (msgs||[]).map(m => `<div class="msg ${m.sender_id===currentUser.id?'me':''}"><div class="msg-bubble">${m.content}</div><div class="msg-meta">${m.sender_role==='staff'?'Concierge Team':'You'} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('') : '<div class="chat-empty">Your concierge will reply here. Send a message to start.</div>'
     }</div>
-    <div class="chat-input-row"><textarea class="chat-input" id="chat-box" placeholder="Message your concierge…" id="chat-box"></textarea><button class="chat-send" id="btn-send-msg">→</button></div>`;
+    <div class="chat-input-row"><textarea class="chat-input" id="chat-box" placeholder="Message your concierge…"></textarea><button class="chat-send" id="btn-send-msg">→</button></div>`;
   grid.appendChild(reqCard);
   grid.appendChild(chatCard);
   c.appendChild(grid);
@@ -922,7 +922,7 @@ async function selectMember(memberId, memberName) {
   const chatArea = document.getElementById('admin-chat-area');
   chatArea.innerHTML = `<div style="padding-bottom:12px;border-bottom:1px solid #F5F0EA;margin-bottom:12px;font-size:14px;font-weight:500;color:var(--ink)">${memberName}</div>
   <div class="chat-box" id="admin-msgs" style="flex:1;height:calc(100% - 120px)">${(msgs||[]).map(m=>`<div class="msg ${m.sender_role==='staff'?'me':''}"><div class="msg-bubble">${m.content}</div><div class="msg-meta">${m.sender_role==='staff'?'You (Concierge)':memberName.split(' ')[0]} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('')||'<div class="chat-empty">No messages yet</div>'}</div>
-  <div class="chat-input-row" style="margin-top:12px"><textarea class="chat-input" id="admin-chat-box" placeholder="Reply as concierge team…" id="admin-chat-box"></textarea><button class="chat-send" id="btn-send-admin-msg">→</button></div>`;
+  <div class="chat-input-row" style="margin-top:12px"><textarea class="chat-input" id="admin-chat-box" placeholder="Reply as concierge team…"></textarea><button class="chat-send" id="btn-send-admin-msg">→</button></div>`;
   const msgs_el = document.getElementById('admin-msgs');
   if (msgs_el) msgs_el.scrollTop = msgs_el.scrollHeight;
   if (adminChatChannel) sb.removeChannel(adminChatChannel);
