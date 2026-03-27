@@ -4,281 +4,154 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipher Private — Member Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js">
-// ═══════════════════════════════════════════
-// EVENT DELEGATION — replaces all onclick handlers
-// ═══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function() {
-  initSupabase();
-  // Auth buttons
-  const btnLogin = document.getElementById('btn-login');
-  if (btnLogin) btnLogin.addEventListener('click', doLogin);
-  
-  const btnRegister = document.getElementById('btn-register');
-  if (btnRegister) btnRegister.addEventListener('click', doRegister);
-  
-  const linkToRegister = document.getElementById('link-to-register');
-  if (linkToRegister) linkToRegister.addEventListener('click', () => switchForm('register'));
-  
-  const linkToLogin = document.getElementById('link-to-login');
-  if (linkToLogin) linkToLogin.addEventListener('click', () => switchForm('login'));
-  
-  const btnSignout = document.getElementById('btn-signout');
-  if (btnSignout) btnSignout.addEventListener('click', doSignOut);
-  
-  const roleToggle = document.getElementById('role-toggle');
-  if (roleToggle) roleToggle.addEventListener('click', toggleRole);
-
-  // Upload drop zone
-  document.addEventListener('click', function(e) {
-    if (e.target.id === 'upload-drop-zone' || e.target.closest('#upload-drop-zone')) {
-      document.getElementById('file-input').click();
-    }
-  });
-  
-  // File input
-  if (fileInput) fileInput.addEventListener('change', function() { onFileSelect(this); });
-
-  // Panel navigation via data-panel
-  document.addEventListener('click', function(e) {
-    // Panel nav
-    const panelEl = e.target.closest('[data-panel]');
-    if (panelEl) { showPanel(panelEl.dataset.panel); return; }
-    
-    // Open modal
-    const openEl = e.target.closest('[data-open-modal]');
-    if (openEl) { openModal(openEl.dataset.openModal); return; }
-    
-    // Close modal
-    const closeEl = e.target.closest('[data-close-modal]');
-    if (closeEl) { closeModal(closeEl.dataset.closeModal); return; }
-    
-    // Dynamic buttons rendered in panels
-    const target = e.target;
-    if (target.id === 'btn-req-submit') { submitRequest(); return; }
-    if (target.id === 'btn-upload') { uploadDoc(); return; }
-    if (target.id === 'btn-send-otp') { sendOTP(); return; }
-    if (target.id === 'btn-save-profile') { saveProfile(); return; }
-    if (target.id === 'btn-send-msg') { sendMsg(); return; }
-    if (target.id === 'btn-send-admin-msg') { sendAdminMsg(); return; }
-    
-    // Share/delete vault docs
-    if (target.dataset.shareDoc) { openShareModal(target.dataset.shareDoc, target.dataset.shareName); return; }
-    if (target.dataset.deleteDoc) { deleteDoc(target.dataset.deleteDoc); return; }
-    
-    // Admin member select
-    if (target.dataset.memberId) { selectMember(target.dataset.memberId, target.dataset.memberName); return; }
-    
-    // Modal status update
-    if (target.dataset.reqId && target.tagName === 'SELECT') { updateReqStatus(target.dataset.reqId, target.value); return; }
-  });
-  
-  // Chat enter key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (document.activeElement && document.activeElement.id === 'chat-box') { e.preventDefault(); sendMsg(); }
-      if (document.activeElement && document.activeElement.id === 'admin-chat-box') { e.preventDefault(); sendAdminMsg(); }
-      if (document.activeElement && document.activeElement.id === 'login-email') doLogin();
-      if (document.activeElement && document.activeElement.id === 'login-password') doLogin();
-      if (document.activeElement && document.activeElement.id === 'reg-password') doRegister();
-    }
-  });
-  
-  // Close modals on backdrop click
-  document.querySelectorAll('.modal-overlay').forEach(el => {
-    el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
-  });
-});
-
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#0B1628;--gold:#B8962E;--gold2:#D4AF5A;--cream:#FAF7F2;--ink:#0A0F1A;--muted:#6B6458;--border:rgba(184,150,46,0.2)}
+:root{--navy:#0B1628;--gold:#B8962E;--cream:#FAF7F2;--ink:#0A0F1A;--muted:#6B6458}
 body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:100vh}
-
-/* AUTH */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--navy)}
-.auth-box{background:var(--cream);border-radius:16px;padding:48px 40px;width:100%;max-width:440px;box-shadow:0 32px 80px rgba(0,0,0,0.4)}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-box{background:var(--cream);border-radius:16px;padding:48px 40px;width:100%;max-width:440px}
 .auth-logo{text-align:center;margin-bottom:32px}
-.auth-logo-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink);letter-spacing:0.05em}
+.auth-logo-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink)}
 .auth-logo-sub{font-size:9px;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-top:4px}
-.auth-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:28px}
-.auth-error{background:#FEE2E2;border:1px solid #FECACA;color:#991B1B;padding:12px 14px;border-radius:6px;font-size:13px;margin-bottom:20px;display:none}
-.auth-success{background:#D1FAE5;border:1px solid #A7F3D0;color:#065F46;padding:12px 14px;border-radius:6px;font-size:13px;margin-bottom:20px;display:none}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:9px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;font-weight:400}
-.field input,.field select{width:100%;background:#fff;border:1px solid #E5E0D8;color:var(--ink);padding:13px 14px;font-size:13px;font-family:'Jost',sans-serif;font-weight:300;outline:none;border-radius:6px;transition:border .2s}
-.field input:focus,.field select:focus{border-color:var(--gold)}
+.auth-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:24px}
+.error-box{background:#FEE2E2;border:1px solid #FECACA;color:#991B1B;padding:12px;border-radius:6px;font-size:13px;margin-bottom:16px;display:none}
+.success-box{background:#D1FAE5;border:1px solid #A7F3D0;color:#065F46;padding:12px;border-radius:6px;font-size:13px;margin-bottom:16px;display:none}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:9px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px}
+.field input,.field select{width:100%;background:#fff;border:1px solid #E5E0D8;color:var(--ink);padding:13px 14px;font-size:13px;font-family:'Jost',sans-serif;outline:none;border-radius:6px}
+.field input:focus{border-color:var(--gold)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.btn-gold{width:100%;background:var(--gold);color:var(--ink);border:none;padding:15px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;cursor:pointer;border-radius:6px;transition:background .2s;margin-top:4px}
-.btn-gold:hover{background:var(--gold2)}
+.btn-gold{width:100%;background:var(--gold);color:var(--ink);border:none;padding:15px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;cursor:pointer;border-radius:6px;margin-top:4px}
+.btn-gold:hover{background:#D4AF5A}
 .btn-gold:disabled{opacity:0.6;cursor:not-allowed}
-.auth-switch{text-align:center;margin-top:20px;font-size:13px;color:var(--muted)}
-.auth-switch a{color:var(--ink);font-weight:500;cursor:pointer;text-decoration:underline}
-.auth-form{display:none}
-.auth-form.active{display:block}
+.switch-link{text-align:center;margin-top:16px;font-size:13px;color:var(--muted)}
+.switch-link a{color:var(--ink);font-weight:500;cursor:pointer;text-decoration:underline}
+.hidden{display:none}
 
 /* APP */
 #app{display:none;min-height:100vh;background:#F5F0EA}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--navy);padding:0;z-index:50;display:flex;flex-direction:column}
-.sidebar-logo{padding:28px 24px 20px;border-bottom:1px solid rgba(184,150,46,0.15)}
-.sidebar-logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#fff;letter-spacing:0.08em}
-.sidebar-logo-name span{color:var(--gold)}
-.sidebar-logo-sub{font-size:8px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-top:3px}
-.sidebar-section{font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:0.2em;text-transform:uppercase;padding:20px 24px 8px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:11px 24px;cursor:pointer;transition:background .15s;font-size:12px;color:rgba(255,255,255,0.5);font-weight:300;letter-spacing:0.04em}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--navy);display:flex;flex-direction:column}
+.logo-wrap{padding:24px;border-bottom:1px solid rgba(184,150,46,0.15)}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff}
+.logo-name span{color:var(--gold)}
+.logo-sub{font-size:8px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-top:2px}
+.nav-section{font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:0.2em;text-transform:uppercase;padding:16px 24px 8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 24px;cursor:pointer;font-size:12px;color:rgba(255,255,255,0.5);font-weight:300}
 .nav-item:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.8)}
 .nav-item.active{background:rgba(184,150,46,0.12);color:var(--gold)}
-.nav-item svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.5}
-.sidebar-user{margin-top:auto;padding:20px 24px;border-top:1px solid rgba(184,150,46,0.15)}
-.sidebar-user-name{font-size:13px;color:#fff;font-weight:400}
-.sidebar-user-tier{font-size:10px;color:var(--gold);margin-top:2px;letter-spacing:0.05em}
-.sidebar-user-out{font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer;margin-top:8px;transition:color .2s}
-.sidebar-user-out:hover{color:rgba(255,255,255,0.7)}
-
+.nav-item svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+.user-section{margin-top:auto;padding:20px 24px;border-top:1px solid rgba(184,150,46,0.15)}
+.user-name{font-size:13px;color:#fff}
+.user-tier{font-size:10px;color:var(--gold);margin-top:2px}
+.sign-out{font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer;margin-top:8px}
+.sign-out:hover{color:rgba(255,255,255,0.7)}
 .main{margin-left:220px;padding:40px;min-height:100vh}
-.page-header{margin-bottom:32px}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink)}
-.page-sub{font-size:13px;color:var(--muted);margin-top:4px;font-weight:300}
-
-/* CARDS */
-.card{background:#fff;border-radius:10px;padding:28px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.card-title{font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px}
-.card-val{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--ink)}
-.card-label{font-size:11px;color:var(--muted);margin-top:4px}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.section-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:16px}
-
-/* CHAT */
-.chat-box{height:320px;overflow-y:auto;padding:16px;background:#F9F6F0;border-radius:8px;margin-bottom:12px}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--ink);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.card{background:#fff;border-radius:10px;padding:28px;margin-bottom:20px}
+.card-label{font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px}
+.card-val{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--ink)}
+.card-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sec-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:16px}
+.chat-msgs{height:280px;overflow-y:auto;background:#F9F6F0;border-radius:8px;padding:16px;margin-bottom:12px}
 .chat-empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
-.msg{margin-bottom:12px}
+.msg{margin-bottom:10px}
 .msg.me{text-align:right}
-.msg-bubble{display:inline-block;background:#fff;border:1px solid #E5E0D8;border-radius:8px;padding:10px 14px;font-size:13px;color:var(--ink);max-width:80%;text-align:left;font-weight:300}
-.msg.me .msg-bubble{background:var(--navy);color:#fff;border-color:var(--navy)}
-.msg-meta{font-size:10px;color:var(--muted);margin-top:4px}
-.chat-input-row{display:flex;gap:10px}
-.chat-input{flex:1;background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:'Jost',sans-serif;font-weight:300;outline:none;border-radius:6px;resize:none;height:44px;color:var(--ink)}
+.bubble{display:inline-block;background:#fff;border:1px solid #E5E0D8;border-radius:8px;padding:9px 13px;font-size:13px;color:var(--ink);max-width:80%}
+.msg.me .bubble{background:var(--navy);color:#fff;border-color:var(--navy)}
+.msg-time{font-size:10px;color:var(--muted);margin-top:3px}
+.chat-row{display:flex;gap:10px}
+.chat-input{flex:1;background:#fff;border:1px solid #E5E0D8;padding:11px 14px;font-size:13px;font-family:'Jost',sans-serif;outline:none;border-radius:6px;color:var(--ink)}
 .chat-input:focus{border-color:var(--gold)}
-.chat-send{background:var(--navy);color:#fff;border:none;padding:12px 20px;cursor:pointer;border-radius:6px;font-size:12px;font-family:'Jost',sans-serif;transition:background .2s}
-.chat-send:hover{background:var(--gold);color:var(--ink)}
-
-/* REQUESTS */
-.req-item{background:#fff;border-radius:8px;padding:18px 20px;margin-bottom:10px;border-left:3px solid var(--gold);display:flex;justify-content:space-between;align-items:flex-start}
-.req-title{font-size:14px;font-weight:400;color:var(--ink)}
-.req-cat{font-size:11px;color:var(--muted);margin-top:3px}
-.badge{display:inline-block;font-size:9px;padding:3px 10px;border-radius:99px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500}
-.badge-new{background:#FEF3C7;color:#92400E}
-.badge-progress{background:#DBEAFE;color:#1E40AF}
-.badge-completed{background:#D1FAE5;color:#065F46}
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted);font-size:13px}
-
-/* NEW REQUEST */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{background:#fff;border-radius:12px;padding:36px;width:520px;max-width:90vw;max-height:90vh;overflow-y:auto}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--ink);margin-bottom:4px}
-.modal-sub{font-size:12px;color:var(--muted);margin-bottom:28px}
+.send-btn{background:var(--navy);color:#fff;border:none;padding:11px 18px;cursor:pointer;border-radius:6px;font-size:13px}
+.send-btn:hover{background:var(--gold);color:var(--ink)}
+.req-item{background:#fff;border-radius:8px;padding:16px 20px;margin-bottom:10px;border-left:3px solid var(--gold);display:flex;justify-content:space-between;align-items:flex-start}
+.req-title{font-size:14px;color:var(--ink)}
+.req-meta{font-size:11px;color:var(--muted);margin-top:3px}
+.badge{font-size:9px;padding:3px 10px;border-radius:99px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500}
+.b-new{background:#FEF3C7;color:#92400E}
+.b-progress{background:#DBEAFE;color:#1E40AF}
+.b-done{background:#D1FAE5;color:#065F46}
+.empty{text-align:center;padding:48px;color:var(--muted);font-size:13px}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:36px;width:500px;max-width:90vw;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ink);margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--muted);margin-bottom:24px}
 .modal .field label{color:var(--muted)}
-.modal-btns{display:flex;gap:12px;margin-top:8px}
-.btn-outline{flex:1;background:transparent;border:1px solid #E5E0D8;color:var(--muted);padding:13px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-family:'Jost',sans-serif;cursor:pointer;border-radius:6px;transition:all .2s}
-.btn-outline:hover{border-color:var(--navy);color:var(--ink)}
-.btn-submit-modal{flex:1;background:var(--gold);color:var(--ink);border:none;padding:13px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;cursor:pointer;border-radius:6px;transition:background .2s}
-.btn-submit-modal:hover{background:var(--gold2)}
-
-/* VAULT */
-.vault-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal textarea{width:100%;height:90px;background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:'Jost',sans-serif;outline:none;border-radius:6px;resize:none;color:var(--ink)}
+.modal-btns{display:flex;gap:12px;margin-top:16px}
+.btn-cancel{flex:1;background:transparent;border:1px solid #E5E0D8;color:var(--muted);padding:13px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-family:'Jost',sans-serif;cursor:pointer;border-radius:6px}
+.btn-submit{flex:1;background:var(--gold);color:var(--ink);border:none;padding:13px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;cursor:pointer;border-radius:6px}
 .vault-item{background:#fff;border-radius:8px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px}
-.vault-icon{width:40px;height:40px;background:rgba(184,150,46,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vault-icon{width:38px;height:38px;background:rgba(184,150,46,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .vault-info{flex:1;min-width:0}
-.vault-name{font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vault-name{font-size:13px;font-weight:500;color:var(--ink)}
 .vault-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.vault-actions{display:flex;gap:8px}
-.vault-btn{background:transparent;border:1px solid #E5E0D8;color:var(--muted);padding:7px 14px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;font-family:'Jost',sans-serif;cursor:pointer;border-radius:4px;transition:all .2s;white-space:nowrap}
-.vault-btn:hover{border-color:var(--gold);color:var(--gold)}
-.vault-btn.red:hover{border-color:#ef4444;color:#ef4444}
-.vault-security-banner{background:rgba(184,150,46,0.08);border:1px solid rgba(184,150,46,0.2);border-radius:8px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:12px;color:rgba(10,15,26,0.6)}
-.vault-security-banner svg{flex-shrink:0;stroke:var(--gold);fill:none;stroke-width:1.5}
-
-/* OTP MODAL */
-.otp-result{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:20px;text-align:center;margin-top:16px;display:none}
-.otp-code{font-family:monospace;font-size:36px;font-weight:700;color:var(--ink);letter-spacing:0.3em;margin:8px 0}
+.vault-btns{display:flex;gap:8px}
+.vbtn{background:transparent;border:1px solid #E5E0D8;color:var(--muted);padding:6px 12px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;font-family:'Jost',sans-serif;cursor:pointer;border-radius:4px}
+.vbtn:hover{border-color:var(--gold);color:var(--gold)}
+.otp-box{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:20px;text-align:center;margin-top:16px;display:none}
+.otp-code{font-family:monospace;font-size:36px;color:var(--ink);letter-spacing:0.3em;margin:8px 0;font-weight:700}
 .otp-note{font-size:11px;color:var(--muted)}
-
-/* MEMBERSHIP */
-.tier-card{background:#fff;border-radius:10px;padding:32px;border-top:3px solid var(--gold)}
-.tier-name{font-size:9px;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px}
-.tier-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--ink);margin-bottom:16px}
-.tier-features{list-style:none}
-.tier-features li{font-size:12px;color:var(--muted);padding:8px 0;border-bottom:1px solid #F5F0EA;display:flex;align-items:center;gap:8px;font-weight:300}
-.tier-features li::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
-
-/* ADMIN */
-.admin-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden}
-.admin-table th{font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;padding:14px 16px;text-align:left;border-bottom:1px solid #F5F0EA}
-.admin-table td{font-size:13px;color:var(--ink);padding:14px 16px;border-bottom:1px solid #F5F0EA;font-weight:300}
-.admin-table tr:last-child td{border-bottom:none}
-.admin-members-list{display:flex;flex-direction:column;gap:10px}
-.admin-member-row{background:#fff;border-radius:8px;padding:16px 20px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:14px}
-.admin-member-row:hover{background:#F9F6F0}
-.admin-member-avatar{width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--gold);flex-shrink:0}
-.admin-member-name{font-size:13px;font-weight:500;color:var(--ink)}
-.admin-member-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.admin-msg-panel{display:grid;grid-template-columns:280px 1fr;gap:20px;height:calc(100vh - 200px)}
-.admin-msg-list{background:#fff;border-radius:10px;overflow-y:auto}
-.admin-msg-item{padding:16px 20px;cursor:pointer;border-bottom:1px solid #F5F0EA;transition:background .15s}
-.admin-msg-item:hover,.admin-msg-item.active{background:#F9F6F0}
-.admin-msg-name{font-size:13px;font-weight:500;color:var(--ink)}
-.admin-msg-preview{font-size:11px;color:var(--muted);margin-top:2px}
-.admin-chat{background:#fff;border-radius:10px;display:flex;flex-direction:column;padding:20px}
-
-/* PROFILE */
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th{font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:1px solid #F5F0EA}
+.admin-table td{font-size:13px;color:var(--ink);padding:12px 16px;border-bottom:1px solid #F5F0EA;font-weight:300}
+.msg-panel{display:grid;grid-template-columns:260px 1fr;gap:16px;height:calc(100vh - 180px)}
+.msg-list{background:#fff;border-radius:10px;overflow-y:auto}
+.msg-member{padding:14px 18px;cursor:pointer;border-bottom:1px solid #F5F0EA}
+.msg-member:hover,.msg-member.sel{background:#F9F6F0}
+.msg-member-name{font-size:13px;font-weight:500;color:var(--ink)}
+.msg-member-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.msg-chat{background:#fff;border-radius:10px;padding:20px;display:flex;flex-direction:column}
+.toggle-btn{background:rgba(184,150,46,0.1);border:1px solid rgba(184,150,46,0.3);color:var(--gold);padding:8px 16px;border-radius:6px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;margin:8px 24px;text-align:center}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-
-/* TOGGLE */
-.admin-toggle{background:rgba(184,150,46,0.1);border:1px solid rgba(184,150,46,0.3);color:var(--gold);padding:8px 16px;border-radius:6px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s;margin-bottom:4px;width:calc(100% - 48px);margin-left:24px;text-align:center}
-.admin-toggle:hover{background:rgba(184,150,46,0.2)}
-
-/* RESPONSIVE */
-@media(max-width:768px){.sidebar{width:180px}.main{margin-left:180px;padding:20px}.stats-grid{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}.admin-msg-panel{grid-template-columns:1fr}.profile-grid{grid-template-columns:1fr}}
-@media(max-width:500px){.sidebar{display:none}.main{margin-left:0}}
+.profile-input{width:100%;background:#fff;border:1px solid #E5E0D8;color:var(--ink);padding:12px 14px;font-size:13px;font-family:'Jost',sans-serif;outline:none;border-radius:6px}
+.profile-input:focus{border-color:var(--gold)}
+.save-btn{background:var(--gold);color:var(--ink);border:none;padding:12px 32px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:500;cursor:pointer;border-radius:6px;margin-top:16px}
+.tier-card{background:#fff;border-radius:10px;padding:32px;border-top:3px solid var(--gold)}
+.tier-name-label{font-size:9px;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px}
+.tier-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);margin-bottom:20px}
+.tier-list{list-style:none}
+.tier-list li{font-size:12px;color:var(--muted);padding:8px 0;border-bottom:1px solid #F5F0EA;display:flex;align-items:center;gap:8px}
+.tier-list li::before{content:'';width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.security-banner{background:rgba(184,150,46,0.08);border:1px solid rgba(184,150,46,0.2);border-radius:8px;padding:14px 18px;margin-bottom:20px;display:flex;gap:12px;font-size:12px;color:rgba(10,15,26,0.6);align-items:flex-start}
+@media(max-width:768px){.sidebar{width:180px}.main{margin-left:180px;padding:20px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.msg-panel{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- AUTH SCREEN -->
+<!-- AUTH -->
 <div id="auth-screen" class="auth-wrap">
   <div class="auth-box">
     <div class="auth-logo">
       <div class="auth-logo-name">Cipher Private</div>
       <div class="auth-logo-sub">Private Members Portal</div>
     </div>
-
-    <!-- Login Form -->
-    <div id="form-login" class="auth-form active">
+    <!-- Login -->
+    <div id="form-login">
       <div class="auth-title">Sign in to your account</div>
-      <div id="login-error" class="auth-error"></div>
-      <div class="field"><label>Email Address</label><input type="email" id="login-email" placeholder="your@email.com" autocomplete="email"></div>
-      <div class="field"><label>Password</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
+      <div id="login-err" class="error-box"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="login-email" placeholder="your@email.com"></div>
+      <div class="field"><label>Password</label><input type="password" id="login-pw" placeholder="••••••••"></div>
       <button class="btn-gold" id="btn-login">Sign In</button>
-      <div class="auth-switch">Don't have an account? <a id="link-to-register">Request access</a></div>
+      <div class="switch-link">No account? <a id="go-register">Request access</a></div>
     </div>
-
-    <!-- Register Form -->
-    <div id="form-register" class="auth-form">
+    <!-- Register -->
+    <div id="form-register" class="hidden">
       <div class="auth-title">Request membership access</div>
-      <div id="register-error" class="auth-error"></div>
-      <div id="register-success" class="auth-success"></div>
+      <div id="reg-err" class="error-box"></div>
+      <div id="reg-ok" class="success-box"></div>
       <div class="field-row">
         <div class="field"><label>First Name</label><input type="text" id="reg-first" placeholder="James"></div>
         <div class="field"><label>Last Name</label><input type="text" id="reg-last" placeholder="Harrington"></div>
       </div>
-      <div class="field"><label>Email Address</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
-      <div class="field"><label>Password</label><input type="password" id="reg-password" placeholder="Min. 8 characters"></div>
-      <div class="field">
-        <label>Membership Interest</label>
+      <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
+      <div class="field"><label>Password</label><input type="password" id="reg-pw" placeholder="Min. 8 characters"></div>
+      <div class="field"><label>Membership Interest</label>
         <select id="reg-tier">
           <option value="signature">Signature — Tier One</option>
           <option value="prestige">Prestige — Tier Two</option>
@@ -286,284 +159,195 @@ body{font-family:'Jost',sans-serif;background:var(--navy);color:#fff;min-height:
         </select>
       </div>
       <button class="btn-gold" id="btn-register">Request Membership</button>
-      <div class="auth-switch">Already a member? <a id="link-to-login">Sign in</a></div>
+      <div class="switch-link">Have an account? <a id="go-login">Sign in</a></div>
     </div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
-  <!-- Sidebar -->
   <div class="sidebar">
-    <div class="sidebar-logo">
-      <div class="sidebar-logo-name">Cipher<span>.</span></div>
-      <div class="sidebar-logo-sub">Private Members</div>
-    </div>
-    <div id="nav-member">
-      <div class="sidebar-section">Member</div>
+    <div class="logo-wrap"><div class="logo-name">Cipher<span>.</span></div><div class="logo-sub">Private Members</div></div>
+    <div id="member-nav">
+      <div class="nav-section">Member</div>
       <div class="nav-item active" data-panel="dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</div>
       <div class="nav-item" data-panel="requests"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>My Requests</div>
       <div class="nav-item" data-panel="vault"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure Vault</div>
       <div class="nav-item" data-panel="membership"><svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/></svg>Membership</div>
       <div class="nav-item" data-panel="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</div>
     </div>
-    <div id="nav-admin" style="display:none">
-      <div class="sidebar-section">Admin</div>
+    <div id="admin-nav" class="hidden">
+      <div class="nav-section">Admin</div>
       <div class="nav-item" data-panel="admin-overview"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Overview</div>
-      <div class="nav-item" data-panel="admin-members"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members</div>
+      <div class="nav-item" data-panel="admin-members"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>Members</div>
       <div class="nav-item" data-panel="admin-requests"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>All Requests</div>
       <div class="nav-item" data-panel="admin-messages"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages</div>
     </div>
-    <div id="admin-toggle-wrap" style="display:none;padding-top:8px">
-      <button class="admin-toggle" id="role-toggle">Admin View →</button>
-    </div>
-    <div class="sidebar-user">
-      <div class="sidebar-user-name" id="user-name">—</div>
-      <div class="sidebar-user-tier" id="user-tier">—</div>
-      <div class="sidebar-user-out" id="btn-signout">Sign out</div>
+    <div id="toggle-wrap" class="hidden"><button class="toggle-btn" id="role-toggle">Admin View →</button></div>
+    <div class="user-section">
+      <div class="user-name" id="user-name">—</div>
+      <div class="user-tier" id="user-tier">—</div>
+      <div class="sign-out" id="btn-signout">Sign out</div>
     </div>
   </div>
-
-  <!-- Main content -->
   <div class="main">
-    <div class="page-header">
-      <div class="page-title" id="page-title">Dashboard</div>
-      <div class="page-sub" id="page-sub">Welcome back</div>
-    </div>
-    <div id="panel-content"></div>
+    <div class="page-title" id="page-title">Dashboard</div>
+    <div class="page-sub" id="page-sub">Welcome back</div>
+    <div id="content"></div>
   </div>
 </div>
 
-<!-- NEW REQUEST MODAL -->
-<div class="modal-overlay" id="modal-request">
+<!-- MODALS -->
+<div class="modal-bg" id="modal-req">
   <div class="modal">
     <div class="modal-title">New Request</div>
     <div class="modal-sub">Describe what you need — your concierge team will handle everything.</div>
-    <div class="field"><label>Category</label>
-      <select id="req-category">
-        <option value="Travel & Aviation">Travel & Aviation</option>
-        <option value="Dining & Hospitality">Dining & Hospitality</option>
-        <option value="Property & Real Estate">Property & Real Estate</option>
-        <option value="Events & Entertainment">Events & Entertainment</option>
-        <option value="Family & Lifestyle">Family & Lifestyle</option>
-        <option value="Business & Corporate">Business & Corporate</option>
-        <option value="Health & Wellness">Health & Wellness</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
-    <div class="field"><label>Request Title</label><input type="text" id="req-title" placeholder="e.g. Private jet Sydney to Dubai"></div>
-    <div class="field"><label>Details</label><textarea id="req-details" style="width:100%;height:100px;background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:Jost,sans-serif;font-weight:300;outline:none;border-radius:6px;resize:none;color:#0A0F1A" placeholder="Please provide as much detail as possible..."></textarea></div>
-    <div class="field-row">
-      <div class="field"><label>Location</label><input type="text" id="req-location" placeholder="City or country"></div>
-      <div class="field"><label>Preferred Date</label><input type="date" id="req-date"></div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-outline" data-close-modal="modal-request">Cancel</button>
-      <button class="btn-submit-modal" id="btn-req-submit">Submit Request</button>
-    </div>
+    <div class="field"><label>Category</label><select id="req-cat"><option>Travel & Aviation</option><option>Dining & Hospitality</option><option>Property & Real Estate</option><option>Events & Entertainment</option><option>Family & Lifestyle</option><option>Business & Corporate</option><option>Other</option></select></div>
+    <div class="field"><label>Title</label><input type="text" id="req-title" placeholder="e.g. Private jet Sydney to Dubai"></div>
+    <div class="field"><label>Details</label><textarea id="req-details" placeholder="Please provide as much detail as possible..."></textarea></div>
+    <div class="field-row"><div class="field"><label>Location</label><input type="text" id="req-loc" placeholder="City or country"></div><div class="field"><label>Date</label><input type="date" id="req-date"></div></div>
+    <div class="modal-btns"><button class="btn-cancel" id="cancel-req">Cancel</button><button class="btn-submit" id="submit-req">Submit Request</button></div>
   </div>
 </div>
 
-<!-- UPLOAD MODAL -->
-<div class="modal-overlay" id="modal-upload">
+<div class="modal-bg" id="modal-upload">
   <div class="modal">
     <div class="modal-title">Upload Secure Document</div>
     <div class="modal-sub">Files are encrypted and stored in your private vault.</div>
-    <div id="upload-drop" id="upload-drop-zone" style="border:2px dashed #E5E0D8;border-radius:8px;padding:36px;text-align:center;cursor:pointer;margin-bottom:20px;transition:border-color .2s" onmouseenter="this.style.borderColor='#B8962E'" onmouseleave="this.style.borderColor='#E5E0D8'">
+    <div id="drop-zone" style="border:2px dashed #E5E0D8;border-radius:8px;padding:32px;text-align:center;cursor:pointer;margin-bottom:20px">
       <div style="font-size:13px;color:var(--muted)">Click to select file</div>
-      <div style="font-size:11px;color:#C0BAB0;margin-top:4px">PDF, DOCX, XLSX, JPG, PNG · Max 10MB</div>
-      <div id="selected-file-name" style="margin-top:10px;font-size:12px;color:var(--gold);display:none"></div>
+      <div style="font-size:11px;color:#C0BAB0;margin-top:4px">PDF, DOCX, JPG, PNG · Max 10MB</div>
+      <div id="file-chosen" style="margin-top:10px;font-size:12px;color:var(--gold);display:none"></div>
     </div>
-    <input type="file" id="file-input" style="display:none" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt">
+    <input type="file" id="file-input" style="display:none" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt,.xlsx">
     <div class="field"><label>Document Name</label><input type="text" id="doc-name" placeholder="e.g. Passport, Property Contract..."></div>
-    <div class="field"><label>Category</label>
-      <select id="doc-category">
-        <option value="identity">Identity Documents</option>
-        <option value="property">Property & Real Estate</option>
-        <option value="financial">Financial & Banking</option>
-        <option value="legal">Legal Documents</option>
-        <option value="travel">Travel Documents</option>
-        <option value="medical">Medical Records</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-outline" data-close-modal="modal-upload">Cancel</button>
-      <button class="btn-submit-modal" id="btn-upload">Encrypt & Upload</button>
-    </div>
+    <div class="field"><label>Category</label><select id="doc-cat"><option value="identity">Identity Documents</option><option value="property">Property & Real Estate</option><option value="financial">Financial & Banking</option><option value="legal">Legal Documents</option><option value="travel">Travel Documents</option><option value="other">Other</option></select></div>
+    <div class="modal-btns"><button class="btn-cancel" id="cancel-upload">Cancel</button><button class="btn-submit" id="submit-upload">Encrypt & Upload</button></div>
   </div>
 </div>
 
-<!-- SHARE MODAL -->
-<div class="modal-overlay" id="modal-share">
+<div class="modal-bg" id="modal-share">
   <div class="modal">
     <div class="modal-title">Share via Secure OTP</div>
-    <div class="modal-sub">Recipient must enter a one-time passcode. Link expires automatically.</div>
-    <div id="share-doc-display" style="background:#F9F6F0;border-radius:6px;padding:12px 16px;font-size:13px;color:var(--ink);margin-bottom:20px"></div>
+    <div class="modal-sub">Recipient receives email with one-time passcode. Link expires automatically.</div>
+    <div id="share-doc-name" style="background:#F9F6F0;border-radius:6px;padding:12px;font-size:13px;color:var(--ink);margin-bottom:20px"></div>
     <div class="field"><label>Recipient Email</label><input type="email" id="share-email" placeholder="recipient@email.com"></div>
-    <div class="field"><label>Link Expiry</label>
-      <select id="share-expiry">
-        <option value="24">24 hours</option>
-        <option value="48">48 hours</option>
-        <option value="72">72 hours</option>
-        <option value="168">7 days</option>
-      </select>
-    </div>
-    <div class="otp-result" id="otp-result">
-      <div style="font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">One-Time Passcode — Sent to Recipient</div>
-      <div class="otp-code" id="otp-code-display"></div>
-      <div class="otp-note">✓ Email sent to recipient with this passcode. You can also share this code directly via WhatsApp or phone for extra security.</div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-outline" data-close-modal="modal-share">Close</button>
-      <button class="btn-submit-modal" id="btn-send-otp">Generate OTP & Send Link</button>
-    </div>
+    <div class="field"><label>Expiry</label><select id="share-expiry"><option value="24">24 hours</option><option value="48">48 hours</option><option value="72">72 hours</option></select></div>
+    <div class="otp-box" id="otp-box"><div style="font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">One-Time Passcode</div><div class="otp-code" id="otp-display"></div><div class="otp-note">Email sent to recipient. Share this code with them separately.</div></div>
+    <div class="modal-btns"><button class="btn-cancel" id="cancel-share">Close</button><button class="btn-submit" id="submit-share">Send Secure Link</button></div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-// ═══════════════════════════════════════════
-// INIT SUPABASE
-// ═══════════════════════════════════════════
-const SUPABASE_URL = 'https://lqslsrbqulsljjsxbynu.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxxc2xzcmJxdWxzbGpqc3hieW51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzY3MzgsImV4cCI6MjA4OTU1MjczOH0.btbK5rMMzmAaiWjyriUzhDfOOTVWrHl-fkLyrQledG8';
-let sb;
-function initSupabase() {
-  if (typeof supabase === 'undefined') {
-    setTimeout(initSupabase, 100);
-    return;
-  }
-  sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  startApp();
-}
+const URL = 'https://lqslsrbqulsljjsxbynu.supabase.co';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxxc2xzcmJxdWxzbGpqc3hieW51Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NzY3MzgsImV4cCI6MjA4OTU1MjczOH0.btbK5rMMzmAaiWjyriUzhDfOOTVWrHl-fkLyrQledG8';
 
-let currentUser = null;
-let currentProfile = null;
-let currentRole = 'member';
-let viewMode = 'member';
-let currentPanel = 'dashboard';
-let selectedFile = null;
-let shareDocId = null;
-let vaultDocs = [];
-let allMembers = [];
-let selectedMsgMember = null;
-let chatChannel = null;
+let sb, user, profile, role = 'member', viewMode = 'member', panel = 'dashboard';
+let selFile = null, shareDocId = null, selMember = null, chatCh = null, adminCh = null;
 
-// ═══════════════════════════════════════════
-// AUTH
-// ═══════════════════════════════════════════
-function startApp() {
-sb.auth.onAuthStateChange(async (event, session) => {
-  if (session && session.user) {
-    currentUser = session.user;
-    await loadProfile();
-    showApp();
-  } else {
-    currentUser = null;
-    currentProfile = null;
-    showAuthScreen();
-  }
-}); 
-} // end startApp
+window.onload = function() {
+  sb = supabase.createClient(URL, KEY);
+  sb.auth.onAuthStateChange(async (ev, session) => {
+    if (session) {
+      user = session.user;
+      const {data} = await sb.from('profiles').select('*').eq('id', user.id).single();
+      profile = data || {id:user.id, email:user.email, full_name:user.user_metadata?.full_name||'', tier:user.user_metadata?.tier||'signature', role:'member'};
+      role = profile.role || 'member';
+      showApp();
+    } else {
+      user = null; profile = null; role = 'member';
+      document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('app').style.display = 'none';
+    }
+  });
+  bindEvents();
+};
 
-function switchForm(form) {
-  document.getElementById('form-login').classList.toggle('active', form === 'login');
-  document.getElementById('form-register').classList.toggle('active', form === 'register');
-  clearErrors();
-}
-
-function clearErrors() {
-  ['login-error','register-error','register-success'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.style.display = 'none'; el.textContent = ''; }
+function bindEvents() {
+  // Auth
+  document.getElementById('btn-login').onclick = doLogin;
+  document.getElementById('btn-register').onclick = doRegister;
+  document.getElementById('go-register').onclick = () => showForm('register');
+  document.getElementById('go-login').onclick = () => showForm('login');
+  document.getElementById('btn-signout').onclick = () => sb.auth.signOut();
+  document.getElementById('role-toggle').onclick = toggleRole;
+  // Nav
+  document.querySelectorAll('[data-panel]').forEach(el => {
+    el.onclick = () => showPanel(el.dataset.panel);
+  });
+  // Modals
+  document.getElementById('cancel-req').onclick = () => closeModal('modal-req');
+  document.getElementById('cancel-upload').onclick = () => closeModal('modal-upload');
+  document.getElementById('cancel-share').onclick = () => closeModal('modal-share');
+  document.getElementById('submit-req').onclick = submitReq;
+  document.getElementById('submit-upload').onclick = submitUpload;
+  document.getElementById('submit-share').onclick = submitShare;
+  // File upload
+  document.getElementById('drop-zone').onclick = () => document.getElementById('file-input').click();
+  document.getElementById('file-input').onchange = function() {
+    selFile = this.files[0];
+    if (selFile) {
+      document.getElementById('file-chosen').textContent = '✓ ' + selFile.name;
+      document.getElementById('file-chosen').style.display = 'block';
+      if (!document.getElementById('doc-name').value) document.getElementById('doc-name').value = selFile.name.replace(/\.[^/.]+$/,'');
+    }
+  };
+  // Enter key
+  document.getElementById('login-pw').onkeydown = e => { if (e.key==='Enter') doLogin(); };
+  document.getElementById('login-email').onkeydown = e => { if (e.key==='Enter') doLogin(); };
+  // Modal backdrop
+  ['modal-req','modal-upload','modal-share'].forEach(id => {
+    document.getElementById(id).onclick = e => { if (e.target.id === id) closeModal(id); };
   });
 }
 
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.style.display = 'block'; }
+function showForm(f) {
+  document.getElementById('form-login').classList.toggle('hidden', f!=='login');
+  document.getElementById('form-register').classList.toggle('hidden', f!=='register');
 }
 
 async function doLogin() {
   const email = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value;
-  if (!email || !password) return showError('login-error', 'Please enter your email and password.');
-  clearErrors();
+  const pw = document.getElementById('login-pw').value;
+  const err = document.getElementById('login-err');
+  err.style.display = 'none';
+  if (!email || !pw) { err.textContent = 'Please enter email and password.'; err.style.display = 'block'; return; }
   const btn = document.getElementById('btn-login');
   btn.disabled = true; btn.textContent = 'Signing in…';
-  try {
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) { showError('login-error', error.message); btn.disabled = false; btn.textContent = 'Sign In'; }
-  } catch(e) {
-    showError('login-error', 'Connection error. Please try again.');
-    btn.disabled = false; btn.textContent = 'Sign In';
-  }
+  const {error} = await sb.auth.signInWithPassword({email, password: pw});
+  btn.disabled = false; btn.textContent = 'Sign In';
+  if (error) { err.textContent = error.message; err.style.display = 'block'; }
 }
 
 async function doRegister() {
   const first = document.getElementById('reg-first').value.trim();
   const last = document.getElementById('reg-last').value.trim();
   const email = document.getElementById('reg-email').value.trim();
-  const password = document.getElementById('reg-password').value;
+  const pw = document.getElementById('reg-pw').value;
   const tier = document.getElementById('reg-tier').value;
-  if (!first || !last || !email || !password) return showError('register-error', 'Please fill in all fields.');
-  if (password.length < 8) return showError('register-error', 'Password must be at least 8 characters.');
-  clearErrors();
+  const err = document.getElementById('reg-err');
+  const ok = document.getElementById('reg-ok');
+  err.style.display = 'none'; ok.style.display = 'none';
+  if (!first||!last||!email||!pw) { err.textContent = 'Please fill in all fields.'; err.style.display = 'block'; return; }
+  if (pw.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.style.display = 'block'; return; }
   const btn = document.getElementById('btn-register');
   btn.disabled = true; btn.textContent = 'Submitting…';
-  try {
-    const { error } = await sb.auth.signUp({
-      email, password,
-      options: { data: { full_name: first + ' ' + last, tier, role: 'member' } }
-    });
-    if (error) { showError('register-error', error.message); }
-    else {
-      const el = document.getElementById('register-success');
-      el.textContent = 'Application received. Please sign in now.';
-      el.style.display = 'block';
-      setTimeout(() => switchForm('login'), 2000);
-    }
-  } catch(e) {
-    showError('register-error', 'Connection error. Please try again.');
-  }
+  const {error} = await sb.auth.signUp({email, password: pw, options:{data:{full_name: first+' '+last, tier, role:'member'}}});
   btn.disabled = false; btn.textContent = 'Request Membership';
+  if (error) { err.textContent = error.message; err.style.display = 'block'; }
+  else { ok.textContent = 'Application received! Please sign in now.'; ok.style.display = 'block'; setTimeout(() => showForm('login'), 2000); }
 }
 
-async function doSignOut() {
-  await sb.auth.signOut();
-}
-
-// Add Enter key support
-
-
-// ═══════════════════════════════════════════
-// PROFILE
-// ═══════════════════════════════════════════
-async function loadProfile() {
-  const { data } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
-  if (data) {
-    currentProfile = data;
-    currentRole = data.role || 'member';
-  } else {
-    const meta = currentUser.user_metadata || {};
-    currentProfile = { id: currentUser.id, email: currentUser.email, full_name: meta.full_name || '', tier: meta.tier || 'signature', role: 'member' };
-    currentRole = 'member';
-  }
-}
-
-// ═══════════════════════════════════════════
-// SHOW APP
-// ═══════════════════════════════════════════
 function showApp() {
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  const name = currentProfile?.full_name || currentUser?.email || 'Member';
-  const tier = currentRole === 'staff' ? 'Concierge Team' : (currentProfile?.tier || 'signature');
-  document.getElementById('user-name').textContent = name.split(' ')[0] + ' ' + (name.split(' ')[1]?.[0] || '') + '.';
-  document.getElementById('user-tier').textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
-  if (currentRole === 'staff') {
-    document.getElementById('admin-toggle-wrap').style.display = 'block';
-    document.getElementById('nav-admin').style.display = 'block';
+  const name = profile?.full_name || user?.email || 'Member';
+  document.getElementById('user-name').textContent = name.split(' ')[0] + (name.split(' ')[1] ? ' '+name.split(' ')[1][0]+'.' : '');
+  document.getElementById('user-tier').textContent = role === 'staff' ? 'Concierge Team' : (profile?.tier||'signature');
+  if (role === 'staff') {
+    document.getElementById('admin-nav').classList.remove('hidden');
+    document.getElementById('toggle-wrap').classList.remove('hidden');
     viewMode = 'admin';
     document.getElementById('role-toggle').textContent = '← Member View';
     showPanel('admin-overview');
@@ -572,477 +356,217 @@ function showApp() {
   }
 }
 
-function showAuthScreen() {
-  document.getElementById('auth-screen').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-}
-
 function toggleRole() {
   viewMode = viewMode === 'admin' ? 'member' : 'admin';
   document.getElementById('role-toggle').textContent = viewMode === 'admin' ? '← Member View' : 'Admin View →';
   showPanel(viewMode === 'admin' ? 'admin-overview' : 'dashboard');
 }
 
-// ═══════════════════════════════════════════
-// PANELS
-// ═══════════════════════════════════════════
 function showPanel(id) {
-  currentPanel = id;
-  const titles = {
-    dashboard: 'Dashboard', requests: 'My Requests', vault: 'Secure Vault',
-    membership: 'Membership', profile: 'My Profile',
-    'admin-overview': 'Overview', 'admin-members': 'Members',
-    'admin-requests': 'All Requests', 'admin-messages': 'Messages'
-  };
+  panel = id;
+  const titles = {dashboard:'Dashboard',requests:'My Requests',vault:'Secure Vault',membership:'Membership',profile:'My Profile','admin-overview':'Overview','admin-members':'Members','admin-requests':'All Requests','admin-messages':'Messages'};
   document.getElementById('page-title').textContent = titles[id] || id;
-  document.getElementById('page-sub').textContent = 'Welcome back, ' + (currentProfile?.full_name?.split(' ')[0] || '');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => {
-    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) n.classList.add('active');
-  });
-  const c = document.getElementById('panel-content');
-  if (id === 'dashboard') renderDashboard(c);
-  else if (id === 'requests') renderRequests(c);
-  else if (id === 'vault') renderVault(c);
-  else if (id === 'membership') renderMembership(c);
-  else if (id === 'profile') renderProfile(c);
-  else if (id === 'admin-overview') renderAdminOverview(c);
-  else if (id === 'admin-members') renderAdminMembers(c);
-  else if (id === 'admin-requests') renderAdminRequests(c);
-  else if (id === 'admin-messages') renderAdminMessages(c);
+  document.getElementById('page-sub').textContent = 'Welcome back, ' + (profile?.full_name?.split(' ')[0] || '');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.panel === id));
+  const c = document.getElementById('content');
+  if (id==='dashboard') renderDashboard(c);
+  else if (id==='requests') renderRequests(c);
+  else if (id==='vault') renderVault(c);
+  else if (id==='membership') renderMembership(c);
+  else if (id==='profile') renderProfile(c);
+  else if (id==='admin-overview') renderAdminOverview(c);
+  else if (id==='admin-members') renderAdminMembers(c);
+  else if (id==='admin-requests') renderAdminRequests(c);
+  else if (id==='admin-messages') renderAdminMessages(c);
 }
 
-// ═══════════════════════════════════════════
-// DASHBOARD
-// ═══════════════════════════════════════════
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function t(ts) { return new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
+function d(ts) { return new Date(ts).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}); }
+
 async function renderDashboard(c) {
-  const [{ data: reqs }, { data: msgs }] = await Promise.all([
-    sb.from('requests').select('*').eq('member_id', currentUser.id).order('created_at', { ascending: false }),
-    sb.from('messages').select('*').eq('member_id', currentUser.id).order('created_at', { ascending: true }).limit(50)
+  const [{data:reqs},{data:msgs}] = await Promise.all([
+    sb.from('requests').select('*').eq('member_id',user.id).order('created_at',{ascending:false}),
+    sb.from('messages').select('*').eq('member_id',user.id).order('created_at',{ascending:true}).limit(50)
   ]);
-  const active = (reqs || []).filter(r => r.status !== 'completed').length;
-  const completed = (reqs || []).filter(r => r.status === 'completed').length;
-  const tier = currentProfile?.tier || 'signature';
-  c.innerHTML = '';
-  // Stats
-  const stats = document.createElement('div');
-  stats.className = 'stats-grid';
-  stats.innerHTML = [
-    ['Active Requests', active, 'In progress'],
-    ['Completed', completed, 'All time'],
-    ['Membership', tier.charAt(0).toUpperCase()+tier.slice(1), 'Your tier'],
-    ['Your Manager', 'Your Concierge Team', 'Available now']
-  ].map(([label, val, sub]) => `<div class="card"><div class="card-title">${label}</div><div class="card-val" style="font-size:${typeof val==='string'&&val.length>10?'18px':'36px'}">${val}</div><div class="card-label">${sub}</div></div>`).join('');
-  c.appendChild(stats);
-  // Grid
-  const grid = document.createElement('div');
-  grid.className = 'grid-2';
-  // Recent requests
-  const reqCard = document.createElement('div');
-  reqCard.className = 'card';
-  const recentReqs = (reqs || []).slice(0, 4);
-  reqCard.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div class="section-title" style="margin:0">Active Requests</div><button class="vault-btn" data-open-modal="modal-request">+ New</button></div>` +
-    (recentReqs.length ? recentReqs.map(r => `<div class="req-item"><div><div class="req-title">${r.title||r.category}</div><div class="req-cat">${r.category} · ${r.location||''}</div></div><span class="badge badge-${r.status==='completed'?'completed':r.status==='in_progress'?'progress':'new'}">${r.status||'new'}</span></div>`).join('') : '<div class="empty-state">No active requests</div>');
-  // Chat
-  const chatCard = document.createElement('div');
-  chatCard.className = 'card';
-  chatCard.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="section-title" style="margin:0">Your Concierge</div><span style="font-size:10px;color:#10B981;background:#D1FAE5;padding:3px 8px;border-radius:99px">Online</span></div>
-    <div class="chat-box" id="chat-msgs">${
-      (msgs||[]).length ? (msgs||[]).map(m => `<div class="msg ${m.sender_id===currentUser.id?'me':''}"><div class="msg-bubble">${m.content}</div><div class="msg-meta">${m.sender_role==='staff'?'Concierge Team':'You'} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('') : '<div class="chat-empty">Your concierge will reply here. Send a message to start.</div>'
-    }</div>
-    <div class="chat-input-row"><textarea class="chat-input" id="chat-box" placeholder="Message your concierge…"></textarea><button class="chat-send" id="btn-send-msg">→</button></div>`;
-  grid.appendChild(reqCard);
-  grid.appendChild(chatCard);
-  c.appendChild(grid);
-  const cb = document.getElementById('chat-msgs');
-  if (cb) cb.scrollTop = cb.scrollHeight;
+  const active = (reqs||[]).filter(r=>r.status!=='completed').length;
+  const done = (reqs||[]).filter(r=>r.status==='completed').length;
+  c.innerHTML = `<div class="stats">
+    <div class="card"><div class="card-label">Active Requests</div><div class="card-val">${active}</div><div class="card-sub">In progress</div></div>
+    <div class="card"><div class="card-label">Completed</div><div class="card-val">${done}</div><div class="card-sub">All time</div></div>
+    <div class="card"><div class="card-label">Membership</div><div class="card-val" style="font-size:22px;margin-top:6px">${esc(profile?.tier||'signature')}</div><div class="card-sub">Your tier</div></div>
+    <div class="card"><div class="card-label">Your Manager</div><div class="card-val" style="font-size:16px;margin-top:8px">Your Concierge Team</div><div class="card-sub">Available now</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div class="sec-title" style="margin:0">Active Requests</div><button class="vbtn" id="new-req-btn">+ New</button></div>
+      ${(reqs||[]).slice(0,4).map(r=>`<div class="req-item"><div><div class="req-title">${esc(r.title||r.category)}</div><div class="req-meta">${esc(r.category)}</div></div><span class="badge ${r.status==='completed'?'b-done':r.status==='in_progress'?'b-progress':'b-new'}">${r.status||'new'}</span></div>`).join('')||'<div class="empty">No active requests</div>'}
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="sec-title" style="margin:0">Your Concierge</div><span style="font-size:10px;color:#10B981;background:#D1FAE5;padding:3px 8px;border-radius:99px">Online</span></div>
+      <div class="chat-msgs" id="chat-msgs">${(msgs||[]).map(m=>`<div class="msg ${m.sender_id===user.id?'me':''}"><div class="bubble">${esc(m.content)}</div><div class="msg-time">${m.sender_role==='staff'?'Concierge':'You'} · ${t(m.created_at)}</div></div>`).join('')||'<div class="chat-empty">Send a message to start.</div>'}</div>
+      <div class="chat-row"><input class="chat-input" id="chat-input" placeholder="Message your concierge…"><button class="send-btn" id="chat-send">→</button></div>
+    </div>
+  </div>`;
+  const el = document.getElementById('chat-msgs'); if(el) el.scrollTop = el.scrollHeight;
+  document.getElementById('new-req-btn').onclick = () => openModal('modal-req');
+  document.getElementById('chat-send').onclick = sendMsg;
+  document.getElementById('chat-input').onkeydown = e => { if(e.key==='Enter') sendMsg(); };
   subscribeChat();
 }
 
 async function sendMsg() {
-  const box = document.getElementById('chat-box');
-  const content = box.value.trim();
-  if (!content) return;
-  box.value = '';
+  const inp = document.getElementById('chat-input');
+  const txt = inp.value.trim(); if(!txt) return;
+  inp.value = '';
   const msgs = document.getElementById('chat-msgs');
-  const empty = msgs.querySelector('.chat-empty');
-  if (empty) empty.remove();
-  const time = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  msgs.insertAdjacentHTML('beforeend', `<div class="msg me"><div class="msg-bubble">${content}</div><div class="msg-meta">You · ${time}</div></div>`);
+  const empty = msgs.querySelector('.chat-empty'); if(empty) empty.remove();
+  msgs.insertAdjacentHTML('beforeend',`<div class="msg me"><div class="bubble">${esc(txt)}</div><div class="msg-time">You · ${t(new Date())}</div></div>`);
   msgs.scrollTop = msgs.scrollHeight;
-  await sb.from('messages').insert({ member_id: currentUser.id, sender_id: currentUser.id, sender_role: 'member', content });
+  await sb.from('messages').insert({member_id:user.id,sender_id:user.id,sender_role:'member',content:txt});
 }
 
 function subscribeChat() {
-  if (chatChannel) sb.removeChannel(chatChannel);
-  chatChannel = sb.channel('chat-' + currentUser.id)
-    .on('postgres_changes', { event:'INSERT', schema:'public', table:'messages', filter:`member_id=eq.${currentUser.id}` }, payload => {
-      const msgs = document.getElementById('chat-msgs');
-      if (!msgs) return;
-      const m = payload.new;
-      if (m.sender_id === currentUser.id) return;
-      const empty = msgs.querySelector('.chat-empty');
-      if (empty) empty.remove();
-      msgs.insertAdjacentHTML('beforeend', `<div class="msg"><div class="msg-bubble">${m.content}</div><div class="msg-meta">Concierge Team · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`);
-      msgs.scrollTop = msgs.scrollHeight;
-    }).subscribe();
+  if(chatCh) sb.removeChannel(chatCh);
+  chatCh = sb.channel('chat-'+user.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`member_id=eq.${user.id}`},p=>{
+    const msgs = document.getElementById('chat-msgs'); if(!msgs||p.new.sender_id===user.id) return;
+    const empty = msgs.querySelector('.chat-empty'); if(empty) empty.remove();
+    msgs.insertAdjacentHTML('beforeend',`<div class="msg"><div class="bubble">${esc(p.new.content)}</div><div class="msg-time">Concierge · ${t(p.new.created_at)}</div></div>`);
+    msgs.scrollTop = msgs.scrollHeight;
+  }).subscribe();
 }
 
-// ═══════════════════════════════════════════
-// REQUESTS
-// ═══════════════════════════════════════════
 async function renderRequests(c) {
-  const { data: reqs } = await sb.from('requests').select('*').eq('member_id', currentUser.id).order('created_at', { ascending: false });
-  c.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div></div><button class="btn-submit-modal" data-open-modal="modal-request" style="padding:10px 24px">+ New Request</button></div>` +
-    ((reqs||[]).length ? (reqs||[]).map(r => `<div class="req-item"><div style="flex:1"><div class="req-title">${r.title||r.category}</div><div class="req-cat">${r.category} · ${r.location||''} · ${new Date(r.created_at).toLocaleDateString()}</div>${r.details?`<div style="font-size:12px;color:var(--muted);margin-top:6px;font-weight:300">${r.details}</div>`:''}</div><span class="badge badge-${r.status==='completed'?'completed':r.status==='in_progress'?'progress':'new'}">${r.status||'new'}</span></div>`).join('') : '<div class="empty-state">No requests yet. Create your first request above.</div>');
+  const {data:reqs} = await sb.from('requests').select('*').eq('member_id',user.id).order('created_at',{ascending:false});
+  c.innerHTML = `<div style="display:flex;justify-content:flex-end;margin-bottom:20px"><button class="btn-submit" id="new-req-btn2" style="padding:11px 24px">+ New Request</button></div>
+  ${(reqs||[]).map(r=>`<div class="req-item"><div style="flex:1"><div class="req-title">${esc(r.title||r.category)}</div><div class="req-meta">${esc(r.category)} · ${r.location||''} · ${d(r.created_at)}</div>${r.details?`<div style="font-size:12px;color:var(--muted);margin-top:4px">${esc(r.details)}</div>`:''}</div><span class="badge ${r.status==='completed'?'b-done':r.status==='in_progress'?'b-progress':'b-new'}">${r.status||'new'}</span></div>`).join('')||'<div class="empty">No requests yet.</div>'}`;
+  document.getElementById('new-req-btn2').onclick = () => openModal('modal-req');
 }
 
-async function submitRequest() {
+async function submitReq() {
   const title = document.getElementById('req-title').value.trim();
-  const category = document.getElementById('req-category').value;
-  const details = document.getElementById('req-details').value.trim();
-  const location = document.getElementById('req-location').value.trim();
-  const date = document.getElementById('req-date').value;
-  if (!title) { alert('Please enter a request title.'); return; }
-  const btn = document.getElementById('btn-req-submit');
+  const cat = document.getElementById('req-cat').value;
+  if(!title) { alert('Please enter a title.'); return; }
+  const btn = document.getElementById('submit-req');
   btn.disabled = true; btn.textContent = 'Submitting…';
-  const { error } = await sb.from('requests').insert({ member_id: currentUser.id, member_name: currentProfile?.full_name || '', category, title, details, location, preferred_date: date || null, status: 'new' });
+  await sb.from('requests').insert({member_id:user.id,member_name:profile?.full_name||'',category:cat,title,details:document.getElementById('req-details').value,location:document.getElementById('req-loc').value,preferred_date:document.getElementById('req-date').value||null,status:'new'});
   btn.disabled = false; btn.textContent = 'Submit Request';
-  if (!error) { closeModal('modal-request'); showPanel('requests'); }
+  closeModal('modal-req'); showPanel('requests');
 }
 
-// ═══════════════════════════════════════════
-// VAULT
-// ═══════════════════════════════════════════
 async function renderVault(c) {
-  c.innerHTML = `<div class="vault-security-banner"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>AES-256 encrypted · All documents protected · Share securely via one-time passcode · Access logged and timestamped</span></div>
-  <div class="vault-header"><div class="section-title" style="margin:0">Your Secure Documents</div><button class="btn-submit-modal" data-open-modal="modal-upload" style="padding:10px 24px">+ Upload Document</button></div>
-  <div id="vault-list"><div class="empty-state">Loading vault…</div></div>`;
-  await loadVaultDocs();
+  const {data:docs} = await sb.from('vault_documents').select('*').eq('member_id',user.id).order('created_at',{ascending:false});
+  c.innerHTML = `<div class="security-banner"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8962E" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>AES-256 encrypted · Share securely via one-time passcode · Access logged and timestamped</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div class="sec-title" style="margin:0">Your Secure Documents</div><button class="btn-submit" id="upload-btn" style="padding:10px 20px">+ Upload</button></div>
+  <div id="vault-list">${(docs||[]).map(doc=>`<div class="vault-item"><div class="vault-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8962E" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="vault-info"><div class="vault-name">${esc(doc.name)}</div><div class="vault-meta">${doc.file_name||''} · ${doc.category||'other'} · ${d(doc.created_at)}</div></div><div class="vault-btns"><button class="vbtn share-btn" data-id="${doc.id}" data-name="${esc(doc.name)}">Share OTP</button><button class="vbtn del-btn" data-id="${doc.id}">Delete</button></div></div>`).join('')||'<div class="empty">No documents yet.</div>'}</div>`;
+  document.getElementById('upload-btn').onclick = () => openModal('modal-upload');
+  document.querySelectorAll('.share-btn').forEach(btn => { btn.onclick = () => { shareDocId = btn.dataset.id; document.getElementById('share-doc-name').textContent = '🔒 '+btn.dataset.name; document.getElementById('otp-box').style.display='none'; document.getElementById('submit-share').style.display=''; openModal('modal-share'); }; });
+  document.querySelectorAll('.del-btn').forEach(btn => { btn.onclick = async () => { if(confirm('Delete this document permanently?')) { await sb.from('vault_documents').delete().eq('id',btn.dataset.id); showPanel('vault'); } }; });
 }
 
-async function loadVaultDocs() {
-  try {
-    const { data } = await sb.from('vault_documents').select('*').eq('member_id', currentUser.id).order('created_at', { ascending: false });
-    vaultDocs = data || [];
-  } catch(e) { vaultDocs = []; }
-  renderVaultList();
-}
-
-function renderVaultList() {
-  const el = document.getElementById('vault-list');
-  if (!el) return;
-  if (!vaultDocs.length) { el.innerHTML = '<div class="empty-state">No documents yet. Upload your first secure document above.</div>'; return; }
-  el.innerHTML = vaultDocs.map(d => {
-    const size = d.file_size ? (d.file_size/1024).toFixed(0)+' KB' : '';
-    const date = new Date(d.created_at).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
-    return `<div class="vault-item"><div class="vault-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B8962E" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="vault-info"><div class="vault-name">${d.name}</div><div class="vault-meta">${d.file_name||''} ${size?'· '+size:''} · ${date} · ${d.category||'other'}</div></div><div class="vault-actions"><button class="vault-btn" onclick="openShareModal('${d.id}','${d.name.replace(/'/g,"\\'")}')">Share via OTP</button><button class="vault-btn red" data-delete-doc="${d.id}">Delete</button></div></div>`;
-  }).join('');
-}
-
-function onFileSelect(input) {
-  selectedFile = input.files[0];
-  if (selectedFile) {
-    document.getElementById('selected-file-name').textContent = '✓ ' + selectedFile.name;
-    document.getElementById('selected-file-name').style.display = 'block';
-    if (!document.getElementById('doc-name').value) document.getElementById('doc-name').value = selectedFile.name.replace(/\.[^/.]+$/,'');
-  }
-}
-
-async function uploadDoc() {
-  if (!selectedFile) { alert('Please select a file.'); return; }
-  const name = document.getElementById('doc-name').value.trim() || selectedFile.name;
-  const category = document.getElementById('doc-category').value;
-  const btn = document.getElementById('btn-upload');
+async function submitUpload() {
+  if(!selFile) { alert('Please select a file.'); return; }
+  const name = document.getElementById('doc-name').value.trim() || selFile.name;
+  const btn = document.getElementById('submit-upload');
   btn.disabled = true; btn.textContent = 'Uploading…';
-  const { error } = await sb.from('vault_documents').insert({ member_id: currentUser.id, name, category, file_name: selectedFile.name, file_size: selectedFile.size, file_type: selectedFile.type, created_at: new Date().toISOString() });
+  await sb.from('vault_documents').insert({member_id:user.id,name,category:document.getElementById('doc-cat').value,file_name:selFile.name,file_size:selFile.size,file_type:selFile.type,created_at:new Date().toISOString()});
   btn.disabled = false; btn.textContent = 'Encrypt & Upload';
-  if (!error) { closeModal('modal-upload'); selectedFile = null; document.getElementById('selected-file-name').style.display = 'none'; document.getElementById('doc-name').value = ''; await loadVaultDocs(); }
+  selFile = null; document.getElementById('file-chosen').style.display='none'; document.getElementById('doc-name').value='';
+  closeModal('modal-upload'); showPanel('vault');
 }
 
-async function deleteDoc(id) {
-  if (!confirm('Permanently delete this document?')) return;
-  await sb.from('vault_documents').delete().eq('id', id);
-  await loadVaultDocs();
-}
-
-function openShareModal(id, name) {
-  shareDocId = id;
-  document.getElementById('share-doc-display').textContent = '🔒 ' + name;
-  document.getElementById('share-email').value = '';
-  document.getElementById('otp-result').style.display = 'none';
-  document.getElementById('btn-send-otp').style.display = 'block';
-  openModal('modal-share');
-}
-
-async function sendOTP() {
+async function submitShare() {
   const email = document.getElementById('share-email').value.trim();
-  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-  const btn = document.getElementById('btn-send-otp');
+  if(!email||!email.includes('@')) { alert('Please enter a valid email.'); return; }
+  const btn = document.getElementById('submit-share');
   btn.disabled = true; btn.textContent = 'Generating…';
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otp = Math.floor(100000+Math.random()*900000).toString();
   const expiry = document.getElementById('share-expiry').value;
-  const expiresAt = new Date(Date.now() + expiry * 3600000).toISOString();
-  const docName = document.getElementById('share-doc-display').textContent.replace('🔒 ','');
-  const senderName = currentProfile?.full_name || 'A Cipher Private member';
-  // Save share record
-  await sb.from('vault_shares').insert({ doc_id: shareDocId, member_id: currentUser.id, recipient_email: email, otp, expires_at: expiresAt });
-  // Send email via Web3Forms
-  try {
-    const formData = new FormData();
-    formData.append('access_key', '910e7e2f-3c38-4776-9469-91a4e9dc9867');
-    formData.append('subject', 'Cipher Private — Secure Document Shared With You');
-    formData.append('from_name', 'Cipher Private Secure Vault');
-    formData.append('to', email);
-    formData.append('message',
-      'A secure document has been shared with you via Cipher Private.
-
-' +
-      'Document: ' + docName + '
-' +
-      'Shared by: ' + senderName + '
-' +
-      'Your One-Time Passcode: ' + otp + '
-
-' +
-      'This passcode expires in ' + expiry + ' hours.
-
-' +
-      'To access the document, contact the sender and provide this passcode.
-
-' +
-      '---
-Cipher Private | cipherprivate.com
-This is a confidential communication.'
-    );
-    await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
-  } catch(e) { console.log('Email send attempted'); }
-  document.getElementById('otp-code-display').textContent = otp;
-  document.getElementById('otp-result').style.display = 'block';
+  const expiresAt = new Date(Date.now()+expiry*3600000).toISOString();
+  await sb.from('vault_shares').insert({doc_id:shareDocId,member_id:user.id,recipient_email:email,otp,expires_at:expiresAt});
+  const fd = new FormData();
+  fd.append('access_key','910e7e2f-3c38-4776-9469-91a4e9dc9867');
+  fd.append('subject','Cipher Private — Secure Document Shared With You');
+  fd.append('to',email);
+  fd.append('message','A secure document has been shared with you via Cipher Private.\n\nYour One-Time Passcode: '+otp+'\n\nThis passcode expires in '+expiry+' hours.\n\n---\nCipher Private | cipherprivate.com');
+  fetch('https://api.web3forms.com/submit',{method:'POST',body:fd}).catch(()=>{});
+  document.getElementById('otp-display').textContent = otp;
+  document.getElementById('otp-box').style.display = 'block';
   btn.style.display = 'none';
 }
 
-// ═══════════════════════════════════════════
-// MEMBERSHIP
-// ═══════════════════════════════════════════
 function renderMembership(c) {
-  const tier = currentProfile?.tier || 'signature';
-  const features = {
-    signature: ['Dedicated lifestyle manager','24/7 availability','Global travel management','Dining & hospitality','25 managed requests/month','Secure document vault'],
-    prestige: ['Dedicated senior lifestyle manager','Unlimited requests','Private aviation & yacht sourcing','Full family management','Exclusive events & cultural access','Encrypted document vault & OTP sharing','2 VIP invitations per year'],
-    elite: ['Dedicated two-person team','Unlimited requests, zero limits','Family office coordination','Property portfolio management','Security & private intelligence','Full document encryption suite','Corporate & business liaison']
-  };
-  c.innerHTML = `<div class="tier-card"><div class="tier-name">Your Membership</div><div class="tier-title">${tier.charAt(0).toUpperCase()+tier.slice(1)}</div><ul class="tier-features">${(features[tier]||features.signature).map(f=>`<li>${f}</li>`).join('')}</ul></div>
-  <div class="card" style="margin-top:20px"><div class="section-title">Need to upgrade?</div><p style="font-size:13px;color:var(--muted);font-weight:300;line-height:1.7">To discuss upgrading your membership tier, please contact your concierge team directly via the chat on your dashboard, or email <a href="mailto:hello@cipherprivate.com" style="color:var(--gold)">hello@cipherprivate.com</a></p></div>`;
+  const tier = profile?.tier||'signature';
+  const features = {signature:['Dedicated lifestyle manager','24/7 availability','Global travel management','Dining & hospitality','25 requests/month','Secure document vault'],prestige:['Senior lifestyle manager','Unlimited requests','Private aviation & yachts','Full family management','Exclusive events access','OTP document vault','2 VIP invitations/year'],elite:['Dedicated two-person team','Unlimited requests','Family office coordination','Property management','Security & intelligence','Full encryption suite','Corporate liaison']};
+  c.innerHTML = `<div class="tier-card"><div class="tier-name-label">Your Membership</div><div class="tier-title">${tier.charAt(0).toUpperCase()+tier.slice(1)}</div><ul class="tier-list">${(features[tier]||features.signature).map(f=>`<li>${f}</li>`).join('')}</ul></div><div class="card" style="margin-top:20px"><div class="sec-title">Upgrade?</div><p style="font-size:13px;color:var(--muted);font-weight:300;line-height:1.7">Contact your concierge team via chat or email <a href="mailto:hello@cipherprivate.com" style="color:var(--gold)">hello@cipherprivate.com</a></p></div>`;
 }
 
-// ═══════════════════════════════════════════
-// PROFILE
-// ═══════════════════════════════════════════
 function renderProfile(c) {
-  const p = currentProfile || {};
-  c.innerHTML = `<div class="card"><div class="section-title">Personal Information</div>
-  <div class="profile-grid">
-    <div class="field"><label>Full Name</label><input type="text" id="p-name" value="${p.full_name||''}" style="background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:Jost,sans-serif;width:100%;border-radius:6px;outline:none;color:var(--ink)"></div>
-    <div class="field"><label>Email</label><input type="email" value="${p.email||currentUser?.email||''}" disabled style="background:#F9F6F0;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:Jost,sans-serif;width:100%;border-radius:6px;outline:none;color:var(--muted)"></div>
-    <div class="field"><label>Phone</label><input type="tel" id="p-phone" value="${p.phone||''}" placeholder="+61 or international" style="background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:Jost,sans-serif;width:100%;border-radius:6px;outline:none;color:var(--ink)"></div>
-    <div class="field"><label>Nationality</label><input type="text" id="p-nationality" value="${p.nationality||''}" placeholder="Your nationality" style="background:#fff;border:1px solid #E5E0D8;padding:12px 14px;font-size:13px;font-family:Jost,sans-serif;width:100%;border-radius:6px;outline:none;color:var(--ink)"></div>
-  </div>
-  <button class="btn-gold" style="width:auto;padding:12px 32px;margin-top:8px" id="btn-save-profile">Save Changes</button>
-  </div>`;
+  const p = profile||{};
+  c.innerHTML = `<div class="card"><div class="sec-title">Personal Information</div><div class="profile-grid"><div><label style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:8px">Full Name</label><input class="profile-input" id="p-name" type="text" value="${esc(p.full_name||'')}"></div><div><label style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:8px">Email</label><input class="profile-input" type="email" value="${esc(p.email||user?.email||'')}" disabled style="opacity:0.5"></div><div><label style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:8px">Phone</label><input class="profile-input" id="p-phone" type="tel" value="${esc(p.phone||'')}" placeholder="+61 or international"></div><div><label style="font-size:9px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:8px">Nationality</label><input class="profile-input" id="p-nat" type="text" value="${esc(p.nationality||'')}" placeholder="Your nationality"></div></div><button class="save-btn" id="save-profile-btn">Save Changes</button></div>`;
+  document.getElementById('save-profile-btn').onclick = async () => {
+    await sb.from('profiles').update({full_name:document.getElementById('p-name').value.trim(),phone:document.getElementById('p-phone').value.trim(),nationality:document.getElementById('p-nat').value.trim()}).eq('id',user.id);
+    alert('Profile saved.');
+  };
 }
 
-async function saveProfile() {
-  const name = document.getElementById('p-name').value.trim();
-  const phone = document.getElementById('p-phone').value.trim();
-  const nationality = document.getElementById('p-nationality').value.trim();
-  await sb.from('profiles').update({ full_name: name, phone, nationality, updated_at: new Date().toISOString() }).eq('id', currentUser.id);
-  alert('Profile updated successfully.');
-}
-
-// ═══════════════════════════════════════════
-// ADMIN OVERVIEW
-// ═══════════════════════════════════════════
 async function renderAdminOverview(c) {
-  const [{ count: memberCount }, { count: openCount }, { data: msgs }] = await Promise.all([
-    sb.from('profiles').select('*', { count:'exact', head:true }).eq('role','member'),
-    sb.from('requests').select('*', { count:'exact', head:true }).eq('status','new'),
-    sb.from('messages').select('*').eq('read', false)
-  ]);
-  const { data: recentReqs } = await sb.from('requests').select('*, profiles(full_name)').order('created_at', { ascending: false }).limit(8);
-  const { data: recentMembers } = await sb.from('profiles').select('*').eq('role','member').order('created_at', { ascending: false }).limit(5);
-  c.innerHTML = `<div class="stats-grid">
-    <div class="card"><div class="card-title">Total Members</div><div class="card-val">${memberCount||0}</div><div class="card-label">Registered</div></div>
-    <div class="card"><div class="card-title">Open Requests</div><div class="card-val">${openCount||0}</div><div class="card-label">Need attention</div></div>
-    <div class="card"><div class="card-title">Unread Messages</div><div class="card-val">${(msgs||[]).length}</div><div class="card-label">From members</div></div>
-    <div class="card"><div class="card-title">New Today</div><div class="card-val">0</div><div class="card-label">Requests</div></div>
-  </div>
-  <div class="grid-2">
-    <div class="card"><div class="section-title">Latest Requests</div>${(recentReqs||[]).map(r=>`<div class="req-item"><div><div class="req-title">${r.title||r.category}</div><div class="req-cat">${r.profiles?.full_name||''} · ${r.category}</div></div><span class="badge badge-${r.status==='completed'?'completed':r.status==='in_progress'?'progress':'new'}">${r.status||'new'}</span></div>`).join('')||'<div class="empty-state">No requests yet</div>'}</div>
-    <div class="card"><div class="section-title">Recent Members</div><div class="admin-members-list">${(recentMembers||[]).map(m=>`<div class="admin-member-row" data-panel="admin-messages"><div class="admin-member-avatar">${(m.full_name||'?')[0].toUpperCase()}</div><div><div class="admin-member-name">${m.full_name||m.email}</div><div class="admin-member-meta">${m.tier||'signature'} · ${new Date(m.created_at).toLocaleDateString()}</div></div></div>`).join('')||'<div class="empty-state">No members yet</div>'}</div></div>
-  </div>`;
+  const [{count:mc},{count:oc},{data:msgs}] = await Promise.all([sb.from('profiles').select('*',{count:'exact',head:true}).eq('role','member'),sb.from('requests').select('*',{count:'exact',head:true}).eq('status','new'),sb.from('messages').select('*').eq('read',false)]);
+  const {data:reqs} = await sb.from('requests').select('*').order('created_at',{ascending:false}).limit(6);
+  const {data:members} = await sb.from('profiles').select('*').eq('role','member').order('created_at',{ascending:false}).limit(5);
+  c.innerHTML = `<div class="stats"><div class="card"><div class="card-label">Total Members</div><div class="card-val">${mc||0}</div></div><div class="card"><div class="card-label">Open Requests</div><div class="card-val">${oc||0}</div></div><div class="card"><div class="card-label">Unread Messages</div><div class="card-val">${(msgs||[]).length}</div></div><div class="card"><div class="card-label">Status</div><div class="card-val" style="font-size:16px;margin-top:8px;color:#10B981">Active</div></div></div>
+  <div class="grid2"><div class="card"><div class="sec-title">Latest Requests</div>${(reqs||[]).map(r=>`<div class="req-item"><div><div class="req-title">${esc(r.title||r.category)}</div><div class="req-meta">${esc(r.category)}</div></div><span class="badge ${r.status==='completed'?'b-done':r.status==='in_progress'?'b-progress':'b-new'}">${r.status||'new'}</span></div>`).join('')||'<div class="empty">No requests</div>'}</div>
+  <div class="card"><div class="sec-title">Recent Members</div>${(members||[]).map(m=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F5F0EA"><div style="width:34px;height:34px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gold);font-weight:500">${(m.full_name||'?')[0].toUpperCase()}</div><div><div style="font-size:13px;font-weight:500;color:var(--ink)">${esc(m.full_name||m.email)}</div><div style="font-size:11px;color:var(--muted)">${m.tier||'signature'}</div></div></div>`).join('')||'<div class="empty">No members</div>'}</div></div>`;
 }
 
-// ═══════════════════════════════════════════
-// ADMIN MEMBERS
-// ═══════════════════════════════════════════
 async function renderAdminMembers(c) {
-  const { data: members } = await sb.from('profiles').select('*').eq('role','member').order('created_at', { ascending: false });
-  allMembers = members || [];
-  c.innerHTML = `<div class="card"><table class="admin-table"><thead><tr><th>Member</th><th>Email</th><th>Tier</th><th>Joined</th></tr></thead><tbody>${allMembers.map(m=>`<tr><td><strong>${m.full_name||'—'}</strong></td><td>${m.email||'—'}</td><td><span class="badge badge-new">${m.tier||'signature'}</span></td><td>${new Date(m.created_at).toLocaleDateString('en-AU')}</td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">No members yet</td></tr>'}</tbody></table></div>`;
+  const {data:members} = await sb.from('profiles').select('*').eq('role','member').order('created_at',{ascending:false});
+  c.innerHTML = `<div class="card"><table class="admin-table"><thead><tr><th>Member</th><th>Email</th><th>Tier</th><th>Joined</th></tr></thead><tbody>${(members||[]).map(m=>`<tr><td><strong>${esc(m.full_name||'—')}</strong></td><td>${esc(m.email||'—')}</td><td><span class="badge b-new">${m.tier||'signature'}</span></td><td>${d(m.created_at)}</td></tr>`).join('')||'<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--muted)">No members yet</td></tr>'}</tbody></table></div>`;
 }
 
-// ═══════════════════════════════════════════
-// ADMIN REQUESTS
-// ═══════════════════════════════════════════
 async function renderAdminRequests(c) {
-  const { data: reqs } = await sb.from('requests').select('*, profiles(full_name)').order('created_at', { ascending: false });
-  c.innerHTML = `<div class="card"><table class="admin-table"><thead><tr><th>Member</th><th>Request</th><th>Category</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>${(reqs||[]).map(r=>`<tr><td>${r.profiles?.full_name||'—'}</td><td>${r.title||'—'}</td><td>${r.category||'—'}</td><td>${new Date(r.created_at).toLocaleDateString()}</td><td><span class="badge badge-${r.status==='completed'?'completed':r.status==='in_progress'?'progress':'new'}">${r.status||'new'}</span></td><td><select data-req-id="${r.id}" style="font-size:11px;padding:4px 8px;border:1px solid #E5E0D8;border-radius:4px;background:#fff;cursor:pointer"><option value="new"${r.status==='new'?' selected':''}>New</option><option value="in_progress"${r.status==='in_progress'?' selected':''}>In Progress</option><option value="completed"${r.status==='completed'?' selected':''}>Completed</option></select></td></tr>`).join('')||'<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">No requests yet</td></tr>'}</tbody></table></div>`;
+  const {data:reqs} = await sb.from('requests').select('*').order('created_at',{ascending:false});
+  c.innerHTML = `<div class="card"><table class="admin-table"><thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Update</th></tr></thead><tbody>${(reqs||[]).map(r=>`<tr><td>${esc(r.title||'—')}</td><td>${esc(r.category||'—')}</td><td>${d(r.created_at)}</td><td><span class="badge ${r.status==='completed'?'b-done':r.status==='in_progress'?'b-progress':'b-new'}">${r.status||'new'}</span></td><td><select class="req-status-sel" data-id="${r.id}" style="font-size:11px;padding:4px 8px;border:1px solid #E5E0D8;border-radius:4px;background:#fff;cursor:pointer"><option value="new"${r.status==='new'?' selected':''}>New</option><option value="in_progress"${r.status==='in_progress'?' selected':''}>In Progress</option><option value="completed"${r.status==='completed'?' selected':''}>Completed</option></select></td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--muted)">No requests</td></tr>'}</tbody></table></div>`;
+  document.querySelectorAll('.req-status-sel').forEach(sel => { sel.onchange = async () => { await sb.from('requests').update({status:sel.value}).eq('id',sel.dataset.id); }; });
 }
 
-async function updateReqStatus(id, status) {
-  await sb.from('requests').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
-}
-
-// ═══════════════════════════════════════════
-// ADMIN MESSAGES
-// ═══════════════════════════════════════════
 async function renderAdminMessages(c) {
-  const { data: members } = await sb.from('profiles').select('*').eq('role','member').order('full_name');
-  c.innerHTML = `<div class="admin-msg-panel"><div class="admin-msg-list"><div style="padding:16px 20px;font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid #F5F0EA">Members</div>${(members||[]).map(m=>`<div class="admin-msg-item" id="member-row-${m.id}" onclick="selectMember('${m.id}','${(m.full_name||m.email).replace(/'/g,"\\'")}')"><div class="admin-msg-name">${m.full_name||m.email}</div><div class="admin-msg-preview">${m.tier||'signature'} member</div></div>`).join('')||'<div class="empty-state" style="padding:20px">No members</div>'}</div><div class="admin-chat" id="admin-chat-area"><div class="chat-empty" style="margin:auto;text-align:center;color:var(--muted);font-size:13px">Select a member to view conversation</div></div></div>`;
+  const {data:members} = await sb.from('profiles').select('*').eq('role','member').order('full_name');
+  c.innerHTML = `<div class="msg-panel"><div class="msg-list" id="msg-list"><div style="padding:14px 18px;font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;border-bottom:1px solid #F5F0EA">Members</div>${(members||[]).map(m=>`<div class="msg-member" data-id="${m.id}" data-name="${esc(m.full_name||m.email)}"><div class="msg-member-name">${esc(m.full_name||m.email)}</div><div class="msg-member-sub">${m.tier||'signature'}</div></div>`).join('')||'<div class="empty" style="padding:20px">No members</div>'}</div><div class="msg-chat" id="msg-chat"><div class="empty" style="margin:auto">Select a member to view conversation</div></div></div>`;
+  document.querySelectorAll('.msg-member').forEach(el => { el.onclick = () => selectMember(el.dataset.id, el.dataset.name); });
 }
 
-let adminChatChannel = null;
 async function selectMember(memberId, memberName) {
-  selectedMsgMember = memberId;
-  document.querySelectorAll('.admin-msg-item').forEach(el => el.classList.remove('active'));
-  const row = document.getElementById('member-row-' + memberId);
-  if (row) row.classList.add('active');
-  const { data: msgs } = await sb.from('messages').select('*').eq('member_id', memberId).order('created_at', { ascending: true }).limit(50);
-  const chatArea = document.getElementById('admin-chat-area');
-  chatArea.innerHTML = `<div style="padding-bottom:12px;border-bottom:1px solid #F5F0EA;margin-bottom:12px;font-size:14px;font-weight:500;color:var(--ink)">${memberName}</div>
-  <div class="chat-box" id="admin-msgs" style="flex:1;height:calc(100% - 120px)">${(msgs||[]).map(m=>`<div class="msg ${m.sender_role==='staff'?'me':''}"><div class="msg-bubble">${m.content}</div><div class="msg-meta">${m.sender_role==='staff'?'You (Concierge)':memberName.split(' ')[0]} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`).join('')||'<div class="chat-empty">No messages yet</div>'}</div>
-  <div class="chat-input-row" style="margin-top:12px"><textarea class="chat-input" id="admin-chat-box" placeholder="Reply as concierge team…"></textarea><button class="chat-send" id="btn-send-admin-msg">→</button></div>`;
-  const msgs_el = document.getElementById('admin-msgs');
-  if (msgs_el) msgs_el.scrollTop = msgs_el.scrollHeight;
-  if (adminChatChannel) sb.removeChannel(adminChatChannel);
-  adminChatChannel = sb.channel('admin-chat-' + memberId)
-    .on('postgres_changes', { event:'INSERT', schema:'public', table:'messages', filter:`member_id=eq.${memberId}` }, payload => {
-      const el = document.getElementById('admin-msgs');
-      if (!el) return;
-      const m = payload.new;
-      if (m.sender_id === currentUser.id) return;
-      el.insertAdjacentHTML('beforeend', `<div class="msg"><div class="msg-bubble">${m.content}</div><div class="msg-meta">${memberName.split(' ')[0]} · ${new Date(m.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div></div>`);
-      el.scrollTop = el.scrollHeight;
-    }).subscribe();
+  selMember = memberId;
+  document.querySelectorAll('.msg-member').forEach(el => el.classList.toggle('sel', el.dataset.id === memberId));
+  const {data:msgs} = await sb.from('messages').select('*').eq('member_id',memberId).order('created_at',{ascending:true}).limit(50);
+  const chat = document.getElementById('msg-chat');
+  chat.innerHTML = `<div style="padding-bottom:12px;border-bottom:1px solid #F5F0EA;margin-bottom:12px;font-size:14px;font-weight:500;color:var(--ink)">${esc(memberName)}</div><div class="chat-msgs" id="admin-msgs" style="flex:1;height:calc(100% - 110px)">${(msgs||[]).map(m=>`<div class="msg ${m.sender_role==='staff'?'me':''}"><div class="bubble">${esc(m.content)}</div><div class="msg-time">${m.sender_role==='staff'?'You':'Member'} · ${t(m.created_at)}</div></div>`).join('')||'<div class="chat-empty">No messages yet</div>'}</div><div class="chat-row" style="margin-top:12px"><input class="chat-input" id="admin-input" placeholder="Reply as concierge team…"><button class="send-btn" id="admin-send">→</button></div>`;
+  const el = document.getElementById('admin-msgs'); if(el) el.scrollTop = el.scrollHeight;
+  document.getElementById('admin-send').onclick = sendAdminMsg;
+  document.getElementById('admin-input').onkeydown = e => { if(e.key==='Enter') sendAdminMsg(); };
+  if(adminCh) sb.removeChannel(adminCh);
+  adminCh = sb.channel('admin-'+memberId).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:`member_id=eq.${memberId}`},p=>{
+    const el = document.getElementById('admin-msgs'); if(!el||p.new.sender_id===user.id) return;
+    const empty = el.querySelector('.chat-empty'); if(empty) empty.remove();
+    el.insertAdjacentHTML('beforeend',`<div class="msg"><div class="bubble">${esc(p.new.content)}</div><div class="msg-time">Member · ${t(p.new.created_at)}</div></div>`);
+    el.scrollTop = el.scrollHeight;
+  }).subscribe();
 }
 
 async function sendAdminMsg() {
-  if (!selectedMsgMember) return;
-  const box = document.getElementById('admin-chat-box');
-  const content = box.value.trim();
-  if (!content) return;
-  box.value = '';
-  const msgs = document.getElementById('admin-msgs');
-  const empty = msgs.querySelector('.chat-empty');
-  if (empty) empty.remove();
-  const time = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  msgs.insertAdjacentHTML('beforeend', `<div class="msg me"><div class="msg-bubble">${content}</div><div class="msg-meta">You (Concierge) · ${time}</div></div>`);
-  msgs.scrollTop = msgs.scrollHeight;
-  await sb.from('messages').insert({ member_id: selectedMsgMember, sender_id: currentUser.id, sender_role: 'staff', content });
+  if(!selMember) return;
+  const inp = document.getElementById('admin-input');
+  const txt = inp.value.trim(); if(!txt) return;
+  inp.value = '';
+  const el = document.getElementById('admin-msgs');
+  const empty = el.querySelector('.chat-empty'); if(empty) empty.remove();
+  el.insertAdjacentHTML('beforeend',`<div class="msg me"><div class="bubble">${esc(txt)}</div><div class="msg-time">You · ${t(new Date())}</div></div>`);
+  el.scrollTop = el.scrollHeight;
+  await sb.from('messages').insert({member_id:selMember,sender_id:user.id,sender_role:'staff',content:txt});
 }
-
-// ═══════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-
-// ═══════════════════════════════════════════
-// EVENT DELEGATION — replaces all onclick handlers
-// ═══════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function() {
-  // Auth buttons
-  const btnLogin = document.getElementById('btn-login');
-  if (btnLogin) btnLogin.addEventListener('click', doLogin);
-  
-  const btnRegister = document.getElementById('btn-register');
-  if (btnRegister) btnRegister.addEventListener('click', doRegister);
-  
-  const linkToRegister = document.getElementById('link-to-register');
-  if (linkToRegister) linkToRegister.addEventListener('click', () => switchForm('register'));
-  
-  const linkToLogin = document.getElementById('link-to-login');
-  if (linkToLogin) linkToLogin.addEventListener('click', () => switchForm('login'));
-  
-  const btnSignout = document.getElementById('btn-signout');
-  if (btnSignout) btnSignout.addEventListener('click', doSignOut);
-  
-  const roleToggle = document.getElementById('role-toggle');
-  if (roleToggle) roleToggle.addEventListener('click', toggleRole);
-
-  // Upload drop zone
-  document.addEventListener('click', function(e) {
-    if (e.target.id === 'upload-drop-zone' || e.target.closest('#upload-drop-zone')) {
-      document.getElementById('file-input').click();
-    }
-  });
-  
-  // File input
-  if (fileInput) fileInput.addEventListener('change', function() { onFileSelect(this); });
-
-  // Panel navigation via data-panel
-  document.addEventListener('click', function(e) {
-    // Panel nav
-    const panelEl = e.target.closest('[data-panel]');
-    if (panelEl) { showPanel(panelEl.dataset.panel); return; }
-    
-    // Open modal
-    const openEl = e.target.closest('[data-open-modal]');
-    if (openEl) { openModal(openEl.dataset.openModal); return; }
-    
-    // Close modal
-    const closeEl = e.target.closest('[data-close-modal]');
-    if (closeEl) { closeModal(closeEl.dataset.closeModal); return; }
-    
-    // Dynamic buttons rendered in panels
-    const target = e.target;
-    if (target.id === 'btn-req-submit') { submitRequest(); return; }
-    if (target.id === 'btn-upload') { uploadDoc(); return; }
-    if (target.id === 'btn-send-otp') { sendOTP(); return; }
-    if (target.id === 'btn-save-profile') { saveProfile(); return; }
-    if (target.id === 'btn-send-msg') { sendMsg(); return; }
-    if (target.id === 'btn-send-admin-msg') { sendAdminMsg(); return; }
-    
-    // Share/delete vault docs
-    if (target.dataset.shareDoc) { openShareModal(target.dataset.shareDoc, target.dataset.shareName); return; }
-    if (target.dataset.deleteDoc) { deleteDoc(target.dataset.deleteDoc); return; }
-    
-    // Admin member select
-    if (target.dataset.memberId) { selectMember(target.dataset.memberId, target.dataset.memberName); return; }
-    
-    // Modal status update
-    if (target.dataset.reqId && target.tagName === 'SELECT') { updateReqStatus(target.dataset.reqId, target.value); return; }
-  });
-  
-  // Chat enter key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (document.activeElement && document.activeElement.id === 'chat-box') { e.preventDefault(); sendMsg(); }
-      if (document.activeElement && document.activeElement.id === 'admin-chat-box') { e.preventDefault(); sendAdminMsg(); }
-      if (document.activeElement && document.activeElement.id === 'login-email') doLogin();
-      if (document.activeElement && document.activeElement.id === 'login-password') doLogin();
-      if (document.activeElement && document.activeElement.id === 'reg-password') doRegister();
-    }
-  });
-  
-  // Close modals on backdrop click
-  document.querySelectorAll('.modal-overlay').forEach(el => {
-    el.addEventListener('click', e => { if (e.target === el) el.classList.remove('open'); });
-  });
-});
-
 </script>
 </body>
 </html>
