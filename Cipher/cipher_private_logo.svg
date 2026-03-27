@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="820" viewBox="0 0 680 820">
+<defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Jost:wght@200;300;400&amp;display=swap');
+  </style>
+</defs>
+<rect x="40" y="30" width="600" height="340" rx="4" fill="#0B1628"/>
+<path d="M60,50 L60,72 M60,50 L82,50" stroke="#B8962E" stroke-width="1" fill="none"/>
+<path d="M620,50 L620,72 M620,50 L598,50" stroke="#B8962E" stroke-width="1" fill="none"/>
+<path d="M60,350 L60,328 M60,350 L82,350" stroke="#B8962E" stroke-width="1" fill="none"/>
+<path d="M620,350 L620,328 M620,350 L598,350" stroke="#B8962E" stroke-width="1" fill="none"/>
+<polygon points="340,88 368,96 384,120 384,148 368,172 340,180 312,172 296,148 296,120 312,96" fill="none" stroke="#B8962E" stroke-width="1.2"/>
+<polygon points="340,100 370,134 340,168 310,134" fill="none" stroke="#B8962E" stroke-width="0.6" opacity="0.6"/>
+<line x1="340" y1="88" x2="340" y2="180" stroke="#B8962E" stroke-width="0.5" opacity="0.4"/>
+<line x1="296" y1="134" x2="384" y2="134" stroke="#B8962E" stroke-width="0.5" opacity="0.4"/>
+<polygon points="340,122 352,134 340,146 328,134" fill="#B8962E" opacity="0.9"/>
+<circle cx="340" cy="134" r="6" fill="none" stroke="#B8962E" stroke-width="0.8" opacity="0.5"/>
+<line x1="312" y1="106" x2="368" y2="162" stroke="#B8962E" stroke-width="0.4" opacity="0.25"/>
+<line x1="368" y1="106" x2="312" y2="162" stroke="#B8962E" stroke-width="0.4" opacity="0.25"/>
+<circle cx="340" cy="88" r="2" fill="#B8962E"/>
+<circle cx="368" cy="96" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="384" cy="120" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="384" cy="148" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="368" cy="172" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="340" cy="180" r="2" fill="#B8962E"/>
+<circle cx="312" cy="172" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="296" cy="148" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="296" cy="120" r="1.5" fill="#B8962E" opacity="0.6"/>
+<circle cx="312" cy="96" r="1.5" fill="#B8962E" opacity="0.6"/>
+<line x1="200" y1="208" x2="340" y2="208" stroke="#B8962E" stroke-width="0.6"/>
+<circle cx="340" cy="208" r="2" fill="#B8962E"/>
+<line x1="340" y1="208" x2="480" y2="208" stroke="#B8962E" stroke-width="0.6"/>
+<text x="340" y="246" text-anchor="middle" fill="#FFFFFF" font-family="'Cormorant Garamond', Georgia, serif" font-size="46" font-weight="300" letter-spacing="12">CIPHER</text>
+<circle cx="316" cy="265" r="1.5" fill="#B8962E"/>
+<circle cx="340" cy="265" r="1.5" fill="#B8962E"/>
+<circle cx="364" cy="265" r="1.5" fill="#B8962E"/>
+<text x="340" y="296" text-anchor="middle" fill="#B8962E" font-family="'Jost', sans-serif" font-size="13" font-weight="300" letter-spacing="10">PRIVATE</text>
+<line x1="240" y1="318" x2="340" y2="318" stroke="#B8962E" stroke-width="0.6" opacity="0.5"/>
+<circle cx="340" cy="318" r="1.5" fill="#B8962E" opacity="0.6"/>
+<line x1="340" y1="318" x2="440" y2="318" stroke="#B8962E" stroke-width="0.6" opacity="0.5"/>
+<text x="340" y="342" text-anchor="middle" fill="#7A7060" font-family="'Jost', sans-serif" font-size="9.5" font-weight="300" letter-spacing="4">ACCESS BEYOND EXPECTATION</text>
+</svg>
