@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String
+  fullName      String
+  phone         String?
+  role          Role      @default(MEMBER)
+  memberTier    Tier      @default(CIPHER)
+  isActive      Boolean   @default(true)
+  isApproved    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  requests      Request[]
+  messages      Message[]
+  documents     Document[]
+  otpSends      OtpSend[]
+  sessions      Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Request {
+  id          String        @id @default(uuid())
+  userId      String
+  title       String
+  description String
+  category    String
+  priority    Priority      @default(STANDARD)
+  status      RequestStatus @default(RECEIVED)
+  adminNote   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("requests")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  roomId    String
+  userId    String
+  content   String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Document {
+  id            String   @id @default(uuid())
+  userId        String
+  filename      String
+  originalName  String
+  mimeType      String
+  sizeBytes     Int
+  encryptedPath String
+  iv            String
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  otpSends      OtpSend[]
+
+  @@map("documents")
+}
+
+model OtpSend {
+  id             String    @id @default(uuid())
+  documentId     String
+  userId         String
+  recipientEmail String
+  otpHash        String
+  token          String    @unique @default(uuid())
+  expiresAt      DateTime
+  accessedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  document       Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("otp_sends")
+}
+
+model Application {
+  id        String            @id @default(uuid())
+  fullName  String
+  email     String
+  phone     String?
+  tier      Tier              @default(CIPHER)
+  referral  String?
+  status    ApplicationStatus @default(PENDING)
+  adminNote String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@map("applications")
+}
+
+enum Role { MEMBER ADMIN SUPER_ADMIN }
+enum Tier { CIPHER CIPHER_BLACK CIPHER_SOVEREIGN }
+enum Priority { STANDARD URGENT CRITICAL }
+enum RequestStatus { RECEIVED IN_PROGRESS AWAITING_MEMBER COMPLETED CANCELLED }
+enum ApplicationStatus { PENDING APPROVED DECLINED }
