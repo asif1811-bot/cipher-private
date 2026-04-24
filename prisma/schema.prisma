@@ -115,8 +115,34 @@ model Application {
   @@map("applications")
 }
 
-enum Role { MEMBER ADMIN SUPER_ADMIN }
-enum Tier { CIPHER CIPHER_BLACK CIPHER_SOVEREIGN }
-enum Priority { STANDARD URGENT CRITICAL }
-enum RequestStatus { RECEIVED IN_PROGRESS AWAITING_MEMBER COMPLETED CANCELLED }
-enum ApplicationStatus { PENDING APPROVED DECLINED }
+enum Role {
+  MEMBER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Tier {
+  CIPHER
+  CIPHER_BLACK
+  CIPHER_SOVEREIGN
+}
+
+enum Priority {
+  STANDARD
+  URGENT
+  CRITICAL
+}
+
+enum RequestStatus {
+  RECEIVED
+  IN_PROGRESS
+  AWAITING_MEMBER
+  COMPLETED
+  CANCELLED
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  DECLINED
+}
