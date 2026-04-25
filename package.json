@@ -1,14 +1,11 @@
 {
   "name": "cipher-private",
   "version": "1.0.0",
-  "description": "Cipher Private - Ultra Luxury Concierge Platform",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
-    "db:migrate": "npx prisma migrate deploy",
-    "db:generate": "npx prisma generate",
-    "db:studio": "npx prisma studio",
+    "db:push": "npx prisma db push",
     "seed": "node prisma/seed.js"
   },
   "dependencies": {
@@ -32,7 +29,5 @@
     "nodemon": "^3.1.0",
     "prisma": "^5.10.2"
   },
-  "engines": {
-    "node": ">=20.0.0"
-  }
+  "engines": { "node": ">=20.0.0" }
 }
