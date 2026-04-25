@@ -28,7 +28,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.get('*', (_req, res) => {
-  const htmlPath = path.join(__dirname, '../index.html');
+  const htmlPath = path.join(__dirname, '../../index.html');
   if (fs.existsSync(htmlPath)) {
     res.sendFile(htmlPath);
   } else {
