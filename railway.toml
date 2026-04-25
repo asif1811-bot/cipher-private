@@ -1,9 +1,8 @@
 [build]
   builder = "NIXPACKS"
-  buildCommand = "npm install && npx prisma generate"
 
 [deploy]
-  startCommand = "npx prisma db push --accept-data-loss && node prisma/prisma/seed.js && node server/index.js"
+  startCommand = "node Cipher/server/index.js"
   healthcheckPath = "/api/health"
   healthcheckTimeout = 60
   restartPolicyType = "ON_FAILURE"
