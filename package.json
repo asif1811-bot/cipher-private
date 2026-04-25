@@ -1,7 +1,7 @@
 {
   "name": "cipher-private",
   "version": "1.0.0",
-  "main": "server/index.js",
+  "main": "Cipher/server/index.js"
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
