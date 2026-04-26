@@ -218,7 +218,8 @@ nav.scrolled {
   background: 
     radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,169,110,0.06) 0%, transparent 70%),
     radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,169,110,0.04) 0%, transparent 60%),
-    linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0d0d0d 100%);
+    linear-gradient(135deg, rgba(10,10,10,0.97) 0%, rgba(17,17,17,0.95) 50%, rgba(13,13,13,0.97) 100%),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80') center/cover no-repeat;
 }
 
 .hero-grid {
@@ -1622,8 +1623,9 @@ footer {
 
     <div class="blog-grid reveal">
       <a href="#" class="blog-card" onclick="showArticle('private-aviation'); return false;">
-        <div class="blog-img-placeholder">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><polygon points="40,5 75,20 75,60 40,75 5,60 5,20" stroke="#c9a96e" stroke-width="1" fill="none"/><text x="40" y="46" text-anchor="middle" font-family="serif" font-size="20" fill="#c9a96e">✈</text></svg>
+        <div style="width:100%;aspect-ratio:16/10;overflow:hidden;position:relative">
+          <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="Private Aviation" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7)">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.6))"></div>
         </div>
         <div class="blog-content">
           <div class="blog-category">Private Aviation</div>
@@ -1638,8 +1640,8 @@ footer {
       </a>
 
       <a href="#" class="blog-card" onclick="showArticle('concierge-security'); return false;">
-        <div class="blog-img-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><polygon points="30,3 57,16 57,44 30,57 3,44 3,16" stroke="#c9a96e" stroke-width="0.8" fill="none"/><text x="30" y="35" text-anchor="middle" font-family="serif" font-size="16" fill="#c9a96e">🔒</text></svg>
+        <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Privacy Security" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
         </div>
         <div class="blog-content">
           <div class="blog-category">Privacy & Security</div>
@@ -1654,8 +1656,8 @@ footer {
       </a>
 
       <a href="#" class="blog-card" onclick="showArticle('luxury-wellness'); return false;">
-        <div class="blog-img-placeholder">
-          <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="26" stroke="#c9a96e" stroke-width="0.8" fill="none"/><text x="30" y="35" text-anchor="middle" font-family="serif" font-size="16" fill="#c9a96e">◈</text></svg>
+        <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Luxury Wellness" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
         </div>
         <div class="blog-content">
           <div class="blog-category">Wellness</div>
@@ -2186,6 +2188,7 @@ footer {
 <!-- Admin Portal -->
 <div class="modal-overlay" id="adminPortal" style="align-items:stretch;padding:0">
   <div style="width:100%;height:100vh;background:#0d0d0d;display:flex;flex-direction:column;overflow:hidden">
+    <!-- Admin Header -->
     <div style="background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.15);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
       <div style="display:flex;align-items:center;gap:16px">
         <svg width="32" height="32" viewBox="0 0 44 44" fill="none"><polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1" fill="none"/><text x="22" y="26" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="14" fill="#c9a96e">C</text></svg>
@@ -2194,46 +2197,72 @@ footer {
           <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#e74c3c">Restricted Access</div>
         </div>
       </div>
-      <button onclick="closeAdmin()" style="background:none;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Sign Out</button>
+      <div style="display:flex;gap:12px">
+        <button onclick="loadAdminData()" style="background:none;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">↻ Refresh</button>
+        <button onclick="closeAdmin()" style="background:none;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Sign Out</button>
+      </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,169,110,0.05);padding:24px 32px;border-bottom:1px solid rgba(201,169,110,0.08)">
-      <div style="padding:16px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">24</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Active Members</div></div>
-      <div style="padding:16px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">7</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Open Requests</div></div>
-      <div style="padding:16px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">3</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">New Applications</div></div>
-      <div style="padding:16px;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">2</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Active Chats</div></div>
+    <!-- Admin Stats -->
+    <div id="adminStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,169,110,0.05);padding:0 32px;border-bottom:1px solid rgba(201,169,110,0.08)">
+      <div style="padding:20px;text-align:center"><div id="statMembers" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Active Members</div></div>
+      <div style="padding:20px;text-align:center"><div id="statRequests" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Open Requests</div></div>
+      <div style="padding:20px;text-align:center"><div id="statApplications" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Pending Applications</div></div>
+      <div style="padding:20px;text-align:center"><div id="statActive" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">●</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71">System Online</div></div>
     </div>
+    <!-- Admin Tabs -->
+    <div style="display:flex;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 32px;flex-shrink:0">
+      <button class="admin-tab-btn active" onclick="switchAdminTab('requests',this)" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Requests</button>
+      <button class="admin-tab-btn" onclick="switchAdminTab('applications',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Applications</button>
+      <button class="admin-tab-btn" onclick="switchAdminTab('members',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Members</button>
+    </div>
+    <!-- Admin Content -->
     <div style="flex:1;overflow-y:auto;padding:32px">
-      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Live Service Requests</div>
-      <div style="display:grid;gap:12px">
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-          <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0;animation:pulse 2s infinite"></div>
-          <div style="flex:1">
-            <div style="font-size:13px;color:var(--white);margin-bottom:4px">James Harrington — Private jet charter Sydney → Noosa</div>
-            <div style="font-size:10px;color:var(--silver)">Cipher Black · Urgent · Apr 22, 2025 · 09:32 AM</div>
-          </div>
-          <button style="background:var(--gold);color:var(--obsidian);border:none;padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">Respond</button>
-        </div>
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-          <div style="width:10px;height:10px;background:#e67e22;border-radius:50%;flex-shrink:0"></div>
-          <div style="flex:1">
-            <div style="font-size:13px;color:var(--white);margin-bottom:4px">Sarah Mitchell — Medical specialist referral, Cardiologist</div>
-            <div style="font-size:10px;color:var(--silver)">Cipher Sovereign · Standard · Apr 21, 2025</div>
-          </div>
-          <button style="background:transparent;border:1px solid rgba(201,169,110,0.4);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Respond</button>
+      <!-- Requests Tab -->
+      <div id="adminTab-requests" class="admin-tab">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Live Service Requests</div>
+        <div id="adminRequestsList" style="display:grid;gap:12px">
+          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading requests...</div>
         </div>
       </div>
-      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:24px 0 16px">Pending Applications</div>
-      <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-        <div style="flex:1">
-          <div style="font-size:13px;color:var(--white);margin-bottom:4px">David Ng — Applied for Cipher Black</div>
-          <div style="font-size:10px;color:var(--silver)">Referral: Marcus Webb · Apr 20, 2025</div>
+      <!-- Applications Tab -->
+      <div id="adminTab-applications" class="admin-tab" style="display:none">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Membership Applications</div>
+        <div id="adminApplicationsList" style="display:grid;gap:12px">
+          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading applications...</div>
         </div>
-        <div style="display:flex;gap:8px">
-          <button style="background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:#2ecc71;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Approve</button>
-          <button style="background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Decline</button>
+      </div>
+      <!-- Members Tab -->
+      <div id="adminTab-members" class="admin-tab" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">All Members</div>
+          <button onclick="showAddMember()" style="background:var(--gold);color:var(--obsidian);border:none;padding:8px 20px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">+ Add Member</button>
+        </div>
+        <div id="adminMembersList" style="display:grid;gap:12px">
+          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading members...</div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Add Member Modal -->
+<div class="modal-overlay" id="addMemberModal">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('addMember')">✕</button>
+    <div class="modal-title">Add New Member</div>
+    <div class="modal-subtitle">Create Member Account</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="James Harrington"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="newMemberEmail" placeholder="member@email.com"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" id="newMemberPhone" placeholder="+61 400 000 000"></div>
+    <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
+    <div class="form-group"><label>Membership Tier</label>
+      <select id="newMemberTier" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+        <option value="CIPHER">Cipher — $18,000 p.a.</option>
+        <option value="CIPHER_BLACK">Cipher Black — $48,000 p.a.</option>
+        <option value="CIPHER_SOVEREIGN">Cipher Sovereign — Bespoke</option>
+      </select>
+    </div>
+    <button onclick="createMember()" class="form-submit" style="margin-top:8px">Create Member Account</button>
   </div>
 </div>
 
@@ -2629,7 +2658,7 @@ async function submitApplication(event) {
   const tier = document.querySelector('.cta-form select')?.value || 'CIPHER';
   const referral = document.querySelectorAll('.cta-form input[type=text]')[1]?.value || '';
   
-  const tierMap = { 'Cipher — $10,000 p.a.': 'CIPHER', 'Cipher Black — $25,000 p.a.': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
+  const tierMap = { 'Cipher — $18,000 p.a.': 'CIPHER', 'Cipher Black — $48,000 p.a.': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
   
   try {
     const res = await fetch('/api/applications', {
@@ -2650,5 +2679,169 @@ async function submitApplication(event) {
 
 </script>
 
+</body>
+</html>
+<script>
+// ── Admin Functions ──────────────────────────────────────────────────────────
+function switchAdminTab(tab, btn) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.admin-tab-btn').forEach(b => {
+    b.style.borderBottomColor = 'transparent';
+    b.style.color = 'var(--silver)';
+  });
+  document.getElementById('adminTab-' + tab).style.display = 'block';
+  btn.style.borderBottomColor = 'var(--gold)';
+  btn.style.color = 'var(--gold)';
+}
+
+async function loadAdminData() {
+  if (!window._cipherToken) return;
+  const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
+
+  // Load dashboard stats
+  try {
+    const res = await fetch('/api/admin/dashboard', { headers });
+    const data = await res.json();
+    if (data.totalMembers !== undefined) {
+      document.getElementById('statMembers').textContent = data.totalMembers;
+      document.getElementById('statRequests').textContent = data.activeRequests;
+      document.getElementById('statApplications').textContent = data.pendingApplications;
+    }
+
+    // Render requests
+    const reqList = document.getElementById('adminRequestsList');
+    if (data.recentRequests && data.recentRequests.length > 0) {
+      reqList.innerHTML = data.recentRequests.map(r => `
+        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
+          <div style="width:10px;height:10px;background:${r.status==='RECEIVED'?'var(--gold)':r.status==='IN_PROGRESS'?'#e67e22':'#2ecc71'};border-radius:50%;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:13px;color:var(--white);margin-bottom:4px">${r.user?.fullName || 'Member'} — ${r.description.substring(0,60)}...</div>
+            <div style="font-size:10px;color:var(--silver)">${r.user?.memberTier?.replace('_',' ') || ''} · ${r.priority} · ${new Date(r.createdAt).toLocaleDateString()}</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">${r.status.replace('_',' ')}</span>
+            <button onclick="updateRequestStatus('${r.id}','IN_PROGRESS')" style="background:var(--gold);color:var(--obsidian);border:none;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">Action</button>
+          </div>
+        </div>`).join('');
+    } else {
+      reqList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No active requests</div>';
+    }
+
+    // Render applications
+    const appList = document.getElementById('adminApplicationsList');
+    if (data.recentApplications && data.recentApplications.length > 0) {
+      appList.innerHTML = data.recentApplications.map(a => `
+        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
+          <div style="flex:1">
+            <div style="font-size:13px;color:var(--white);margin-bottom:4px">${a.fullName} — ${a.tier.replace('_',' ')}</div>
+            <div style="font-size:10px;color:var(--silver)">${a.email} · ${a.referral ? 'Ref: '+a.referral+' · ' : ''}${new Date(a.createdAt).toLocaleDateString()}</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            ${a.status === 'PENDING' ? `
+            <button onclick="updateApplication('${a.id}','APPROVED')" style="background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:#2ecc71;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Approve</button>
+            <button onclick="updateApplication('${a.id}','DECLINED')" style="background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Decline</button>
+            ` : `<span style="font-size:9px;color:var(--gold-dim);letter-spacing:2px">${a.status}</span>`}
+          </div>
+        </div>`).join('');
+    } else {
+      appList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No pending applications</div>';
+    }
+  } catch(e) {
+    console.error('Admin data load error:', e);
+  }
+
+  // Load members
+  try {
+    const res = await fetch('/api/admin/members', { headers });
+    const members = await res.json();
+    const membersList = document.getElementById('adminMembersList');
+    if (Array.isArray(members) && members.length > 0) {
+      membersList.innerHTML = members.map(m => `
+        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
+          <div style="width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:18px;flex-shrink:0">${m.fullName[0]}</div>
+          <div style="flex:1">
+            <div style="font-size:13px;color:var(--white);margin-bottom:3px">${m.fullName}</div>
+            <div style="font-size:10px;color:var(--silver)">${m.email} · ${m.memberTier.replace('_',' ')} · ${m.isApproved ? '✓ Approved' : '⏳ Pending'}</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="toggleMember('${m.id}',${!m.isActive})" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:${m.isActive?'#2ecc71':'#e74c3c'};padding:5px 12px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">${m.isActive ? 'Active' : 'Suspended'}</button>
+          </div>
+        </div>`).join('');
+    } else {
+      membersList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No members yet</div>';
+    }
+  } catch(e) { console.error('Members load error:', e); }
+}
+
+async function updateRequestStatus(id, status) {
+  if (!window._cipherToken) return;
+  try {
+    await fetch('/api/requests/' + id + '/status', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({ status })
+    });
+    loadAdminData();
+  } catch(e) { alert('Failed to update request'); }
+}
+
+async function updateApplication(id, status) {
+  if (!window._cipherToken) return;
+  try {
+    await fetch('/api/admin/applications/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({ status })
+    });
+    alert(status === 'APPROVED' ? 'Application approved. Welcome email sent.' : 'Application declined.');
+    loadAdminData();
+  } catch(e) { alert('Failed to update application'); }
+}
+
+async function toggleMember(id, isActive) {
+  if (!window._cipherToken) return;
+  try {
+    await fetch('/api/admin/members/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({ isActive })
+    });
+    loadAdminData();
+  } catch(e) { alert('Failed to update member'); }
+}
+
+function showAddMember() {
+  document.getElementById('addMemberModal').classList.add('active');
+}
+
+async function createMember() {
+  if (!window._cipherToken) return;
+  const fullName = document.getElementById('newMemberName').value;
+  const email = document.getElementById('newMemberEmail').value;
+  const phone = document.getElementById('newMemberPhone').value;
+  const password = document.getElementById('newMemberPassword').value;
+  const memberTier = document.getElementById('newMemberTier').value;
+  if (!fullName || !email || !password) { alert('Please fill in all required fields.'); return; }
+  if (password.length < 12) { alert('Password must be at least 12 characters.'); return; }
+  try {
+    const res = await fetch('/api/admin/members', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({ fullName, email, phone, password, memberTier })
+    });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || 'Failed to create member'); return; }
+    closeModal('addMember');
+    alert('Member created successfully. Welcome email sent to ' + email);
+    loadAdminData();
+  } catch(e) { alert('Failed to create member'); }
+}
+
+function closeAdmin() {
+  document.getElementById('adminPortal').classList.remove('active');
+  window._cipherToken = null;
+  window._cipherUser = null;
+}
+</script>
 </body>
 </html>
