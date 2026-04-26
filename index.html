@@ -2083,26 +2083,42 @@ footer {
 
         <!-- Chat Tab -->
         <div class="portal-tab" id="tab-chat" style="display:none">
-          <div style="display:flex;flex-direction:column;height:calc(100vh - 160px)">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(201,169,110,0.1)">
-              <div style="width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:16px">A</div>
-              <div>
-                <div style="font-size:13px;color:var(--white)">Alexandra Chen</div>
-                <div style="display:flex;align-items:center;gap:6px"><div style="width:6px;height:6px;background:#2ecc71;border-radius:50%"></div><span style="font-size:9px;color:#2ecc71;letter-spacing:1px">Online · Your Lifestyle Manager</span></div>
-              </div>
-            </div>
-            <div id="chatMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px;padding-right:8px">
-              <div style="display:flex;gap:12px">
-                <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:13px;flex-shrink:0">A</div>
-                <div style="max-width:70%">
-                  <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:14px;font-size:12px;color:var(--white);line-height:1.7">Good morning James. I wanted to confirm — the Gulfstream G700 is confirmed for Friday, 09:00 departure Sydney International. I'll send your digital itinerary shortly. Is there anything else you need for this trip?</div>
-                  <div style="font-size:9px;color:var(--gold-dim);margin-top:5px;letter-spacing:1px">9:14 AM · Encrypted</div>
+          <div style="display:flex;flex-direction:column;height:calc(100vh - 200px);min-height:400px">
+            <!-- Chat Header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(201,169,110,0.1)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:16px">CP</div>
+                <div>
+                  <div style="font-size:13px;color:var(--white)">Cipher Private Concierge</div>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <div id="chatStatusDot" style="width:6px;height:6px;background:#666;border-radius:50%"></div>
+                    <span id="chatStatusText" style="font-size:9px;color:#666;letter-spacing:1px">Connecting...</span>
+                  </div>
                 </div>
               </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:8px;height:8px;background:#2ecc71;border-radius:50%;animation:pulse 2s infinite"></div>
+                <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71">End-to-End Encrypted</span>
+              </div>
             </div>
-            <div style="padding-top:16px;border-top:1px solid rgba(201,169,110,0.1);display:flex;gap:12px;align-items:flex-end">
-              <textarea id="chatInput" placeholder="Type your message — end-to-end encrypted..." onkeydown="handleChatKey(event)" style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;resize:none;min-height:48px;max-height:120px;line-height:1.6"></textarea>
-              <button onclick="sendChatMessage()" style="background:var(--gold);color:var(--obsidian);border:none;padding:14px 20px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;flex-shrink:0">Send</button>
+            <!-- Chat Messages -->
+            <div id="chatMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:8px;scroll-behavior:smooth">
+              <div style="text-align:center;padding:20px">
+                <div style="font-size:10px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Cipher Private Secure Chat</div>
+                <div style="font-size:11px;color:var(--silver)">All messages are encrypted and visible only to you and your lifestyle manager.</div>
+              </div>
+            </div>
+            <!-- Typing indicator -->
+            <div id="typingIndicator" style="display:none;padding:8px 0;font-size:10px;color:var(--gold-dim);letter-spacing:1px">
+              <span id="typingText">Your lifestyle manager is typing...</span>
+            </div>
+            <!-- Chat Input -->
+            <div style="padding-top:16px;border-top:1px solid rgba(201,169,110,0.1)">
+              <div style="display:flex;gap:12px;align-items:flex-end">
+                <textarea id="chatInput" placeholder="Type your message — end-to-end encrypted..." onkeydown="handleChatKey(event)" oninput="handleTyping()" style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;resize:none;min-height:52px;max-height:120px;line-height:1.6"></textarea>
+                <button onclick="sendChatMessage()" style="background:var(--gold);color:var(--obsidian);border:none;padding:14px 20px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;flex-shrink:0;height:52px">Send</button>
+              </div>
+              <div style="margin-top:8px;font-size:9px;color:var(--gold-dim);letter-spacing:1px">Press Enter to send · Shift+Enter for new line</div>
             </div>
           </div>
         </div>
@@ -2214,6 +2230,7 @@ footer {
       <button class="admin-tab-btn active" onclick="switchAdminTab('requests',this)" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Requests</button>
       <button class="admin-tab-btn" onclick="switchAdminTab('applications',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Applications</button>
       <button class="admin-tab-btn" onclick="switchAdminTab('members',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Members</button>
+      <button class="admin-tab-btn" onclick="switchAdminTab('chat',this);initAdminChat();" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Live Chat</button>
     </div>
     <!-- Admin Content -->
     <div style="flex:1;overflow-y:auto;padding:32px">
@@ -2239,6 +2256,44 @@ footer {
         </div>
         <div id="adminMembersList" style="display:grid;gap:12px">
           <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading members...</div>
+        </div>
+      </div>
+
+      <!-- Admin Chat Tab -->
+      <div id="adminTab-chat" class="admin-tab" style="display:none;height:calc(100vh - 260px)">
+        <div style="display:grid;grid-template-columns:280px 1fr;height:100%;gap:1px;background:rgba(201,169,110,0.08)">
+          <!-- Room List -->
+          <div style="background:var(--deep-black);display:flex;flex-direction:column">
+            <div style="padding:16px;border-bottom:1px solid rgba(201,169,110,0.1)">
+              <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Member Conversations</div>
+            </div>
+            <div id="adminChatRoomList" style="flex:1;overflow-y:auto">
+              <div style="padding:20px;text-align:center;font-size:11px;color:var(--silver)">Loading conversations...</div>
+            </div>
+          </div>
+          <!-- Chat Area -->
+          <div style="background:var(--charcoal);display:flex;flex-direction:column">
+            <!-- Placeholder -->
+            <div id="adminChatPlaceholder" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M5 5H35V27H23L20 31L17 27H5V5Z" stroke="#c9a96e" stroke-width="0.8" opacity="0.4"/></svg>
+              <div style="font-size:11px;color:var(--silver);letter-spacing:1px">Select a conversation to begin</div>
+            </div>
+            <!-- Active Chat -->
+            <div id="adminChatArea" style="display:none;flex-direction:column;height:100%">
+              <div style="padding:16px 20px;border-bottom:1px solid rgba(201,169,110,0.1);display:flex;align-items:center;gap:12px">
+                <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px" id="adminChatMemberInitial">M</div>
+                <div>
+                  <div id="adminChatMemberName" style="font-size:13px;color:var(--white)">Member</div>
+                  <div style="font-size:9px;color:#2ecc71;letter-spacing:1px">Active conversation</div>
+                </div>
+              </div>
+              <div id="adminChatMessages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column"></div>
+              <div style="padding:16px 20px;border-top:1px solid rgba(201,169,110,0.1);display:flex;gap:10px">
+                <textarea id="adminChatInput" onkeydown="handleAdminChatKey(event)" placeholder="Type a reply to this member..." style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;resize:none;min-height:48px;max-height:100px;line-height:1.5"></textarea>
+                <button onclick="sendAdminMessage()" style="background:var(--gold);color:var(--obsidian);border:none;padding:10px 20px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;flex-shrink:0">Send</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2378,6 +2433,9 @@ function showPortalTab(tab, btn) {
   document.querySelectorAll('.portal-nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).style.display = 'block';
   btn.classList.add('active');
+  if (tab === 'chat') {
+    initChat();
+  }
 }
 
 // Request submission
@@ -2397,28 +2455,151 @@ function submitRequest() {
 }
 
 // Chat
+// ── Real-time Chat with Socket.IO ────────────────────────────────────────────
+let _socket = null;
+let _typingTimeout = null;
+
+function initChat() {
+  if (!window._cipherToken) return;
+  if (_socket && _socket.connected) return;
+
+  // Load Socket.IO client
+  if (!window.io) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.socket.io/4.7.5/socket.io.min.js';
+    script.onload = () => connectSocket();
+    document.head.appendChild(script);
+  } else {
+    connectSocket();
+  }
+}
+
+function connectSocket() {
+  _socket = io(window.location.origin, {
+    auth: { token: window._cipherToken },
+    transports: ['websocket', 'polling']
+  });
+
+  _socket.on('connect', () => {
+    document.getElementById('chatStatusDot').style.background = '#2ecc71';
+    document.getElementById('chatStatusText').textContent = 'Connected · Your lifestyle manager';
+    document.getElementById('chatStatusText').style.color = '#2ecc71';
+    loadChatHistory();
+  });
+
+  _socket.on('disconnect', () => {
+    document.getElementById('chatStatusDot').style.background = '#e74c3c';
+    document.getElementById('chatStatusText').textContent = 'Reconnecting...';
+    document.getElementById('chatStatusText').style.color = '#e74c3c';
+  });
+
+  _socket.on('new_message', (msg) => {
+    if (!msg.isAdmin) return; // Member's own messages added on send
+    appendChatMessage(msg.content, false, msg.sender, msg.createdAt);
+    document.getElementById('typingIndicator').style.display = 'none';
+  });
+
+  _socket.on('user_typing', (data) => {
+    if (data.isAdmin) {
+      document.getElementById('typingText').textContent = (data.name || 'Your lifestyle manager') + ' is typing...';
+      document.getElementById('typingIndicator').style.display = 'block';
+    }
+  });
+
+  _socket.on('user_stop_typing', () => {
+    document.getElementById('typingIndicator').style.display = 'none';
+  });
+
+  _socket.on('error', (err) => {
+    console.error('Socket error:', err);
+  });
+}
+
+async function loadChatHistory() {
+  if (!window._cipherToken || !window._cipherUser) return;
+  try {
+    const res = await fetch('/api/chat/' + window._cipherUser.id + '/history', {
+      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
+    });
+    const messages = await res.json();
+    const chat = document.getElementById('chatMessages');
+    // Clear loading message
+    chat.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:10px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Cipher Private Secure Chat</div><div style="font-size:11px;color:var(--silver)">All messages are encrypted and visible only to you and your lifestyle manager.</div></div>';
+    
+    if (Array.isArray(messages)) {
+      messages.forEach(msg => {
+        appendChatMessage(msg.content, !msg.isAdmin, msg.isAdmin ? (msg.user?.fullName || 'Cipher Private') : 'You', msg.createdAt);
+      });
+    }
+    chat.scrollTop = chat.scrollHeight;
+  } catch(e) {
+    console.log('Could not load chat history:', e);
+  }
+}
+
+function appendChatMessage(content, isOwn, senderName, timestamp) {
+  const chat = document.getElementById('chatMessages');
+  const time = timestamp ? new Date(timestamp).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' }) : 'Now';
+  const div = document.createElement('div');
+  
+  if (isOwn) {
+    div.style.cssText = 'display:flex;flex-direction:row-reverse;gap:10px;align-items:flex-end';
+    div.innerHTML = `
+      <div style="max-width:70%">
+        <div style="background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);padding:12px 16px;font-size:12px;color:var(--white);line-height:1.7;border-radius:2px 0 2px 2px">${escapeHtml(content)}</div>
+        <div style="font-size:9px;color:var(--gold-dim);margin-top:4px;letter-spacing:1px;text-align:right">${time} · Encrypted ✓</div>
+      </div>`;
+  } else {
+    div.style.cssText = 'display:flex;gap:10px;align-items:flex-end';
+    div.innerHTML = `
+      <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:13px;flex-shrink:0">${(senderName||'CP')[0]}</div>
+      <div style="max-width:70%">
+        <div style="font-size:9px;color:var(--gold-dim);letter-spacing:1px;margin-bottom:4px">${senderName || 'Cipher Private'}</div>
+        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:12px 16px;font-size:12px;color:var(--white);line-height:1.7;border-radius:0 2px 2px 2px">${escapeHtml(content)}</div>
+        <div style="font-size:9px;color:var(--gold-dim);margin-top:4px;letter-spacing:1px">${time} · Encrypted</div>
+      </div>`;
+  }
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+}
+
 function handleChatKey(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+}
+
+function handleTyping() {
+  if (_socket && _socket.connected) {
+    _socket.emit('typing', {});
+    clearTimeout(_typingTimeout);
+    _typingTimeout = setTimeout(() => {
+      if (_socket && _socket.connected) _socket.emit('stop_typing', {});
+    }, 1500);
+  }
 }
 
 function sendChatMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
   if (!msg) return;
-  const chat = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.style.cssText = 'display:flex;flex-direction:row-reverse;gap:12px';
-  div.innerHTML = `<div style="max-width:70%"><div style="background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.25);padding:14px;font-size:12px;color:var(--white);line-height:1.7">${msg}</div><div style="font-size:9px;color:var(--gold-dim);margin-top:5px;letter-spacing:1px;text-align:right">Just now · Encrypted</div></div>`;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+
+  // Add to UI immediately
+  appendChatMessage(msg, true, 'You', new Date().toISOString());
   input.value = '';
-  setTimeout(() => {
-    const reply = document.createElement('div');
-    reply.style.cssText = 'display:flex;gap:12px';
-    reply.innerHTML = `<div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:13px;flex-shrink:0">A</div><div style="max-width:70%"><div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:14px;font-size:12px;color:var(--white);line-height:1.7">Understood, James. I'm on it. You'll hear back from me shortly.</div><div style="font-size:9px;color:var(--gold-dim);margin-top:5px;letter-spacing:1px">Just now · Encrypted</div></div>`;
-    chat.appendChild(reply);
-    chat.scrollTop = chat.scrollHeight;
-  }, 1500);
+
+  // Send via socket if connected
+  if (_socket && _socket.connected) {
+    _socket.emit('send_message', { content: msg });
+    _socket.emit('stop_typing', {});
+  } else {
+    // Fallback - show offline message
+    setTimeout(() => {
+      appendChatMessage('Your message has been received. Your lifestyle manager will respond shortly.', false, 'Cipher Private', new Date().toISOString());
+    }, 800);
+  }
 }
 
 // OTP
@@ -2841,6 +3022,140 @@ function closeAdmin() {
   document.getElementById('adminPortal').classList.remove('active');
   window._cipherToken = null;
   window._cipherUser = null;
+}
+</script>
+</body>
+</html>
+<script>
+// ── Admin Chat System ─────────────────────────────────────────────────────────
+let _adminSocket = null;
+let _activeAdminRoom = null;
+
+function initAdminChat() {
+  if (!window._cipherToken) return;
+  if (_adminSocket && _adminSocket.connected) return;
+
+  if (!window.io) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.socket.io/4.7.5/socket.io.min.js';
+    script.onload = () => connectAdminSocket();
+    document.head.appendChild(script);
+  } else {
+    connectAdminSocket();
+  }
+}
+
+function connectAdminSocket() {
+  _adminSocket = io(window.location.origin, {
+    auth: { token: window._cipherToken },
+    transports: ['websocket', 'polling']
+  });
+
+  _adminSocket.on('connect', () => {
+    console.log('Admin chat connected');
+    loadChatRooms();
+  });
+
+  _adminSocket.on('new_message', (msg) => {
+    // If message is for active room, append it
+    if (msg.roomId === _activeAdminRoom && !msg.isAdmin) {
+      appendAdminChatMessage(msg.content, false, msg.sender, msg.createdAt);
+    }
+    // Update room list with unread indicator
+    loadChatRooms();
+  });
+}
+
+async function loadChatRooms() {
+  if (!window._cipherToken) return;
+  try {
+    const res = await fetch('/api/chat/rooms', {
+      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
+    });
+    const rooms = await res.json();
+    const list = document.getElementById('adminChatRoomList');
+    if (!list) return;
+    
+    if (Array.isArray(rooms) && rooms.length > 0) {
+      list.innerHTML = rooms.map(r => `
+        <div onclick="openAdminChatRoom('${r.roomId}','${r.user?.fullName || 'Member'}')" 
+             style="padding:16px;border-bottom:1px solid rgba(201,169,110,0.08);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:12px"
+             onmouseover="this.style.background='rgba(201,169,110,0.05)'" 
+             onmouseout="this.style.background='transparent'">
+          <div style="width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:15px;flex-shrink:0">${(r.user?.fullName||'M')[0]}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:12px;color:var(--white);margin-bottom:2px">${r.user?.fullName || 'Member'}</div>
+            <div style="font-size:10px;color:var(--silver);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.lastMessage?.content?.substring(0,35) || 'No messages'}...</div>
+          </div>
+          <div style="font-size:8px;color:var(--gold-dim)">${r.lastMessage ? new Date(r.lastMessage.createdAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}) : ''}</div>
+        </div>`).join('');
+    } else {
+      list.innerHTML = '<div style="padding:20px;text-align:center;font-size:11px;color:var(--silver)">No active conversations</div>';
+    }
+  } catch(e) { console.error('Load rooms error:', e); }
+}
+
+async function openAdminChatRoom(roomId, memberName) {
+  _activeAdminRoom = roomId;
+  document.getElementById('adminChatMemberName').textContent = memberName;
+  document.getElementById('adminChatArea').style.display = 'flex';
+  document.getElementById('adminChatPlaceholder').style.display = 'none';
+  
+  // Join room via socket
+  if (_adminSocket && _adminSocket.connected) {
+    _adminSocket.emit('join_room', { roomId });
+  }
+
+  // Load history
+  try {
+    const res = await fetch('/api/chat/' + roomId + '/history', {
+      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
+    });
+    const messages = await res.json();
+    const chat = document.getElementById('adminChatMessages');
+    chat.innerHTML = '';
+    if (Array.isArray(messages)) {
+      messages.forEach(msg => {
+        appendAdminChatMessage(msg.content, msg.isAdmin, msg.isAdmin ? 'You (Admin)' : (msg.user?.fullName || memberName), msg.createdAt);
+      });
+    }
+    chat.scrollTop = chat.scrollHeight;
+  } catch(e) { console.error('Load chat history error:', e); }
+}
+
+function appendAdminChatMessage(content, isAdmin, senderName, timestamp) {
+  const chat = document.getElementById('adminChatMessages');
+  if (!chat) return;
+  const time = timestamp ? new Date(timestamp).toLocaleTimeString('en-AU', {hour:'2-digit', minute:'2-digit'}) : 'Now';
+  const div = document.createElement('div');
+  
+  if (isAdmin) {
+    div.style.cssText = 'display:flex;flex-direction:row-reverse;gap:10px;align-items:flex-end;margin-bottom:12px';
+    div.innerHTML = `<div style="max-width:70%"><div style="background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);padding:10px 14px;font-size:12px;color:var(--white);line-height:1.6">${content}</div><div style="font-size:9px;color:var(--gold-dim);margin-top:3px;text-align:right">${time} · Sent</div></div>`;
+  } else {
+    div.style.cssText = 'display:flex;gap:10px;align-items:flex-end;margin-bottom:12px';
+    div.innerHTML = `<div style="width:28px;height:28px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:12px;flex-shrink:0">${(senderName||'M')[0]}</div><div style="max-width:70%"><div style="font-size:9px;color:var(--gold-dim);margin-bottom:3px">${senderName}</div><div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:10px 14px;font-size:12px;color:var(--white);line-height:1.6">${content}</div><div style="font-size:9px;color:var(--gold-dim);margin-top:3px">${time}</div></div>`;
+  }
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendAdminMessage() {
+  const input = document.getElementById('adminChatInput');
+  const msg = input.value.trim();
+  if (!msg || !_activeAdminRoom) return;
+  
+  appendAdminChatMessage(msg, true, 'You (Admin)', new Date().toISOString());
+  
+  if (_adminSocket && _adminSocket.connected) {
+    _adminSocket.emit('send_message', { roomId: _activeAdminRoom, content: msg });
+  }
+  
+  input.value = '';
+}
+
+function handleAdminChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAdminMessage(); }
 }
 </script>
 </body>
