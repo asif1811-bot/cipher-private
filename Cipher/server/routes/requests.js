@@ -4,47 +4,36 @@ const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const { authenticate } = require('../middleware/auth');
 const { apiLimiter } = require('../middleware/rateLimiter');
-const { sendRequestConfirmationEmail } = require('../utils/email');
+const { sendRequestConfirmationEmail, sendRequestStatusEmail } = require('../utils/email');
 const logger = require('../utils/logger');
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// All routes require authentication
 router.use(authenticate);
 router.use(apiLimiter);
 
-// ── GET /api/requests ────────────────────────────────────────────────────────
-// Members see their own; admins see all
+// GET all requests
 router.get('/', async (req, res) => {
   try {
     const where = req.user.role === 'MEMBER' ? { userId: req.user.id } : {};
     const requests = await prisma.request.findMany({
       where,
       orderBy: { createdAt: 'desc' },
-      include: {
-        user: { select: { fullName: true, email: true, memberTier: true } },
-      },
+      include: { user: { select: { fullName: true, email: true, memberTier: true } } },
     });
     res.json(requests);
   } catch (err) {
-    logger.error('Get requests error', { error: err.message });
     res.status(500).json({ error: 'Failed to retrieve requests' });
   }
 });
 
-// ── POST /api/requests ───────────────────────────────────────────────────────
+// POST create request
 router.post('/', async (req, res) => {
   try {
     const { description, category, priority } = req.body;
-
-    if (!description || !category) {
-      return res.status(400).json({ error: 'Description and category are required' });
-    }
-
+    if (!description || !category) return res.status(400).json({ error: 'Description and category are required' });
     const validPriorities = ['STANDARD', 'URGENT', 'CRITICAL'];
-    const validCategories = ['Travel & Aviation', 'Dining & Events', 'Property & Estates', 'Medical', 'Art & Acquisition', 'Security', 'Family Office', 'Other'];
-
     const request = await prisma.request.create({
       data: {
         userId: req.user.id,
@@ -55,12 +44,9 @@ router.post('/', async (req, res) => {
         status: 'RECEIVED',
       },
     });
-
-    // Send confirmation email (non-blocking)
     sendRequestConfirmationEmail(req.user, request).catch(err =>
-      logger.error('Failed to send request confirmation email', { error: err.message })
+      logger.error('Request confirmation email failed', { error: err.message })
     );
-
     logger.info(`New request from ${req.user.email}: ${request.id}`);
     res.status(201).json(request);
   } catch (err) {
@@ -69,19 +55,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ── PATCH /api/requests/:id/status (admin only) ──────────────────────────────
+// PATCH update status (admin only)
 router.patch('/:id/status', async (req, res) => {
   try {
-    if (req.user.role === 'MEMBER') {
-      return res.status(403).json({ error: 'Admin access required' });
-    }
-
+    if (req.user.role === 'MEMBER') return res.status(403).json({ error: 'Admin access required' });
     const { status, adminNote } = req.body;
     const validStatuses = ['RECEIVED', 'IN_PROGRESS', 'AWAITING_MEMBER', 'COMPLETED', 'CANCELLED'];
-
-    if (!validStatuses.includes(status)) {
-      return res.status(400).json({ error: 'Invalid status' });
-    }
+    if (!validStatuses.includes(status)) return res.status(400).json({ error: 'Invalid status' });
 
     const request = await prisma.request.update({
       where: { id: req.params.id },
@@ -89,28 +69,28 @@ router.patch('/:id/status', async (req, res) => {
       include: { user: true },
     });
 
+    // Email member about status change
+    if (['IN_PROGRESS', 'COMPLETED', 'AWAITING_MEMBER', 'CANCELLED'].includes(status)) {
+      sendRequestStatusEmail(request.user, request, status).catch(err =>
+        logger.error('Status email failed', { error: err.message })
+      );
+    }
+
     res.json(request);
   } catch (err) {
-    logger.error('Update request error', { error: err.message });
     res.status(500).json({ error: 'Failed to update request' });
   }
 });
 
-// ── GET /api/requests/:id ────────────────────────────────────────────────────
+// GET single request
 router.get('/:id', async (req, res) => {
   try {
     const request = await prisma.request.findUnique({
       where: { id: req.params.id },
       include: { user: { select: { fullName: true, email: true, memberTier: true } } },
     });
-
     if (!request) return res.status(404).json({ error: 'Request not found' });
-
-    // Members can only view their own requests
-    if (req.user.role === 'MEMBER' && request.userId !== req.user.id) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
-
+    if (req.user.role === 'MEMBER' && request.userId !== req.user.id) return res.status(403).json({ error: 'Access denied' });
     res.json(request);
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve request' });
