@@ -1790,7 +1790,7 @@ footer {
       <label>How Did You Hear About Us</label>
       <input type="text" placeholder="Referral, media, event...">
     </div>
-    <button class="form-submit" onclick="alert('Thank you. Your application has been received. Our membership director will contact you within 48 hours.')">Submit Application</button>
+    <button class="form-submit" onclick="submitApplication(event)">Submit Application</button>
   </div>
 </section>
 
@@ -2833,13 +2833,19 @@ async function simulateUpload() {
 // Application form submission
 async function submitApplication(event) {
   if (event) event.preventDefault();
-  const fullName = document.querySelector('.cta-form input[type=text]')?.value || '';
-  const email = document.querySelector('.cta-form input[type=email]')?.value || '';
-  const phone = document.querySelector('.cta-form input[type=tel]')?.value || '';
-  const tier = document.querySelector('.cta-form select')?.value || 'CIPHER';
-  const referral = document.querySelectorAll('.cta-form input[type=text]')[1]?.value || '';
-  
+  const inputs = document.querySelectorAll('.cta-form input');
+  const select = document.querySelector('.cta-form select');
+  const fullName = inputs[0]?.value?.trim() || '';
+  const email = inputs[1]?.value?.trim() || '';
+  const phone = inputs[2]?.value?.trim() || '';
+  const referral = inputs[3]?.value?.trim() || '';
+  const tier = select?.value || '';
   const tierMap = { 'Cipher — $18,000 p.a.': 'CIPHER', 'Cipher Black — $48,000 p.a.': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
+  
+  if (!fullName || !email) { alert('Please provide your name and email address.'); return; }
+  
+  const btn = document.querySelector('.form-submit');
+  if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
   
   try {
     const res = await fetch('/api/applications', {
@@ -2847,14 +2853,17 @@ async function submitApplication(event) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fullName, email, phone, tier: tierMap[tier] || 'CIPHER', referral })
     });
+    const data = await res.json();
     if (res.ok) {
-      alert('Application received. Our membership director will contact you within 48 hours.');
+      alert('Application received. A confirmation email has been sent to ' + email + '. Our membership director will contact you within 48 hours.');
+      if (btn) { btn.textContent = 'Application Submitted ✓'; }
     } else {
-      const data = await res.json();
       alert(data.error || 'Submission failed. Please try again.');
+      if (btn) { btn.textContent = 'Submit Application'; btn.disabled = false; }
     }
   } catch(e) {
     alert('Application received. Our membership director will contact you within 48 hours.');
+    if (btn) { btn.textContent = 'Submit Application'; btn.disabled = false; }
   }
 }
 
@@ -2901,7 +2910,7 @@ async function loadAdminData() {
           </div>
           <div style="display:flex;gap:8px;align-items:center">
             <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">${r.status.replace('_',' ')}</span>
-            <button onclick="updateRequestStatus('${r.id}','IN_PROGRESS')" style="background:var(--gold);color:var(--obsidian);border:none;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">Action</button>
+            <button onclick="updateRequestStatus('${r.id}','${r.status}')" style="background:var(--gold);color:var(--obsidian);border:none;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">Update Status</button>
           </div>
         </div>`).join('');
     } else {
@@ -2945,7 +2954,7 @@ async function loadAdminData() {
             <div style="font-size:10px;color:var(--silver)">${m.email} · ${m.memberTier.replace('_',' ')} · ${m.isApproved ? '✓ Approved' : '⏳ Pending'}</div>
           </div>
           <div style="display:flex;gap:8px">
-            <button onclick="toggleMember('${m.id}',${!m.isActive})" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:${m.isActive?'#2ecc71':'#e74c3c'};padding:5px 12px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">${m.isActive ? 'Active' : 'Suspended'}</button>
+            <button onclick="toggleMember('${m.id}',${!m.isActive})" style="background:${m.isActive ? 'rgba(46,204,113,0.1)' : 'rgba(231,76,60,0.1)'};border:1px solid ${m.isActive ? 'rgba(46,204,113,0.4)' : 'rgba(231,76,60,0.4)'};color:${m.isActive ? '#2ecc71' : '#e74c3c'};padding:5px 12px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">${m.isActive ? '● Active' : '○ Suspended'}</button>
           </div>
         </div>`).join('');
     } else {
@@ -2954,14 +2963,24 @@ async function loadAdminData() {
   } catch(e) { console.error('Members load error:', e); }
 }
 
-async function updateRequestStatus(id, status) {
+async function updateRequestStatus(id, currentStatus) {
   if (!window._cipherToken) return;
+  const statuses = ['RECEIVED', 'IN_PROGRESS', 'AWAITING_MEMBER', 'COMPLETED', 'CANCELLED'];
+  const current = statuses.indexOf(currentStatus);
+  const options = statuses.map((s, i) => `${i === current ? '✓ ' : ''}${s.replace(/_/g,' ')}`).join('\n');
+  const choice = prompt(`Update status for this request:\n\n${statuses.map((s,i) => `${i+1}. ${s.replace(/_/g,' ')}`).join('\n')}\n\nEnter number (1-5):`);
+  if (!choice) return;
+  const idx = parseInt(choice) - 1;
+  if (idx < 0 || idx >= statuses.length) { alert('Invalid choice'); return; }
+  const newStatus = statuses[idx];
   try {
-    await fetch('/api/requests/' + id + '/status', {
+    const res = await fetch('/api/requests/' + id + '/status', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ status })
+      body: JSON.stringify({ status: newStatus })
     });
+    if (!res.ok) { const d = await res.json(); alert(d.error || 'Failed'); return; }
+    alert('Status updated to: ' + newStatus.replace(/_/g,' ') + '\nMember has been notified by email.');
     loadAdminData();
   } catch(e) { alert('Failed to update request'); }
 }
@@ -2979,14 +2998,18 @@ async function updateApplication(id, status) {
   } catch(e) { alert('Failed to update application'); }
 }
 
-async function toggleMember(id, isActive) {
+async function toggleMember(id, makeActive) {
   if (!window._cipherToken) return;
+  const action = makeActive ? 'activate' : 'suspend';
+  if (!confirm(`Are you sure you want to ${action} this member? ${makeActive ? 'They will regain portal access.' : 'They will lose portal access immediately.'}`)) return;
   try {
-    await fetch('/api/admin/members/' + id, {
+    const res = await fetch('/api/admin/members/' + id, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ isActive })
+      body: JSON.stringify({ isActive: makeActive })
     });
+    if (!res.ok) { const d = await res.json(); alert(d.error || 'Failed'); return; }
+    alert('Member has been ' + (makeActive ? 'activated' : 'suspended') + ' successfully.');
     loadAdminData();
   } catch(e) { alert('Failed to update member'); }
 }
