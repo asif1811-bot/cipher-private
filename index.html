@@ -1538,8 +1538,7 @@ footer {
     <div class="plan-card">
       <div class="plan-tier">Tier I</div>
       <div class="plan-name">Cipher</div>
-      <div class="plan-price">$18,000</div>
-      <div class="plan-price-note">AUD per annum + GST</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">By Application</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li><span class="feature-check">◆</span>Dedicated lifestyle manager (business hours)</li>
@@ -1559,8 +1558,7 @@ footer {
       <div class="plan-featured-tag">Most Selected</div>
       <div class="plan-tier">Tier II</div>
       <div class="plan-name">Cipher Black</div>
-      <div class="plan-price">$48,000</div>
-      <div class="plan-price-note">AUD per annum + GST</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">By Application</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li><span class="feature-check">◆</span>Dedicated lifestyle manager (24/7 priority)</li>
@@ -1581,8 +1579,7 @@ footer {
     <div class="plan-card">
       <div class="plan-tier">Tier III</div>
       <div class="plan-name">Cipher Sovereign</div>
-      <div class="plan-price">Bespoke</div>
-      <div class="plan-price-note">Tailored to your world</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">Bespoke</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li><span class="feature-check">◆</span>Senior director as personal point of contact</li>
@@ -1600,7 +1597,7 @@ footer {
   </div>
 
   <div class="membership-note">
-    All memberships include a one-time onboarding fee. Prices are in AUD and subject to GST.<br>
+    
     Cipher Private operates under Australian Privacy Act 1988 and complies with APP Guidelines.<br>
     <strong style="color:var(--gold)">Membership is limited. Applications are reviewed within 5 business days.</strong>
   </div>
@@ -1781,8 +1778,8 @@ footer {
       <label>Preferred Membership Tier</label>
       <select>
         <option value="">Select tier</option>
-        <option>Cipher — $18,000 p.a.</option>
-        <option>Cipher Black — $48,000 p.a.</option>
+        <option>Cipher</option>
+        <option>Cipher Black</option>
         <option>Cipher Sovereign — Bespoke</option>
       </select>
     </div>
@@ -1924,8 +1921,8 @@ footer {
     <div class="form-group">
       <label>Preferred Tier</label>
       <select>
-        <option>Cipher — $18,000 p.a.</option>
-        <option>Cipher Black — $48,000 p.a.</option>
+        <option>Cipher</option>
+        <option>Cipher Black</option>
         <option>Cipher Sovereign — Bespoke</option>
       </select>
     </div>
@@ -1960,7 +1957,7 @@ footer {
       <div style="width:220px;background:var(--obsidian);border-right:1px solid rgba(201,169,110,0.1);padding:24px 0;flex-shrink:0;overflow-y:auto">
         <div style="padding:0 20px 20px;border-bottom:1px solid rgba(201,169,110,0.08);margin-bottom:16px">
           <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:6px">Welcome Back</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white)">James Harrington</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white)" id="portalSidebarName">—</div>
           <div style="font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:3px">Cipher Black</div>
         </div>
         <nav style="padding:0 8px">
@@ -2038,22 +2035,7 @@ footer {
           <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:24px">
             <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Recent Activity</div>
             <div id="activityList">
-              <div class="activity-item" style="display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
-                <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-top:4px;flex-shrink:0"></div>
-                <div>
-                  <div style="font-size:12px;color:var(--white);margin-bottom:3px">Private jet Sydney → Noosa for 4 guests</div>
-                  <div style="font-size:10px;color:var(--silver)">In Progress · Updated 2h ago</div>
-                </div>
-                <div style="margin-left:auto;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">In Progress</div>
-              </div>
-              <div class="activity-item" style="display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
-                <div style="width:8px;height:8px;background:#2ecc71;border-radius:50%;margin-top:4px;flex-shrink:0"></div>
-                <div>
-                  <div style="font-size:12px;color:var(--white);margin-bottom:3px">Dinner for 8 at Quay — reserved and confirmed</div>
-                  <div style="font-size:10px;color:var(--silver)">Completed · April 18</div>
-                </div>
-                <div style="margin-left:auto;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;background:rgba(46,204,113,0.08);padding:3px 10px;border:1px solid rgba(46,204,113,0.2)">Completed</div>
-              </div>
+              <div style="text-align:center;padding:24px;color:var(--silver);font-size:11px;letter-spacing:1px">Loading your requests...</div>
             </div>
           </div>
         </div>
@@ -2062,22 +2044,7 @@ footer {
         <div class="portal-tab" id="tab-requests" style="display:none">
           <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--white);margin-bottom:24px">My Service Requests</h2>
           <div id="requestsList">
-            <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px">
-              <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;flex-shrink:0"></div>
-              <div style="flex:1">
-                <div style="font-size:13px;color:var(--white);margin-bottom:4px">Private jet charter – Sydney to Noosa, 4 guests</div>
-                <div style="font-size:10px;color:var(--silver)">Category: Travel & Aviation · Priority: Urgent · Apr 22, 2025</div>
-              </div>
-              <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:4px 12px;border:1px solid rgba(201,169,110,0.2)">In Progress</div>
-            </div>
-            <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px">
-              <div style="width:10px;height:10px;background:#2ecc71;border-radius:50%;flex-shrink:0"></div>
-              <div style="flex:1">
-                <div style="font-size:13px;color:var(--white);margin-bottom:4px">Michelin dining reservation – Quay Restaurant for 8 guests</div>
-                <div style="font-size:10px;color:var(--silver)">Category: Dining & Events · Priority: Standard · Apr 18, 2025</div>
-              </div>
-              <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;background:rgba(46,204,113,0.08);padding:4px 12px;border:1px solid rgba(46,204,113,0.2)">Completed</div>
-            </div>
+            <div style="text-align:center;padding:32px;color:var(--silver);font-size:11px;letter-spacing:1px">Loading your service requests...</div>
           </div>
         </div>
 
@@ -2162,10 +2129,10 @@ footer {
         <div class="portal-tab" id="tab-profile" style="display:none">
           <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--white);margin-bottom:24px">My Profile</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div class="form-group"><label>Full Name</label><input type="text" value="James Harrington" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
-            <div class="form-group"><label>Email</label><input type="email" value="james@harrington.com.au" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
-            <div class="form-group"><label>Phone</label><input type="tel" value="+61 400 XXX XXX" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
-            <div class="form-group"><label>Membership Tier</label><input type="text" value="Cipher Black" readonly style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.15);color:var(--gold);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
+            <div class="form-group"><label>Full Name</label><input type="text" id="profileName" value="" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="profileEmail" value="" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" id="profilePhone" value="" style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
+            <div class="form-group"><label>Membership Tier</label><input type="text" id="profileTier" value="" readonly style="background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.15);color:var(--gold);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;width:100%"></div>
           </div>
           <button style="margin-top:20px;background:var(--gold);color:var(--obsidian);border:none;padding:12px 32px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;cursor:pointer">Update Profile</button>
         </div>
@@ -2312,8 +2279,8 @@ footer {
     <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
     <div class="form-group"><label>Membership Tier</label>
       <select id="newMemberTier" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-        <option value="CIPHER">Cipher — $18,000 p.a.</option>
-        <option value="CIPHER_BLACK">Cipher Black — $48,000 p.a.</option>
+        <option value="CIPHER">Cipher</option>
+        <option value="CIPHER_BLACK">Cipher Black</option>
         <option value="CIPHER_SOVEREIGN">Cipher Sovereign — Bespoke</option>
       </select>
     </div>
@@ -2688,47 +2655,90 @@ function showArticle(slug) {
 
 // Load real portal data
 async function loadPortalData() {
-  if (!window._cipherToken) return;
+  if (!window._cipherToken || !window._cipherUser) return;
   const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
-  
-  // Update welcome name
-  if (window._cipherUser) {
-    const nameEl = document.querySelector('.portal-tab#tab-dashboard h2');
-    if (nameEl) nameEl.textContent = 'Good morning, ' + window._cipherUser.fullName.split(' ')[0] + '.';
+  const user = window._cipherUser;
+
+  // Update all name/tier references dynamically
+  const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Member';
+  const tierDisplay = (user.memberTier || 'CIPHER').replace(/_/g, ' ');
+
+  // Sidebar name + tier
+  const sidebarName = document.getElementById('portalSidebarName');
+  if (sidebarName) sidebarName.textContent = user.fullName || 'Member';
+  const sidebarTier = document.getElementById('portalTier');
+  if (sidebarTier) sidebarTier.textContent = tierDisplay;
+
+  // Dashboard greeting
+  const greetingEl = document.querySelector('#tab-dashboard h2');
+  if (greetingEl) {
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+    greetingEl.textContent = greeting + ', ' + firstName + '.';
   }
 
-  // Load requests
+  // Profile tab
+  const pName = document.getElementById('profileName');
+  const pEmail = document.getElementById('profileEmail');
+  const pPhone = document.getElementById('profilePhone');
+  const pTier = document.getElementById('profileTier');
+  if (pName) pName.value = user.fullName || '';
+  if (pEmail) pEmail.value = user.email || '';
+  if (pPhone) pPhone.value = user.phone || '';
+  if (pTier) pTier.value = tierDisplay;
+
+  // Load requests for dashboard activity
   try {
     const res = await fetch('/api/requests', { headers });
     const requests = await res.json();
-    if (Array.isArray(requests)) {
-      const list = document.getElementById('activityList');
-      if (list && requests.length > 0) {
-        list.innerHTML = requests.slice(0,5).map(r => `
-          <div style="display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
-            <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-top:4px;flex-shrink:0"></div>
-            <div><div style="font-size:12px;color:var(--white);margin-bottom:3px">${r.description.substring(0,80)}${r.description.length>80?'...':''}</div>
-            <div style="font-size:10px;color:var(--silver)">${r.category} · ${r.priority} · ${new Date(r.createdAt).toLocaleDateString()}</div></div>
-            <div style="margin-left:auto;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">${r.status.replace('_',' ')}</div>
-          </div>`).join('');
-      }
+    const list = document.getElementById('activityList');
+    const reqList = document.getElementById('requestsList');
+    
+    if (Array.isArray(requests) && requests.length > 0) {
+      const statusColor = { RECEIVED: 'var(--gold)', IN_PROGRESS: '#e67e22', AWAITING_MEMBER: '#3498db', COMPLETED: '#2ecc71', CANCELLED: '#e74c3c' };
+      const reqHtml = requests.map(r => `
+        <div style="display:flex;align-items:center;gap:16px;padding:16px;background:var(--charcoal);border:1px solid rgba(201,169,110,0.08);margin-bottom:8px">
+          <div style="width:10px;height:10px;background:${statusColor[r.status]||'var(--gold)'};border-radius:50%;flex-shrink:0"></div>
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--white);margin-bottom:3px">${r.description.substring(0,80)}${r.description.length>80?'...':''}</div>
+            <div style="font-size:10px;color:var(--silver)">Category: ${r.category} · Priority: ${r.priority} · ${new Date(r.createdAt).toLocaleDateString('en-AU')}</div>
+          </div>
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:${statusColor[r.status]||'var(--gold)'};border:1px solid currentColor;padding:3px 10px;white-space:nowrap">${r.status.replace(/_/g,' ')}</div>
+        </div>`).join('');
+      
+      if (list) list.innerHTML = reqHtml;
+      if (reqList) reqList.innerHTML = reqHtml;
+
+      // Update stats
+      const activeCount = requests.filter(r => !['COMPLETED','CANCELLED'].includes(r.status)).length;
+      const activeEl = document.querySelector('#tab-dashboard .stat-num');
+      if (activeEl) activeEl.textContent = activeCount;
+    } else {
+      const empty = '<div style="text-align:center;padding:32px;color:var(--silver);font-size:11px">No requests yet. Submit your first request below.</div>';
+      if (list) list.innerHTML = empty;
+      if (reqList) reqList.innerHTML = empty;
     }
   } catch(e) { console.log('Could not load requests', e); }
 
-  // Load documents
+  // Load documents for vault
   try {
     const res = await fetch('/api/documents', { headers });
     const docs = await res.json();
-    if (Array.isArray(docs) && docs.length > 0) {
-      const vault = document.getElementById('vaultDocs');
-      if (vault) {
+    const vault = document.getElementById('vaultDocs');
+    if (vault) {
+      if (Array.isArray(docs) && docs.length > 0) {
         vault.innerHTML = docs.map(d => `
           <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="1" width="14" height="18" rx="1" stroke="#c9a96e" stroke-width="0.8"/><path d="M7 6H13M7 10H13M7 14H10" stroke="#c9a96e" stroke-width="0.6"/></svg>
-            <div style="flex:1"><div style="font-size:12px;color:var(--white)">${d.originalName}</div>
-            <div style="font-size:9px;color:var(--silver)">AES-256 Encrypted · ${(d.sizeBytes/1024).toFixed(0)} KB · ${new Date(d.createdAt).toLocaleDateString()}</div></div>
+            <div style="flex:1">
+              <div style="font-size:12px;color:var(--white)">${d.originalName}</div>
+              <div style="font-size:9px;color:var(--silver)">AES-256 Encrypted · ${(d.sizeBytes/1024).toFixed(0)} KB · ${new Date(d.createdAt).toLocaleDateString('en-AU')}</div>
+            </div>
             <button onclick="showOTPSend('${d.id}','${d.originalName}')" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Share via OTP</button>
+            <a href="/api/documents/${d.id}/download" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--silver);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;text-decoration:none" download="${d.originalName}">Download</a>
           </div>`).join('');
+      } else {
+        vault.innerHTML = '<div style="text-align:center;padding:24px;color:var(--silver);font-size:11px">No documents uploaded yet. Upload your first document above.</div>';
       }
     }
   } catch(e) { console.log('Could not load documents', e); }
@@ -2775,29 +2785,45 @@ async function submitRequest() {
 // Real OTP send with document ID
 async function showOTPSend(docId, filename) {
   window._currentDocId = docId;
-  document.getElementById('otpDocName').textContent = filename || docId;
+  window._currentDocName = filename;
+  document.getElementById('otpDocName').textContent = filename || 'Selected Document';
+  document.getElementById('otpEmail').value = '';
   document.getElementById('otpModal').classList.add('active');
 }
 
 async function sendOTP() {
-  const email = document.getElementById('otpEmail').value;
-  if (!email) { alert('Please enter a recipient email.'); return; }
+  const email = document.getElementById('otpEmail').value.trim();
+  if (!email) { alert('Please enter a recipient email address.'); return; }
+  if (!email.includes('@')) { alert('Please enter a valid email address.'); return; }
   if (!window._currentDocId) { alert('No document selected.'); return; }
   if (!window._cipherToken) { alert('Please log in first.'); return; }
+  
+  const btn = document.querySelector('#otpModal .form-submit');
+  if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+  
   try {
+    const expirySelect = document.querySelector('#otpModal select');
+    const expiryMap = { '24 hours': 24, '48 hours': 48, '7 days': 168, 'One-time access only': 1 };
+    const expiryHours = expiryMap[expirySelect?.value] || 24;
+    
     const res = await fetch('/api/otp/send', {
       method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+window._cipherToken },
-      body: JSON.stringify({ documentId: window._currentDocId, recipientEmail: email, expiryHours: 24 })
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({ documentId: window._currentDocId, recipientEmail: email, expiryHours })
     });
     const data = await res.json();
-    closeModal('otp');
+    
     if (res.ok) {
-      alert('Secure link + OTP sent to ' + email + '.\n\nAll access is logged and auditable.');
+      closeModal('otp');
+      alert('✓ Secure OTP sent to ' + email + '\n\nThe recipient will receive an email with a 6-digit one-time code and encrypted access link.\n\nAll access is logged and auditable.');
     } else {
-      alert(data.error || 'Failed to send OTP');
+      alert('Failed to send OTP: ' + (data.error || 'Unknown error'));
     }
-  } catch(e) { alert('Connection error.'); }
+  } catch(e) {
+    alert('Connection error. Please check your internet connection and try again.');
+  } finally {
+    if (btn) { btn.textContent = 'Generate & Send OTP Link'; btn.disabled = false; }
+  }
 }
 
 // Real file upload
@@ -2840,7 +2866,7 @@ async function submitApplication(event) {
   const phone = inputs[2]?.value?.trim() || '';
   const referral = inputs[3]?.value?.trim() || '';
   const tier = select?.value || '';
-  const tierMap = { 'Cipher — $18,000 p.a.': 'CIPHER', 'Cipher Black — $48,000 p.a.': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
+  const tierMap = { 'Cipher': 'CIPHER', 'Cipher Black': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
   
   if (!fullName || !email) { alert('Please provide your name and email address.'); return; }
   
