@@ -41,8 +41,8 @@
   --gold: #c9a96e;
   --gold-light: #e8d5a3;
   --gold-dim: #8a6f3e;
-  --platinum: #e8e8e8;
-  --silver: #a8a8a8;
+  --platinum: #e8d5a3;
+  --silver: #aaaaaa;
   --white: #f5f3ef;
   --cream: #faf8f4;
   --accent: #c9a96e;
@@ -185,7 +185,7 @@ nav.scrolled {
 
 .btn-gold {
   background: var(--gold);
-  color: var(--obsidian);
+  color: #111111;
   border: 1px solid var(--gold);
   padding: 10px 24px;
   font-size: 9px;
@@ -658,7 +658,7 @@ nav.scrolled {
   top: -1px; left: 50%;
   transform: translateX(-50%);
   background: var(--gold);
-  color: var(--obsidian);
+  color: #111111;
   font-size: 7px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -745,7 +745,7 @@ nav.scrolled {
 
 .plan-btn:hover, .plan-card.featured .plan-btn {
   background: var(--gold);
-  color: var(--obsidian);
+  color: #111111;
   border-color: var(--gold);
 }
 
@@ -1061,7 +1061,7 @@ nav.scrolled {
 .form-submit {
   width: 100%;
   background: var(--gold);
-  color: var(--obsidian);
+  color: #111111;
   border: none;
   padding: 16px;
   font-family: 'Montserrat', sans-serif;
@@ -1354,7 +1354,7 @@ footer {
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="eyebrow-line"></div>
-      <span class="eyebrow-text">Australia's Most Exclusive Concierge</span>
+      <span class="eyebrow-text">By Referral Only · Australia · Est. 2024</span>
     </div>
 
     <h1 class="hero-headline">
@@ -1366,11 +1366,11 @@ footer {
     <p class="hero-slogan">This is how the world's most private people live.</p>
 
     <p class="hero-desc">
-      Cipher Private is Australia's most exclusive concierge and lifestyle management firm — by invitation only. We serve ultra-high-net-worth individuals who demand absolute discretion, uncompromising security, and effortless precision.
+      Cipher Private is Australia's most exclusive lifestyle management firm. We serve a permanent maximum of 50 members — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
     </p>
 
     <div class="hero-actions">
-      <a href="#membership" class="btn-primary">Explore Membership</a>
+      <a href="#membership" class="btn-primary">Request an Introduction</a>
       <a href="#services" class="btn-ghost">
         Discover Our Services 
         <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M0 4H14M14 4L10 1M14 4L10 7" stroke="#a8a8a8" stroke-width="0.8"/></svg>
@@ -1419,6 +1419,57 @@ footer {
   </div>
 </div>
 
+<!-- Cinematic Image Strip -->
+<section style="display:grid;grid-template-columns:2fr 1fr 1fr;height:480px;gap:2px;background:var(--obsidian)">
+  <div style="position:relative;overflow:hidden">
+    <img src="https://images.unsplash.com/photo-1540541338537-1220059f4c0b?w=1200&q=85&auto=format" 
+         alt="Private Aviation" 
+         style="width:100%;height:100%;object-fit:cover;filter:brightness(0.75);transition:transform 0.8s ease"
+         onmouseover="this.style.transform='scale(1.03)'" 
+         onmouseout="this.style.transform='scale(1)'">
+    <div style="position:absolute;bottom:28px;left:28px">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:6px">Private Aviation</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#f4f4f4;font-weight:300">Sydney to anywhere.<br>Without compromise.</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:2px">
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85&auto=format"
+           alt="Private Dining"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Private Dining</div>
+    </div>
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=85&auto=format"
+           alt="Estate Management"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Estate Management</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:2px">
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=85&auto=format"
+           alt="Document Security"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Cipher Vault</div>
+    </div>
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=85&auto=format"
+           alt="Medical Concierge"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Medical Concierge</div>
+    </div>
+  </div>
+</section>
+
 <!-- Philosophy -->
 <section id="philosophy">
   <div class="section">
@@ -1430,26 +1481,26 @@ footer {
           <span class="section-tag">Our Philosophy</span>
         </div>
         <h2 class="section-title">The Art of<br><span class="gold">Invisible Excellence</span></h2>
-        <p>Cipher Private was founded on a singular belief: true luxury is not about extravagance — it is about absolute freedom. Freedom from complexity, from inefficiency, and from compromise.</p>
-        <p>We serve a distinguished clientele who demand more than a service. They demand a partner — one who anticipates, protects, and executes with the same meticulous care they apply to their own endeavours.</p>
-        <p>Based in Australia, held to the highest standards of privacy legislation, and committed to a relationship of complete trust, Cipher Private exists for those who understand that time is the only truly finite resource.</p>
+        <p>Cipher Private was founded on a conviction that most concierge services have missed entirely: that genuine luxury means being truly known. Not managed — known.</p>
+        <p>We limit our membership to 50 individuals permanently. Every member is assigned one dedicated lifestyle director — not a team, not a rotating manager — one person who attends your events, remembers your preferences, and treats your affairs with the same gravity you do.</p>
+        <p>We are Australian-founded, Australian-sovereign, and Australian-law protected. For clients who value discretion above all else, jurisdiction is not a detail — it is a foundation.</p>
       </div>
       <div class="philosophy-stats">
         <div class="stat-card">
-          <div class="stat-num">24<span style="font-size:28px">/7</span></div>
-          <div class="stat-label">Always Available</div>
+          <div class="stat-num">50</div>
+          <div class="stat-label">Maximum Members. Ever.</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Discretion Guaranteed</div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Director. For Life.</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">3min</div>
-          <div class="stat-label">Average Response</div>
+          <div class="stat-num">&lt;3min</div>
+          <div class="stat-label">Guaranteed Response</div>
         </div>
         <div class="stat-card">
           <div class="stat-num">AUS</div>
-          <div class="stat-label">Privacy Compliant</div>
+          <div class="stat-label">Sovereign Data. Always.</div>
         </div>
       </div>
     </div>
@@ -1527,10 +1578,24 @@ footer {
     <div class="section-eyebrow" style="justify-content:center">
       <span class="section-num">03</span>
       <div class="section-line"></div>
-      <span class="section-tag">Membership Tiers</span>
+      <span class="section-tag">Membership · By Referral Only</span>
     </div>
-    <h2 class="section-title">Choose Your<br><span class="gold">Level of Access</span></h2>
-    <p style="max-width:600px;margin:0 auto;font-size:13px;color:var(--silver);line-height:2">Membership to Cipher Private is by application and limited in number. Each tier is designed to deliver maximum value for your specific lifestyle requirements.</p>
+    <h2 class="section-title">Three Tiers.<br><span class="gold">Fifty Members. Total.</span></h2>
+    <p style="max-width:600px;margin:0 auto;font-size:13px;color:var(--silver);line-height:2">Cipher Private permanently limits membership to 50 individuals across Australia. New members require a formal introduction from an existing member. Each application is reviewed personally by our founding director.</p>
+  </div>
+
+  <!-- Scarcity indicator -->
+  <div style="text-align:center;margin-bottom:48px" class="reveal">
+    <div style="display:inline-flex;align-items:center;gap:20px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.15);padding:16px 40px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;background:#c9a96e;border-radius:50%;animation:pulse 2s infinite"></div>
+        <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Membership Status</span>
+      </div>
+      <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Currently Accepting Introductions</span>
+      <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">3 Places Remaining</span>
+    </div>
   </div>
 
   <div class="membership-grid reveal">
@@ -1550,7 +1615,7 @@ footer {
         <li><span class="feature-check">◆</span>Annual lifestyle review</li>
         <li><span class="feature-check">◆</span>Cipher Journal (quarterly)</li>
       </ul>
-      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Apply for Access</a>
+      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Request an Introduction</a>
     </div>
 
     <!-- Tier 2 – Featured -->
@@ -1572,7 +1637,7 @@ footer {
         <li><span class="feature-check">◆</span>Security consultation (annual)</li>
         <li><span class="feature-check">◆</span>Priority boarding — no waitlists</li>
       </ul>
-      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Apply for Access</a>
+      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Request an Introduction</a>
     </div>
 
     <!-- Tier 3 -->
@@ -1611,9 +1676,9 @@ footer {
         <div class="section-eyebrow">
           <span class="section-num">04</span>
           <div class="section-line"></div>
-          <span class="section-tag">Cipher Journal</span>
+          <span class="section-tag">Quarterly Intelligence</span>
         </div>
-        <h2 class="section-title">The Art of<br><span class="gold">Living Well</span></h2>
+        <h2 class="section-title">Cipher<br><span class="gold">Intelligence</span></h2>
       </div>
       <a href="#journal" class="btn-outline" style="align-self:flex-end">View All Articles</a>
     </div>
@@ -1621,12 +1686,12 @@ footer {
     <div class="blog-grid reveal">
       <a href="#" class="blog-card" onclick="showArticle('private-aviation'); return false;">
         <div style="width:100%;aspect-ratio:16/10;overflow:hidden;position:relative">
-          <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&q=80" alt="Private Aviation" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7)">
+          <img src="https://images.unsplash.com/1540541338537-1220059f4c0b?w=800&q=80" alt="Private Aviation" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7)">
           <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.6))"></div>
         </div>
         <div class="blog-content">
-          <div class="blog-category">Private Aviation</div>
-          <h3 class="blog-title">The New Standard in Ultra-Long-Range Private Aviation: What UHNW Travellers Need to Know in 2025</h3>
+          <div class="blog-category">Intelligence · Private Aviation</div>
+          <h3 class="blog-title">The Ultra-Long-Range Aviation Briefing: Why Sydney-Dubai Non-Stop Changes Everything</h3>
           <p class="blog-excerpt">The global private aviation market has evolved dramatically. From sustainable aviation fuels to the rise of ultra-long-range jets, we explore what discerning travellers are choosing — and why.</p>
           <div class="blog-meta">
             <span>April 2025</span>
@@ -1638,11 +1703,11 @@ footer {
 
       <a href="#" class="blog-card" onclick="showArticle('concierge-security'); return false;">
         <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Privacy Security" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
+          <img src="https://images.unsplash.com/1578662996442-48f60103fc96?w=600&q=80" alt="Privacy Security" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
         </div>
         <div class="blog-content">
-          <div class="blog-category">Privacy & Security</div>
-          <h3 class="blog-title">Why Australia's Privacy Laws Make It the Ideal Home for Your Most Sensitive Affairs</h3>
+          <div class="blog-category">Intelligence · Jurisdiction</div>
+          <h3 class="blog-title">The Jurisdiction Advantage: Why Australia's Privacy Act Outperforms UK and EU Frameworks for UHNW Clients</h3>
           <p class="blog-excerpt">In an era of data breaches, understanding where your data lives matters deeply to the ultra-wealthy.</p>
           <div class="blog-meta">
             <span>March 2025</span>
@@ -1654,11 +1719,11 @@ footer {
 
       <a href="#" class="blog-card" onclick="showArticle('luxury-wellness'); return false;">
         <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
-          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Luxury Wellness" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
+          <img src="https://images.unsplash.com/1559757148-5c350d0d3c56?w=600&q=80" alt="Luxury Wellness" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6)">
         </div>
         <div class="blog-content">
-          <div class="blog-category">Wellness</div>
-          <h3 class="blog-title">The Rise of Longevity Medicine: How the World's Wealthiest Are Approaching Health in 2025</h3>
+          <div class="blog-category">Intelligence · Longevity</div>
+          <h3 class="blog-title">The Longevity Briefing: Precision Medicine, Biological Age Reversal, and What the Most Private Clinics Won't Advertise</h3>
           <p class="blog-excerpt">From biohacking retreats in Switzerland to precision medicine clinics in Singapore, longevity is the new luxury frontier.</p>
           <div class="blog-meta">
             <span>February 2025</span>
@@ -1681,7 +1746,11 @@ footer {
         <span class="section-tag">Security & Privacy</span>
       </div>
       <h2 class="section-title">Your Privacy is<br>Our <span class="gold">Architecture</span></h2>
-      <p style="font-size:13px;color:var(--silver);line-height:2;margin-bottom:40px">Every interaction with Cipher Private is engineered with the security frameworks trusted by the most privacy-conscious institutions in the world. We are not merely compliant — we are exemplary.</p>
+      <p style="font-size:13px;color:var(--silver);line-height:2;margin-bottom:24px">Every interaction with Cipher Private is engineered with the security frameworks trusted by the most privacy-conscious institutions in the world. We are not merely compliant — we are exemplary.</p>
+      <div style="background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:12px">
+        <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0"></div>
+        <span style="font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase">Proudly Australian — Not UK. Not US. Not anywhere else.</span>
+      </div>
 
       <div class="security-features">
         <div class="security-item">
@@ -1737,12 +1806,74 @@ footer {
   </div>
 </section>
 
+<!-- Differentiators Section -->
+<section style="background:var(--deep-black);padding:120px 0;overflow:hidden">
+  <div style="max-width:1400px;margin:0 auto;padding:0 60px">
+    
+    <div class="reveal" style="text-align:center;margin-bottom:80px">
+      <div class="section-eyebrow" style="justify-content:center">
+        <span class="section-num">—</span>
+        <div class="section-line"></div>
+        <span class="section-tag">Why Cipher Private</span>
+      </div>
+      <h2 class="section-title">What No Other<br>Concierge <span class="gold">Can Offer</span></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(201,169,110,0.06)" class="reveal">
+      
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,0.03) 0%,transparent 70%)"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">50</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The 50 Member Rule</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Permanent Membership Cap. No Exceptions.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Quintessentially serves tens of thousands globally. We serve fifty. When we reach capacity, we close. Every member receives undivided attention — not because we say so, but because the mathematics make it impossible to do otherwise.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">1</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">One Director For Life</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Not a Team. Not a Rotation. One Person.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Your lifestyle director is assigned at onboarding and never changes. They attend your events. They know your preferences before you articulate them. They manage your affairs with the same gravity you apply to your own. This is not a service — it is a relationship.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">AU</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Australian Sovereign Data</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Built Under Australian Law. Not London. Not Anywhere Else.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Sincura is UK-headquartered. Quintessentially is a London corporation. Cipher Private is Australian-born, Australian-sovereign, and operates exclusively under the Privacy Act 1988. For clients managing sensitive legal, financial, and personal affairs — jurisdiction is not a detail. It is everything.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">AES</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Military-Grade Security</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">The Only Concierge With an Encrypted Document Vault.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Your passports, NDAs, property titles, medical records, and sensitive correspondence are encrypted at rest using AES-256 — the same standard used by intelligence agencies. Share documents with anyone via one-time OTP. Every access is logged, timestamped, and auditable. No competitor offers this.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">&lt;3</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Response Guarantee</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Under 3 Minutes. In Writing. In Your Agreement.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">We contractually guarantee a response to every request in under 3 minutes, 24 hours a day. If we breach it, you receive a service credit. No other concierge firm in Australia puts their response commitment in a legal document. We do.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">◆</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The Welcome Experience</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">New Members Receive a Physical Cipher Box.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">On approval, a hand-couriered obsidian box arrives at your address — sealed with a Cipher wax mark, containing your welcome letter, your director's private direct line, and your hardware authentication key. In a digital world, permanence is felt in the physical.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- Testimonial -->
 <div class="testimonial-section">
   <p class="testimonial-quote reveal">
-    "Cipher Private does not just manage my life — they <span class="testimonial-gold">protect it</span>. In fifteen years of using concierge services globally, nothing comes close to the discretion and capability they provide."
+    "I have used Quintessentially and two other firms over twelve years. The difference with Cipher Private is not the service — it is the <span class="testimonial-gold">relationship</span>. My director knows my world. That cannot be manufactured."
   </p>
-  <div class="testimonial-author">— Member since 2022 · Property Developer, Sydney</div>
+  <div class="testimonial-author">— Founding Member · Private Equity Principal, Sydney</div>
 </div>
 
 <!-- Contact / CTA -->
@@ -1753,13 +1884,13 @@ footer {
       <div class="section-line"></div>
       <span class="section-tag">Begin the Conversation</span>
     </div>
-    <h2 class="section-title">We Speak Only<br>to Those Who<br><span class="gold">Qualify</span></h2>
-    <p>Membership to Cipher Private is not purchased — it is earned through an application process that ensures every member receives the undivided attention they deserve. We limit our membership intentionally.</p>
-    <p style="font-size:11px;color:var(--gold-dim);letter-spacing:1px">All enquiries are held in strict confidence and reviewed by our membership director personally.</p>
+    <h2 class="section-title">We Accept<br>Introductions From<br><span class="gold">Members Only</span></h2>
+    <p>Cipher Private does not advertise and does not accept cold applications. New members must be introduced by an existing member, who sponsors the relationship. We have 3 places remaining across all tiers.</p>
+    <p style="font-size:11px;color:var(--gold-dim);letter-spacing:1px">All introductions are reviewed personally by our founding director within 48 hours. Your information is protected under Australian Privacy Act 1988 and stored exclusively on Australian-sovereign infrastructure.</p>
   </div>
   <div class="cta-form reveal">
-    <div class="form-title">Request Membership</div>
-    <div class="form-subtitle">Strictly Confidential Application</div>
+    <div class="form-title">Request an Introduction</div>
+    <div class="form-subtitle">Referral Required · Strictly Confidential</div>
     <div class="form-group">
       <label>Full Name</label>
       <input type="text" placeholder="Your legal name">
@@ -1784,8 +1915,8 @@ footer {
       </select>
     </div>
     <div class="form-group">
-      <label>How Did You Hear About Us</label>
-      <input type="text" placeholder="Referral, media, event...">
+      <label>Referring Member (Required)</label>
+      <input type="text" placeholder="Name of the member introducing you">
     </div>
     <button class="form-submit" onclick="submitApplication(event)">Submit Application</button>
   </div>
@@ -2059,7 +2190,7 @@ footer {
                   <div style="font-size:13px;color:var(--white)">Cipher Private Concierge</div>
                   <div style="display:flex;align-items:center;gap:6px">
                     <div id="chatStatusDot" style="width:6px;height:6px;background:#666;border-radius:50%"></div>
-                    <span id="chatStatusText" style="font-size:9px;color:#666;letter-spacing:1px">Connecting...</span>
+                    <span id="chatStatusText" style="font-size:9px;color:#5a4a2a;letter-spacing:1px">Connecting...</span>
                   </div>
                 </div>
               </div>
