@@ -1451,17 +1451,17 @@ footer {
   </div>
   <div style="display:grid;grid-template-rows:1fr 1fr;gap:2px">
     <div style="position:relative;overflow:hidden">
-      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero2_02bb27c1.jpg"
-           alt="Document Security"
-           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.6);transition:transform 0.8s ease"
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=85&auto=format"
+           alt="Cipher Vault"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55) contrast(1.1);transition:transform 0.8s ease"
            onmouseover="this.style.transform='scale(1.05)'"
            onmouseout="this.style.transform='scale(1)'">
       <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Cipher Vault</div>
     </div>
     <div style="position:relative;overflow:hidden">
-      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg"
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=85&auto=format"
            alt="Medical Concierge"
-           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7);object-position:center top;transition:transform 0.8s ease"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65) contrast(1.05);object-position:center;transition:transform 0.8s ease"
            onmouseover="this.style.transform='scale(1.05)'"
            onmouseout="this.style.transform='scale(1)'">
       <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Medical Concierge</div>
@@ -3222,14 +3222,37 @@ async function submitApplication(event) {
 <script>
 // ── Admin Functions ──────────────────────────────────────────────────────────
 function switchAdminTab(tab, btn) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
-  document.querySelectorAll('.admin-tab-btn').forEach(b => {
-    b.style.borderBottomColor = 'transparent';
-    b.style.color = 'var(--silver)';
+  const map = { requests: 'requests', applications: 'enquiries', members: 'clients', chat: 'conversations' };
+  switchAdminSection(map[tab] || tab);
+}
+
+function switchAdminSection(section) {
+  const sections = ['dashboard','clients','requests','conversations','enquiries'];
+  sections.forEach(s => {
+    const el = document.getElementById('asec-' + s);
+    if (el) el.style.display = 'none';
   });
-  document.getElementById('adminTab-' + tab).style.display = 'block';
-  btn.style.borderBottomColor = 'var(--gold)';
-  btn.style.color = 'var(--gold)';
+  const target = document.getElementById('asec-' + section);
+  if (target) target.style.display = 'block';
+
+  // Update sidebar nav highlight
+  sections.forEach(s => {
+    const nav = document.getElementById('anav-' + s);
+    if (!nav) return;
+    if (s === section) {
+      nav.style.background = 'rgba(201,169,110,0.08)';
+      nav.style.borderLeft = '2px solid #c9a96e';
+      nav.style.color = '#c9a96e';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.borderLeft = '2px solid transparent';
+      nav.style.color = 'rgba(201,169,110,0.45)';
+    }
+  });
+  window._activeAdminSection = section;
+
+  if (['requests','clients','enquiries'].includes(section)) loadAdminData();
+  if (section === 'conversations') initAdminChat();
 }
 
 async function loadAdminData() {
