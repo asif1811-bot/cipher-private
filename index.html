@@ -1423,7 +1423,7 @@ footer {
 <section style="display:grid;grid-template-columns:2fr 1fr 1fr;height:480px;gap:2px;background:var(--obsidian)">
   <div style="position:relative;overflow:hidden">
     <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg" alt="Private Aviation" 
-         style="width:100%;height:100%;object-fit:cover;filter:brightness(0.75);transition:transform 0.8s ease"
+         style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) contrast(1.1);object-position:center;transition:transform 0.8s ease"
          onmouseover="this.style.transform='scale(1.03)'" 
          onmouseout="this.style.transform='scale(1)'">
     <div style="position:absolute;bottom:28px;left:28px">
@@ -1459,9 +1459,9 @@ footer {
       <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Cipher Vault</div>
     </div>
     <div style="position:relative;overflow:hidden">
-      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg"
+      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg"
            alt="Medical Concierge"
-           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7);object-position:center top;transition:transform 0.8s ease"
            onmouseover="this.style.transform='scale(1.05)'"
            onmouseout="this.style.transform='scale(1)'">
       <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Medical Concierge</div>
@@ -2317,101 +2317,233 @@ footer {
 
 <!-- Admin Portal -->
 <div class="modal-overlay" id="adminPortal" style="align-items:stretch;padding:0">
-  <div style="width:100%;height:100vh;background:#0d0d0d;display:flex;flex-direction:column;overflow:hidden">
-    <!-- Admin Header -->
-    <div style="background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.15);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
-      <div style="display:flex;align-items:center;gap:16px">
-        <svg width="32" height="32" viewBox="0 0 44 44" fill="none"><polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1" fill="none"/><text x="22" y="26" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="14" fill="#c9a96e">C</text></svg>
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--white)">Cipher Private — Admin Portal</div>
-          <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#e74c3c">Restricted Access</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:12px">
-        <button onclick="loadAdminData()" style="background:none;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">↻ Refresh</button>
-        <button onclick="closeAdmin()" style="background:none;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Sign Out</button>
-      </div>
-    </div>
-    <!-- Admin Stats -->
-    <div id="adminStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,169,110,0.05);padding:0 32px;border-bottom:1px solid rgba(201,169,110,0.08)">
-      <div style="padding:20px;text-align:center"><div id="statMembers" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Active Members</div></div>
-      <div style="padding:20px;text-align:center"><div id="statRequests" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Open Requests</div></div>
-      <div style="padding:20px;text-align:center"><div id="statApplications" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">—</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Pending Applications</div></div>
-      <div style="padding:20px;text-align:center"><div id="statActive" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold)">●</div><div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71">System Online</div></div>
-    </div>
-    <!-- Admin Tabs -->
-    <div style="display:flex;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 32px;flex-shrink:0">
-      <button class="admin-tab-btn active" onclick="switchAdminTab('requests',this)" style="background:none;border:none;border-bottom:2px solid var(--gold);color:var(--gold);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Requests</button>
-      <button class="admin-tab-btn" onclick="switchAdminTab('applications',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Applications</button>
-      <button class="admin-tab-btn" onclick="switchAdminTab('members',this)" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Members</button>
-      <button class="admin-tab-btn" onclick="switchAdminTab('chat',this);initAdminChat();" style="background:none;border:none;border-bottom:2px solid transparent;color:var(--silver);padding:14px 20px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:-1px">Live Chat</button>
-    </div>
-    <!-- Admin Content -->
-    <div style="flex:1;overflow-y:auto;padding:32px">
-      <!-- Requests Tab -->
-      <div id="adminTab-requests" class="admin-tab">
-        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Live Service Requests</div>
-        <div id="adminRequestsList" style="display:grid;gap:12px">
-          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading requests...</div>
-        </div>
-      </div>
-      <!-- Applications Tab -->
-      <div id="adminTab-applications" class="admin-tab" style="display:none">
-        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Membership Applications</div>
-        <div id="adminApplicationsList" style="display:grid;gap:12px">
-          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading applications...</div>
-        </div>
-      </div>
-      <!-- Members Tab -->
-      <div id="adminTab-members" class="admin-tab" style="display:none">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">All Members</div>
-          <button onclick="showAddMember()" style="background:var(--gold);color:var(--obsidian);border:none;padding:8px 20px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">+ Add Member</button>
-        </div>
-        <div id="adminMembersList" style="display:grid;gap:12px">
-          <div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">Loading members...</div>
-        </div>
-      </div>
+<div style="width:100%;height:100vh;display:flex;background:#0d0d0d;overflow:hidden;font-family:'Montserrat',sans-serif">
 
-      <!-- Admin Chat Tab -->
-      <div id="adminTab-chat" class="admin-tab" style="display:none;height:calc(100vh - 260px)">
-        <div style="display:grid;grid-template-columns:280px 1fr;height:100%;gap:1px;background:rgba(201,169,110,0.08)">
-          <!-- Room List -->
-          <div style="background:var(--deep-black);display:flex;flex-direction:column">
-            <div style="padding:16px;border-bottom:1px solid rgba(201,169,110,0.1)">
-              <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Member Conversations</div>
-            </div>
-            <div id="adminChatRoomList" style="flex:1;overflow-y:auto">
-              <div style="padding:20px;text-align:center;font-size:11px;color:var(--silver)">Loading conversations...</div>
-            </div>
-          </div>
-          <!-- Chat Area -->
-          <div style="background:var(--charcoal);display:flex;flex-direction:column">
-            <!-- Placeholder -->
-            <div id="adminChatPlaceholder" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M5 5H35V27H23L20 31L17 27H5V5Z" stroke="#c9a96e" stroke-width="0.8" opacity="0.4"/></svg>
-              <div style="font-size:11px;color:var(--silver);letter-spacing:1px">Select a conversation to begin</div>
-            </div>
-            <!-- Active Chat -->
-            <div id="adminChatArea" style="display:none;flex-direction:column;height:100%">
-              <div style="padding:16px 20px;border-bottom:1px solid rgba(201,169,110,0.1);display:flex;align-items:center;gap:12px">
-                <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px" id="adminChatMemberInitial">M</div>
-                <div>
-                  <div id="adminChatMemberName" style="font-size:13px;color:var(--white)">Member</div>
-                  <div style="font-size:9px;color:#2ecc71;letter-spacing:1px">Active conversation</div>
-                </div>
-              </div>
-              <div id="adminChatMessages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column"></div>
-              <div style="padding:16px 20px;border-top:1px solid rgba(201,169,110,0.1);display:flex;gap:10px">
-                <textarea id="adminChatInput" onkeydown="handleAdminChatKey(event)" placeholder="Type a reply to this member..." style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:300;outline:none;resize:none;min-height:48px;max-height:100px;line-height:1.5"></textarea>
-                <button onclick="sendAdminMessage()" style="background:var(--gold);color:var(--obsidian);border:none;padding:10px 20px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;flex-shrink:0">Send</button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- ── SIDEBAR ─────────────────────────────────────────────────────────── -->
+  <div style="width:240px;min-width:240px;background:#0a0a0a;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh">
+    <!-- Logo -->
+    <div style="padding:24px 20px 20px;border-bottom:1px solid rgba(201,169,110,0.1)">
+      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_logo_6b0353d1.png" alt="Cipher Private" style="height:40px;width:auto">
+      <div style="font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.5);margin-top:8px">ADMINISTRATION</div>
+    </div>
+    <!-- Admin user -->
+    <div style="padding:16px 20px;border-bottom:1px solid rgba(201,169,110,0.08);display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold)" id="adminInitial">A</div>
+      <div>
+        <div id="adminName" style="font-size:11px;color:var(--white);letter-spacing:1px">Admin</div>
+        <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.5)">ADMINISTRATOR</div>
       </div>
+    </div>
+    <!-- Nav -->
+    <nav style="flex:1;padding:16px 0;overflow-y:auto">
+      <a href="#" onclick="switchAdminSection('dashboard');return false;" id="anav-dashboard"
+         style="display:flex;align-items:center;gap:12px;padding:12px 20px;color:var(--gold);background:rgba(201,169,110,0.08);border-left:2px solid var(--gold);text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s">
+        <span style="font-size:12px">◆</span> Dashboard
+      </a>
+      <a href="#" onclick="switchAdminSection('clients');return false;" id="anav-clients"
+         style="display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(201,169,110,0.5);border-left:2px solid transparent;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="if(this.id!==window._activeAdminNav)this.style.color='rgba(201,169,110,0.5)'">
+        <span style="font-size:12px">○</span> Clients
+      </a>
+      <a href="#" onclick="switchAdminSection('requests');return false;" id="anav-requests"
+         style="display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(201,169,110,0.5);border-left:2px solid transparent;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="if(this.id!==window._activeAdminNav)this.style.color='rgba(201,169,110,0.5)'">
+        <span style="font-size:12px">◈</span> Service Requests
+      </a>
+      <a href="#" onclick="switchAdminSection('conversations');return false;" id="anav-conversations"
+         style="display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(201,169,110,0.5);border-left:2px solid transparent;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="if(this.id!==window._activeAdminNav)this.style.color='rgba(201,169,110,0.5)'">
+        <span style="font-size:12px">●</span> Conversations
+      </a>
+      <a href="#" onclick="switchAdminSection('enquiries');return false;" id="anav-enquiries"
+         style="display:flex;align-items:center;gap:12px;padding:12px 20px;color:rgba(201,169,110,0.5);border-left:2px solid transparent;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="if(this.id!==window._activeAdminNav)this.style.color='rgba(201,169,110,0.5)'">
+        <span style="font-size:12px">≈</span> Enquiries
+      </a>
+    </nav>
+    <!-- Bottom links -->
+    <div style="padding:16px 0;border-top:1px solid rgba(201,169,110,0.08)">
+      <a href="#" onclick="closeAdmin();return false;"
+         style="display:flex;align-items:center;gap:12px;padding:11px 20px;color:rgba(201,169,110,0.4);text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(201,169,110,0.4)'">
+        <span>←</span> Public Site
+      </a>
+      <a href="#" onclick="closeAdmin();return false;"
+         style="display:flex;align-items:center;gap:12px;padding:11px 20px;color:rgba(201,169,110,0.4);text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(201,169,110,0.4)'">
+        <span>⏻</span> Sign Out
+      </a>
     </div>
   </div>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────────────────────────── -->
+  <div style="flex:1;overflow-y:auto;background:#0d0d0d">
+    <!-- Top bar with date -->
+    <div style="display:flex;justify-content:flex-end;align-items:center;padding:16px 32px;border-bottom:1px solid rgba(201,169,110,0.06)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="adminDateDisplay" style="font-size:11px;color:var(--silver)"></span>
+        <div style="width:8px;height:8px;background:#2ecc71;border-radius:50%"></div>
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD SECTION ──────────────────────────────────────────────── -->
+    <div id="asec-dashboard" style="padding:40px 32px;display:block">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">OVERVIEW</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--white);margin:0 0 32px">Admin Dashboard</h2>
+      <!-- Stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:24px;cursor:pointer" onclick="switchAdminSection('clients')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <span style="font-size:16px;color:rgba(201,169,110,0.5)">○</span>
+            <span style="font-size:10px;color:rgba(201,169,110,0.4)">→</span>
+          </div>
+          <div id="statMembers" style="font-size:36px;color:var(--white);font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:8px">0</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver)">Total Members</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:24px;cursor:pointer" onclick="switchAdminSection('requests')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <span style="font-size:16px;color:var(--gold)">◈</span>
+            <span style="font-size:10px;color:rgba(201,169,110,0.4)">→</span>
+          </div>
+          <div id="statRequests" style="font-size:36px;color:var(--white);font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:8px">0</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver)">Active Requests</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:24px;cursor:pointer" onclick="switchAdminSection('enquiries')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <span style="font-size:16px;color:rgba(201,169,110,0.5)">≈</span>
+            <span style="font-size:10px;color:rgba(201,169,110,0.4)">→</span>
+          </div>
+          <div id="statApplications" style="font-size:36px;color:var(--white);font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:8px">0</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver)">New Enquiries</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:24px;cursor:pointer" onclick="switchAdminSection('conversations')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <span style="font-size:16px;color:#2ecc71">●</span>
+            <span style="font-size:10px;color:rgba(201,169,110,0.4)">→</span>
+          </div>
+          <div id="statMessages" style="font-size:36px;color:var(--white);font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:8px">0</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--silver)">Unread Messages</div>
+        </div>
+      </div>
+      <!-- Quick Links + System Status -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:28px">
+          <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px">QUICK LINKS</div>
+          <a href="#" onclick="switchAdminSection('clients');return false;" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(201,169,110,0.06);text-decoration:none">
+            <div><div style="font-size:12px;color:var(--white);margin-bottom:3px">Manage Client Accounts</div><div style="font-size:10px;color:var(--silver)">View, update, and manage member profiles</div></div>
+            <span style="color:rgba(201,169,110,0.4);font-size:12px">→</span>
+          </a>
+          <a href="#" onclick="switchAdminSection('requests');return false;" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(201,169,110,0.06);text-decoration:none">
+            <div><div style="font-size:12px;color:var(--white);margin-bottom:3px">Service Requests</div><div style="font-size:10px;color:var(--silver)">Review and update concierge requests</div></div>
+            <span style="color:rgba(201,169,110,0.4);font-size:12px">→</span>
+          </a>
+          <a href="#" onclick="switchAdminSection('conversations');return false;" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(201,169,110,0.06);text-decoration:none">
+            <div><div style="font-size:12px;color:var(--white);margin-bottom:3px">Client Conversations</div><div style="font-size:10px;color:var(--silver)">Respond to member messages</div></div>
+            <span style="color:rgba(201,169,110,0.4);font-size:12px">→</span>
+          </a>
+          <a href="#" onclick="switchAdminSection('enquiries');return false;" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;text-decoration:none">
+            <div><div style="font-size:12px;color:var(--white);margin-bottom:3px">Membership Enquiries</div><div style="font-size:10px;color:var(--silver)">Review and follow up on applications</div></div>
+            <span style="color:rgba(201,169,110,0.4);font-size:12px">→</span>
+          </a>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(201,169,110,0.1);padding:28px">
+          <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px">SYSTEM STATUS</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
+            <span style="font-size:12px;color:var(--silver)">Document Vault</span>
+            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;border:1px solid rgba(46,204,113,0.3);padding:3px 10px">OPERATIONAL</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
+            <span style="font-size:12px;color:var(--silver)">Encrypted Storage</span>
+            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;border:1px solid rgba(46,204,113,0.3);padding:3px 10px">OPERATIONAL</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
+            <span style="font-size:12px;color:var(--silver)">OTP Email Service</span>
+            <span id="statusOTP" style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;border:1px solid rgba(46,204,113,0.3);padding:3px 10px">OPERATIONAL</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
+            <span style="font-size:12px;color:var(--silver)">Member Authentication</span>
+            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;border:1px solid rgba(46,204,113,0.3);padding:3px 10px">OPERATIONAL</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0">
+            <span style="font-size:12px;color:var(--silver)">Chat System</span>
+            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2ecc71;border:1px solid rgba(46,204,113,0.3);padding:3px 10px">OPERATIONAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLIENTS SECTION ───────────────────────────────────────────────── -->
+    <div id="asec-clients" style="padding:40px 32px;display:none">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">MEMBERS</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--white);margin:0">Client Accounts</h2>
+        <button onclick="showAddMember()" style="background:var(--gold);color:#0a0a0a;border:none;padding:10px 24px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">+ Add Member</button>
+      </div>
+      <div id="adminMembersList" style="display:grid;gap:8px">
+        <div style="color:var(--silver);font-size:12px;padding:32px;text-align:center">Loading members...</div>
+      </div>
+    </div>
+
+    <!-- ── SERVICE REQUESTS SECTION ─────────────────────────────────────── -->
+    <div id="asec-requests" style="padding:40px 32px;display:none">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">CONCIERGE</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--white);margin:0 0 32px">Service Requests</h2>
+      <div id="adminRequestsList" style="display:grid;gap:8px">
+        <div style="color:var(--silver);font-size:12px;padding:32px;text-align:center">Loading requests...</div>
+      </div>
+    </div>
+
+    <!-- ── CONVERSATIONS SECTION ─────────────────────────────────────────── -->
+    <div id="asec-conversations" style="padding:40px 32px;display:none;height:calc(100vh - 65px);box-sizing:border-box">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">COMMUNICATIONS</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--white);margin:0 0 24px">Client Conversations</h2>
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:0;height:calc(100% - 100px);border:1px solid rgba(201,169,110,0.1)">
+        <!-- Members list -->
+        <div style="background:#111;border-right:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:14px 16px;border-bottom:1px solid rgba(201,169,110,0.08)">
+            <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)">MEMBERS</div>
+          </div>
+          <div id="adminChatRoomList" style="flex:1;overflow-y:auto">
+            <div style="padding:24px;text-align:center;font-size:11px;color:var(--silver)">No conversations yet.</div>
+          </div>
+        </div>
+        <!-- Chat area -->
+        <div style="background:#141414;display:flex;flex-direction:column;overflow:hidden">
+          <div id="adminChatPlaceholder" style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+            <div style="width:48px;height:48px;border:1px solid rgba(201,169,110,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <span style="color:var(--gold);font-size:20px">◎</span>
+            </div>
+            <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--silver)">SELECT A CONVERSATION</div>
+            <div style="font-size:11px;color:rgba(170,170,170,0.5)">Choose a member from the list to view their messages.</div>
+          </div>
+          <div id="adminChatArea" style="display:none;flex-direction:column;height:100%">
+            <div style="padding:16px 20px;border-bottom:1px solid rgba(201,169,110,0.08);display:flex;align-items:center;gap:12px">
+              <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:14px" id="adminChatMemberInitial">M</div>
+              <div>
+                <div id="adminChatMemberName" style="font-size:13px;color:var(--white)">Member</div>
+                <div style="font-size:9px;color:#2ecc71;letter-spacing:1px">Active conversation</div>
+              </div>
+            </div>
+            <div id="adminChatMessages" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column"></div>
+            <div style="padding:16px 20px;border-top:1px solid rgba(201,169,110,0.08);display:flex;gap:10px">
+              <textarea id="adminChatInput" onkeydown="handleAdminChatKey(event)" placeholder="Type a reply..." style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:10px 14px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:44px;max-height:100px"></textarea>
+              <button onclick="sendAdminMessage()" style="background:var(--gold);color:#0a0a0a;border:none;padding:10px 20px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ENQUIRIES SECTION ─────────────────────────────────────────────── -->
+    <div id="asec-enquiries" style="padding:40px 32px;display:none">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">APPLICATIONS</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--white);margin:0 0 8px">Membership Enquiries</h2>
+      <div id="enquiryCount" style="font-size:11px;color:var(--silver);margin-bottom:32px">Loading...</div>
+      <div id="adminApplicationsList" style="display:grid;gap:8px"></div>
+    </div>
+
+  </div><!-- end main -->
+</div><!-- end flex -->
 </div>
 
 <!-- Add Member Modal -->
@@ -2925,6 +3057,19 @@ async function loadPortalData() {
 // Load admin dashboard data
 async function loadAdminData() {
   if (!window._cipherToken) return;
+  // Set date display
+  const dateEl = document.getElementById('adminDateDisplay');
+  if (dateEl) {
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  }
+  // Set admin name initial
+  if (window._cipherUser) {
+    const nameEl = document.getElementById('adminName');
+    const initEl = document.getElementById('adminInitial');
+    if (nameEl) nameEl.textContent = window._cipherUser.fullName || 'Admin';
+    if (initEl) initEl.textContent = (window._cipherUser.fullName || 'A')[0].toUpperCase();
+  }
   const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
   try {
     const res = await fetch('/api/admin/dashboard', { headers });
@@ -3089,6 +3234,19 @@ function switchAdminTab(tab, btn) {
 
 async function loadAdminData() {
   if (!window._cipherToken) return;
+  // Set date display
+  const dateEl = document.getElementById('adminDateDisplay');
+  if (dateEl) {
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  }
+  // Set admin name initial
+  if (window._cipherUser) {
+    const nameEl = document.getElementById('adminName');
+    const initEl = document.getElementById('adminInitial');
+    if (nameEl) nameEl.textContent = window._cipherUser.fullName || 'Admin';
+    if (initEl) initEl.textContent = (window._cipherUser.fullName || 'A')[0].toUpperCase();
+  }
   const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
 
   // Load dashboard stats
