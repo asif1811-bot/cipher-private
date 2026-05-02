@@ -1,4 +1,4 @@
-'use strict';
+\'use strict';
 
 const nodemailer = require('nodemailer');
 const logger = require('./logger');
@@ -16,7 +16,7 @@ const createTransporter = () => nodemailer.createTransport({
   tls: { rejectUnauthorized: false },
 });
 
-const FROM = `"${process.env.EMAIL_FROM_NAME || 'Cipher Private'}" <${process.env.EMAIL_FROM || 'noreply@cipherprivate.com'}>`;
+const FROM = `"${process.env.EMAIL_FROM_NAME || 'Cipher Private'}" <${process.env.EMAIL_FROM || 'hello@cipherprivate.com'}>`;
 const SITE_URL = process.env.CLIENT_URL || 'https://cipherprivate.com';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
@@ -82,7 +82,7 @@ p{font-size:13px;color:#888;line-height:1.95;margin:0 0 16px}
     If you received this in error, please delete it immediately.<br><br>
     <a href="${SITE_URL}/privacy">Privacy Policy</a> &nbsp;·&nbsp;
     <a href="${SITE_URL}">cipherprivate.com</a> &nbsp;·&nbsp;
-    <a href="mailto:concierge@cipherprivate.com">concierge@cipherprivate.com</a>
+    <a href="mailto:hello@cipherprivate.com">hello@cipherprivate.com</a>
   </p>
 </div>
 </div>
@@ -207,6 +207,8 @@ const sendWelcomeEmail = async (user) => {
 };
 
 const sendOTPEmail = async ({ recipientEmail, otp, documentName, senderName, expiresAt, accessToken }) => {
+  // Log OTP to server logs as fallback (admin can retrieve if email fails)
+  logger.info(\`[OTP FALLBACK] Code: \${otp} | Doc: \${documentName} | Recipient: \${recipientEmail} | Expires: \${expiresAt}\`);
   const expiry = new Date(expiresAt).toLocaleString('en-AU', { timeZone: 'Australia/Sydney', dateStyle: 'long', timeStyle: 'short' });
   const html = base(`
     <h2>Secure Document Share</h2>
