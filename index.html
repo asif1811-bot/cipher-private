@@ -19,7 +19,7 @@
   "name": "Cipher Private",
   "description": "Ultra-luxury concierge and lifestyle management for UHNW individuals in Australia",
   "url": "https://cipherprivate.com.au",
-  "telephone": "+61-2-XXXX-XXXX",
+  "telephone": "+61413536700",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Sydney",
@@ -1984,8 +1984,12 @@ footer {
         <li><a href="#">Careers</a></li>
       </ul>
       <div style="margin-top:24px">
-        <div class="footer-col-title">Location</div>
-        <p style="font-size:11px;color:var(--silver);line-height:1.8">Sydney, NSW, Australia<br><span style="color:var(--gold-dim)">By appointment only</span></p>
+        <div class="footer-col-title">Contact</div>
+        <p style="font-size:11px;color:var(--silver);line-height:2">
+          <a href="mailto:hello@cipherprivate.com" style="color:var(--gold-dim);text-decoration:none">hello@cipherprivate.com</a><br>
+          <a href="tel:+61413536700" style="color:var(--silver);text-decoration:none">+61 413 536 700</a><br>
+          <span style="color:var(--gold-dim)">Sydney, NSW · By appointment</span>
+        </p>
       </div>
     </div>
   </div>
@@ -2854,13 +2858,7 @@ function showOTPSend(filename) {
   document.getElementById('otpModal').classList.add('active');
 }
 
-function sendOTP() {
-  const email = document.getElementById('otpEmail').value;
-  if (!email) { alert('Please enter a recipient email.'); return; }
-  const otp = Math.floor(100000 + Math.random() * 900000);
-  closeModal('otp');
-  alert(`Secure link + OTP [${otp}] sent to ${email}.\n\nThis link expires per your selected timeframe. All access is logged.`);
-}
+// sendOTP defined below as async API call
 
 // Upload simulation
 function simulateUpload() {
