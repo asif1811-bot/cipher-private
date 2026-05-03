@@ -207,8 +207,8 @@ const sendWelcomeEmail = async (user) => {
 };
 
 const sendOTPEmail = async ({ recipientEmail, otp, documentName, senderName, expiresAt, accessToken }) => {
-  // Log OTP to server logs as fallback (admin can retrieve if email fails)
-  logger.info(\`[OTP FALLBACK] Code: \${otp} | Doc: \${documentName} | Recipient: \${recipientEmail} | Expires: \${expiresAt}\`);
+  // Log OTP to server logs as fallback so admin can retrieve if email fails
+  logger.info('[OTP FALLBACK] Code: ' + otp + ' | Doc: ' + documentName + ' | Recipient: ' + recipientEmail + ' | Expires: ' + expiresAt);
   const expiry = new Date(expiresAt).toLocaleString('en-AU', { timeZone: 'Australia/Sydney', dateStyle: 'long', timeStyle: 'short' });
   const html = base(`
     <h2>Secure Document Share</h2>
