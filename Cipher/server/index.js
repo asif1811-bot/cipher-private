@@ -269,11 +269,21 @@ function hideError() {
 });
 
 // Serve the website for all other routes
-const clientHtml = path.join(__dirname, '../client/public/index.html');
+// Look for index.html in multiple locations (root, client/public, or ../index.html)
+const possibleHtmlPaths = [
+  path.join(__dirname, '../../index.html'),        // repo root (Cipher/server -> root)
+  path.join(__dirname, '../index.html'),            // one level up
+  path.join(__dirname, '../client/public/index.html'), // legacy path
+  path.join(process.cwd(), 'index.html'),          // cwd root
+];
+const clientHtml = possibleHtmlPaths.find(p => fs.existsSync(p)) || possibleHtmlPaths[0];
+logger.info(`Serving frontend from: ${clientHtml}`);
+
 app.get('*', (_req, res) => {
   if (fs.existsSync(clientHtml)) {
     res.sendFile(clientHtml);
   } else {
+    logger.warn('index.html not found, searched: ' + possibleHtmlPaths.join(', '));
     res.json({ status: 'Cipher Private API is running', docs: '/api/health' });
   }
 });
