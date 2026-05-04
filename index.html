@@ -60,8 +60,8 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   overflow-x: hidden;
-  cursor: none; /* overridden to pointer on interactive elements */
 }
+
 
 /* Force pointer on all interactive elements */
 a, button, [onclick], input[type="submit"], input[type="button"],
@@ -73,24 +73,8 @@ a, button, [onclick], input[type="submit"], input[type="button"],
 }
 
 /* Custom Cursor */
-.cursor {
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  transition: transform 0.1s ease;
-}
-.cursor-ring {
-  width: 32px; height: 32px;
-  border: 1px solid rgba(201,169,110,0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99998;
-  transition: transform 0.15s ease, width 0.3s, height 0.3s;
-}
+.cursor { display: none !important; }
+.cursor-ring { display: none !important; }
 
 /* ==================== NAVIGATION ==================== */
 nav {
@@ -329,7 +313,7 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
-  cursor: none;
+  cursor: pointer;
 }
 
 .btn-primary::before {
@@ -360,7 +344,7 @@ nav.scrolled {
   align-items: center;
   gap: 10px;
   transition: color 0.3s;
-  cursor: none;
+  cursor: pointer;
 }
 
 .btn-ghost:hover { color: var(--white); }
@@ -745,7 +729,7 @@ nav.scrolled {
   letter-spacing: 3px;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
-  cursor: none;
+  cursor: pointer;
   transition: all 0.3s;
   text-decoration: none;
   display: block;
@@ -1056,7 +1040,7 @@ nav.scrolled {
   font-weight: 300;
   transition: border-color 0.3s;
   outline: none;
-  cursor: none;
+  cursor: pointer;
 }
 
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -1078,7 +1062,7 @@ nav.scrolled {
   letter-spacing: 4px;
   text-transform: uppercase;
   font-weight: 600;
-  cursor: none;
+  cursor: pointer;
   transition: background 0.3s;
   margin-top: 8px;
 }
@@ -1195,7 +1179,7 @@ footer {
   border: none;
   color: var(--silver);
   font-size: 20px;
-  cursor: none;
+  cursor: pointer;
   transition: color 0.3s;
 }
 .modal-close:hover { color: var(--gold); }
@@ -1240,7 +1224,7 @@ footer {
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--silver);
-  cursor: none;
+  cursor: pointer;
   transition: color 0.3s;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
