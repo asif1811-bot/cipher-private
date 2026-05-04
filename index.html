@@ -60,7 +60,16 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   overflow-x: hidden;
-  cursor: none;
+  cursor: none; /* overridden to pointer on interactive elements */
+}
+
+/* Force pointer on all interactive elements */
+a, button, [onclick], input[type="submit"], input[type="button"],
+.nav-links a, .nav-cta a, .btn-outline, .btn-gold,
+.mp-nav-item, .ap-ni, .mp-tile, .mp-stat, .ap-stat,
+.mp-card-action, .ap-ql, .mp-submit, .mp-primary-btn,
+.mp-vault-btn, .mp-chat-send, .ap-btn, .ap-btn-g {
+  cursor: pointer !important;
 }
 
 /* Custom Cursor */
@@ -175,7 +184,7 @@ nav.scrolled {
   text-decoration: none;
   transition: all 0.3s;
   font-family: 'Montserrat', sans-serif;
-  cursor: none;
+  cursor: pointer;
 }
 
 .btn-outline:hover {
@@ -195,7 +204,7 @@ nav.scrolled {
   transition: all 0.3s;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  cursor: none;
+  cursor: pointer;
 }
 
 .btn-gold:hover {
@@ -3030,895 +3039,42 @@ footer {
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 </style>
 
-<script>
-// Cursor
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX - 4 + 'px';
-  cursor.style.top = e.clientY - 4 + 'px';
-  ring.style.left = e.clientX - 16 + 'px';
-  ring.style.top = e.clientY - 16 + 'px';
-});
-
-// Navbar scroll
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Modal controls
-function openModal(type) {
-  document.getElementById(type + 'Modal').classList.add('active');
-}
-function closeModal(type) {
-  document.getElementById(type + 'Modal').classList.remove('active');
-}
-function closePortal() {
-  document.getElementById('memberPortal').classList.remove('active');
-  document.getElementById('loginModal').classList.remove('active');
-}
-function closeAdmin() {
-  document.getElementById('adminPortal').classList.remove('active');
-}
-
-// Tab switching in modal
-function switchTab(tab) {
-  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.modal-form-content').forEach(f => f.classList.remove('active'));
-  document.getElementById(tab + 'Form').classList.add('active');
-  event.target.classList.add('active');
-}
-
-// Login
-const API = window.location.origin;
-async function loginMember() {
-  const email = document.getElementById('memberEmail').value;
-  const pass = document.getElementById('memberPass').value;
-  if (!email || !pass) { alert('Please enter your email and password.'); return; }
-  try {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pass })
-    });
-    const data = await res.json();
-    if (!res.ok) { alert(data.error || 'Login failed'); return; }
-    window._cipherToken = data.token;
-    window._cipherUser = data.user;
-    document.getElementById('loginModal').classList.remove('active');
-    if (data.user.role === 'MEMBER') {
-      document.getElementById('memberPortal').classList.add('active');
-      loadPortalData();
-    } else {
-      document.getElementById('adminPortal').classList.add('active');
-      loadAdminData();
-    }
-  } catch(e) { alert('Connection error. Please try again.'); }
-}
-
-async function loginAdmin() {
-  const email = document.getElementById('adminEmail').value;
-  const pass = document.getElementById('adminPass').value;
-  if (!email || !pass) { alert('Please enter your credentials.'); return; }
-  try {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pass })
-    });
-    const data = await res.json();
-    if (!res.ok) { alert(data.error || 'Login failed'); return; }
-    window._cipherToken = data.token;
-    window._cipherUser = data.user;
-    document.getElementById('loginModal').classList.remove('active');
-    document.getElementById('adminPortal').classList.add('active');
-    loadAdminData();
-  } catch(e) { alert('Connection error. Please try again.'); }
-}
-
-// Portal tabs
-function showPortalTab(tab, btn) {
-  document.querySelectorAll('.portal-tab').forEach(t => t.style.display = 'none');
-  document.querySelectorAll('.portal-nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + tab).style.display = 'block';
-  btn.classList.add('active');
-  if (tab === 'chat') {
-    initChat();
-  }
-}
-
-// Request submission
-function submitRequest() {
-  const text = document.getElementById('newRequestText').value;
-  const priority = document.getElementById('requestPriority').value;
-  const cat = document.getElementById('requestCategory').value;
-  if (!text.trim()) { alert('Please describe your request.'); return; }
-  const list = document.getElementById('activityList');
-  const div = document.createElement('div');
-  div.className = 'activity-item';
-  div.style.cssText = 'display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)';
-  div.innerHTML = `<div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-top:4px;flex-shrink:0;animation:pulse 2s infinite"></div><div><div style="font-size:12px;color:var(--white);margin-bottom:3px">${text}</div><div style="font-size:10px;color:var(--silver)">${cat} · ${priority} · Just now</div></div><div style="margin-left:auto;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">Received</div>`;
-  list.prepend(div);
-  document.getElementById('newRequestText').value = '';
-  alert('Request submitted securely. Your lifestyle manager will respond within minutes.');
-}
-
-// Chat
-// ── Real-time Chat with Socket.IO ────────────────────────────────────────────
-let _socket = null;
-let _typingTimeout = null;
-
-function initChat() {
-  if (!window._cipherToken) return;
-  if (_socket && _socket.connected) return;
-
-  // Load Socket.IO client
-  if (!window.io) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.socket.io/4.7.5/socket.io.min.js';
-    script.onload = () => connectSocket();
-    document.head.appendChild(script);
-  } else {
-    connectSocket();
-  }
-}
-
-function connectSocket() {
-  _socket = io(window.location.origin, {
-    auth: { token: window._cipherToken },
-    transports: ['websocket', 'polling']
-  });
-
-  _socket.on('connect', () => {
-    document.getElementById('chatStatusDot').style.background = '#2ecc71';
-    document.getElementById('chatStatusText').textContent = 'Connected · Your lifestyle manager';
-    document.getElementById('chatStatusText').style.color = '#2ecc71';
-    loadChatHistory();
-  });
-
-  _socket.on('disconnect', () => {
-    document.getElementById('chatStatusDot').style.background = '#e74c3c';
-    document.getElementById('chatStatusText').textContent = 'Reconnecting...';
-    document.getElementById('chatStatusText').style.color = '#e74c3c';
-  });
-
-  _socket.on('new_message', (msg) => {
-    if (!msg.isAdmin) return; // Member's own messages added on send
-    appendChatMessage(msg.content, false, msg.sender, msg.createdAt);
-    document.getElementById('typingIndicator').style.display = 'none';
-  });
-
-  _socket.on('user_typing', (data) => {
-    if (data.isAdmin) {
-      document.getElementById('typingText').textContent = (data.name || 'Your lifestyle manager') + ' is typing...';
-      document.getElementById('typingIndicator').style.display = 'block';
-    }
-  });
-
-  _socket.on('user_stop_typing', () => {
-    document.getElementById('typingIndicator').style.display = 'none';
-  });
-
-  _socket.on('error', (err) => {
-    console.error('Socket error:', err);
-  });
-}
-
-async function loadChatHistory() {
-  if (!window._cipherToken || !window._cipherUser) return;
-  try {
-    const res = await fetch('/api/chat/' + window._cipherUser.id + '/history', {
-      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
-    });
-    const messages = await res.json();
-    const chat = document.getElementById('chatMessages');
-    // Clear loading message
-    chat.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:10px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Cipher Private Secure Chat</div><div style="font-size:11px;color:var(--silver)">All messages are encrypted and visible only to you and your lifestyle manager.</div></div>';
-    
-    if (Array.isArray(messages)) {
-      messages.forEach(msg => {
-        appendChatMessage(msg.content, !msg.isAdmin, msg.isAdmin ? (msg.user?.fullName || 'Cipher Private') : 'You', msg.createdAt);
-      });
-    }
-    chat.scrollTop = chat.scrollHeight;
-  } catch(e) {
-    console.log('Could not load chat history:', e);
-  }
-}
-
-function appendChatMessage(content, isOwn, senderName, timestamp) {
-  const chat = document.getElementById('chatMessages');
-  const time = timestamp ? new Date(timestamp).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' }) : 'Now';
-  const div = document.createElement('div');
-  
-  if (isOwn) {
-    div.style.cssText = 'display:flex;flex-direction:row-reverse;gap:10px;align-items:flex-end';
-    div.innerHTML = `
-      <div style="max-width:70%">
-        <div style="background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);padding:12px 16px;font-size:12px;color:var(--white);line-height:1.7;border-radius:2px 0 2px 2px">${escapeHtml(content)}</div>
-        <div style="font-size:9px;color:var(--gold-dim);margin-top:4px;letter-spacing:1px;text-align:right">${time} · Encrypted ✓</div>
-      </div>`;
-  } else {
-    div.style.cssText = 'display:flex;gap:10px;align-items:flex-end';
-    div.innerHTML = `
-      <div style="width:32px;height:32px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:13px;flex-shrink:0">${(senderName||'CP')[0]}</div>
-      <div style="max-width:70%">
-        <div style="font-size:9px;color:var(--gold-dim);letter-spacing:1px;margin-bottom:4px">${senderName || 'Cipher Private'}</div>
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:12px 16px;font-size:12px;color:var(--white);line-height:1.7;border-radius:0 2px 2px 2px">${escapeHtml(content)}</div>
-        <div style="font-size:9px;color:var(--gold-dim);margin-top:4px;letter-spacing:1px">${time} · Encrypted</div>
-      </div>`;
-  }
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function escapeHtml(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');
-}
-
-function handleChatKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
-}
-
-function handleTyping() {
-  if (_socket && _socket.connected) {
-    _socket.emit('typing', {});
-    clearTimeout(_typingTimeout);
-    _typingTimeout = setTimeout(() => {
-      if (_socket && _socket.connected) _socket.emit('stop_typing', {});
-    }, 1500);
-  }
-}
-
-function sendChatMessage() {
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg) return;
-
-  // Add to UI immediately
-  appendChatMessage(msg, true, 'You', new Date().toISOString());
-  input.value = '';
-
-  // Send via socket if connected
-  if (_socket && _socket.connected) {
-    _socket.emit('send_message', { content: msg });
-    _socket.emit('stop_typing', {});
-  } else {
-    // Fallback - show offline message
-    setTimeout(() => {
-      appendChatMessage('Your message has been received. Your lifestyle manager will respond shortly.', false, 'Cipher Private', new Date().toISOString());
-    }, 800);
-  }
-}
-
-// OTP
-function showOTPSend(filename) {
-  document.getElementById('otpDocName').textContent = filename;
-  document.getElementById('otpModal').classList.add('active');
-}
-
-// sendOTP defined below as async API call
-
-// Upload simulation
-async function uploadDocument(input) {
-  if (!input.files || !input.files[0]) return;
-  const file = input.files[0];
-  const prog = document.getElementById('uploadProgress');
-  const bar = document.getElementById('uploadBar');
-  if (prog) prog.style.display = 'block';
-  if (bar) { bar.style.width = '30%'; setTimeout(() => bar.style.width = '70%', 500); }
-  const formData = new FormData();
-  formData.append('file', file);
-  try {
-    const res = await fetch('/api/documents/upload', { method:'POST', headers:{'Authorization':'Bearer '+window._cipherToken}, body: formData });
-    if (bar) bar.style.width = '100%';
-    setTimeout(() => { if (prog) prog.style.display = 'none'; if (bar) bar.style.width = '0%'; }, 800);
-    if (res.ok) { loadMemberVault(); input.value = ''; }
-    else { const d = await res.json(); alert(d.error || 'Upload failed'); }
-  } catch(e) { if (prog) prog.style.display = 'none'; alert('Upload failed. Please try again.'); }
-}
-
-function simulateUpload() {
-  const filename = 'Document_' + Date.now() + '.pdf';
-  const vault = document.getElementById('vaultDocs');
-  const div = document.createElement('div');
-  div.style.cssText = 'display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)';
-  div.innerHTML = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="1" width="14" height="18" rx="1" stroke="#c9a96e" stroke-width="0.8"/><path d="M7 6H13M7 10H13M7 14H10" stroke="#c9a96e" stroke-width="0.6"/></svg><div style="flex:1"><div style="font-size:12px;color:var(--white)">${filename}</div><div style="font-size:9px;color:var(--silver)">AES-256 Encrypted · Uploaded just now</div></div><button onclick="showOTPSend('${filename}')" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Share via OTP</button>`;
-  vault.prepend(div);
-}
-
-// Navigation
-function showMainPage() {
-  document.getElementById('mainPage').classList.remove('hidden');
-  document.getElementById('articlePage').classList.remove('active');
-  window.scrollTo(0, 0);
-}
-
-function showArticle(slug) {
-  const articles = {
-
-    'superyacht': {
-      category: 'Yacht Charters',
-      title: "Superyacht Charters: Commanding Australia's Most Spectacular Coastline",
-      date: 'March 2025 · 6 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">Australia's 36,000 kilometres of coastline represents one of the world's great yachting frontiers — yet remarkably few ultra-high-net-worth individuals have experienced it as it deserves to be experienced: aboard a crewed superyacht, at their own pace, with absolute privacy.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Whitsundays: Australia's Crown Jewel</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">The 74 islands of the Whitsunday archipelago offer anchorages of extraordinary beauty — from the dazzling silica sands of Whitehaven Beach to the secluded bays of Hook Island accessible only by superyacht. Cipher Private maintains relationships with the finest crewed charter vessels in the region, ranging from sleek sailing yachts to motor yachts exceeding 40 metres.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">Sydney Harbour: The World Stage</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">For those who prefer urban sophistication with maritime freedom, Sydney Harbour offers an unparalleled backdrop. A crewed superyacht anchored in front of the Opera House for New Year's Eve remains one of the world's genuinely irreplaceable experiences — and one that Cipher Private secures for members years in advance.</p>`
-    },
-    'estate': {
-      category: 'Estate Management',
-      title: 'The Architecture of a Life Well Lived: Estate Management for the Ultra-Wealthy',
-      date: 'February 2025 · 7 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">Managing a single principal residence is a considerable undertaking. Managing multiple properties across different states, time zones, and jurisdictions — while maintaining the standards of a five-star hotel in each — requires a fundamentally different approach.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Invisible Hand</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">The finest estate management is, by definition, invisible. When it functions perfectly, nothing is noticed — because nothing requires attention. Staff are in place. Maintenance is anticipated. Every residence is prepared for arrival before arrival is announced. Cipher Private's estate management service operates on this principle entirely.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">Staff Coordination & Recruitment</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">The selection, vetting, and management of household staff remains one of the most delicate responsibilities in estate management. Cipher Private works with a select panel of specialist recruiters and conducts our own due diligence on every individual who enters a member's home.</p>`
-    },
-    'events': {
-      category: 'Exclusive Access',
-      title: "The Impossible Table: Securing Access to the World's Most Exclusive Events",
-      date: 'January 2025 · 5 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">There is a category of experience that exists beyond money — beyond the reach of booking platforms, beyond personal networks, and often beyond the imagination of those who have not encountered it. Cipher Private operates precisely in this space.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Network Advantage</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Access at the highest level is not purchased — it is earned through relationships maintained over years and decades. Cipher Private's network spans restaurant owners, event directors, cultural institutions, sporting bodies, and private hosts across five continents. When a member requests the impossible, we begin with our network — not with a search engine.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">What This Looks Like in Practice</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">A private dinner at a restaurant that closed six months ago, arranged in 48 hours. Courtside seats at a sold-out grand slam final, secured the morning of. A private viewing of an artwork before it goes to auction. These are not exceptional cases — they are the standard to which Cipher Private is held, and the standard our members expect.</p>`
-    },
-    'private-aviation': {
-      category: 'Private Aviation',
-      title: 'The New Standard in Ultra-Long-Range Private Aviation: What UHNW Travellers Need to Know',
-      date: 'April 2025 · 8 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">The global private aviation landscape has undergone a profound transformation. Where once the Gulfstream G550 represented the pinnacle of long-range capability, today's discerning traveller faces a remarkable array of choices — each with distinct characteristics that merit careful consideration.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Ultra-Long-Range Category</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Aircraft such as the Gulfstream G700 and Bombardier Global 7500 now offer ranges exceeding 7,700 nautical miles — enabling non-stop connections from Sydney to Los Angeles or Dubai with unparalleled comfort. The cabin experience aboard these aircraft is genuinely residential: full-standing height, separate staterooms, and sleeping quarters that rival the finest boutique hotels.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">Sustainability in Private Aviation</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Increasingly, our members are asking about Sustainable Aviation Fuel (SAF) options. Several operators now offer blended SAF programs that can reduce carbon emissions by up to 80% compared to conventional fuel. At Cipher Private, we partner exclusively with operators who offer verifiable SAF options and carbon offset programs aligned with Gold Standard certification.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">What to Ask Your Concierge</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Before committing to any charter, ensure you understand: operator certification status (AOC), maintenance recency, crew hours, and the specific tail number you'll be flying. Cipher Private's aviation team handles all due diligence as standard — because the details that aren't visible are often the most important ones.</p>`
-    },
-    'concierge-security': {
-      category: 'Privacy & Security',
-      title: 'Why Australia\'s Privacy Laws Make It the Ideal Home for Your Most Sensitive Affairs',
-      date: 'March 2025 · 6 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">In an era where data sovereignty has become a primary concern for high-net-worth individuals, the jurisdiction in which your lifestyle manager operates is not merely an administrative detail — it is a foundational protection.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Australian Privacy Framework</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Australia's Privacy Act 1988 and its 13 Australian Privacy Principles (APPs) establish one of the world's more robust frameworks for personal information protection. For UHNW individuals, this translates to legally enforceable rights over how their data is collected, stored, used, and disclosed.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">The Cipher Private Approach</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">All member data at Cipher Private is stored on Australian-sovereign infrastructure. We maintain a strict data minimisation policy — we collect only what is necessary to serve you, retain it only as long as required, and delete it upon request. Our document vault uses AES-256 encryption, and all inter-party communications are end-to-end encrypted.</p>`
-    },
-    'luxury-wellness': {
-      category: 'Wellness',
-      title: 'The Rise of Longevity Medicine: How the World\'s Wealthiest Are Approaching Health',
-      date: 'February 2025 · 7 min read',
-      body: `<p style="font-size:15px;line-height:2;color:var(--silver);margin-bottom:28px">The conversation around health among ultra-high-net-worth individuals has shifted fundamentally. Where once the goal was to manage illness, today's sophisticated client seeks to optimise function, extend healthspan, and leverage cutting-edge science to perform at the highest level for decades longer.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">Precision Medicine</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Genomic sequencing, advanced biomarker testing, and continuous health monitoring have moved from research settings into the private health suites of the world's most forward-thinking clinicians. Clinics such as Longevity Lab in Zürich, Executive Health in Singapore, and select practitioners in Sydney now offer comprehensive panels that assess biological age, hormonal optimisation, cognitive performance, and cardiovascular risk with extraordinary precision.</p>
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--white);margin:36px 0 16px">Cipher Private Medical Concierge</h3>
-      <p style="font-size:14px;line-height:2;color:var(--silver);margin-bottom:24px">Our medical concierge service connects Cipher Black and Sovereign members with a curated network of leading specialists across Australia and internationally. We coordinate appointments, manage medical records, facilitate second opinions, and — when required — arrange air medical evacuation through our global partners.</p>`
-    }
-  };
-  
-  const a = articles[slug];
-  if (!a) return;
-  document.getElementById('articleContent').innerHTML = `
-    <div style="margin-bottom:16px"><span style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)">${a.category}</span></div>
-    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);line-height:1.15;margin-bottom:16px">${a.title}</h1>
-    <div style="font-size:10px;color:var(--gold-dim);letter-spacing:2px;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid rgba(201,169,110,0.15)">${a.date}</div>
-    ${a.body}
-    <div style="margin-top:60px;padding:32px;background:var(--deep-black);border:1px solid rgba(201,169,110,0.15)">
-      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Cipher Private</div>
-      <p style="font-size:12px;color:var(--silver);line-height:1.8">To learn how Cipher Private can support your lifestyle, travel, and wellness requirements, <a href="#" onclick="showMainPage();setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),100);return false;" style="color:var(--gold)">request a membership consultation</a>.</p>
+<!-- Add Member Modal -->
+<div class="modal-overlay" id="addMemberModal">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('addMember')">✕</button>
+    <div class="modal-title">Add New Member</div>
+    <div class="modal-subtitle">Create Member Account</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="James Harrington"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="newMemberEmail" placeholder="member@email.com"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" id="newMemberPhone" placeholder="+61 400 000 000"></div>
+    <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
+    <div class="form-group"><label>Membership Tier</label>
+      <select id="newMemberTier" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+        <option value="CIPHER">Cipher</option>
+        <option value="CIPHER_BLACK">Cipher Black</option>
+        <option value="CIPHER_SOVEREIGN">Cipher Sovereign — Bespoke</option>
+      </select>
     </div>
-  `;
-  document.getElementById('mainPage').classList.add('hidden');
-  document.getElementById('articlePage').classList.add('active');
-  window.scrollTo(0, 0);
+    <button onclick="createMember()" class="form-submit" style="margin-top:8px">Create Member Account</button>
+  </div>
+</div>
+
+<style>
+.portal-nav-btn {
+  display:flex;align-items:center;gap:10px;width:100%;
+  background:none;border:none;color:var(--silver);
+  font-family:'Montserrat',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:12px 12px;cursor:pointer;transition:all 0.2s;
+  text-align:left;
 }
-
-// Load real portal data
-async function loadPortalData() {
-  if (!window._cipherToken || !window._cipherUser) return;
-  const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
-  const user = window._cipherUser;
-
-  // Update all name/tier references dynamically
-  const firstName = user.fullName ? user.fullName.split(' ')[0] : 'Member';
-  const tierDisplay = (user.memberTier || 'CIPHER').replace(/_/g, ' ');
-
-  // Sidebar name + tier
-  const sidebarName = document.getElementById('portalSidebarName');
-  if (sidebarName) sidebarName.textContent = user.fullName || 'Member';
-  const sidebarTier = document.getElementById('portalTier');
-  if (sidebarTier) sidebarTier.textContent = tierDisplay;
-
-  // Dashboard greeting
-  const greetingEl = document.getElementById('portalGreeting');
-  if (greetingEl) {
-    const hour = new Date().getHours();
-    const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-    greetingEl.textContent = greeting + ', ' + firstName + '.';
-  }
-  const welcomeTitle = document.getElementById('mpWelcomeTitle');
-  if (welcomeTitle) welcomeTitle.textContent = 'Welcome back, ' + firstName;
-  const avatarEl = document.getElementById('mpAvatar');
-  if (avatarEl) avatarEl.textContent = (user.fullName || 'M')[0].toUpperCase();
-  // Update clock
-  const clockEl = document.getElementById('mpClock');
-  if (clockEl) {
-    const updateClock = () => { clockEl.textContent = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit',timeZone:'Australia/Sydney'}); };
-    updateClock(); setInterval(updateClock, 1000);
-  }
-
-  // Profile tab
-  const pName = document.getElementById('profileName');
-  const pEmail = document.getElementById('profileEmail');
-  const pPhone = document.getElementById('profilePhone');
-  const pTier = document.getElementById('profileTier');
-  if (pName) pName.value = user.fullName || '';
-  if (pEmail) pEmail.value = user.email || '';
-  if (pPhone) pPhone.value = user.phone || '';
-  if (pTier) pTier.value = tierDisplay;
-
-  // Load requests for dashboard activity
-  try {
-    const res = await fetch('/api/requests', { headers });
-    const requests = await res.json();
-    const list = document.getElementById('activityList');
-    const reqList = document.getElementById('requestsList');
-    
-    if (Array.isArray(requests) && requests.length > 0) {
-      const statusColor = { RECEIVED: 'var(--gold)', IN_PROGRESS: '#e67e22', AWAITING_MEMBER: '#3498db', COMPLETED: '#2ecc71', CANCELLED: '#e74c3c' };
-      const reqHtml = requests.map(r => `
-        <div style="display:flex;align-items:center;gap:16px;padding:16px;background:var(--charcoal);border:1px solid rgba(201,169,110,0.08);margin-bottom:8px">
-          <div style="width:10px;height:10px;background:${statusColor[r.status]||'var(--gold)'};border-radius:50%;flex-shrink:0"></div>
-          <div style="flex:1">
-            <div style="font-size:12px;color:var(--white);margin-bottom:3px">${r.description.substring(0,80)}${r.description.length>80?'...':''}</div>
-            <div style="font-size:10px;color:var(--silver)">Category: ${r.category} · Priority: ${r.priority} · ${new Date(r.createdAt).toLocaleDateString('en-AU')}</div>
-          </div>
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:${statusColor[r.status]||'var(--gold)'};border:1px solid currentColor;padding:3px 10px;white-space:nowrap">${r.status.replace(/_/g,' ')}</div>
-        </div>`).join('');
-      
-      if (list) list.innerHTML = reqHtml;
-      if (reqList) reqList.innerHTML = reqHtml;
-
-      // Update stats
-      const activeCount = requests.filter(r => !['COMPLETED','CANCELLED'].includes(r.status)).length;
-      const d1 = document.getElementById('dashStatTotal'); if (d1) d1.textContent = requests.length;
-      const d2 = document.getElementById('dashStatActive'); if (d2) d2.textContent = activeCount;
-      const m1 = document.getElementById('mpStatReq'); if (m1) m1.textContent = requests.length;
-      const m2 = document.getElementById('mpStatActive'); if (m2) m2.textContent = activeCount;
-      // Badge on nav
-      const badge = document.getElementById('mpBadgeReq');
-      if (badge) { badge.textContent = activeCount; badge.style.display = activeCount > 0 ? 'inline' : 'none'; }
-    } else {
-      const empty = '<div style="text-align:center;padding:32px;color:var(--silver);font-size:11px">No requests yet. Submit your first request below.</div>';
-      if (list) list.innerHTML = empty;
-      if (reqList) reqList.innerHTML = empty;
-    }
-  } catch(e) { console.log('Could not load requests', e); }
-
-  // Load documents for vault
-  try {
-    const res = await fetch('/api/documents', { headers });
-    const docs = await res.json();
-    const vault = document.getElementById('vaultDocs');
-    if (vault) {
-      if (Array.isArray(docs) && docs.length > 0) {
-        vault.innerHTML = docs.map(d => `
-          <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="1" width="14" height="18" rx="1" stroke="#c9a96e" stroke-width="0.8"/><path d="M7 6H13M7 10H13M7 14H10" stroke="#c9a96e" stroke-width="0.6"/></svg>
-            <div style="flex:1">
-              <div style="font-size:12px;color:var(--white)">${d.originalName}</div>
-              <div style="font-size:9px;color:var(--silver)">AES-256 Encrypted · ${(d.sizeBytes/1024).toFixed(0)} KB · ${new Date(d.createdAt).toLocaleDateString('en-AU')}</div>
-            </div>
-            <button onclick="showOTPSend('${d.id}','${d.originalName}')" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Share via OTP</button>
-            <a href="/api/documents/${d.id}/download" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--silver);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;text-decoration:none" download="${d.originalName}">Download</a>
-          </div>`).join('');
-      } else {
-        vault.innerHTML = '<div style="text-align:center;padding:24px;color:var(--silver);font-size:11px">No documents uploaded yet. Upload your first document above.</div>';
-      }
-    }
-  } catch(e) { console.log('Could not load documents', e); }
-}
-
-// Load admin dashboard data
-async function loadAdminData() {
-  if (!window._cipherToken) return;
-  // Set date display
-  const dateEl = document.getElementById('adminDateDisplay');
-  if (dateEl) {
-    const now = new Date();
-    dateEl.textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-  }
-  // Set admin name initial
-  if (window._cipherUser) {
-    const nameEl = document.getElementById('adminName');
-    const initEl = document.getElementById('adminInitial');
-    if (nameEl) nameEl.textContent = window._cipherUser.fullName || 'Admin';
-    if (initEl) initEl.textContent = (window._cipherUser.fullName || 'A')[0].toUpperCase();
-  }
-  const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
-  try {
-    const res = await fetch('/api/admin/dashboard', { headers });
-    const data = await res.json();
-    if (data.totalMembers !== undefined) {
-      const stats = document.querySelectorAll('#adminPortal .font-size-32, #adminPortal [style*="font-size:32px"]');
-    }
-  } catch(e) { console.log('Could not load admin data', e); }
-}
-
-// Real request submission
-async function submitRequest() {
-  const text = document.getElementById('newRequestText').value;
-  const priority = document.getElementById('requestPriority').value.toUpperCase();
-  const cat = document.getElementById('requestCategory').value;
-  if (!text.trim()) { alert('Please describe your request.'); return; }
-  if (!window._cipherToken) { alert('Please log in first.'); return; }
-  try {
-    const res = await fetch('/api/requests', {
-      method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+window._cipherToken },
-      body: JSON.stringify({ description: text, category: cat, priority: priority.replace(' ','_') })
-    });
-    const data = await res.json();
-    if (!res.ok) { alert(data.error || 'Failed to submit'); return; }
-    const list = document.getElementById('activityList');
-    const div = document.createElement('div');
-    div.style.cssText = 'display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)';
-    div.innerHTML = `<div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-top:4px;flex-shrink:0;animation:pulse 2s infinite"></div><div><div style="font-size:12px;color:var(--white);margin-bottom:3px">${text}</div><div style="font-size:10px;color:var(--silver)">${cat} · Just now</div></div><div style="margin-left:auto;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">Received</div>`;
-    list.prepend(div);
-    document.getElementById('newRequestText').value = '';
-    alert('Request submitted. Your lifestyle manager will respond shortly.');
-  } catch(e) { alert('Connection error. Please try again.'); }
-}
-
-// Real OTP send with document ID
-async function showOTPSend(docId, filename) {
-  window._currentDocId = docId;
-  window._currentDocName = filename;
-  document.getElementById('otpDocName').textContent = filename || 'Selected Document';
-  document.getElementById('otpEmail').value = '';
-  document.getElementById('otpModal').classList.add('active');
-}
-
-async function sendOTP() {
-  const email = document.getElementById('otpEmail').value.trim();
-  if (!email) { alert('Please enter a recipient email address.'); return; }
-  if (!email.includes('@')) { alert('Please enter a valid email address.'); return; }
-  if (!window._currentDocId) { alert('No document selected.'); return; }
-  if (!window._cipherToken) { alert('Please log in first.'); return; }
-  
-  const btn = document.querySelector('#otpModal .form-submit');
-  if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
-  
-  try {
-    const expirySelect = document.querySelector('#otpModal select');
-    const expiryMap = { '24 hours': 24, '48 hours': 48, '7 days': 168, 'One-time access only': 1 };
-    const expiryHours = expiryMap[expirySelect?.value] || 24;
-    
-    const res = await fetch('/api/otp/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ documentId: window._currentDocId, recipientEmail: email, expiryHours })
-    });
-    const data = await res.json();
-    
-    if (res.ok) {
-      closeModal('otp');
-      alert('✓ Secure OTP sent to ' + email + '\n\nThe recipient will receive an email with a 6-digit one-time code and encrypted access link.\n\nAll access is logged and auditable.');
-    } else {
-      alert('Failed to send OTP: ' + (data.error || 'Unknown error'));
-    }
-  } catch(e) {
-    alert('Connection error. Please check your internet connection and try again.');
-  } finally {
-    if (btn) { btn.textContent = 'Generate & Send OTP Link'; btn.disabled = false; }
-  }
-}
-
-// Real file upload
-async async function uploadDocument(input) {
-  if (!input.files || !input.files[0]) return;
-  const file = input.files[0];
-  const prog = document.getElementById('uploadProgress');
-  const bar = document.getElementById('uploadBar');
-  if (prog) prog.style.display = 'block';
-  if (bar) { bar.style.width = '30%'; setTimeout(() => bar.style.width = '70%', 500); }
-  const formData = new FormData();
-  formData.append('file', file);
-  try {
-    const res = await fetch('/api/documents/upload', { method:'POST', headers:{'Authorization':'Bearer '+window._cipherToken}, body: formData });
-    if (bar) bar.style.width = '100%';
-    setTimeout(() => { if (prog) prog.style.display = 'none'; if (bar) bar.style.width = '0%'; }, 800);
-    if (res.ok) { loadMemberVault(); input.value = ''; }
-    else { const d = await res.json(); alert(d.error || 'Upload failed'); }
-  } catch(e) { if (prog) prog.style.display = 'none'; alert('Upload failed. Please try again.'); }
-}
-
-function simulateUpload() {
-  if (!window._cipherToken) { alert('Please log in first.'); return; }
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.pdf,.doc,.docx,.jpg,.jpeg,.png,.txt';
-  input.onchange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('file', file);
-    try {
-      const res = await fetch('/api/documents/upload', {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + window._cipherToken },
-        body: formData
-      });
-      const data = await res.json();
-      if (!res.ok) { alert(data.error || 'Upload failed'); return; }
-      const vault = document.getElementById('vaultDocs');
-      const div = document.createElement('div');
-      div.style.cssText = 'display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(201,169,110,0.06)';
-      div.innerHTML = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="1" width="14" height="18" rx="1" stroke="#c9a96e" stroke-width="0.8"/></svg><div style="flex:1"><div style="font-size:12px;color:var(--white)">${data.originalName}</div><div style="font-size:9px;color:var(--silver)">AES-256 Encrypted · Just uploaded</div></div><button onclick="showOTPSend('${data.id}','${data.originalName}')" style="background:transparent;border:1px solid rgba(201,169,110,0.3);color:var(--gold);padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Share via OTP</button>`;
-      vault.prepend(div);
-      alert('Document encrypted and uploaded successfully.');
-    } catch(e) { alert('Upload failed. Please try again.'); }
-  };
-  input.click();
-}
-
-// Application form submission
-async function submitApplication(event) {
-  if (event) event.preventDefault();
-  const inputs = document.querySelectorAll('.cta-form input');
-  const select = document.querySelector('.cta-form select');
-  const fullName = inputs[0]?.value?.trim() || '';
-  const email = inputs[1]?.value?.trim() || '';
-  const phone = inputs[2]?.value?.trim() || '';
-  const referral = inputs[3]?.value?.trim() || '';
-  const tier = select?.value || '';
-  const tierMap = { 'Cipher': 'CIPHER', 'Cipher Black': 'CIPHER_BLACK', 'Cipher Sovereign — Bespoke': 'CIPHER_SOVEREIGN' };
-  
-  if (!fullName || !email) { alert('Please provide your name and email address.'); return; }
-  
-  const btn = document.querySelector('.form-submit');
-  if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
-  
-  try {
-    const res = await fetch('/api/applications', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fullName, email, phone, tier: tierMap[tier] || 'CIPHER', referral })
-    });
-    const data = await res.json();
-    if (res.ok) {
-      alert('Application received. A confirmation email has been sent to ' + email + '. Our membership director will contact you within 48 hours.');
-      if (btn) { btn.textContent = 'Application Submitted ✓'; }
-    } else {
-      alert(data.error || 'Submission failed. Please try again.');
-      if (btn) { btn.textContent = 'Submit Application'; btn.disabled = false; }
-    }
-  } catch(e) {
-    alert('Application received. Our membership director will contact you within 48 hours.');
-    if (btn) { btn.textContent = 'Submit Application'; btn.disabled = false; }
-  }
-}
-
-</script>
+.portal-nav-btn:hover { color:var(--gold);background:rgba(201,169,110,0.05); }
+.portal-nav-btn.active { color:var(--gold);background:rgba(201,169,110,0.08);border-left:2px solid var(--gold); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
 
 
-<script>
-// ── Admin Functions ──────────────────────────────────────────────────────────
-function switchAdminTab(tab, btn) {
-  const map = { requests: 'requests', applications: 'enquiries', members: 'clients', chat: 'conversations' };
-  switchAdminSection(map[tab] || tab);
-}
-
-function switchAdminSection(section) {
-  const sections = ['dashboard','clients','requests','conversations','enquiries'];
-  sections.forEach(s => {
-    const el = document.getElementById('asec-' + s);
-    if (el) el.classList.remove('active');
-    const nav = document.getElementById('anav-' + s);
-    if (nav) nav.classList.remove('active');
-  });
-  const target = document.getElementById('asec-' + section);
-  if (target) target.classList.add('active');
-  const navTarget = document.getElementById('anav-' + section);
-  if (navTarget) navTarget.classList.add('active');
-
-  // Update topbar title
-  const titles = {dashboard:'Dashboard',clients:'Client Accounts',requests:'Service Requests',conversations:'Client Conversations',enquiries:'Membership Enquiries'};
-  const titleEl = document.getElementById('apTopbarTitle');
-  if (titleEl) titleEl.textContent = titles[section] || section;
-
-  window._activeAdminSection = section;
-  if (['requests','clients','enquiries'].includes(section)) loadAdminData();
-  if (section === 'conversations') initAdminChat();
-}
-
-async function loadAdminData() {
-  if (!window._cipherToken) return;
-  // Set date display
-  const dateEl = document.getElementById('adminDateDisplay');
-  if (dateEl) {
-    const now = new Date();
-    dateEl.textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-  }
-  // Set admin name initial
-  if (window._cipherUser) {
-    const nameEl = document.getElementById('adminName');
-    const initEl = document.getElementById('adminInitial');
-    if (nameEl) nameEl.textContent = window._cipherUser.fullName || 'Admin';
-    if (initEl) initEl.textContent = (window._cipherUser.fullName || 'A')[0].toUpperCase();
-  }
-  const headers = { 'Authorization': 'Bearer ' + window._cipherToken };
-
-  // Load dashboard stats
-  try {
-    const res = await fetch('/api/admin/dashboard', { headers });
-    const data = await res.json();
-    if (data.totalMembers !== undefined) {
-      document.getElementById('statMembers').textContent = data.totalMembers;
-      document.getElementById('statRequests').textContent = data.activeRequests;
-      document.getElementById('statApplications').textContent = data.pendingApplications;
-    }
-
-    // Render requests
-    const reqList = document.getElementById('adminRequestsList');
-    if (data.recentRequests && data.recentRequests.length > 0) {
-      reqList.innerHTML = data.recentRequests.map(r => `
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-          <div style="width:10px;height:10px;background:${r.status==='RECEIVED'?'var(--gold)':r.status==='IN_PROGRESS'?'#e67e22':'#2ecc71'};border-radius:50%;flex-shrink:0"></div>
-          <div style="flex:1">
-            <div style="font-size:13px;color:var(--white);margin-bottom:4px">${r.user?.fullName || 'Member'} — ${r.description.substring(0,60)}...</div>
-            <div style="font-size:10px;color:var(--silver)">${r.user?.memberTier?.replace('_',' ') || ''} · ${r.priority} · ${new Date(r.createdAt).toLocaleDateString()}</div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <span style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,0.08);padding:3px 10px;border:1px solid rgba(201,169,110,0.15)">${r.status.replace('_',' ')}</span>
-            <button onclick="updateRequestStatus('${r.id}','${r.status}')" style="background:var(--gold);color:var(--obsidian);border:none;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:600">Update Status</button>
-          </div>
-        </div>`).join('');
-    } else {
-      reqList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No active requests</div>';
-    }
-
-    // Render applications
-    const appList = document.getElementById('adminApplicationsList');
-    if (data.recentApplications && data.recentApplications.length > 0) {
-      appList.innerHTML = data.recentApplications.map(a => `
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-          <div style="flex:1">
-            <div style="font-size:13px;color:var(--white);margin-bottom:4px">${a.fullName} — ${a.tier.replace('_',' ')}</div>
-            <div style="font-size:10px;color:var(--silver)">${a.email} · ${a.referral ? 'Ref: '+a.referral+' · ' : ''}${new Date(a.createdAt).toLocaleDateString()}</div>
-          </div>
-          <div style="display:flex;gap:8px">
-            ${a.status === 'PENDING' ? `
-            <button onclick="updateApplication('${a.id}','APPROVED')" style="background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);color:#2ecc71;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Approve</button>
-            <button onclick="updateApplication('${a.id}','DECLINED')" style="background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c;padding:6px 14px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">Decline</button>
-            ` : `<span style="font-size:9px;color:var(--gold-dim);letter-spacing:2px">${a.status}</span>`}
-          </div>
-        </div>`).join('');
-    } else {
-      appList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No pending applications</div>';
-    }
-  } catch(e) {
-    console.error('Admin data load error:', e);
-  }
-
-  // Load members
-  try {
-    const res = await fetch('/api/admin/members', { headers });
-    const members = await res.json();
-    const membersList = document.getElementById('adminMembersList');
-    if (Array.isArray(members) && members.length > 0) {
-      membersList.innerHTML = members.map(m => `
-        <div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:20px;display:flex;align-items:center;gap:16px">
-          <div style="width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:18px;flex-shrink:0">${m.fullName[0]}</div>
-          <div style="flex:1">
-            <div style="font-size:13px;color:var(--white);margin-bottom:3px">${m.fullName}</div>
-            <div style="font-size:10px;color:var(--silver)">${m.email} · ${m.memberTier.replace('_',' ')} · ${m.isApproved ? '✓ Approved' : '⏳ Pending'}</div>
-          </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="toggleMember('${m.id}',${!m.isActive})" style="background:${m.isActive ? 'rgba(46,204,113,0.1)' : 'rgba(231,76,60,0.1)'};border:1px solid ${m.isActive ? 'rgba(46,204,113,0.4)' : 'rgba(231,76,60,0.4)'};color:${m.isActive ? '#2ecc71' : '#e74c3c'};padding:5px 12px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer">${m.isActive ? '● Active' : '○ Suspended'}</button>
-          </div>
-        </div>`).join('');
-    } else {
-      membersList.innerHTML = '<div style="color:var(--silver);font-size:12px;padding:20px;text-align:center">No members yet</div>';
-    }
-  } catch(e) { console.error('Members load error:', e); }
-}
-
-async function updateRequestStatus(id, currentStatus) {
-  if (!window._cipherToken) return;
-  const statuses = ['RECEIVED', 'IN_PROGRESS', 'AWAITING_MEMBER', 'COMPLETED', 'CANCELLED'];
-  const current = statuses.indexOf(currentStatus);
-  const options = statuses.map((s, i) => `${i === current ? '✓ ' : ''}${s.replace(/_/g,' ')}`).join('\n');
-  const choice = prompt(`Update status for this request:\n\n${statuses.map((s,i) => `${i+1}. ${s.replace(/_/g,' ')}`).join('\n')}\n\nEnter number (1-5):`);
-  if (!choice) return;
-  const idx = parseInt(choice) - 1;
-  if (idx < 0 || idx >= statuses.length) { alert('Invalid choice'); return; }
-  const newStatus = statuses[idx];
-  try {
-    const res = await fetch('/api/requests/' + id + '/status', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ status: newStatus })
-    });
-    if (!res.ok) { const d = await res.json(); alert(d.error || 'Failed'); return; }
-    alert('Status updated to: ' + newStatus.replace(/_/g,' ') + '\nMember has been notified by email.');
-    loadAdminData();
-  } catch(e) { alert('Failed to update request'); }
-}
-
-async function updateApplication(id, status) {
-  if (!window._cipherToken) return;
-  try {
-    await fetch('/api/admin/applications/' + id, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ status })
-    });
-    alert(status === 'APPROVED' ? 'Application approved. Welcome email sent.' : 'Application declined.');
-    loadAdminData();
-  } catch(e) { alert('Failed to update application'); }
-}
-
-async function toggleMember(id, makeActive) {
-  if (!window._cipherToken) return;
-  const action = makeActive ? 'activate' : 'suspend';
-  if (!confirm(`Are you sure you want to ${action} this member? ${makeActive ? 'They will regain portal access.' : 'They will lose portal access immediately.'}`)) return;
-  try {
-    const res = await fetch('/api/admin/members/' + id, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ isActive: makeActive })
-    });
-    if (!res.ok) { const d = await res.json(); alert(d.error || 'Failed'); return; }
-    alert('Member has been ' + (makeActive ? 'activated' : 'suspended') + ' successfully.');
-    loadAdminData();
-  } catch(e) { alert('Failed to update member'); }
-}
-
-function showAddMember() {
-  document.getElementById('addMemberModal').classList.add('active');
-}
-
-async function createMember() {
-  if (!window._cipherToken) return;
-  const fullName = document.getElementById('newMemberName').value;
-  const email = document.getElementById('newMemberEmail').value;
-  const phone = document.getElementById('newMemberPhone').value;
-  const password = document.getElementById('newMemberPassword').value;
-  const memberTier = document.getElementById('newMemberTier').value;
-  if (!fullName || !email || !password) { alert('Please fill in all required fields.'); return; }
-  if (password.length < 12) { alert('Password must be at least 12 characters.'); return; }
-  try {
-    const res = await fetch('/api/admin/members', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
-      body: JSON.stringify({ fullName, email, phone, password, memberTier })
-    });
-    const data = await res.json();
-    if (!res.ok) { alert(data.error || 'Failed to create member'); return; }
-    closeModal('addMember');
-    alert('Member created successfully. Welcome email sent to ' + email);
-    loadAdminData();
-  } catch(e) { alert('Failed to create member'); }
-}
-
-function closeAdmin() {
-  document.getElementById('adminPortal').classList.remove('active');
-  window._cipherToken = null;
-  window._cipherUser = null;
-}
-</script>
 <script>
 // ── Admin Chat System ─────────────────────────────────────────────────────────
 let _adminSocket = null;
@@ -4391,6 +3547,152 @@ async function updateApplication(id, status) {
     body:JSON.stringify({status})
   });
   loadAdminData();
+}
+
+// ── Core site functions ────────────────────────────────────────────
+function openModal(type) {
+  const el = document.getElementById(type + 'Modal');
+  if (el) el.classList.add('active');
+}
+function closeModal(type) {
+  const el = document.getElementById(type + 'Modal');
+  if (el) el.classList.remove('active');
+}
+
+async function loginMember() {
+  const email = document.getElementById('memberEmail').value.trim();
+  const pass  = document.getElementById('memberPass').value;
+  if (!email || !pass) { showLoginError('member', 'Please enter your email and password.'); return; }
+  const btn = document.querySelector('#loginModal .form-submit');
+  if (btn) { btn.textContent = 'Signing in…'; btn.disabled = true; }
+  try {
+    const res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password: pass }) });
+    const data = await res.json();
+    if (res.ok) {
+      window._cipherToken = data.token;
+      window._cipherUser  = data.user;
+      document.getElementById('loginModal').classList.remove('active');
+      if (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN') {
+        document.getElementById('adminPortal').classList.add('active');
+        loadAdminData();
+      } else {
+        document.getElementById('memberPortal').classList.add('active');
+        loadPortalData();
+      }
+    } else {
+      showLoginError('member', data.error || 'Invalid credentials. Please try again.');
+      if (btn) { btn.textContent = 'Sign In'; btn.disabled = false; }
+    }
+  } catch(e) {
+    showLoginError('member', 'Connection error. Please try again.');
+    if (btn) { btn.textContent = 'Sign In'; btn.disabled = false; }
+  }
+}
+
+async function loginAdmin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass  = document.getElementById('adminPass').value;
+  if (!email || !pass) { alert('Please enter email and password.'); return; }
+  try {
+    const res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password: pass }) });
+    const data = await res.json();
+    if (res.ok && (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN')) {
+      window._cipherToken = data.token;
+      window._cipherUser  = data.user;
+      document.getElementById('loginModal') && document.getElementById('loginModal').classList.remove('active');
+      document.getElementById('adminPortal').classList.add('active');
+      loadAdminData();
+    } else {
+      alert(data.error || 'Access denied. Admin credentials required.');
+    }
+  } catch(e) { alert('Connection error. Please try again.'); }
+}
+
+function showLoginError(type, msg) {
+  const errEl = document.getElementById(type === 'admin' ? 'adminLoginError' : 'loginError');
+  if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+  else alert(msg);
+}
+
+async function submitRequest() {
+  const desc = document.getElementById('reqDescription').value.trim();
+  const cat  = document.getElementById('reqCategory').value;
+  const pri  = document.getElementById('reqPriority').value;
+  if (!desc || !cat) {
+    const errEl = document.getElementById('reqError');
+    if (errEl) { errEl.textContent = 'Please select a category and describe your request.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (!window._cipherToken) { alert('Please log in first.'); return; }
+  const btn = document.querySelector('.mp-primary-btn');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+  try {
+    const res  = await fetch('/api/requests', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({ description: desc, category: cat, priority: pri || 'STANDARD' })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      const ok = document.getElementById('reqSuccess');
+      if (ok) ok.style.display = 'block';
+      document.getElementById('reqDescription').value = '';
+      document.getElementById('reqCategory').value = '';
+      setTimeout(() => { if (ok) ok.style.display = 'none'; if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; } mpLoadRequests(); }, 3000);
+    } else {
+      const errEl = document.getElementById('reqError');
+      if (errEl) { errEl.textContent = data.error || 'Submission failed.'; errEl.style.display = 'block'; }
+      if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; }
+    }
+  } catch(e) {
+    const errEl = document.getElementById('reqError');
+    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.style.display = 'block'; }
+    if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; }
+  }
+}
+
+function showAddMember() {
+  const el = document.getElementById('addMemberModal');
+  if (el) el.classList.add('active');
+}
+
+async function createMember() {
+  const email = document.getElementById('newMemberEmail').value.trim();
+  const name  = document.getElementById('newMemberName').value.trim();
+  const pass  = document.getElementById('newMemberPass').value;
+  const tier  = document.getElementById('newMemberTier').value;
+  if (!email || !name || !pass) { alert('Name, email and password are required.'); return; }
+  try {
+    const res  = await fetch('/api/admin/members', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({ email, fullName: name, password: pass, memberTier: tier || 'CIPHER' })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      document.getElementById('addMemberModal').classList.remove('active');
+      alert('Member created successfully. Welcome email sent.');
+      loadAdminData();
+    } else { alert(data.error || 'Failed to create member.'); }
+  } catch(e) { alert('Connection error.'); }
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nb = document.getElementById('navbar');
+  if (nb) nb.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Marquee
+const marqueeTrack = document.querySelector('.marquee-track');
+if (marqueeTrack) {
+  marqueeTrack.innerHTML += marqueeTrack.innerHTML;
 }
 
 </script>
