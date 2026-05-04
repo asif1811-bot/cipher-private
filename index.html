@@ -3543,6 +3543,26 @@ function closeModal(type) {
   if (el) el.classList.remove('active');
 }
 
+function switchTab(tab) {
+  // Switch login modal tabs (member / admin)
+  document.querySelectorAll('.modal-tab').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.modal-form-content').forEach(form => form.classList.remove('active'));
+
+  // Activate clicked tab button
+  const tabs = document.querySelectorAll('.modal-tab');
+  tabs.forEach(btn => {
+    if ((tab === 'member' && btn.textContent.toLowerCase().includes('member')) ||
+        (tab === 'admin'  && btn.textContent.toLowerCase().includes('admin'))) {
+      btn.classList.add('active');
+    }
+  });
+
+  // Show correct form
+  const formId = tab === 'admin' ? 'adminForm' : 'memberForm';
+  const form = document.getElementById(formId);
+  if (form) form.classList.add('active');
+}
+
 async function loginMember() {
   const email = document.getElementById('memberEmail').value.trim();
   const pass  = document.getElementById('memberPass').value;
