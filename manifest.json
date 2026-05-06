@@ -1,14 +1,42 @@
 {
   "name": "Cipher Private",
   "short_name": "Cipher",
-  "description": "Private Members Portal — Cipher Private Concierge",
-  "start_url": "/concierge_ready.html",
+  "description": "Your Life. Your Cipher. Our Promise. — Ultra-private concierge management.",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B1628",
-  "theme_color": "#0B1628",
-  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#c9a96e",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en-AU",
+  "categories": ["business", "lifestyle"],
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Cipher Private Admin Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Admin Panel",
+      "short_name": "Admin",
+      "description": "Open the Cipher Private admin dashboard",
+      "url": "/?admin=true",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Member Portal",
+      "short_name": "Portal",
+      "description": "Access your member portal",
+      "url": "/?portal=true",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
   ]
 }
