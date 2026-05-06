@@ -12,6 +12,17 @@
 <link rel="canonical" href="https://cipherprivate.com">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cipher">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#c9a96e">
+  <meta name="msapplication-TileColor" content="#0a0a0a">
+  <meta name="msapplication-TileImage" content="/icon-192.png">
+
 <!-- Schema Markup for SEO -->
 <script type="application/ld+json">
 {
@@ -3700,6 +3711,101 @@ if (marqueeTrack) {
   marqueeTrack.innerHTML += marqueeTrack.innerHTML;
 }
 
+</script>
+<!-- PWA Install & Service Worker -->
+<style>
+#pwa-banner{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:#111;border:1px solid rgba(201,169,110,0.3);
+  padding:14px 20px;display:flex;align-items:center;gap:14px;
+  z-index:99999;transition:transform 0.4s ease;box-shadow:0 8px 32px rgba(0,0,0,0.6);
+  max-width:360px;width:calc(100% - 40px);
+}
+#pwa-banner.show{transform:translateX(-50%) translateY(0)}
+#pwa-banner img{width:36px;height:36px;border-radius:8px;flex-shrink:0}
+#pwa-banner-text{flex:1}
+#pwa-banner-text strong{display:block;font-size:11px;color:#f0ede8;letter-spacing:1px;margin-bottom:2px;font-family:'Montserrat',sans-serif}
+#pwa-banner-text span{font-size:9px;color:rgba(201,169,110,0.6);letter-spacing:0.5px;font-family:'Montserrat',sans-serif}
+#pwa-install-btn{background:#c9a96e;color:#0a0a0a;border:none;padding:8px 16px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+#pwa-dismiss-btn{background:none;border:none;color:rgba(201,169,110,0.4);font-size:18px;cursor:pointer;padding:0 0 0 8px;line-height:1;flex-shrink:0}
+#pwa-dismiss-btn:hover{color:#c9a96e}
+</style>
+
+<div id="pwa-banner" style="display:none">
+  <img src="/icon-192.png" alt="Cipher">
+  <div id="pwa-banner-text">
+    <strong>Install Cipher Private</strong>
+    <span>Add to your home screen for quick access</span>
+  </div>
+  <button id="pwa-install-btn">Install</button>
+  <button id="pwa-dismiss-btn" onclick="dismissPWA()">×</button>
+</div>
+
+<script>
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('[Cipher PWA] Service worker registered:', reg.scope))
+      .catch(err => console.log('[Cipher PWA] SW registration failed:', err));
+  });
+}
+
+// Install prompt
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show banner after 3 seconds if not dismissed before
+  if (!localStorage.getItem('cipher-pwa-dismissed')) {
+    setTimeout(() => {
+      const banner = document.getElementById('pwa-banner');
+      if (banner) {
+        banner.style.display = 'flex';
+        setTimeout(() => banner.classList.add('show'), 100);
+      }
+    }, 3000);
+  }
+});
+
+document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+  const banner = document.getElementById('pwa-banner');
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('[Cipher PWA] Install outcome:', outcome);
+    deferredPrompt = null;
+  }
+  if (banner) { banner.classList.remove('show'); setTimeout(() => banner.style.display='none', 400); }
+});
+
+function dismissPWA() {
+  const banner = document.getElementById('pwa-banner');
+  if (banner) { banner.classList.remove('show'); setTimeout(() => banner.style.display='none', 400); }
+  localStorage.setItem('cipher-pwa-dismissed', '1');
+}
+
+window.addEventListener('appinstalled', () => {
+  console.log('[Cipher PWA] App installed successfully');
+  deferredPrompt = null;
+  const banner = document.getElementById('pwa-banner');
+  if (banner) { banner.style.display = 'none'; }
+});
+
+// Auto-open admin or portal from PWA shortcuts
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('admin') === 'true') {
+  window.addEventListener('DOMContentLoaded', () => {
+    // Small delay to let page initialise
+    setTimeout(() => { openModal('login'); }, 800);
+  });
+}
+if (urlParams.get('portal') === 'true') {
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { openModal('login'); }, 800);
+  });
+}
 </script>
 </body>
 </html>
