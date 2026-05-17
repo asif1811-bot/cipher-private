@@ -69,6 +69,63 @@ app.get('/sitemap.xml', (_req, res) => {
 
 // AUTHENTICATED API ROUTES
 app.use('/api/auth', authRoutes);
+
+// 2FA email — sends OTP code to member using Resend
+app.post('/api/auth/send-2fa', async (req, res) => {
+  try {
+    const { email, code } = req.body;
+    if (!email || !code) return res.status(400).json({ error: 'Email and code required' });
+    const authHeader = req.headers.authorization || '';
+    if (!authHeader.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
+
+    const RESEND_KEY = process.env.RESEND_API_KEY;
+    if (!RESEND_KEY) {
+      logger.warn('RESEND_API_KEY not set — 2FA code: ' + code);
+      return res.json({ sent: false, message: 'Email not configured' });
+    }
+
+    const html = [
+      '<div style="background:#0a0a0a;padding:48px 40px;font-family:Helvetica,Arial,sans-serif;max-width:520px;margin:0 auto">',
+      '<div style="text-align:center;border-bottom:1px solid rgba(201,169,110,0.2);padding-bottom:24px;margin-bottom:28px">',
+      '<div style="font-size:28px;color:#c9a96e;margin-bottom:10px">&#9670;</div>',
+      '<div style="font-size:10px;letter-spacing:6px;text-transform:uppercase;color:#c9a96e">Cipher Private</div>',
+      '</div>',
+      '<h2 style="font-family:Georgia,serif;font-size:22px;font-weight:300;color:#f0ede8;margin:0 0 12px">Your security code</h2>',
+      '<p style="font-size:13px;color:rgba(240,237,232,0.6);line-height:1.8;margin:0 0 28px">Use this code to verify your identity. It expires in 5 minutes.</p>',
+      '<div style="background:#111;border:1px solid rgba(201,169,110,0.25);padding:28px;text-align:center;margin-bottom:24px">',
+      '<div style="font-family:Courier New,monospace;font-size:40px;font-weight:700;color:#c9a96e;letter-spacing:14px">' + code + '</div>',
+      '</div>',
+      '<p style="font-size:11px;color:rgba(240,237,232,0.3);line-height:1.7">If you did not attempt to log in, contact your director immediately: hello@cipherprivate.com</p>',
+      '<div style="border-top:1px solid rgba(201,169,110,0.1);margin-top:28px;padding-top:16px;text-align:center">',
+      '<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.35)">Cipher Private &middot; Encrypted &middot; Australian Sovereign</div>',
+      '</div></div>'
+    ].join('');
+
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: process.env.EMAIL_FROM || 'hello@cipherprivate.com',
+        to: [email],
+        subject: 'Your Cipher Private Security Code — ' + code,
+        html: html
+      })
+    });
+
+    if (r.ok) {
+      logger.info('2FA code sent to: ' + email);
+      return res.json({ sent: true });
+    } else {
+      const e = await r.json();
+      logger.error('Resend 2FA error: ' + JSON.stringify(e));
+      return res.status(500).json({ sent: false, error: 'Email delivery failed' });
+    }
+  } catch (e) {
+    logger.error('send-2fa error: ' + e.message);
+    return res.status(500).json({ sent: false, error: 'Internal error' });
+  }
+});
+
 app.use('/api/requests', requestRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/otp', otpRoutes);
