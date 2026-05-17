@@ -1299,6 +1299,22 @@ footer {
   .hero-content { padding: 0 30px; padding-top: 120px; }
 }
 </style>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. We serve a permanent maximum of 50 ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
+      {"@type":"Question","name":"How do I join Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private membership is by referral only. New members must be introduced by an existing member who sponsors the relationship. Applications are reviewed personally by the founding director within 48 hours."}},
+      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private permanently limits membership to 50 individuals. When capacity is reached, membership closes. This is a permanent cap, not a waitlist."}},
+      {"@type":"Question","name":"What services does Cipher Private provide?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private provides comprehensive lifestyle management including private aviation, estate management, medical concierge, dining and event access, travel architecture, and an AES-256 encrypted document vault."}},
+      {"@type":"Question","name":"What is the response time guarantee?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private guarantees a response to every request in under 3 minutes, 24 hours a day, written into the membership agreement as a contractual obligation."}},
+      {"@type":"Question","name":"Is Cipher Private data stored in Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes. All Cipher Private data is held exclusively on Australian-sovereign infrastructure, subject to the Privacy Act 1988. No foreign government or foreign court order can compel access."}}
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -2468,6 +2484,9 @@ footer {
         <span class="ni-ic">◎</span><span class="ni-tx">Live Chat</span>
       </div>
       <div class="mp-nav-sec">Account</div>
+      <div class="mp-nav-item" id="mpni-refer" onclick="mpGo('refer')">
+        <span class="ni-ic">◇</span><span class="ni-tx">Refer a Contact</span>
+      </div>
       <div class="mp-nav-item" id="mpni-profile" onclick="mpGo('profile')">
         <span class="ni-ic">○</span><span class="ni-tx">My Profile</span>
       </div>
@@ -2642,6 +2661,69 @@ footer {
         <textarea class="mp-chat-input" id="memberChatInput" rows="1" placeholder="Type your message…"
           onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMemberMessage()}"></textarea>
         <button class="mp-chat-send" onclick="sendMemberMessage()">Send</button>
+      </div>
+    </div>
+
+    <!-- REFER A CONTACT -->
+    <div class="mp-content mp-section" id="mpsec-refer">
+      <div class="mp-eyebrow">Membership</div>
+      <h1 class="mp-page-title">Refer a Contact</h1>
+      <div class="mp-card">
+        <div class="mp-card-header">
+          <span class="mp-card-title">Introduce Someone to Cipher Private</span>
+        </div>
+        <p style="font-size:13px;color:rgba(240,237,232,0.65);line-height:1.9;margin-bottom:20px">As a Cipher Private member, your introduction carries significant weight. New members require a formal sponsor — someone who puts their name to the relationship. By referring a contact, you are attesting that they are someone who would benefit from and honour the standard of this membership.</p>
+        <div class="mp-form-grid">
+          <div class="mp-field">
+            <label>Contact Full Name</label>
+            <input type="text" id="referName" placeholder="Full name">
+          </div>
+          <div class="mp-field">
+            <label>Contact Email</label>
+            <input type="email" id="referEmail" placeholder="their@email.com">
+          </div>
+          <div class="mp-field">
+            <label>Contact Phone</label>
+            <input type="tel" id="referPhone" placeholder="+61 4XX XXX XXX">
+          </div>
+          <div class="mp-field">
+            <label>Their Background / Profession</label>
+            <input type="text" id="referProfession" placeholder="e.g. Private equity, Property developer">
+          </div>
+          <div class="mp-field" style="grid-column:1/-1">
+            <label>Why are you introducing them?</label>
+            <textarea id="referNote" placeholder="Tell us briefly why you feel this person would be an ideal Cipher Private member..." style="min-height:100px"></textarea>
+          </div>
+          <div class="mp-field">
+            <label>Preferred Tier (if known)</label>
+            <select id="referTier">
+              <option value="">Not sure</option>
+              <option value="CIPHER">Cipher</option>
+              <option value="CIPHER_BLACK">Cipher Black</option>
+              <option value="CIPHER_SOVEREIGN">Cipher Sovereign</option>
+            </select>
+          </div>
+          <div class="mp-field">
+            <label>Are they expecting to be contacted?</label>
+            <select id="referExpecting">
+              <option value="yes">Yes — they are expecting outreach</option>
+              <option value="no">No — please approach discreetly</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.07)">
+          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:380px">Your introduction is held in strict confidence. Your contact will be approached with absolute discretion. Your name as sponsor will be shared with them only if and when appropriate.</span>
+          <button class="mp-primary-btn" onclick="submitReferral()">Submit Introduction</button>
+        </div>
+        <div class="mp-notice ok" id="referSuccess">✓ &nbsp;Introduction received. Our membership director will be in touch within 48 hours.</div>
+        <div class="mp-notice err" id="referError"></div>
+      </div>
+
+      <div class="mp-card" style="margin-top:12px">
+        <div class="mp-card-header"><span class="mp-card-title">Your Previous Introductions</span></div>
+        <div id="referralsList">
+          <div class="mp-empty"><div class="mp-empty-icon">◇</div><div class="mp-empty-txt">No introductions yet</div></div>
+        </div>
       </div>
     </div>
 
@@ -3200,8 +3282,8 @@ function handleAdminChatKey(e) {
 // ═══════════════════════════════════════════════════════════════════
 
 // ── Member Portal ─────────────────────────────────────────────────
-const MP_SECS = ['dashboard','requests','new','vault','chat','profile'];
-const MP_TITLES = {dashboard:'Dashboard',requests:'My Requests','new':'New Request',vault:'Document Vault',chat:'Live Chat',profile:'My Profile'};
+const MP_SECS = ['dashboard','requests','new','vault','chat','refer','profile'];
+const MP_TITLES = {dashboard:'Dashboard',requests:'My Requests','new':'New Request',vault:'Document Vault',chat:'Live Chat',refer:'Refer a Contact',profile:'My Profile'};
 
 function mpGo(tab) {
   MP_SECS.forEach(t => {
@@ -3737,6 +3819,52 @@ if (marqueeTrack) {
 </div>
 </div>
 <script>
+
+// ── Refer a Contact ───────────────────────────────────────────────
+async function submitReferral() {
+  const name  = document.getElementById('referName').value.trim();
+  const email = document.getElementById('referEmail').value.trim();
+  const note  = document.getElementById('referNote').value.trim();
+  if (!name || !email) {
+    const err = document.getElementById('referError');
+    if (err) { err.textContent = 'Please provide the contact name and email address.'; err.style.display = 'block'; }
+    return;
+  }
+  const btn = document.querySelector('#mpsec-refer .mp-primary-btn');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+
+  try {
+    const res = await fetch('/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({
+        fullName: name,
+        email: email,
+        phone: document.getElementById('referPhone').value.trim(),
+        tier: document.getElementById('referTier').value || 'CIPHER',
+        referral: (window._cipherUser ? window._cipherUser.fullName : 'Member') + ' — ' + note,
+        source: 'member_referral'
+      })
+    });
+    if (res.ok) {
+      const ok = document.getElementById('referSuccess');
+      if (ok) ok.style.display = 'block';
+      const err = document.getElementById('referError');
+      if (err) err.style.display = 'none';
+      ['referName','referEmail','referPhone','referNote'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+      if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+    } else {
+      const data = await res.json();
+      const err = document.getElementById('referError');
+      if (err) { err.textContent = data.error || 'Submission failed. Please try again.'; err.style.display = 'block'; }
+      if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+    }
+  } catch(e) {
+    const err = document.getElementById('referError');
+    if (err) { err.textContent = 'Connection error. Please try again.'; err.style.display = 'block'; }
+    if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+  }
+}
 
 // ── Article content ───────────────────────────────────────────────
 const ARTICLES = {
