@@ -1158,42 +1158,56 @@ footer {
 
 .modal-overlay.active { display: flex; }
 
-/* ── PORTAL LAYOUT OVERRIDES (must override modal-overlay base) ── */
-#memberPortal,
-#adminPortal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: #060606;
-  backdrop-filter: none;
+/* ═══ PORTAL BASE — completely isolated from modal system ═══ */
+#memberPortal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: #060606 !important;
   padding: 0 !important;
-  /* Flexbox is set inline on the child roots, not here */
+  align-items: unset !important;
+  justify-content: unset !important;
+  backdrop-filter: none !important;
+  flex-direction: unset !important;
 }
-#memberPortal.active,
-#adminPortal.active {
-  display: block !important;  /* block, not flex — children handle their own layout */
+#adminPortal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: #090909 !important;
+  padding: 0 !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+  backdrop-filter: none !important;
+  flex-direction: unset !important;
 }
-#mpRoot {
-  width: 100%;
-  height: 100vh;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
-  justify-content: flex-start !important;
-  overflow: hidden;
-  background: #060606;
+/* When shown, use block — grid children handle their own layout */
+#memberPortal[style*="block"],
+#memberPortal[style*="flex"] {
+  display: block !important;
 }
-#apRoot {
-  width: 100%;
-  height: 100vh;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
-  justify-content: flex-start !important;
-  overflow: hidden;
-  background: #090909;
+#adminPortal[style*="block"],
+#adminPortal[style*="flex"] {
+  display: block !important;
 }
+/* Grid wrappers — these control the actual layout */
+#mpWrap {
+  display: grid !important;
+  grid-template-columns: 260px 1fr !important;
+  height: 100vh !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+#apWrap {
+  display: grid !important;
+  grid-template-columns: 230px 1fr !important;
+  height: 100vh !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
 
 
 .modal {
@@ -2137,10 +2151,10 @@ footer {
 <div id="memberPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#060606">
 <style>
 /* Member Portal — isolated CSS, no modal-overlay dependency */
-#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
 
 /* ── SIDEBAR ── */
-#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative}
+#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px}
 #mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
 .mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
 .mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
@@ -2172,7 +2186,7 @@ footer {
 .mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
 
 /* ── MAIN ── */
-#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0}
+#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%}
 
 /* Topbar */
 #mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -2517,8 +2531,8 @@ footer {
 
 <div id="adminPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#090909">
 <style>
-#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
-#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px}
 .aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
 .aps-logo svg{display:block}
 .aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
@@ -2537,7 +2551,7 @@ footer {
 .ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
 .ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
 #apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
-#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0}
+#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0;width:100%}
 #apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .apt-left{display:flex;align-items:center;gap:10px}
 .apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
