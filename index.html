@@ -1158,6 +1158,44 @@ footer {
 
 .modal-overlay.active { display: flex; }
 
+/* ── PORTAL LAYOUT OVERRIDES (must override modal-overlay base) ── */
+#memberPortal,
+#adminPortal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #060606;
+  backdrop-filter: none;
+  padding: 0 !important;
+  /* Flexbox is set inline on the child roots, not here */
+}
+#memberPortal.active,
+#adminPortal.active {
+  display: block !important;  /* block, not flex — children handle their own layout */
+}
+#mpRoot {
+  width: 100%;
+  height: 100vh;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  overflow: hidden;
+  background: #060606;
+}
+#apRoot {
+  width: 100%;
+  height: 100vh;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  overflow: hidden;
+  background: #090909;
+}
+
+
 .modal {
   background: var(--deep-black);
   border: 1px solid rgba(201,169,110,0.2);
@@ -2096,7 +2134,7 @@ footer {
 
 
 <!-- ==================== MEMBER PORTAL ==================== -->
-<div class="modal-overlay" id="memberPortal" style="align-items:stretch;padding:0;justify-content:flex-start;overflow:hidden">
+<div class="modal-overlay" id="memberPortal">
 
 <style id="portal-shared-css">
 :root{
@@ -2116,10 +2154,10 @@ footer {
 
 <style id="mp-css">
 /* ══ ULTRA-LUXURY MEMBER PORTAL ══════════════════════════════════ */
-#mpRoot{width:100%;height:100vh;display:flex;flex-direction:row;font-family:var(--font-ui);background:var(--bg0);overflow:hidden}
+#mpRoot{width:100%;height:100vh;font-family:var(--font-ui);background:var(--bg0)}
 
 /* SIDEBAR */
-#mpSide{width:260px;min-width:260px;max-width:260px;background:linear-gradient(180deg,#070707 0%,#050505 100%);border-right:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;flex-shrink:0}
+#mpSide{width:260px;min-width:260px;max-width:260px;flex:0 0 260px;background:linear-gradient(180deg,#070707 0%,#050505 100%);border-right:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative}
 /* Subtle gold glow top of sidebar */
 #mpSide::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a96e,transparent);pointer-events:none}
 
@@ -2177,7 +2215,7 @@ footer {
 .mp-nav-foot{padding:8px 0;border-top:1px solid rgba(201,169,110,0.08)}
 
 /* MAIN */
-#mpMain{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg1)}
+#mpMain{flex:1 1 0%;min-width:0;max-width:calc(100vw - 260px);display:flex;flex-direction:column;overflow:hidden;background:var(--bg1)}
 
 /* Topbar */
 #mpTopbar{
@@ -2423,6 +2461,11 @@ footer {
         <span id="mpTopTitle" style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#f0ede8;font-weight:500">Dashboard</span>
       </div>
       <div class="mp-topbar-r">
+        <!-- Active request count pill -->
+        <div id="mpTopbarBadge" style="display:none;align-items:center;gap:7px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);padding:5px 12px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#e67e22;display:block;box-shadow:0 0 6px rgba(230,126,34,0.5)"></span>
+          <span id="mpTopbarBadgeCount" style="font-size:9px;letter-spacing:2px;color:#f0ede8;text-transform:uppercase"></span>
+        </div>
         <div style="display:flex;align-items:center;gap:5px">
           <div style="width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px rgba(46,204,113,0.6)"></div>
           <span style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71">Encrypted</span>
@@ -2697,11 +2740,11 @@ footer {
 </div>
 
 <!-- Admin Portal -->
-<div class="modal-overlay" id="adminPortal" style="align-items:stretch;padding:0;justify-content:flex-start;overflow:hidden">
+<div class="modal-overlay" id="adminPortal">
 <style id="ap-css">
-#apRoot{width:100%;height:100vh;display:flex;flex-direction:row;font-family:var(--font-ui);background:#090909;overflow:hidden}
+#apRoot{width:100%;height:100vh;font-family:var(--font-ui);background:#090909}
 /* SIDEBAR */
-#apSide{width:230px;min-width:230px;max-width:230px;background:#050505;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;flex-shrink:0}
+#apSide{width:230px;min-width:230px;max-width:230px;flex:0 0 230px;background:#050505;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh}
 .ap-logo-area{padding:18px 18px 14px;border-bottom:1px solid var(--gold-border)}
 .ap-logo-area img{height:32px;width:auto;display:block;margin-bottom:7px;filter:brightness(1.05)}
 .ap-admin-label{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
@@ -2721,7 +2764,7 @@ footer {
 .ap-ni-ct{margin-left:auto;background:rgba(201,169,110,0.14);color:var(--gold);font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
 #apFoot{border-top:1px solid var(--gold-border);padding:5px 0}
 /* MAIN */
-#apMain{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d}
+#apMain{flex:1 1 0%;min-width:0;max-width:calc(100vw - 230px);display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d}
 #apTopbar{height:56px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.12);padding:0 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:10}
 #apTopbarTitle{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#f0ede8;font-weight:500}
 .ap-topbar-r{display:flex;align-items:center;gap:13px}
@@ -3269,6 +3312,17 @@ function mpLoadRequests() {
       [['mpDS1',total],['mpDS2',active],['mpS1',total],['mpS2',active]].forEach(([id,v]) => { const e=document.getElementById(id); if(e) e.textContent=v; });
       const badge = document.getElementById('mpBadge');
       if (badge) { badge.textContent = active; badge.style.display = active > 0 ? 'inline' : 'none'; }
+      // Also update topbar badge
+      const tbBadge = document.getElementById('mpTopbarBadge');
+      const tbCount = document.getElementById('mpTopbarBadgeCount');
+      if (tbBadge && tbCount) {
+        if (active > 0) {
+          tbCount.textContent = active + ' Active ' + (active === 1 ? 'Request' : 'Requests');
+          tbBadge.style.display = 'flex';
+        } else {
+          tbBadge.style.display = 'none';
+        }
+      }
     }).catch(() => {});
 }
 
