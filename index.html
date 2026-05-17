@@ -2134,830 +2134,577 @@ footer {
 
 
 <!-- ==================== MEMBER PORTAL ==================== -->
-<div class="modal-overlay" id="memberPortal">
+<div id="memberPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#060606">
+<style>
+/* Member Portal — isolated CSS, no modal-overlay dependency */
+#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
 
-<style id="portal-shared-css">
-:root{
-  --gold:#c9a96e;--gold-dim:rgba(201,169,110,0.5);--gold-faint:rgba(201,169,110,0.08);
-  --gold-mid:rgba(201,169,110,0.15);--gold-border:rgba(201,169,110,0.14);
-  --bg0:#060606;--bg1:#0a0a0a;--bg2:#0e0e0e;--bg3:#141414;--bg4:#1a1a1a;
-  --text:#f5f2ec;--text2:#c8c4bc;--text3:rgba(240,237,232,0.5);
-  --green:#2ecc71;--amber:#e67e22;--blue:#3498db;--red:#e74c3c;
-  --sidebar-w:260px;--topbar-h:58px;
-  --font-display:"Cormorant Garamond",Georgia,serif;
-  --font-ui:"Montserrat","Helvetica Neue",sans-serif;
-}
-::-webkit-scrollbar{width:3px;height:3px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:rgba(201,169,110,0.25);border-radius:2px}
-</style>
+/* ── SIDEBAR ── */
+#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative}
+#mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
+.mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
+.mps-card::after{content:'◆';position:absolute;right:-8px;bottom:-14px;font-size:60px;color:rgba(201,169,110,0.04);line-height:1;pointer-events:none}
+.mps-av{width:42px;height:42px;background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.05));border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#c9a96e;margin-bottom:10px}
+.mps-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px;line-height:1.2}
+.mps-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:10px}
+.mps-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:10px}
+.mps-stat{text-align:center}
+.mps-stat+.mps-stat{border-left:1px solid rgba(201,169,110,0.1)}
+.mps-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#fff;display:block;line-height:1}
+.mps-lbl{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);display:block;margin-top:3px}
+.mps-enc{margin:0 14px 4px;padding:7px 12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:7px}
+.mps-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;flex-shrink:0;animation:enc-pulse 2.5s ease infinite}
+@keyframes enc-pulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(46,204,113,0.6)}50%{opacity:0.4;box-shadow:0 0 4px rgba(46,204,113,0.1)}}
+.mps-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.mps-nav{flex:1;padding:6px 0;overflow-y:auto}
+.mps-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:13px 16px 5px}
+.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative}
+.mps-ni:hover{background:rgba(201,169,110,0.04)}
+.mps-ni:hover .mni-ic{color:rgba(201,169,110,0.8)}
+.mps-ni:hover .mni-tx{color:rgba(240,237,232,0.75)}
+.mps-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.mps-ni.on .mni-ic{color:#c9a96e}
+.mps-ni.on .mni-tx{color:#f0ede8}
+.mni-ic{font-size:12px;color:rgba(201,169,110,0.4);width:15px;text-align:center;flex-shrink:0}
+.mni-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mni-badge{margin-left:auto;background:#c9a96e;color:#060606;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+.mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
 
-<style id="mp-css">
-/* ══ ULTRA-LUXURY MEMBER PORTAL ══════════════════════════════════ */
-#mpRoot{width:100%;height:100vh;font-family:var(--font-ui);background:var(--bg0)}
-
-/* SIDEBAR */
-#mpSide{width:260px;min-width:260px;max-width:260px;flex:0 0 260px;background:linear-gradient(180deg,#070707 0%,#050505 100%);border-right:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative}
-/* Subtle gold glow top of sidebar */
-#mpSide::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a96e,transparent);pointer-events:none}
-
-/* Logo */
-.mp-logo-wrap{padding:22px 20px 18px;border-bottom:1px solid rgba(201,169,110,0.08);display:flex;align-items:center;gap:12px}
-.mp-logo-wrap img{height:32px;width:auto}
-.mp-logo-text .lname{display:block;font-size:11px;letter-spacing:5px;color:#f0ede8;text-transform:uppercase;font-weight:600;line-height:1.2}
-.mp-logo-text .lsub{display:block;font-size:7px;letter-spacing:4px;color:rgba(201,169,110,0.55);text-transform:uppercase;margin-top:3px}
-
-/* Member identity card */
-.mp-id-card{
-  margin:16px 14px 10px;
-  background:linear-gradient(135deg,rgba(201,169,110,0.08) 0%,rgba(201,169,110,0.02) 100%);
-  border:1px solid rgba(201,169,110,0.12);padding:16px;position:relative;overflow:hidden
-}
-.mp-id-card::after{content:'◆';position:absolute;right:-10px;bottom:-18px;font-size:70px;color:rgba(201,169,110,0.04);pointer-events:none;line-height:1}
-.mp-avatar{
-  width:44px;height:44px;
-  background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.05));
-  border:1px solid rgba(201,169,110,0.3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-size:20px;color:#c9a96e;margin-bottom:11px
-}
-.mp-id-name{font-family:var(--font-display);font-size:18px;color:#f5f2ec;line-height:1.2;margin-bottom:3px}
-.mp-id-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:12px}
-.mp-id-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:11px}
-.mp-id-stat{text-align:center}
-.mp-id-stat+.mp-id-stat{border-left:1px solid rgba(201,169,110,0.1)}
-.mp-id-num{font-family:var(--font-display);font-size:22px;color:#f5f2ec;display:block;line-height:1}
-.mp-id-lbl{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.6);display:block;margin-top:4px}
-
-/* Encrypted badge */
-.mp-enc{margin:0 14px 6px;padding:8px 12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:8px}
-.mp-enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;flex-shrink:0;box-shadow:0 0 8px rgba(46,204,113,0.6);animation:enc-pulse 2.5s ease infinite}
-@keyframes enc-pulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(46,204,113,0.6)}50%{opacity:0.5;box-shadow:0 0 4px rgba(46,204,113,0.2)}}
-.mp-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
-
-/* Navigation */
-.mp-nav{flex:1;padding:8px 0;overflow-y:auto}
-.mp-nav-sec{font-size:6px;letter-spacing:6px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:14px 18px 6px}
-.mp-nav-item{
-  display:flex;align-items:center;gap:12px;padding:11px 18px;
-  cursor:pointer;border-left:2px solid transparent;transition:all 0.15s;position:relative
-}
-.mp-nav-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(201,169,110,0.05);transition:width 0.2s}
-.mp-nav-item:hover::after{width:100%}
-.mp-nav-item:hover .ni-ic{color:rgba(201,169,110,0.8)}
-.mp-nav-item:hover .ni-lbl{color:rgba(240,237,232,0.7)}
-.mp-nav-item.active{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
-.mp-nav-item.active .ni-ic{color:#c9a96e}
-.mp-nav-item.active .ni-lbl{color:#f0ede8}
-.ni-ic{font-size:13px;color:rgba(201,169,110,0.4);width:16px;text-align:center;transition:color 0.15s;flex-shrink:0;position:relative;z-index:1}
-.ni-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);transition:color 0.15s;position:relative;z-index:1}
-.ni-badge{margin-left:auto;background:#c9a96e;color:#060606;font-size:7px;font-weight:700;padding:2px 7px;display:none;line-height:1.5;position:relative;z-index:1}
-.mp-nav-foot{padding:8px 0;border-top:1px solid rgba(201,169,110,0.08)}
-
-/* MAIN */
-#mpMain{flex:1 1 0%;min-width:0;max-width:calc(100vw - 260px);display:flex;flex-direction:column;overflow:hidden;background:var(--bg1)}
+/* ── MAIN ── */
+#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0}
 
 /* Topbar */
-#mpTopbar{
-  height:var(--topbar-h);background:var(--bg0);
-  border-bottom:1px solid rgba(201,169,110,0.1);
-  padding:0 32px;display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0;position:relative
-}
-#mpTopbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.2),transparent)}
-.mp-topbar-title{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
-.mp-topbar-r{display:flex;align-items:center;gap:16px}
-#mpClock{font-family:var(--font-display);font-size:17px;color:rgba(201,169,110,0.75);letter-spacing:1px}
-.mp-btn-signout{background:transparent;border:1px solid rgba(201,169,110,0.18);color:rgba(201,169,110,0.6);font-family:var(--font-ui);font-size:7px;letter-spacing:3px;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all 0.15s}
-.mp-btn-signout:hover{border-color:#c9a96e;color:#c9a96e}
+#mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mpt-left{display:flex;align-items:center;gap:10px}
+.mpt-section{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.mpt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.mpt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.mpt-right{display:flex;align-items:center;gap:14px}
+#mpActiveBadge{display:none;align-items:center;gap:6px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.25);padding:5px 12px}
+#mpActiveBadge-dot{width:5px;height:5px;border-radius:50%;background:#e67e22;box-shadow:0 0 6px rgba(230,126,34,0.5)}
+#mpActiveBadge-txt{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8}
+.mpt-enc{display:flex;align-items:center;gap:5px}
+.mpt-enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.5)}
+.mpt-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+#mpClock{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:rgba(201,169,110,0.65)}
+.mpt-signout{background:transparent;border:1px solid rgba(201,169,110,0.15);color:rgba(201,169,110,0.55);font-family:'Montserrat',sans-serif;font-size:7px;letter-spacing:3px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.14s}
+.mpt-signout:hover{border-color:#c9a96e;color:#c9a96e}
 
-/* Content areas */
-.mp-content{flex:1;overflow-y:auto;padding:32px 36px}
-.mp-section{display:none}
-.mp-section.active{display:block;animation:mp-fade 0.25s ease both}
-.mp-chat-section{display:none;flex-direction:column;height:calc(100vh - var(--topbar-h))}
-.mp-chat-section.active{display:flex}
-@keyframes mp-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Sections */
+.mp-body{flex:1;overflow-y:auto;padding:28px 32px}
+.mp-sec{display:none}
+.mp-sec.on{display:block;animation:mp-in 0.22s ease both}
+.mp-chat-sec{display:none;flex-direction:column;overflow:hidden}
+.mp-chat-sec.on{display:flex;height:calc(100vh - 54px)}
+@keyframes mp-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
-/* Page headers */
-.mp-eyebrow{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px}
-.mp-page-title{font-family:var(--font-display);font-size:34px;font-weight:400;color:#f5f2ec;margin:0 0 24px;line-height:1.15}
-
-/* Cards */
-.mp-card{background:var(--bg3);border:1px solid rgba(201,169,110,0.1);padding:24px;margin-bottom:14px;transition:border-color 0.2s}
-.mp-card:hover{border-color:rgba(201,169,110,0.2)}
-.mp-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(201,169,110,0.08)}
-.mp-card-title{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
-.mp-card-action{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;cursor:pointer;opacity:0.7;transition:opacity 0.15s}
-.mp-card-action:hover{opacity:1}
-
-/* Welcome banner */
-.mp-banner{
-  background:linear-gradient(135deg,rgba(201,169,110,0.08) 0%,rgba(201,169,110,0.02) 100%);
-  border:1px solid rgba(201,169,110,0.14);padding:20px 24px;margin-bottom:16px;
-  display:flex;align-items:center;gap:18px;position:relative;overflow:hidden
-}
-.mp-banner::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(201,169,110,0.06),transparent 70%);pointer-events:none}
-.mp-banner-diamond{font-size:28px;color:#c9a96e;flex-shrink:0;line-height:1}
-.mp-banner-title{font-family:var(--font-display);font-size:19px;color:#f5f2ec;margin-bottom:4px}
-.mp-banner-sub{font-size:9px;color:rgba(201,169,110,0.65);letter-spacing:1px}
-
-/* Stats */
-.mp-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.mp-stat{background:var(--bg3);border:1px solid rgba(201,169,110,0.1);padding:20px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
-.mp-stat::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,169,110,0.03),transparent);pointer-events:none}
-.mp-stat:hover{border-color:rgba(201,169,110,0.28);transform:translateY(-1px)}
-.mp-stat-n{font-family:var(--font-display);font-size:42px;font-weight:300;color:#ffffff;line-height:1;margin-bottom:6px}
+.mp-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.mp-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;color:#f5f2ec;margin:0 0 22px;line-height:1.2}
+.mp-card{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:22px;margin-bottom:12px;transition:border-color 0.2s}
+.mp-card:hover{border-color:rgba(201,169,110,0.18)}
+.mp-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mp-ct{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
+.mp-ca{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;cursor:pointer;opacity:0.7}
+.mp-ca:hover{opacity:1}
+.mp-banner{background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.mp-banner-ico{font-size:26px;color:#c9a96e;flex-shrink:0}
+.mp-banner-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px}
+.mp-banner-s{font-size:9px;color:rgba(201,169,110,0.6);letter-spacing:1px}
+.mp-stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.mp-stat{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:18px;cursor:pointer;transition:all 0.15s}
+.mp-stat:hover{border-color:rgba(201,169,110,0.25);transform:translateY(-1px)}
+.mp-stat-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:300;color:#fff;line-height:1;margin-bottom:5px}
 .mp-stat-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
-.mp-stat-s{font-size:9px;color:rgba(201,169,110,0.4);margin-top:4px}
-
-/* Quick tiles */
-.mp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mp-tile{
-  background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:18px;
-  cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden
-}
-.mp-tile::after{content:'→';position:absolute;right:14px;bottom:14px;color:rgba(201,169,110,0.2);font-size:16px;transition:all 0.2s}
-.mp-tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.25)}
-.mp-tile:hover::after{color:rgba(201,169,110,0.6);right:12px}
-.mp-tile-icon{font-size:20px;color:#c9a96e;margin-bottom:10px}
-.mp-tile-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;margin-bottom:5px}
-.mp-tile-sub{font-size:10px;color:rgba(201,169,110,0.55);line-height:1.5}
-
-/* Request items */
-.mp-req-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
-.mp-req-item:hover{background:rgba(201,169,110,0.03)}
-.mp-req-item:last-child{border-bottom:none}
-.mp-req-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px currentColor}
-.mp-req-body{flex:1;min-width:0}
-.mp-req-title{font-size:12px;color:#f0ede8;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.mp-req-meta{font-size:9px;color:rgba(201,169,110,0.6)}
-.mp-status-badge{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid;white-space:nowrap}
-.sb-gold{color:#c9a96e;border-color:rgba(201,169,110,0.35);background:rgba(201,169,110,0.07)}
-.sb-amber{color:#e67e22;border-color:rgba(230,126,34,0.35);background:rgba(230,126,34,0.07)}
-.sb-blue{color:#3498db;border-color:rgba(52,152,219,0.35);background:rgba(52,152,219,0.07)}
-.sb-green{color:#2ecc71;border-color:rgba(46,204,113,0.35);background:rgba(46,204,113,0.07)}
-.sb-red{color:#e74c3c;border-color:rgba(231,76,60,0.35);background:rgba(231,76,60,0.07)}
-
-/* Form */
-.mp-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mp-field{margin-bottom:0}
-.mp-field label{display:block;font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:8px}
-.mp-field input,.mp-field select,.mp-field textarea{
-  width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);
-  color:#f0ede8;padding:12px 16px;font-family:var(--font-ui);font-size:12px;
-  outline:none;transition:border-color 0.15s;border-radius:0;-webkit-appearance:none
-}
-.mp-field input:focus,.mp-field select:focus,.mp-field textarea:focus{border-color:#c9a96e;background:rgba(201,169,110,0.03)}
-.mp-field select option{background:#141414;color:#f0ede8}
-.mp-field textarea{resize:vertical;min-height:120px;line-height:1.8}
-.mp-primary-btn{
-  background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;
-  padding:13px 32px;font-size:8px;letter-spacing:4px;text-transform:uppercase;
-  font-family:var(--font-ui);font-weight:700;cursor:pointer;transition:all 0.2s;
-  box-shadow:0 4px 20px rgba(201,169,110,0.25)
-}
-.mp-primary-btn:hover{box-shadow:0 6px 28px rgba(201,169,110,0.4);transform:translateY(-1px)}
-.mp-ghost-btn{background:transparent;border:1px solid rgba(201,169,110,0.22);color:rgba(201,169,110,0.7);padding:11px 22px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:var(--font-ui);cursor:pointer;transition:all 0.15s}
-.mp-ghost-btn:hover{border-color:#c9a96e;color:#c9a96e}
-.mp-notice{padding:13px 18px;font-size:11px;margin-top:14px;display:none;letter-spacing:0.3px}
-.mp-notice.ok{background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71}
-.mp-notice.err{background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c}
-
-/* Vault */
-.mp-upload-zone{border:1px dashed rgba(201,169,110,0.2);padding:30px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15);position:relative;overflow:hidden}
-.mp-upload-zone::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,169,110,0.04),transparent 70%);pointer-events:none}
-.mp-upload-zone:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
-.mp-upload-icon{font-size:28px;color:rgba(201,169,110,0.3);margin-bottom:10px}
-.mp-upload-label{font-size:11px;color:rgba(201,169,110,0.65);letter-spacing:1px}
-.mp-upload-sub{font-size:9px;color:rgba(201,169,110,0.35);margin-top:5px}
-.mp-prog-wrap{display:none;margin-top:12px}
-.mp-prog-track{height:2px;background:rgba(201,169,110,0.1);margin-bottom:8px}
-.mp-prog-bar{height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5a3);width:0%;transition:width 0.4s}
-.mp-prog-text{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
-.mp-vault-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
-.mp-vault-item:hover{background:rgba(201,169,110,0.03)}
-.mp-vault-item:last-child{border-bottom:none}
-.mp-vault-icon{width:36px;height:36px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.15);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:14px;flex-shrink:0}
-.mp-vault-name{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.mp-vault-meta{font-size:9px;color:rgba(201,169,110,0.6)}
-.mp-vault-btns{display:flex;gap:7px}
-.mp-vault-btn{background:transparent;border:1px solid rgba(201,169,110,0.18);color:rgba(201,169,110,0.7);padding:6px 12px;font-size:7px;letter-spacing:2px;text-transform:uppercase;font-family:var(--font-ui);cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block}
-.mp-vault-btn:hover{border-color:#c9a96e;color:#c9a96e}
-
-/* Chat */
-.mp-chat-header{padding:14px 22px;border-bottom:1px solid rgba(201,169,110,0.1);background:var(--bg0);display:flex;align-items:center;gap:14px;flex-shrink:0}
-.mp-chat-av{width:32px;height:32px;border:1px solid rgba(201,169,110,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:var(--font-display);font-size:14px}
-.mp-chat-name{font-size:12px;color:#f0ede8;margin-bottom:2px;font-weight:500}
-.mp-chat-status{font-size:8px;color:#2ecc71;display:flex;align-items:center;gap:5px}
-.mp-chat-status::before{content:'';width:4px;height:4px;background:#2ecc71;border-radius:50%;display:inline-block}
-.mp-chat-enc-label{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.5)}
-.mp-messages{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:13px}
-.mp-msg{max-width:72%;display:flex;flex-direction:column;gap:4px}
+.mp-stat-s{font-size:9px;color:rgba(201,169,110,0.4);margin-top:3px}
+.mp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mp-tile{background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:all 0.18s;position:relative}
+.mp-tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.22)}
+.mp-tile-ic{font-size:19px;color:#c9a96e;margin-bottom:9px}
+.mp-tile-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;margin-bottom:4px}
+.mp-tile-s{font-size:9px;color:rgba(201,169,110,0.55);line-height:1.5}
+.mp-ri{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-ri:hover{background:rgba(201,169,110,0.03)}
+.mp-ri:last-child{border-bottom:none}
+.mp-rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mp-rb{flex:1;min-width:0}
+.mp-rt{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-rm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-rs{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.rs-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.rs-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.rs-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.rs-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.rs-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.mp-fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-f{margin-bottom:0}
+.mp-f label{display:block;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:7px}
+.mp-f input,.mp-f select,.mp-f textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 14px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;transition:border-color 0.15s;border-radius:0;-webkit-appearance:none}
+.mp-f input:focus,.mp-f select:focus,.mp-f textarea:focus{border-color:#c9a96e;background:rgba(201,169,110,0.02)}
+.mp-f select option{background:#141414}
+.mp-f textarea{resize:vertical;min-height:120px;line-height:1.8}
+.mp-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:12px 30px;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 18px rgba(201,169,110,0.25)}
+.mp-btn:hover{box-shadow:0 6px 26px rgba(201,169,110,0.4);transform:translateY(-1px)}
+.mp-ok{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71}
+.mp-err{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c}
+.mp-upl{border:1px dashed rgba(201,169,110,0.2);padding:26px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15)}
+.mp-upl:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
+.mp-upl-ic{font-size:24px;color:rgba(201,169,110,0.3);margin-bottom:8px}
+.mp-upl-l{font-size:11px;color:rgba(201,169,110,0.65);letter-spacing:1px}
+.mp-upl-s{font-size:9px;color:rgba(201,169,110,0.35);margin-top:4px}
+.mp-prog{display:none;margin-top:10px}
+.mp-prog-t{height:2px;background:rgba(201,169,110,0.1);margin-bottom:6px}
+.mp-prog-b{height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5a3);width:0%;transition:width 0.4s}
+.mp-prog-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mp-vi{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-vi:hover{background:rgba(201,169,110,0.03)}
+.mp-vi:last-child{border-bottom:none}
+.mp-vic{width:34px;height:34px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:13px;flex-shrink:0}
+.mp-vn{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-vm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-vb{display:flex;gap:6px}
+.mp-vbtn{background:transparent;border:1px solid rgba(201,169,110,0.16);color:rgba(201,169,110,0.65);padding:5px 11px;font-size:7px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s;text-decoration:none;display:inline-block}
+.mp-vbtn:hover{border-color:#c9a96e;color:#c9a96e}
+.mp-chat-hdr{padding:13px 20px;border-bottom:1px solid rgba(201,169,110,0.1);background:#080808;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mp-chat-av{width:30px;height:30px;border:1px solid rgba(201,169,110,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:13px}
+.mp-chat-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.mp-chat-st{font-size:8px;color:#2ecc71;display:flex;align-items:center;gap:4px}
+.mp-chat-st::before{content:'';width:4px;height:4px;background:#2ecc71;border-radius:50%;display:inline-block}
+.mp-chat-enc{margin-left:auto;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.45)}
+.mp-msgs{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:11px}
+.mp-msg{max-width:70%;display:flex;flex-direction:column;gap:3px}
 .mp-msg.me{align-self:flex-end;align-items:flex-end}
 .mp-msg.them{align-self:flex-start;align-items:flex-start}
-.mp-bubble{padding:11px 16px;font-size:12px;line-height:1.8}
-.mp-msg.me .mp-bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:16px 16px 2px 16px}
-.mp-msg.them .mp-bubble{background:var(--bg4);color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:16px 16px 16px 2px}
-.mp-msg-time{font-size:8px;color:rgba(201,169,110,0.35);letter-spacing:0.5px}
-.mp-chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:16px 22px;display:flex;gap:11px;background:var(--bg0);flex-shrink:0}
-.mp-chat-input{flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:12px 18px;font-family:var(--font-ui);font-size:12px;outline:none;resize:none;min-height:44px;transition:border-color 0.15s}
-.mp-chat-input:focus{border-color:#c9a96e}
-.mp-chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:0 22px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:var(--font-ui);flex-shrink:0;transition:all 0.2s;box-shadow:0 2px 12px rgba(201,169,110,0.2)}
-.mp-chat-send:hover{box-shadow:0 4px 20px rgba(201,169,110,0.35)}
-
-/* Profile */
-.mp-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mp-sec-check{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(201,169,110,0.07)}
-.mp-sec-check:last-child{border-bottom:none}
-.mp-sec-icon{color:#2ecc71;font-size:14px;flex-shrink:0}
-.mp-sec-txt{font-size:12px;color:#d8d4cc}
-
-/* Empty state */
-.mp-empty{text-align:center;padding:44px 20px}
-.mp-empty-icon{font-size:28px;color:rgba(201,169,110,0.14);margin-bottom:12px}
-.mp-empty-txt{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.35)}
-
-/* OTP Modal */
-#otpModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(8px)}
+.mp-bubble{padding:10px 15px;font-size:12px;line-height:1.8}
+.mp-msg.me .mp-bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:14px 14px 2px 14px}
+.mp-msg.them .mp-bubble{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:14px 14px 14px 2px}
+.mp-msg-t{font-size:8px;color:rgba(201,169,110,0.32);letter-spacing:0.5px}
+.mp-chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:14px 20px;display:flex;gap:10px;background:#060606;flex-shrink:0}
+.mp-chat-in{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:42px;transition:border-color 0.15s}
+.mp-chat-in:focus{border-color:#c9a96e}
+.mp-chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:0 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;flex-shrink:0;transition:opacity 0.15s}
+.mp-chat-send:hover{opacity:0.85}
+.mp-pg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-sc{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)}
+.mp-sc:last-child{border-bottom:none}
+.mp-si{color:#2ecc71;font-size:13px;flex-shrink:0}
+.mp-st{font-size:12px;color:#d0ccc8}
+.mp-empty{text-align:center;padding:40px 20px}
+.mp-empty-ic{font-size:26px;color:rgba(201,169,110,0.13);margin-bottom:10px}
+.mp-empty-t{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.32)}
+#otpModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:19999;backdrop-filter:blur(8px)}
 #otpModal.active{display:flex}
-.mp-otp-box{background:var(--bg3);border:1px solid rgba(201,169,110,0.25);padding:40px;max-width:460px;width:90%;position:relative;animation:mp-fade 0.2s ease;box-shadow:0 32px 80px rgba(0,0,0,0.8)}
-.mp-otp-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(201,169,110,0.4);font-size:20px;cursor:pointer;line-height:1;transition:color 0.15s}
+.mp-otp-box{background:#141414;border:1px solid rgba(201,169,110,0.25);padding:38px;max-width:460px;width:90%;position:relative;animation:mp-in 0.2s ease;box-shadow:0 30px 80px rgba(0,0,0,0.8)}
+.mp-otp-close{position:absolute;top:13px;right:15px;background:none;border:none;color:rgba(201,169,110,0.4);font-size:19px;cursor:pointer;line-height:1}
 .mp-otp-close:hover{color:#c9a96e}
 </style>
-<div id="mpRoot">
 
-  <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
+<div id="mpWrap">
+  <!-- ═══ SIDEBAR ═══════════════════════════════════════════════════ -->
   <div id="mpSide">
-    <div class="mp-logo-wrap">
-      <svg width="26" height="26" viewBox="0 0 44 44" fill="none">
-        <polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
-        <text x="22" y="27" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="15" fill="#c9a96e">C</text>
-      </svg>
-      <div class="mp-logo-text">
-        <span class="lname">Cipher</span>
-        <span class="lsub">Member Portal</span>
+    <!-- Logo -->
+    <div class="mps-logo"><svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+  <polygon points="18,7 29,13.5 29,26.5 18,33 7,26.5 7,13.5" stroke="#c9a96e" stroke-width="0.4" fill="none" opacity="0.35"/>
+  <text x="18" y="25" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="14" fill="#c9a96e" font-weight="300">C</text>
+  <text x="44" y="22" font-family="Montserrat,Helvetica,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4" font-weight="400">CIPHER</text>
+  <text x="45" y="33" font-family="Montserrat,Helvetica,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5" font-weight="300">PRIVATE</text>
+</svg></div>
+
+    <!-- Member identity card -->
+    <div class="mps-card">
+      <div class="mps-av" id="mpAvatar">—</div>
+      <div class="mps-name" id="mpSidebarName">Loading…</div>
+      <span class="mps-tier" id="portalTier">—</span>
+      <div class="mps-stats">
+        <div class="mps-stat"><span class="mps-num" id="mpS1">0</span><span class="mps-lbl">Requests</span></div>
+        <div class="mps-stat"><span class="mps-num" id="mpS2">0</span><span class="mps-lbl">Active</span></div>
+        <div class="mps-stat"><span class="mps-num" id="mpS3">0</span><span class="mps-lbl">Docs</span></div>
       </div>
     </div>
 
-    <div class="mp-id-card">
-      <div class="mp-avatar" id="mpAvatar">—</div>
-      <div class="mp-id-name" id="mpSidebarName">Loading…</div>
-      <span class="mp-id-tier" id="portalTier">—</span>
-      <div class="mp-id-stats">
-        <div class="mp-id-stat"><span class="mp-id-num" id="mpS1">0</span><span class="mp-id-lbl">Requests</span></div>
-        <div class="mp-id-stat"><span class="mp-id-num" id="mpS2">0</span><span class="mp-id-lbl">Active</span></div>
-        <div class="mp-id-stat"><span class="mp-id-num" id="mpS3">0</span><span class="mp-id-lbl">Docs</span></div>
-      </div>
-    </div>
+    <!-- Encrypted badge -->
+    <div class="mps-enc"><div class="mps-dot"></div><span class="mps-enc-txt">Encrypted Session</span></div>
 
-    <div class="mp-enc">
-      <div class="mp-enc-dot"></div>
-      <span class="mp-enc-txt">Encrypted Session</span>
-    </div>
-
-    <nav class="mp-nav">
-      <div class="mp-nav-sec">Main</div>
-      <div class="mp-nav-item active" id="mpni-dashboard" onclick="mpGo('dashboard')">
-        <span class="ni-ic">⬡</span><span class="ni-tx">Dashboard</span>
-      </div>
-      <div class="mp-nav-item" id="mpni-requests" onclick="mpGo('requests')">
-        <span class="ni-ic">◈</span><span class="ni-tx">My Requests</span>
-        <span class="ni-badge" id="mpBadge">0</span>
-      </div>
-      <div class="mp-nav-item" id="mpni-new" onclick="mpGo('new')">
-        <span class="ni-ic">＋</span><span class="ni-tx">New Request</span>
-      </div>
-      <div class="mp-nav-sec">Secure</div>
-      <div class="mp-nav-item" id="mpni-vault" onclick="mpGo('vault')">
-        <span class="ni-ic">⊡</span><span class="ni-tx">Document Vault</span>
-      </div>
-      <div class="mp-nav-item" id="mpni-chat" onclick="mpGo('chat')">
-        <span class="ni-ic">◎</span><span class="ni-tx">Live Chat</span>
-      </div>
-      <div class="mp-nav-sec">Account</div>
-      <div class="mp-nav-item" id="mpni-refer" onclick="mpGo('refer')">
-        <span class="ni-ic">◇</span><span class="ni-tx">Refer a Contact</span>
-      </div>
-      <div class="mp-nav-item" id="mpni-profile" onclick="mpGo('profile')">
-        <span class="ni-ic">○</span><span class="ni-tx">My Profile</span>
-      </div>
+    <!-- Nav -->
+    <nav class="mps-nav">
+      <div class="mps-grp">Main</div>
+      <div class="mps-ni on" id="mpni-dashboard" onclick="mpGo('dashboard')"><span class="mni-ic">⬡</span><span class="mni-tx">Dashboard</span></div>
+      <div class="mps-ni" id="mpni-requests" onclick="mpGo('requests')"><span class="mni-ic">◈</span><span class="mni-tx">My Requests</span><span class="mni-badge" id="nb-req">0</span></div>
+      <div class="mps-ni" id="mpni-new" onclick="mpGo('new')"><span class="mni-ic">＋</span><span class="mni-tx">New Request</span></div>
+      <div class="mps-grp">Secure</div>
+      <div class="mps-ni" id="mpni-vault" onclick="mpGo('vault')"><span class="mni-ic">⊡</span><span class="mni-tx">Document Vault</span></div>
+      <div class="mps-ni" id="mpni-chat" onclick="mpGo('chat')"><span class="mni-ic">◎</span><span class="mni-tx">Live Chat</span></div>
+      <div class="mps-grp">Account</div>
+      <div class="mps-ni" id="mpni-refer" onclick="mpGo('refer')"><span class="mni-ic">◇</span><span class="mni-tx">Refer a Contact</span></div>
+      <div class="mps-ni" id="mpni-profile" onclick="mpGo('profile')"><span class="mni-ic">○</span><span class="mni-tx">My Profile</span></div>
     </nav>
 
-    <div class="mp-nav-foot">
-      <div class="mp-nav-item" onclick="closeMemberPortal()">
-        <span class="ni-ic" style="font-size:11px">⏻</span>
-        <span class="ni-tx">Sign Out</span>
-      </div>
+    <div class="mps-foot">
+      <div class="mps-ni" onclick="closeMemberPortal()"><span class="mni-ic" style="font-size:11px">⏻</span><span class="mni-tx">Sign Out</span></div>
     </div>
-  </div><!-- /sidebar -->
+  </div>
 
-  <!-- ══ MAIN ═════════════════════════════════════════════ -->
+  <!-- ═══ MAIN ══════════════════════════════════════════════════════ -->
   <div id="mpMain">
+    <!-- Topbar -->
     <div id="mpTopbar">
-      <div style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)">Cipher Private</span>
-        <span style="color:rgba(201,169,110,0.2);font-size:10px">›</span>
-        <span id="mpTopTitle" style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#f0ede8;font-weight:500">Dashboard</span>
+      <div class="mpt-left">
+        <span class="mpt-section">Cipher Private</span>
+        <span class="mpt-sep">›</span>
+        <span class="mpt-page" id="mpTopTitle">Dashboard</span>
       </div>
-      <div class="mp-topbar-r">
-        <!-- Active request count pill -->
-        <div id="mpTopbarBadge" style="display:none;align-items:center;gap:7px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);padding:5px 12px">
-          <span style="width:6px;height:6px;border-radius:50%;background:#e67e22;display:block;box-shadow:0 0 6px rgba(230,126,34,0.5)"></span>
-          <span id="mpTopbarBadgeCount" style="font-size:9px;letter-spacing:2px;color:#f0ede8;text-transform:uppercase"></span>
+      <div class="mpt-right">
+        <div id="mpActiveBadge">
+          <div id="mpActiveBadge-dot"></div>
+          <span id="mpActiveBadge-txt"></span>
         </div>
-        <div style="display:flex;align-items:center;gap:5px">
-          <div style="width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px rgba(46,204,113,0.6)"></div>
-          <span style="font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71">Encrypted</span>
-        </div>
-        <span id="mpClock" style="font-family:'Cormorant Garamond',serif;font-size:16px;color:rgba(201,169,110,0.7)"></span>
-        <button class="mp-btn-signout" onclick="closeMemberPortal()">Sign Out</button>
+        <div class="mpt-enc"><div class="mpt-enc-dot"></div><span class="mpt-enc-txt">Encrypted</span></div>
+        <span id="mpClock"></span>
+        <button class="mpt-signout" onclick="closeMemberPortal()">Sign Out</button>
       </div>
     </div>
 
     <!-- DASHBOARD -->
-    <div class="mp-content mp-section active" id="mpsec-dashboard">
-      <div class="mp-eyebrow">Overview</div>
-      <h1 class="mp-page-title" id="mpGreeting">Welcome Back</h1>
+    <div class="mp-body mp-sec on" id="mpsec-dashboard">
+      <div class="mp-ey">Overview</div>
+      <h1 class="mp-h1" id="portalGreeting">Welcome Back</h1>
       <div class="mp-banner">
-        <div class="mp-banner-diamond">◆</div>
-        <div>
-          <div class="mp-banner-title" id="mpBannerTitle">Your portal is active</div>
-          <div class="mp-banner-sub">AES-256 Encrypted · Australian Sovereign · Privacy Act 1988</div>
-        </div>
+        <div class="mp-banner-ico">◆</div>
+        <div><div class="mp-banner-h" id="mpBannerTitle">Your portal is active</div><div class="mp-banner-s">AES-256 Encrypted · Australian Sovereign · Privacy Act 1988</div></div>
       </div>
-      <div class="mp-stats-row">
-        <div class="mp-stat" onclick="mpGo('requests')">
-          <div class="mp-stat-n" id="mpDS1">0</div>
-          <div class="mp-stat-l">Total Requests</div>
-          <div class="mp-stat-s">All time</div>
-        </div>
-        <div class="mp-stat" onclick="mpGo('requests')">
-          <div class="mp-stat-n" id="mpDS2">0</div>
-          <div class="mp-stat-l">Active</div>
-          <div class="mp-stat-s">In progress</div>
-        </div>
-        <div class="mp-stat" onclick="mpGo('vault')">
-          <div class="mp-stat-n" id="mpDS3">0</div>
-          <div class="mp-stat-l">Documents</div>
-          <div class="mp-stat-s">Encrypted vault</div>
-        </div>
+      <div class="mp-stats3">
+        <div class="mp-stat" onclick="mpGo('requests')"><div class="mp-stat-n" id="mpDS1">0</div><div class="mp-stat-l">Total Requests</div><div class="mp-stat-s">All time</div></div>
+        <div class="mp-stat" onclick="mpGo('requests')"><div class="mp-stat-n" id="mpDS2">0</div><div class="mp-stat-l">Active</div><div class="mp-stat-s">In progress</div></div>
+        <div class="mp-stat" onclick="mpGo('vault')"><div class="mp-stat-n" id="mpDS3">0</div><div class="mp-stat-l">Documents</div><div class="mp-stat-s">Encrypted vault</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="mp-card" style="margin-bottom:0">
-          <div class="mp-card-header">
-            <span class="mp-card-title">Recent Activity</span>
-            <span class="mp-card-action" onclick="mpGo('requests')">View all →</span>
-          </div>
-          <div id="activityList">
-            <div class="mp-empty"><div class="mp-empty-icon">◈</div><div class="mp-empty-txt">No activity yet</div></div>
-          </div>
+        <div class="mp-card" style="margin:0">
+          <div class="mp-ch"><span class="mp-ct">Recent Activity</span><span class="mp-ca" onclick="mpGo('requests')">View all →</span></div>
+          <div id="activityList"><div class="mp-empty"><div class="mp-empty-ic">◈</div><div class="mp-empty-t">No activity yet</div></div></div>
         </div>
-        <div class="mp-card" style="margin-bottom:0">
-          <div class="mp-card-header"><span class="mp-card-title">Quick Actions</span></div>
+        <div class="mp-card" style="margin:0">
+          <div class="mp-ch"><span class="mp-ct">Quick Actions</span></div>
           <div class="mp-tiles">
-            <div class="mp-tile" onclick="mpGo('new')"><div class="mp-tile-icon">＋</div><div class="mp-tile-title">New Request</div><div class="mp-tile-sub">Submit a concierge request</div></div>
-            <div class="mp-tile" onclick="mpGo('chat')"><div class="mp-tile-icon">◎</div><div class="mp-tile-title">Live Chat</div><div class="mp-tile-sub">Message your director</div></div>
-            <div class="mp-tile" onclick="mpGo('vault')"><div class="mp-tile-icon">⊡</div><div class="mp-tile-title">Vault</div><div class="mp-tile-sub">Encrypted file storage</div></div>
-            <div class="mp-tile" onclick="mpGo('profile')"><div class="mp-tile-icon">○</div><div class="mp-tile-title">Profile</div><div class="mp-tile-sub">Account settings</div></div>
+            <div class="mp-tile" onclick="mpGo('new')"><div class="mp-tile-ic">＋</div><div class="mp-tile-t">New Request</div><div class="mp-tile-s">Submit a concierge request</div></div>
+            <div class="mp-tile" onclick="mpGo('chat')"><div class="mp-tile-ic">◎</div><div class="mp-tile-t">Live Chat</div><div class="mp-tile-s">Message your director</div></div>
+            <div class="mp-tile" onclick="mpGo('vault')"><div class="mp-tile-ic">⊡</div><div class="mp-tile-t">Vault</div><div class="mp-tile-s">Encrypted file storage</div></div>
+            <div class="mp-tile" onclick="mpGo('profile')"><div class="mp-tile-ic">○</div><div class="mp-tile-t">Profile</div><div class="mp-tile-s">Account settings</div></div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- MY REQUESTS -->
-    <div class="mp-content mp-section" id="mpsec-requests">
-      <div class="mp-eyebrow">Concierge</div>
-      <h1 class="mp-page-title">My Service Requests</h1>
-      <div class="mp-card">
-        <div id="requestsList">
-          <div class="mp-empty"><div class="mp-empty-icon">◈</div><div class="mp-empty-txt">No requests yet</div></div>
-        </div>
-      </div>
+    <div class="mp-body mp-sec" id="mpsec-requests">
+      <div class="mp-ey">Concierge</div><h1 class="mp-h1">My Service Requests</h1>
+      <div class="mp-card"><div id="requestsList"><div class="mp-empty"><div class="mp-empty-ic">◈</div><div class="mp-empty-t">No requests yet</div></div></div></div>
     </div>
 
     <!-- NEW REQUEST -->
-    <div class="mp-content mp-section" id="mpsec-new">
-      <div class="mp-eyebrow">Concierge</div>
-      <h1 class="mp-page-title">New Service Request</h1>
+    <div class="mp-body mp-sec" id="mpsec-new">
+      <div class="mp-ey">Concierge</div><h1 class="mp-h1">New Service Request</h1>
       <div class="mp-card">
-        <div class="mp-form-grid">
-          <div class="mp-field" style="grid-column:1/-1">
-            <label>Category</label>
-            <select id="reqCategory">
-              <option value="">Select a category</option>
-              <option>Travel &amp; Aviation</option><option>Dining &amp; Events</option>
-              <option>Estate Management</option><option>Medical Concierge</option>
-              <option>Security &amp; Privacy</option><option>Financial &amp; Legal</option>
-              <option>Lifestyle &amp; Procurement</option><option>Other</option>
-            </select>
+        <div class="mp-fg">
+          <div class="mp-f" style="grid-column:1/-1"><label>Category</label>
+            <select id="reqCategory"><option value="">Select a category</option><option>Travel &amp; Aviation</option><option>Dining &amp; Events</option><option>Estate Management</option><option>Medical Concierge</option><option>Security &amp; Privacy</option><option>Financial &amp; Legal</option><option>Lifestyle &amp; Procurement</option><option>Other</option></select>
           </div>
-          <div class="mp-field">
-            <label>Priority</label>
-            <select id="reqPriority">
-              <option value="STANDARD">Standard</option>
-              <option value="URGENT">Urgent</option>
-              <option value="CRITICAL">Critical</option>
-            </select>
-          </div>
-          <div class="mp-field">
-            <label>Preferred Timeline</label>
-            <input type="text" id="reqTimeline" placeholder="e.g. This week, ASAP, Flexible">
-          </div>
-          <div class="mp-field" style="grid-column:1/-1">
-            <label>Request Details</label>
-            <textarea id="reqDescription" placeholder="Describe your request in detail. The more context you provide, the better we can serve you."></textarea>
-          </div>
+          <div class="mp-f"><label>Priority</label><select id="reqPriority"><option value="STANDARD">Standard</option><option value="URGENT">Urgent</option><option value="CRITICAL">Critical</option></select></div>
+          <div class="mp-f"><label>Preferred Timeline</label><input type="text" id="reqTimeline" placeholder="e.g. This week, ASAP, Flexible"></div>
+          <div class="mp-f" style="grid-column:1/-1"><label>Request Details</label><textarea id="reqDescription" placeholder="Describe your request in detail…"></textarea></div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.07)">
-          <span style="font-size:9px;color:var(--gold-dim);line-height:1.6;max-width:360px">Encrypted and sent directly to your lifestyle director. Response guaranteed within priority timeframe.</span>
-          <button class="mp-primary-btn" onclick="submitRequest()">Submit Request</button>
+          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:360px">Encrypted and sent directly to your lifestyle director.</span>
+          <button class="mp-btn" onclick="submitRequest()">Submit Request</button>
         </div>
-        <div class="mp-notice ok" id="reqSuccess">✓ &nbsp;Request submitted successfully. Your director has been notified.</div>
-        <div class="mp-notice err" id="reqError"></div>
+        <div class="mp-ok" id="reqSuccess">✓ &nbsp;Request submitted. Your director has been notified.</div>
+        <div class="mp-err" id="reqError"></div>
       </div>
     </div>
 
     <!-- DOCUMENT VAULT -->
-    <div class="mp-content mp-section" id="mpsec-vault">
-      <div class="mp-eyebrow">Secure Storage</div>
-      <h1 class="mp-page-title">Document Vault</h1>
+    <div class="mp-body mp-sec" id="mpsec-vault">
+      <div class="mp-ey">Secure Storage</div><h1 class="mp-h1">Document Vault</h1>
       <div class="mp-card">
-        <div class="mp-card-header">
-          <span class="mp-card-title">Upload Document</span>
-          <span style="font-size:7px;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase">AES-256 Encrypted at Rest</span>
-        </div>
-        <div class="mp-upload-zone" onclick="document.getElementById('fileUploadInput').click()">
-          <div class="mp-upload-icon">⬆</div>
-          <div class="mp-upload-label">Click to upload · PDF, DOCX, PNG, JPG</div>
-          <div class="mp-upload-sub">Maximum 10 MB per file</div>
+        <div class="mp-ch"><span class="mp-ct">Upload Document</span><span style="font-size:7px;letter-spacing:2px;color:rgba(201,169,110,0.55);text-transform:uppercase">AES-256 Encrypted</span></div>
+        <div class="mp-upl" onclick="document.getElementById('fileUploadInput').click()">
+          <div class="mp-upl-ic">⬆</div><div class="mp-upl-l">Click to upload · PDF, DOCX, PNG, JPG</div><div class="mp-upl-s">Max 10 MB</div>
         </div>
         <input type="file" id="fileUploadInput" style="display:none" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" onchange="uploadDocument(this)">
-        <div class="mp-prog-wrap" id="uploadProgress">
-          <div class="mp-prog-track"><div class="mp-prog-bar" id="uploadBar"></div></div>
-          <div class="mp-prog-text">Encrypting &amp; uploading…</div>
-        </div>
+        <div class="mp-prog" id="uploadProgress"><div class="mp-prog-t"><div class="mp-prog-b" id="uploadBar"></div></div><div class="mp-prog-l">Encrypting &amp; uploading…</div></div>
       </div>
-      <div class="mp-card" style="margin-top:4px">
-        <div class="mp-card-header"><span class="mp-card-title">Encrypted Files</span></div>
-        <div id="vaultDocs">
-          <div class="mp-empty"><div class="mp-empty-icon">⊡</div><div class="mp-empty-txt">No documents yet</div></div>
-        </div>
-      </div>
+      <div class="mp-card" style="margin-top:4px"><div class="mp-ch"><span class="mp-ct">Encrypted Files</span></div><div id="vaultDocs"><div class="mp-empty"><div class="mp-empty-ic">⊡</div><div class="mp-empty-t">No documents yet</div></div></div></div>
     </div>
 
     <!-- LIVE CHAT -->
-    <div class="mp-chat-section" id="mpsec-chat">
-      <div class="mp-chat-header">
+    <div class="mp-chat-sec" id="mpsec-chat">
+      <div class="mp-chat-hdr">
         <div class="mp-chat-av">D</div>
-        <div class="mp-chat-who">
-          <div class="mp-chat-name">Your Lifestyle Director</div>
-          <div class="mp-chat-status">Available</div>
-        </div>
-        <span class="mp-chat-enc-label">End-to-End Encrypted</span>
+        <div><div class="mp-chat-name">Your Lifestyle Director</div><div class="mp-chat-st">Available</div></div>
+        <span class="mp-chat-enc">End-to-End Encrypted</span>
       </div>
-      <div class="mp-messages" id="chatMessages">
-        <div class="mp-msg them">
-          <div class="mp-bubble">Welcome to Cipher Private. I'm your dedicated lifestyle director. How may I assist you today?</div>
-          <div class="mp-msg-time">Your Director</div>
-        </div>
+      <div class="mp-msgs" id="chatMessages">
+        <div class="mp-msg them"><div class="mp-bubble">Welcome to Cipher Private. I'm your dedicated lifestyle director. How may I assist you today?</div><div class="mp-msg-t">Your Director</div></div>
       </div>
       <div class="mp-chat-bar">
-        <textarea class="mp-chat-input" id="memberChatInput" rows="1" placeholder="Type your message…"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMemberMessage()}"></textarea>
+        <textarea class="mp-chat-in" id="memberChatInput" rows="1" placeholder="Type your message…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMemberMessage()}"></textarea>
         <button class="mp-chat-send" onclick="sendMemberMessage()">Send</button>
       </div>
     </div>
 
     <!-- REFER A CONTACT -->
-    <div class="mp-content mp-section" id="mpsec-refer">
-      <div class="mp-eyebrow">Membership</div>
-      <h1 class="mp-page-title">Refer a Contact</h1>
+    <div class="mp-body mp-sec" id="mpsec-refer">
+      <div class="mp-ey">Membership</div><h1 class="mp-h1">Refer a Contact</h1>
       <div class="mp-card">
-        <div class="mp-card-header">
-          <span class="mp-card-title">Introduce Someone to Cipher Private</span>
-        </div>
-        <p style="font-size:13px;color:rgba(240,237,232,0.65);line-height:1.9;margin-bottom:20px">As a Cipher Private member, your introduction carries significant weight. New members require a formal sponsor — someone who puts their name to the relationship. By referring a contact, you are attesting that they are someone who would benefit from and honour the standard of this membership.</p>
-        <div class="mp-form-grid">
-          <div class="mp-field">
-            <label>Contact Full Name</label>
-            <input type="text" id="referName" placeholder="Full name">
-          </div>
-          <div class="mp-field">
-            <label>Contact Email</label>
-            <input type="email" id="referEmail" placeholder="their@email.com">
-          </div>
-          <div class="mp-field">
-            <label>Contact Phone</label>
-            <input type="tel" id="referPhone" placeholder="+61 4XX XXX XXX">
-          </div>
-          <div class="mp-field">
-            <label>Their Background / Profession</label>
-            <input type="text" id="referProfession" placeholder="e.g. Private equity, Property developer">
-          </div>
-          <div class="mp-field" style="grid-column:1/-1">
-            <label>Why are you introducing them?</label>
-            <textarea id="referNote" placeholder="Tell us briefly why you feel this person would be an ideal Cipher Private member..." style="min-height:100px"></textarea>
-          </div>
-          <div class="mp-field">
-            <label>Preferred Tier (if known)</label>
-            <select id="referTier">
-              <option value="">Not sure</option>
-              <option value="CIPHER">Cipher</option>
-              <option value="CIPHER_BLACK">Cipher Black</option>
-              <option value="CIPHER_SOVEREIGN">Cipher Sovereign</option>
-            </select>
-          </div>
-          <div class="mp-field">
-            <label>Are they expecting to be contacted?</label>
-            <select id="referExpecting">
-              <option value="yes">Yes — they are expecting outreach</option>
-              <option value="no">No — please approach discreetly</option>
-            </select>
-          </div>
+        <p style="font-size:13px;color:rgba(240,237,232,0.6);line-height:1.9;margin-bottom:18px">As a Cipher Private member, your introduction carries significant weight. New members require a formal sponsor — someone who puts their name to the relationship.</p>
+        <div class="mp-fg">
+          <div class="mp-f"><label>Contact Full Name</label><input type="text" id="referName" placeholder="Full name"></div>
+          <div class="mp-f"><label>Contact Email</label><input type="email" id="referEmail" placeholder="their@email.com"></div>
+          <div class="mp-f"><label>Contact Phone</label><input type="tel" id="referPhone" placeholder="+61 4XX XXX XXX"></div>
+          <div class="mp-f"><label>Their Profession</label><input type="text" id="referProfession" placeholder="e.g. Private equity, Developer"></div>
+          <div class="mp-f" style="grid-column:1/-1"><label>Why are you introducing them?</label><textarea id="referNote" placeholder="Tell us briefly why you feel this person would be an ideal Cipher Private member…" style="min-height:90px"></textarea></div>
+          <div class="mp-f"><label>Preferred Tier</label><select id="referTier"><option value="">Not sure</option><option value="CIPHER">Cipher</option><option value="CIPHER_BLACK">Cipher Black</option><option value="CIPHER_SOVEREIGN">Cipher Sovereign</option></select></div>
+          <div class="mp-f"><label>Are they expecting contact?</label><select id="referExpecting"><option value="yes">Yes — expecting outreach</option><option value="no">No — approach discreetly</option></select></div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.07)">
-          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:380px">Your introduction is held in strict confidence. Your contact will be approached with absolute discretion. Your name as sponsor will be shared with them only if and when appropriate.</span>
-          <button class="mp-primary-btn" onclick="submitReferral()">Submit Introduction</button>
+          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:360px">Your introduction is held in strict confidence.</span>
+          <button class="mp-btn" onclick="submitReferral()">Submit Introduction</button>
         </div>
-        <div class="mp-notice ok" id="referSuccess">✓ &nbsp;Introduction received. Our membership director will be in touch within 48 hours.</div>
-        <div class="mp-notice err" id="referError"></div>
-      </div>
-
-      <div class="mp-card" style="margin-top:12px">
-        <div class="mp-card-header"><span class="mp-card-title">Your Previous Introductions</span></div>
-        <div id="referralsList">
-          <div class="mp-empty"><div class="mp-empty-icon">◇</div><div class="mp-empty-txt">No introductions yet</div></div>
-        </div>
+        <div class="mp-ok" id="referSuccess">✓ &nbsp;Introduction received. Our membership director will be in touch within 48 hours.</div>
+        <div class="mp-err" id="referError"></div>
       </div>
     </div>
 
     <!-- PROFILE -->
-    <div class="mp-content mp-section" id="mpsec-profile">
-      <div class="mp-eyebrow">Account</div>
-      <h1 class="mp-page-title">My Profile</h1>
+    <div class="mp-body mp-sec" id="mpsec-profile">
+      <div class="mp-ey">Account</div><h1 class="mp-h1">My Profile</h1>
       <div class="mp-card">
-        <div class="mp-card-header"><span class="mp-card-title">Personal Details</span></div>
-        <div class="mp-profile-grid">
-          <div class="mp-field"><label>Full Name</label><input id="profileName" type="text" readonly></div>
-          <div class="mp-field"><label>Email Address</label><input id="profileEmail" type="email" readonly></div>
-          <div class="mp-field"><label>Phone</label><input id="profilePhone" type="tel"></div>
-          <div class="mp-field"><label>Membership Tier</label><input id="profileTier" type="text" readonly style="color:var(--gold)"></div>
+        <div class="mp-ch"><span class="mp-ct">Personal Details</span></div>
+        <div class="mp-pg">
+          <div class="mp-f"><label>Full Name</label><input id="profileName" type="text" readonly></div>
+          <div class="mp-f"><label>Email Address</label><input id="profileEmail" type="email" readonly></div>
+          <div class="mp-f"><label>Phone</label><input id="profilePhone" type="tel"></div>
+          <div class="mp-f"><label>Membership Tier</label><input id="profileTier" type="text" readonly style="color:#c9a96e"></div>
         </div>
       </div>
       <div class="mp-card">
-        <div class="mp-card-header"><span class="mp-card-title">Security Status</span></div>
-        <div class="mp-sec-check"><span class="mp-sec-icon">✓</span><span class="mp-sec-txt">AES-256 Encryption Active</span></div>
-        <div class="mp-sec-check"><span class="mp-sec-icon">✓</span><span class="mp-sec-txt">Australian Sovereign Data Storage</span></div>
-        <div class="mp-sec-check"><span class="mp-sec-icon">✓</span><span class="mp-sec-txt">Privacy Act 1988 Compliant</span></div>
-        <div class="mp-sec-check"><span class="mp-sec-icon">✓</span><span class="mp-sec-txt">End-to-End Encrypted Communications</span></div>
+        <div class="mp-ch"><span class="mp-ct">Security Status</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">AES-256 Encryption Active</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">Australian Sovereign Data Storage</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">Privacy Act 1988 Compliant</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">End-to-End Encrypted Communications</span></div>
       </div>
     </div>
 
   </div><!-- /mpMain -->
-</div><!-- /mpRoot -->
+</div><!-- /mpWrap -->
 
 <!-- OTP Modal -->
 <div id="otpModal">
   <div class="mp-otp-box">
     <button class="mp-otp-close" onclick="document.getElementById('otpModal').classList.remove('active')">✕</button>
-    <div class="mp-eyebrow" style="margin-bottom:8px">Secure Share</div>
-    <div style="font-family:var(--font-display);font-size:22px;color:var(--text);margin-bottom:6px">Share via OTP</div>
-    <div style="font-size:11px;color:var(--gold-dim);margin-bottom:22px" id="otpDocName"></div>
-    <div class="mp-field" style="margin-bottom:12px"><label>Recipient Email</label><input type="email" id="otpEmail" placeholder="recipient@example.com"></div>
-    <div class="mp-field" style="margin-bottom:16px">
-      <label>Access Expiry</label>
-      <select id="otpExpiry">
-        <option value="24">24 hours</option><option value="48">48 hours</option>
-        <option value="168">7 days</option><option value="1">One-time only</option>
-      </select>
-    </div>
-    <div style="font-size:9px;color:var(--gold-dim);margin-bottom:16px;line-height:1.7">An encrypted link + 6-digit OTP will be emailed to the recipient. All access is logged and auditable.</div>
-    <button class="mp-primary-btn" id="otpSendBtn" onclick="sendOTP()" style="width:100%">Generate &amp; Send OTP</button>
-    <div id="otpResult" style="display:none;margin-top:12px;padding:12px;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);font-size:11px;color:var(--green);text-align:center"></div>
+    <div class="mp-ey" style="margin-bottom:8px">Secure Share</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#f5f2ec;margin-bottom:6px">Share via OTP</div>
+    <div style="font-size:11px;color:rgba(201,169,110,0.55);margin-bottom:20px" id="otpDocName"></div>
+    <div class="mp-f" style="margin-bottom:12px"><label>Recipient Email</label><input type="email" id="otpEmail" placeholder="recipient@example.com"></div>
+    <div class="mp-f" style="margin-bottom:16px"><label>Access Expiry</label><select id="otpExpiry"><option value="24">24 hours</option><option value="48">48 hours</option><option value="168">7 days</option><option value="1">One-time only</option></select></div>
+    <div style="font-size:9px;color:rgba(201,169,110,0.45);margin-bottom:16px;line-height:1.7">An encrypted link + 6-digit OTP will be emailed. All access is logged and auditable.</div>
+    <button class="mp-btn" id="otpSendBtn" onclick="sendOTP()" style="width:100%">Generate &amp; Send OTP</button>
+    <div id="otpResult" style="display:none;margin-top:12px;padding:12px;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);font-size:11px;color:#2ecc71;text-align:center"></div>
   </div>
 </div>
 </div>
 
-<!-- Admin Portal -->
-<div class="modal-overlay" id="adminPortal">
-<style id="ap-css">
-#apRoot{width:100%;height:100vh;font-family:var(--font-ui);background:#090909}
-/* SIDEBAR */
-#apSide{width:230px;min-width:230px;max-width:230px;flex:0 0 230px;background:#050505;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh}
-.ap-logo-area{padding:18px 18px 14px;border-bottom:1px solid var(--gold-border)}
-.ap-logo-area img{height:32px;width:auto;display:block;margin-bottom:7px;filter:brightness(1.05)}
-.ap-admin-label{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
-.ap-user-pill{margin:12px 12px 6px;background:rgba(201,169,110,0.04);border:1px solid var(--gold-border);padding:12px 13px;display:flex;align-items:center;gap:10px}
-.ap-user-av{width:32px;height:32px;background:var(--gold-faint);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;color:var(--gold);flex-shrink:0}
-.ap-user-name{font-size:11px;color:#f0ede8;margin-bottom:2px}
-.ap-user-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+<div id="adminPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#090909">
+<style>
+#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.aps-logo svg{display:block}
+.aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
+.aps-pill{margin:12px 12px 6px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:11px 13px;display:flex;align-items:center;gap:10px}
+.aps-av{width:32px;height:32px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:#c9a96e;flex-shrink:0}
+.aps-name{font-size:11px;color:#f0ede8;margin-bottom:2px}
+.aps-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
 #apNav{flex:1;padding:6px 0;overflow-y:auto}
-.ap-nav-group{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);padding:12px 16px 4px}
-.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s}
+.ap-ng{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:12px 15px 4px}
+.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s}
 .ap-ni:hover{background:rgba(201,169,110,0.04)}
-.ap-ni.active{background:rgba(201,169,110,0.07);border-left-color:var(--gold)}
-.ap-ni.active .ap-ni-ic{color:var(--gold)}
-.ap-ni.active .ap-ni-tx{color:var(--text)}
-.ap-ni-ic{font-size:12px;color:rgba(201,169,110,0.6);width:15px;text-align:center;flex-shrink:0;transition:color 0.14s}
-.ap-ni-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.72);transition:color 0.14s}
-.ap-ni-ct{margin-left:auto;background:rgba(201,169,110,0.14);color:var(--gold);font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
-#apFoot{border-top:1px solid var(--gold-border);padding:5px 0}
-/* MAIN */
-#apMain{flex:1 1 0%;min-width:0;max-width:calc(100vw - 230px);display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d}
-#apTopbar{height:56px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.12);padding:0 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:10}
-#apTopbarTitle{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:#f0ede8;font-weight:500}
-.ap-topbar-r{display:flex;align-items:center;gap:13px}
-#apDate{font-size:11px;color:rgba(201,169,110,0.8);letter-spacing:1px;font-family:"Cormorant Garamond",serif;font-size:14px}
-.ap-live-dot{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71;font-weight:500}
-.ap-live-dot::before{content:'';width:5px;height:5px;background:var(--green);border-radius:50%;display:block;animation:pulse-green 2s ease infinite}
+.ap-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.ap-ni.on .ani-ic{color:#c9a96e}
+.ap-ni.on .ani-tx{color:#f0ede8}
+.ani-ic{font-size:12px;color:rgba(201,169,110,0.45);width:14px;text-align:center;flex-shrink:0}
+.ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+.ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+#apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
+#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0}
+#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.apt-left{display:flex;align-items:center;gap:10px}
+.apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.apt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.apt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.apt-right{display:flex;align-items:center;gap:12px}
+#apDate{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(201,169,110,0.7)}
+.apt-live{display:flex;align-items:center;gap:5px;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.apt-live::before{content:'';width:5px;height:5px;background:#2ecc71;border-radius:50%;display:block;animation:enc-pulse 2.5s ease infinite}
 .ap-body{flex:1;overflow-y:auto;padding:24px 28px}
-.ap-sec{display:none;animation:fadeUp 0.2s ease both}
-.ap-sec.active{display:block}
-.ap-chat-wrap{display:none;flex-direction:column;height:calc(100vh - 52px)}
-.ap-chat-wrap.active{display:flex}
-/* Page headers */
-.ap-ey{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
-.ap-ph{font-family:var(--font-display);font-size:28px;font-weight:400;color:#f5f2ec;margin:0 0 20px;line-height:1.2}
-/* Stats */
+.ap-sec{display:none;animation:mp-in 0.2s ease both}
+.ap-sec.on{display:block}
+.ap-chat-wrap{display:none;flex-direction:column;overflow:hidden}
+.ap-chat-wrap.on{display:flex;height:calc(100vh - 54px)}
+.ap-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.ap-ph{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:#f5f2ec;margin:0 0 20px;line-height:1.2}
 .ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
-.ap-stat{background:#111;border:1px solid var(--gold-border);padding:17px;cursor:pointer;transition:border-color 0.15s}
-.ap-stat:hover{border-color:rgba(201,169,110,0.55)}
+.ap-stat{background:#111;border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:border-color 0.15s}
+.ap-stat:hover{border-color:rgba(201,169,110,0.25)}
 .ap-stat-top{display:flex;justify-content:space-between;margin-bottom:11px}
-.ap-stat-ic{font-size:12px;color:rgba(201,169,110,0.65)}
-.ap-stat-arr{font-size:10px;color:rgba(201,169,110,0.18)}
-.ap-stat-n{font-family:var(--font-display);font-size:34px;font-weight:300;color:var(--text);line-height:1;margin-bottom:4px}
-.ap-stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.72)}
-/* Cards */
-.ap-card{background:#111;border:1px solid var(--gold-border);padding:20px;margin-bottom:9px}
-.ap-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid rgba(201,169,110,0.06)}
-.ap-card-title{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.72)}
-/* Quick links */
+.ap-stat-ic{font-size:12px;color:rgba(201,169,110,0.4)}
+.ap-stat-arr{font-size:10px;color:rgba(201,169,110,0.25)}
+.ap-stat-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
+.ap-stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.ap-card{background:#111;border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:9px}
+.ap-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid rgba(201,169,110,0.07)}
+.ap-ct{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
 .ap-ql{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(201,169,110,0.05);cursor:pointer}
 .ap-ql:last-child{border-bottom:none;padding-bottom:0}
 .ap-ql-title{font-size:12px;color:#f0ede8;margin-bottom:2px}
-.ap-ql-sub{font-size:9px;color:rgba(201,169,110,0.72)}
-.ap-ql-arr{color:rgba(201,169,110,0.5);transition:color 0.14s}
-.ap-ql:hover .ap-ql-arr{color:var(--gold)}
-/* System status */
+.ap-ql-sub{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-ql-arr{color:rgba(201,169,110,0.3);transition:color 0.14s}
+.ap-ql:hover .ap-ql-arr{color:#c9a96e}
 .ap-sys{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(201,169,110,0.05)}
 .ap-sys:last-child{border-bottom:none}
-.ap-sys-lbl{font-size:11px;color:rgba(201,169,110,0.78)}
-/* Badges */
-.ap-badge{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
-.ab-gold{color:var(--gold);border-color:rgba(201,169,110,0.65);background:rgba(201,169,110,0.06)}
-.ab-green{color:var(--green);border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
-.ab-amber{color:var(--amber);border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
-.ab-blue{color:var(--blue);border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
-.ab-red{color:var(--red);border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
-/* Buttons */
-.ap-btn{background:var(--gold);color:var(--bg0);border:none;padding:9px 18px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:var(--font-ui);font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.ap-sys-l{font-size:11px;color:rgba(201,169,110,0.65)}
+.ap-b{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.ab-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.ab-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.ab-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.ab-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.ab-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.ap-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:9px 18px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:opacity 0.15s}
 .ap-btn:hover{opacity:0.85}
-.ap-btn-g{background:transparent;border:1px solid rgba(201,169,110,0.2);color:var(--gold-dim);padding:7px 15px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:var(--font-ui);cursor:pointer;transition:all 0.14s}
-.ap-btn-g:hover,.ap-btn-g.active{border-color:var(--gold);color:var(--gold)}
-.ap-btn-g.active{background:rgba(201,169,110,0.08)}
-/* Select */
-.ap-sel{background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:var(--text);padding:7px 10px;font-size:9px;font-family:var(--font-ui);cursor:pointer;outline:none}
-.ap-sel:focus{border-color:var(--gold)}
-/* Row items */
-.ap-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-btn-g{background:transparent;border:1px solid rgba(201,169,110,0.2);color:rgba(201,169,110,0.65);padding:7px 15px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s}
+.ap-btn-g:hover,.ap-btn-g.on{border-color:#c9a96e;color:#c9a96e}
+.ap-btn-g.on{background:rgba(201,169,110,0.07)}
+.ap-sel{background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;padding:7px 10px;font-size:9px;font-family:'Montserrat',sans-serif;cursor:pointer;outline:none}
+.ap-sel:focus{border-color:#c9a96e}
+.ap-row{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
 .ap-row:hover{background:rgba(201,169,110,0.025)}
 .ap-row:last-child{border-bottom:none}
 .ap-row-main{flex:1;min-width:0}
-.ap-row-title{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap-row-meta{font-size:9px;color:rgba(201,169,110,0.72)}
-/* Member cards */
-.ap-mc{display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-row-title{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ap-row-meta{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-mc{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
 .ap-mc:hover{background:rgba(201,169,110,0.025)}
 .ap-mc:last-child{border-bottom:none}
-.ap-mc-av{width:34px;height:34px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.25);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:#c9a96e;flex-shrink:0}
-/* Enquiry cards */
-.ap-eq{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;padding:15px 16px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-mc-av{width:34px;height:34px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#c9a96e;flex-shrink:0}
+.ap-eq{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;padding:14px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
 .ap-eq:hover{background:rgba(201,169,110,0.025)}
 .ap-eq:last-child{border-bottom:none}
-.ap-eq-name{font-size:13px;color:var(--text);margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ap-eq-meta{font-size:9px;color:rgba(201,169,110,0.75);margin-bottom:2px}
-.ap-eq-note{font-size:9px;color:rgba(201,169,110,0.65);font-style:italic;margin-top:4px}
-/* Filter bar */
-.ap-fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-/* Chat */
-.ap-chat-grid{display:grid;grid-template-columns:230px 1fr;border:1px solid var(--gold-border);flex:1;overflow:hidden}
-.ap-cl{background:#111;border-right:1px solid var(--gold-border);display:flex;flex-direction:column;overflow:hidden}
-.ap-cl-head{padding:11px 13px;border-bottom:1px solid rgba(201,169,110,0.07);font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65);flex-shrink:0}
+.ap-eq-name{font-size:13px;color:#f0ede8;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ap-eq-meta{font-size:9px;color:rgba(201,169,110,0.55);margin-bottom:2px}
+.ap-fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.ap-empty{text-align:center;padding:32px 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.38)}
+.ap-cl{background:#111;border-right:1px solid rgba(201,169,110,0.08);display:flex;flex-direction:column;overflow:hidden;width:220px;flex-shrink:0}
+.ap-cl-head{padding:11px 13px;border-bottom:1px solid rgba(201,169,110,0.07);font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
 .ap-cl-items{flex:1;overflow-y:auto}
-.ap-cl-item{padding:11px 13px;cursor:pointer;border-bottom:1px solid rgba(201,169,110,0.04);transition:background 0.12s}
-.ap-cl-item:hover,.ap-cl-item.active{background:rgba(201,169,110,0.06)}
-.ap-cl-name{font-size:11px;color:var(--text);margin-bottom:2px}
-.ap-cl-preview{font-size:9px;color:rgba(201,169,110,0.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap-cm{background:#141414;display:flex;flex-direction:column;overflow:hidden}
-.ap-cm-ph{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px}
-.ap-cm-icon{width:40px;height:40px;border:1px solid rgba(201,169,110,0.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(201,169,110,0.65);font-size:17px}
-.ap-cm-lbl{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
-.ap-cm-sub{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-cl-item{padding:11px 13px;cursor:pointer;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-cl-item:hover,.ap-cl-item.on{background:rgba(201,169,110,0.06)}
+.ap-cl-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.ap-cl-prev{font-size:9px;color:rgba(201,169,110,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-cm{background:#141414;display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
+.ap-cm-ph{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.ap-cm-ph-ic{width:40px;height:40px;border:1px solid rgba(201,169,110,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(201,169,110,0.3);font-size:17px}
+.ap-cm-ph-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.3)}
 .ap-chat-area{display:none;flex-direction:column;height:100%}
-.ap-chat-hdr{padding:11px 14px;border-bottom:1px solid rgba(201,169,110,0.07);background:#111;display:flex;align-items:center;gap:9px;flex-shrink:0}
-.ap-ca-av{width:26px;height:26px;border:1px solid rgba(201,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--font-display);font-size:11px}
-.ap-ca-name{font-size:11px;color:var(--text);margin-bottom:1px}
-.ap-ca-status{font-size:8px;color:var(--green)}
+.ap-chat-hdr{padding:11px 14px;border-bottom:1px solid rgba(201,169,110,0.08);background:#111;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.ap-ca-av{width:26px;height:26px;border:1px solid rgba(201,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:11px}
+.ap-ca-name{font-size:11px;color:#f0ede8;margin-bottom:1px;font-weight:500}
+.ap-ca-st{font-size:8px;color:#2ecc71}
 .ap-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
 .ap-msg{max-width:72%;display:flex;flex-direction:column;gap:3px}
 .ap-msg.fm{align-self:flex-start}
 .ap-msg.fa{align-self:flex-end}
 .ap-msg-b{padding:9px 13px;font-size:12px;line-height:1.7}
-.ap-msg.fm .ap-msg-b{background:var(--bg4);color:var(--text);border:1px solid var(--gold-border);border-radius:10px 10px 10px 2px}
-.ap-msg.fa .ap-msg-b{background:var(--gold);color:var(--bg0);border-radius:10px 10px 2px 10px}
-.ap-msg-t{font-size:8px;color:rgba(201,169,110,0.6)}
-.ap-chat-bar{border-top:1px solid var(--gold-border);padding:12px 13px;display:flex;gap:8px;background:#0f0f0f;flex-shrink:0}
-.ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid var(--gold-border);color:var(--text);padding:10px 13px;font-family:var(--font-ui);font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
-.ap-chat-inp:focus{border-color:var(--gold)}
-/* empty */
-.ap-empty{text-align:center;padding:34px 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
+.ap-msg.fm .ap-msg-b{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.08);border-radius:10px 10px 10px 2px}
+.ap-msg.fa .ap-msg-b{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:10px 10px 2px 10px}
+.ap-msg-t{font-size:8px;color:rgba(201,169,110,0.28)}
+.ap-chat-bar{border-top:1px solid rgba(201,169,110,0.08);padding:12px 13px;display:flex;gap:8px;background:#0f0f0f;flex-shrink:0}
+.ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(201,169,110,0.14);color:#f0ede8;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
+.ap-chat-inp:focus{border-color:#c9a96e}
 </style>
-<div id="apRoot">
 
+<div id="apWrap">
   <!-- SIDEBAR -->
   <div id="apSide">
-    <div class="ap-logo-area">
-      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_logo_6b0353d1.png" alt="Cipher Private">
-      <div class="ap-admin-label">Administration</div>
+    <div class="aps-logo"><svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+  <polygon points="18,7 29,13.5 29,26.5 18,33 7,26.5 7,13.5" stroke="#c9a96e" stroke-width="0.4" fill="none" opacity="0.35"/>
+  <text x="18" y="25" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="14" fill="#c9a96e" font-weight="300">C</text>
+  <text x="44" y="22" font-family="Montserrat,Helvetica,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4" font-weight="400">CIPHER</text>
+  <text x="45" y="33" font-family="Montserrat,Helvetica,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5" font-weight="300">PRIVATE</text>
+</svg>
+      <div class="aps-admin-lbl">Administration</div>
     </div>
-    <div class="ap-user-pill">
-      <div class="ap-user-av" id="adminInitial">A</div>
-      <div>
-        <div class="ap-user-name" id="adminName">Admin</div>
-        <div class="ap-user-role">Administrator</div>
-      </div>
+    <div class="aps-pill">
+      <div class="aps-av" id="adminInitial">A</div>
+      <div><div class="aps-name" id="adminName">Admin</div><div class="aps-role">Administrator</div></div>
     </div>
     <nav id="apNav">
-      <div class="ap-nav-group">Overview</div>
-      <div class="ap-ni active" id="apni-dashboard" onclick="apGo('dashboard')"><span class="ap-ni-ic">◆</span><span class="ap-ni-tx">Dashboard</span></div>
-      <div class="ap-nav-group">Manage</div>
-      <div class="ap-ni" id="apni-clients" onclick="apGo('clients')"><span class="ap-ni-ic">○</span><span class="ap-ni-tx">Clients</span><span class="ap-ni-ct" id="apct-m">0</span></div>
-      <div class="ap-ni" id="apni-requests" onclick="apGo('requests')"><span class="ap-ni-ic">◈</span><span class="ap-ni-tx">Service Requests</span><span class="ap-ni-ct" id="apct-r">0</span></div>
-      <div class="ap-nav-group">Communicate</div>
-      <div class="ap-ni" id="apni-conversations" onclick="apGo('conversations')"><span class="ap-ni-ic">●</span><span class="ap-ni-tx">Conversations</span></div>
-      <div class="ap-ni" id="apni-enquiries" onclick="apGo('enquiries')"><span class="ap-ni-ic">≈</span><span class="ap-ni-tx">Enquiries</span><span class="ap-ni-ct" id="apct-e">0</span></div>
+      <div class="ap-ng">Overview</div>
+      <div class="ap-ni on" id="apni-dashboard" onclick="apGo('dashboard')"><span class="ani-ic">◆</span><span class="ani-tx">Dashboard</span></div>
+      <div class="ap-ng">Manage</div>
+      <div class="ap-ni" id="apni-clients" onclick="apGo('clients')"><span class="ani-ic">○</span><span class="ani-tx">Clients</span><span class="ani-ct" id="apct-m">0</span></div>
+      <div class="ap-ni" id="apni-requests" onclick="apGo('requests')"><span class="ani-ic">◈</span><span class="ani-tx">Service Requests</span><span class="ani-ct" id="apct-r">0</span></div>
+      <div class="ap-ng">Communicate</div>
+      <div class="ap-ni" id="apni-conversations" onclick="apGo('conversations')"><span class="ani-ic">●</span><span class="ani-tx">Conversations</span></div>
+      <div class="ap-ni" id="apni-enquiries" onclick="apGo('enquiries')"><span class="ani-ic">≈</span><span class="ani-tx">Enquiries</span><span class="ani-ct" id="apct-e">0</span></div>
     </nav>
     <div id="apFoot">
-      <div class="ap-ni" onclick="closeAdmin()"><span class="ap-ni-ic">←</span><span class="ap-ni-tx">Public Site</span></div>
-      <div class="ap-ni" onclick="closeAdmin()"><span class="ap-ni-ic">⏻</span><span class="ap-ni-tx">Sign Out</span></div>
+      <div class="ap-ni" onclick="closeAdmin()"><span class="ani-ic">←</span><span class="ani-tx">Public Site</span></div>
+      <div class="ap-ni" onclick="closeAdmin()"><span class="ani-ic">⏻</span><span class="ani-tx">Sign Out</span></div>
     </div>
   </div>
 
   <!-- MAIN -->
   <div id="apMain">
     <div id="apTopbar">
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.45)">Overview</span>
-        <span style="color:rgba(201,169,110,0.25);font-size:10px">›</span>
-        <span id="apTopbarTitle" style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500">Dashboard</span>
+      <div class="apt-left">
+        <span class="apt-sect">Admin</span>
+        <span class="apt-sep">›</span>
+        <span class="apt-page" id="apTopbarTitle">Dashboard</span>
       </div>
-      <div class="ap-topbar-r">
-        <span id="apDate" style="font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(201,169,110,0.75)"></span>
-        <div style="width:1px;height:16px;background:rgba(201,169,110,0.15)"></div>
-        <div class="ap-live-dot">Operational</div>
+      <div class="apt-right">
+        <span id="apDate"></span>
+        <div class="apt-live">Operational</div>
       </div>
     </div>
 
     <div class="ap-body">
 
       <!-- DASHBOARD -->
-      <div class="ap-sec active" id="apsec-dashboard">
-        <div class="ap-ey">Overview</div>
-        <h2 class="ap-ph">Admin Dashboard</h2>
+      <div class="ap-sec on" id="apsec-dashboard">
+        <div class="ap-ey">Overview</div><h2 class="ap-ph">Admin Dashboard</h2>
         <div class="ap-stats">
-          <div class="ap-stat" onclick="apGo('clients')">
-            <div class="ap-stat-top"><span class="ap-stat-ic">○</span><span class="ap-stat-arr">→</span></div>
-            <div class="ap-stat-n" id="statMembers">0</div><div class="ap-stat-l">Total Members</div>
-          </div>
-          <div class="ap-stat" onclick="apGo('requests')">
-            <div class="ap-stat-top"><span class="ap-stat-ic" style="color:var(--amber)">◈</span><span class="ap-stat-arr">→</span></div>
-            <div class="ap-stat-n" id="statRequests">0</div><div class="ap-stat-l">Active Requests</div>
-          </div>
-          <div class="ap-stat" onclick="apGo('enquiries')">
-            <div class="ap-stat-top"><span class="ap-stat-ic">≈</span><span class="ap-stat-arr">→</span></div>
-            <div class="ap-stat-n" id="statApplications">0</div><div class="ap-stat-l">New Enquiries</div>
-          </div>
-          <div class="ap-stat" onclick="apGo('conversations')">
-            <div class="ap-stat-top"><span class="ap-stat-ic" style="color:var(--green)">●</span><span class="ap-stat-arr">→</span></div>
-            <div class="ap-stat-n" id="statMessages">0</div><div class="ap-stat-l">Unread Messages</div>
-          </div>
+          <div class="ap-stat" onclick="apGo('clients')"><div class="ap-stat-top"><span class="ap-stat-ic">○</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statMembers">0</div><div class="ap-stat-l">Total Members</div></div>
+          <div class="ap-stat" onclick="apGo('requests')"><div class="ap-stat-top"><span class="ap-stat-ic" style="color:#e67e22">◈</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statRequests">0</div><div class="ap-stat-l">Active Requests</div></div>
+          <div class="ap-stat" onclick="apGo('enquiries')"><div class="ap-stat-top"><span class="ap-stat-ic">≈</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statApplications">0</div><div class="ap-stat-l">New Enquiries</div></div>
+          <div class="ap-stat" onclick="apGo('conversations')"><div class="ap-stat-top"><span class="ap-stat-ic" style="color:#2ecc71">●</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statMessages">0</div><div class="ap-stat-l">Unread Messages</div></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div class="ap-card" style="margin-bottom:0">
-            <div class="ap-card-head"><span class="ap-card-title">Quick Links</span></div>
+          <div class="ap-card" style="margin:0">
+            <div class="ap-ch"><span class="ap-ct">Quick Links</span></div>
             <div class="ap-ql" onclick="apGo('clients')"><div><div class="ap-ql-title">Manage Client Accounts</div><div class="ap-ql-sub">View and update member profiles</div></div><span class="ap-ql-arr">→</span></div>
             <div class="ap-ql" onclick="apGo('requests')"><div><div class="ap-ql-title">Service Requests</div><div class="ap-ql-sub">Review and update concierge requests</div></div><span class="ap-ql-arr">→</span></div>
             <div class="ap-ql" onclick="apGo('conversations')"><div><div class="ap-ql-title">Client Conversations</div><div class="ap-ql-sub">Respond to member messages</div></div><span class="ap-ql-arr">→</span></div>
             <div class="ap-ql" onclick="apGo('enquiries')"><div><div class="ap-ql-title">Membership Enquiries</div><div class="ap-ql-sub">Review applications</div></div><span class="ap-ql-arr">→</span></div>
           </div>
-          <div class="ap-card" style="margin-bottom:0">
-            <div class="ap-card-head"><span class="ap-card-title">System Status</span></div>
-            <div class="ap-sys"><span class="ap-sys-lbl">Document Vault</span><span class="ap-badge ab-green">OPERATIONAL</span></div>
-            <div class="ap-sys"><span class="ap-sys-lbl">Encrypted Storage</span><span class="ap-badge ab-green">OPERATIONAL</span></div>
-            <div class="ap-sys"><span class="ap-sys-lbl">Email Service</span><span class="ap-badge ab-green">OPERATIONAL</span></div>
-            <div class="ap-sys"><span class="ap-sys-lbl">Authentication</span><span class="ap-badge ab-green">OPERATIONAL</span></div>
-            <div class="ap-sys"><span class="ap-sys-lbl">Chat System</span><span class="ap-badge ab-green">OPERATIONAL</span></div>
+          <div class="ap-card" style="margin:0">
+            <div class="ap-ch"><span class="ap-ct">System Status</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Document Vault</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Encrypted Storage</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Email Service</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Authentication</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Chat System</span><span class="ap-b ab-green">OPERATIONAL</span></div>
           </div>
         </div>
       </div>
@@ -2969,15 +2716,12 @@ footer {
           <h2 class="ap-ph" style="margin:0">Client Accounts</h2>
           <button class="ap-btn" onclick="showAddMember()">＋ Add Member</button>
         </div>
-        <div class="ap-card" style="padding:0">
-          <div id="adminMembersList"><div class="ap-empty">Loading members…</div></div>
-        </div>
+        <div class="ap-card" style="padding:0"><div id="adminMembersList"><div class="ap-empty">Loading…</div></div></div>
       </div>
 
       <!-- SERVICE REQUESTS -->
       <div class="ap-sec" id="apsec-requests">
-        <div class="ap-ey">Concierge</div>
-        <h2 class="ap-ph">Service Requests</h2>
+        <div class="ap-ey">Concierge</div><h2 class="ap-ph">Service Requests</h2>
         <div class="ap-fbar">
           <button class="ap-btn" id="aprf-all" onclick="apFilterR('')">All</button>
           <button class="ap-btn-g" id="aprf-r" onclick="apFilterR('RECEIVED')">Received</button>
@@ -2985,19 +2729,14 @@ footer {
           <button class="ap-btn-g" id="aprf-a" onclick="apFilterR('AWAITING_MEMBER')">Awaiting</button>
           <button class="ap-btn-g" id="aprf-c" onclick="apFilterR('COMPLETED')">Completed</button>
         </div>
-        <div class="ap-card" style="padding:0">
-          <div id="adminRequestsList"><div class="ap-empty">Loading requests…</div></div>
-        </div>
+        <div class="ap-card" style="padding:0"><div id="adminRequestsList"><div class="ap-empty">Loading…</div></div></div>
       </div>
 
       <!-- ENQUIRIES -->
       <div class="ap-sec" id="apsec-enquiries">
-        <div class="ap-ey">Applications</div>
-        <h2 class="ap-ph">Membership Enquiries</h2>
-        <div id="apEnqCount" style="font-size:9px;color:rgba(201,169,110,0.72);margin-bottom:16px;letter-spacing:1px"></div>
-        <div class="ap-card" style="padding:0">
-          <div id="adminApplicationsList"><div class="ap-empty">Loading enquiries…</div></div>
-        </div>
+        <div class="ap-ey">Applications</div><h2 class="ap-ph">Membership Enquiries</h2>
+        <div id="apEnqCount" style="font-size:9px;color:rgba(201,169,110,0.5);margin-bottom:16px;letter-spacing:1px"></div>
+        <div class="ap-card" style="padding:0"><div id="adminApplicationsList"><div class="ap-empty">Loading…</div></div></div>
       </div>
 
     </div><!-- /ap-body -->
@@ -3005,34 +2744,26 @@ footer {
     <!-- CONVERSATIONS (full height) -->
     <div class="ap-chat-wrap" id="apsec-conversations">
       <div style="padding:16px 28px 0;flex-shrink:0">
-        <div class="ap-ey">Communications</div>
-        <h2 class="ap-ph" style="margin-bottom:14px">Client Conversations</h2>
+        <div class="ap-ey">Communications</div><h2 class="ap-ph" style="margin-bottom:12px">Client Conversations</h2>
       </div>
-      <div class="ap-chat-grid" style="margin:0 28px 20px;flex:1;overflow:hidden">
+      <div style="display:flex;flex:1;overflow:hidden;margin:0 28px 20px;border:1px solid rgba(201,169,110,0.1)">
         <div class="ap-cl">
           <div class="ap-cl-head">Members</div>
-          <div class="ap-cl-items" id="adminChatRoomList">
-            <div class="ap-empty" style="padding:20px">No conversations yet.</div>
-          </div>
+          <div class="ap-cl-items" id="adminChatRoomList"><div class="ap-empty" style="padding:18px">No conversations yet.</div></div>
         </div>
         <div class="ap-cm">
           <div class="ap-cm-ph" id="adminChatPlaceholder">
-            <div class="ap-cm-icon">◎</div>
-            <div class="ap-cm-lbl">Select a Conversation</div>
-            <div class="ap-cm-sub">Choose a member from the list</div>
+            <div class="ap-cm-ph-ic">◎</div>
+            <div class="ap-cm-ph-l">Select a Conversation</div>
           </div>
           <div class="ap-chat-area" id="adminChatArea">
             <div class="ap-chat-hdr">
               <div class="ap-ca-av" id="adminChatMemberInitial">M</div>
-              <div>
-                <div class="ap-ca-name" id="adminChatMemberName">Member</div>
-                <div class="ap-ca-status">Active conversation</div>
-              </div>
+              <div><div class="ap-ca-name" id="adminChatMemberName">Member</div><div class="ap-ca-st">Active conversation</div></div>
             </div>
             <div class="ap-msgs" id="adminChatMessages"></div>
             <div class="ap-chat-bar">
-              <textarea class="ap-chat-inp" id="adminChatInput" rows="1" placeholder="Type a reply…"
-                onkeydown="handleAdminChatKey(event)"></textarea>
+              <textarea class="ap-chat-inp" id="adminChatInput" rows="1" onkeydown="handleAdminChatKey(event)" placeholder="Type a reply…"></textarea>
               <button class="ap-btn" onclick="sendAdminMessage()">Send</button>
             </div>
           </div>
@@ -3041,7 +2772,7 @@ footer {
     </div>
 
   </div><!-- /apMain -->
-</div><!-- /apRoot -->
+</div><!-- /apWrap -->
 </div>
 
 <!-- Add Member Modal -->
@@ -3443,14 +3174,14 @@ const AP_TITLES = {dashboard:'Dashboard',clients:'Client Accounts',requests:'Ser
 function apGo(section) {
   AP_SECS.forEach(s => {
     const el = document.getElementById('apsec-' + s);
-    if (el) { el.classList.remove('active'); }
+    if (el) { el.classList.remove('on'); }
     const ni = document.getElementById('apni-' + s);
-    if (ni) ni.classList.remove('active');
+    if (ni) ni.classList.remove('on');
   });
   const target = document.getElementById('apsec-' + section);
-  if (target) target.classList.add('active');
+  if (target) target.classList.add('on');
   const ni = document.getElementById('apni-' + section);
-  if (ni) ni.classList.add('active');
+  if (ni) ni.classList.add('on');
   const tt = document.getElementById('apTopbarTitle');
   if (tt) tt.textContent = AP_TITLES[section] || section;
   if (['clients','requests','enquiries'].includes(section)) loadAdminData();
@@ -3644,11 +3375,9 @@ async function loginMember() {
       window._cipherUser  = data.user;
       document.getElementById('loginModal').classList.remove('active');
       if (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN') {
-        document.getElementById('adminPortal').classList.add('active');
-        loadAdminData();
+        document.getElementById('adminPortal').style.display='block'; loadAdminData();
       } else {
-        document.getElementById('memberPortal').classList.add('active');
-        loadPortalData();
+        document.getElementById('memberPortal').style.display='block'; loadPortalData();
       }
     } else {
       showLoginError('member', data.error || 'Invalid credentials. Please try again.');
@@ -3671,8 +3400,7 @@ async function loginAdmin() {
       window._cipherToken = data.token;
       window._cipherUser  = data.user;
       document.getElementById('loginModal') && document.getElementById('loginModal').classList.remove('active');
-      document.getElementById('adminPortal').classList.add('active');
-      loadAdminData();
+      document.getElementById('adminPortal').style.display='block'; loadAdminData();
     } else {
       alert(data.error || 'Access denied. Admin credentials required.');
     }
@@ -4045,8 +3773,7 @@ async function loginMember() {
         // Admins skip 2FA — go straight to admin portal
         window._cipherToken = _2faToken;
         window._cipherUser  = _2faUser;
-        document.getElementById('adminPortal').classList.add('active');
-        loadAdminData();
+        document.getElementById('adminPortal').style.display='block'; loadAdminData();
       } else {
         // Members go through 2FA
         show2FA(email);
@@ -4142,8 +3869,7 @@ async function verify2FA() {
     window._cipherToken = _2faToken;
     window._cipherUser  = _2faUser;
     _2faToken=null; _2faUser=null; _2faCode=null;
-    document.getElementById('memberPortal').classList.add('active');
-    loadPortalData();
+    document.getElementById('memberPortal').style.display='block'; loadPortalData();
   } else {
     showTFAErr('Incorrect code. Please try again or request a new one.');
     btn.disabled=false; btn.textContent='Verify & Enter Portal';
