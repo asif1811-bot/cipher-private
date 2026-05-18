@@ -1358,9 +1358,9 @@ footer {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. We serve a permanent maximum of 50 ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
+      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. Built for the few — a permanent maximum of 50 ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
       {"@type":"Question","name":"How do I join Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private membership is by referral only. New members must be introduced by an existing member who sponsors the relationship. Applications are reviewed personally by the founding director within 48 hours."}},
-      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private permanently limits membership to 50 individuals. When capacity is reached, membership closes. This is a permanent cap, not a waitlist."}},
+      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private permanently limits membership to 50 individuals. Built for the few. When capacity is reached, membership closes permanently — not a waitlist, not a queue."}},
       {"@type":"Question","name":"What services does Cipher Private provide?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private provides comprehensive lifestyle management including private aviation, estate management, medical concierge, dining and event access, travel architecture, and an AES-256 encrypted document vault."}},
       {"@type":"Question","name":"What is the response time guarantee?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private guarantees a response to every request in under 3 minutes, 24 hours a day, written into the membership agreement as a contractual obligation."}},
       {"@type":"Question","name":"Is Cipher Private data stored in Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes. All Cipher Private data is held exclusively on Australian-sovereign infrastructure, subject to the Privacy Act 1988. No foreign government or foreign court order can compel access."}}
@@ -1371,10 +1371,10 @@ footer {
 <!-- Portal CSS (moved to head for reliable rendering) -->
 <style>
 /* Member Portal — isolated CSS, no modal-overlay dependency */
-#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
 
 /* ── SIDEBAR ── */
-#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px}
+#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px;z-index:2}
 #mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
 .mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
 .mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
@@ -1393,7 +1393,7 @@ footer {
 .mps-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
 .mps-nav{flex:1;padding:6px 0;overflow-y:auto}
 .mps-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:13px 16px 5px}
-.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative}
+.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
 .mps-ni:hover{background:rgba(201,169,110,0.04)}
 .mps-ni:hover .mni-ic{color:rgba(201,169,110,0.8)}
 .mps-ni:hover .mni-tx{color:rgba(240,237,232,0.75)}
@@ -1406,10 +1406,10 @@ footer {
 .mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
 
 /* ── MAIN ── */
-#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%}
+#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%;position:relative;z-index:0}
 
 /* Topbar */
-#mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
 .mpt-left{display:flex;align-items:center;gap:10px}
 .mpt-section{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
 .mpt-sep{color:rgba(201,169,110,0.18);font-size:10px}
@@ -1533,8 +1533,8 @@ footer {
 .mp-otp-close:hover{color:#c9a96e}
 </style>
 <style>
-#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
-#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px}
+#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
+#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px;z-index:2}
 .aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
 .aps-logo svg{display:block}
 .aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
@@ -1544,7 +1544,7 @@ footer {
 .aps-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
 #apNav{flex:1;padding:6px 0;overflow-y:auto}
 .ap-ng{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:12px 15px 4px}
-.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s}
+.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
 .ap-ni:hover{background:rgba(201,169,110,0.04)}
 .ap-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
 .ap-ni.on .ani-ic{color:#c9a96e}
@@ -1553,8 +1553,8 @@ footer {
 .ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
 .ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
 #apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
-#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0;width:100%}
-#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0;width:100%;position:relative;z-index:0}
+#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
 .apt-left{display:flex;align-items:center;gap:10px}
 .apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
 .apt-sep{color:rgba(201,169,110,0.18);font-size:10px}
@@ -1709,7 +1709,7 @@ footer {
     <p class="hero-slogan">This is how the world's most private people live.</p>
 
     <p class="hero-desc">
-      Cipher Private is Australia's most exclusive lifestyle management firm. We serve a permanent maximum of 50 members — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
+      Cipher Private is Australia's most exclusive lifestyle management firm. Built for the few who understand that genuine service cannot be scaled — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
     </p>
 
     <div class="hero-actions">
@@ -1922,7 +1922,7 @@ footer {
       <div class="section-line"></div>
       <span class="section-tag">Membership · By Referral Only</span>
     </div>
-    <h2 class="section-title">Three Tiers.<br><span class="gold">Fifty Members. Total.</span></h2>
+    <h2 class="section-title">Three Tiers.<br><span class="gold">Built for the Few.</span></h2>
     <p style="max-width:600px;margin:0 auto;font-size:13px;color:var(--silver);line-height:2">Cipher Private permanently limits membership to 50 individuals across Australia. New members require a formal introduction from an existing member. Each application is reviewed personally by our founding director.</p>
   </div>
 
@@ -1934,7 +1934,7 @@ footer {
         <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Membership Status</span>
       </div>
       <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
-      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Currently Accepting Introductions</span>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Built for the Few · Accepting Introductions</span>
       <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
       <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">3 Places Remaining</span>
     </div>
@@ -2035,7 +2035,7 @@ footer {
         <div class="blog-content">
           <div class="blog-category">Cipher Intelligence</div>
           <h3 class="blog-title">Why Australia's Ultra-Wealthy Are Quietly Moving Away From Global Concierge Firms</h3>
-          <p class="blog-excerpt">The world's largest concierge firms serve tens of thousands. We serve fifty. The mathematics of genuine service demand a choice — and we have made ours.</p>
+          <p class="blog-excerpt">Built for the few. The mathematics of genuine service demand a choice between scale and quality — and we made ours without hesitation.</p>
           <div class="blog-meta">
             <span>May 2026</span>
             <span>·</span>
@@ -2180,7 +2180,7 @@ footer {
         <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">50</div>
         <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The 50 Member Rule</div>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Permanent Membership Cap. No Exceptions.</h3>
-        <p style="font-size:12px;color:var(--silver);line-height:1.9">The leading global concierge firms serve tens of thousands of members. We serve fifty. When we reach capacity, we close. Every member receives undivided attention — not because we say so, but because the mathematics make it impossible to do otherwise.</p>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">The leading global concierge firms serve tens of thousands. Cipher Private is built for the few — fifty individuals, permanently. When we reach capacity, we close. Every member receives undivided attention not because we say so, but because the mathematics make it impossible to do otherwise.</p>
       </div>
 
       <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
@@ -3613,12 +3613,12 @@ const ARTICLES = {
       <p>At Cipher Private, we have built our model around the things we believe the industry has consistently failed to deliver:</p>
       <ul>
         <li>A single, permanent lifestyle director — not a team, not a rotation</li>
-        <li>A permanent membership cap of fifty individuals — mathematics as a service guarantee</li>
+        <li>Built for the few — fifty members, permanently — because genuine service cannot be scaled</li>
         <li>AES-256 encrypted document vault, OTP-secured sharing, end-to-end encrypted communications</li>
         <li>A contractual response guarantee of under three minutes, written into your membership agreement</li>
         <li>Referral-only membership — every new member is introduced by an existing one</li>
       </ul>
-      <p>We are not the largest concierge firm in Australia. We are not trying to be. We serve fifty people. We always will. And we believe that is precisely why each of those fifty receives something that scale makes impossible elsewhere.</p>`,
+      <p>We are not the largest concierge firm in Australia. We are not trying to be. Cipher Private is built for the few — fifty people, always. And that is precisely why each of those fifty receives something that scale makes impossible elsewhere.</p>`,
     cta: 'If this is the standard you expect, we invite an introduction.'
   },
 
@@ -3646,8 +3646,8 @@ const ARTICLES = {
       </ul>
       <h2>The Distinction That Changes Everything</h2>
       <p>The distinction between a good lifestyle manager and an exceptional one is not capability. It is knowledge. An exceptional lifestyle manager knows you — not from a file, but from sustained proximity to your world over time. They anticipate what you need before you articulate it. They know which things matter and which things do not. They earn the trust that makes genuine service possible.</p>
-      <p>This is why Cipher Private assigns one director permanently to each of our fifty members. Not as a policy. As a philosophy.</p>`,
-    cta: 'Cipher Private. Fifty members. One director. By referral only.'
+      <p>This is why Cipher Private is built for the few — one director, permanently assigned, who truly knows your world. Not as a policy. As a philosophy.</p>`,
+    cta: 'Cipher Private. Built for the few. One director. By referral only.'
   },
 
   'document-security': {
