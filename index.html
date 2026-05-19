@@ -1358,296 +1358,15 @@ footer {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. Built for the few — a permanent maximum of 50 ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
+      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. We serve a permanent maximum of 50 ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
       {"@type":"Question","name":"How do I join Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private membership is by referral only. New members must be introduced by an existing member who sponsors the relationship. Applications are reviewed personally by the founding director within 48 hours."}},
-      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private permanently limits membership to 50 individuals. Built for the few. When capacity is reached, membership closes permanently — not a waitlist, not a queue."}},
+      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private permanently limits membership to 50 individuals. When capacity is reached, membership closes. This is a permanent cap, not a waitlist."}},
       {"@type":"Question","name":"What services does Cipher Private provide?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private provides comprehensive lifestyle management including private aviation, estate management, medical concierge, dining and event access, travel architecture, and an AES-256 encrypted document vault."}},
       {"@type":"Question","name":"What is the response time guarantee?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private guarantees a response to every request in under 3 minutes, 24 hours a day, written into the membership agreement as a contractual obligation."}},
       {"@type":"Question","name":"Is Cipher Private data stored in Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes. All Cipher Private data is held exclusively on Australian-sovereign infrastructure, subject to the Privacy Act 1988. No foreign government or foreign court order can compel access."}}
     ]
   }
   </script>
-
-<!-- Portal CSS (moved to head for reliable rendering) -->
-<style>
-/* Member Portal — isolated CSS, no modal-overlay dependency */
-#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
-
-/* ── SIDEBAR ── */
-#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px;z-index:2}
-#mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
-.mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
-.mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
-.mps-card::after{content:'◆';position:absolute;right:-8px;bottom:-14px;font-size:60px;color:rgba(201,169,110,0.04);line-height:1;pointer-events:none}
-.mps-av{width:42px;height:42px;background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.05));border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#c9a96e;margin-bottom:10px}
-.mps-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px;line-height:1.2}
-.mps-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:10px}
-.mps-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:10px}
-.mps-stat{text-align:center}
-.mps-stat+.mps-stat{border-left:1px solid rgba(201,169,110,0.1)}
-.mps-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#fff;display:block;line-height:1}
-.mps-lbl{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);display:block;margin-top:3px}
-.mps-enc{margin:0 14px 4px;padding:7px 12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:7px}
-.mps-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;flex-shrink:0;animation:enc-pulse 2.5s ease infinite}
-@keyframes enc-pulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(46,204,113,0.6)}50%{opacity:0.4;box-shadow:0 0 4px rgba(46,204,113,0.1)}}
-.mps-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
-.mps-nav{flex:1;padding:6px 0;overflow-y:auto}
-.mps-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:13px 16px 5px}
-.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
-.mps-ni:hover{background:rgba(201,169,110,0.04)}
-.mps-ni:hover .mni-ic{color:rgba(201,169,110,0.8)}
-.mps-ni:hover .mni-tx{color:rgba(240,237,232,0.75)}
-.mps-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
-.mps-ni.on .mni-ic{color:#c9a96e}
-.mps-ni.on .mni-tx{color:#f0ede8}
-.mni-ic{font-size:12px;color:rgba(201,169,110,0.4);width:15px;text-align:center;flex-shrink:0}
-.mni-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
-.mni-badge{margin-left:auto;background:#c9a96e;color:#060606;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
-.mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
-
-/* ── MAIN ── */
-#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%;position:relative;z-index:0}
-
-/* Topbar */
-#mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
-.mpt-left{display:flex;align-items:center;gap:10px}
-.mpt-section{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
-.mpt-sep{color:rgba(201,169,110,0.18);font-size:10px}
-.mpt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
-.mpt-right{display:flex;align-items:center;gap:14px}
-#mpActiveBadge{display:none;align-items:center;gap:6px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.25);padding:5px 12px}
-#mpActiveBadge-dot{width:5px;height:5px;border-radius:50%;background:#e67e22;box-shadow:0 0 6px rgba(230,126,34,0.5)}
-#mpActiveBadge-txt{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8}
-.mpt-enc{display:flex;align-items:center;gap:5px}
-.mpt-enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.5)}
-.mpt-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
-#mpClock{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:rgba(201,169,110,0.65)}
-.mpt-signout{background:transparent;border:1px solid rgba(201,169,110,0.15);color:rgba(201,169,110,0.55);font-family:'Montserrat',sans-serif;font-size:7px;letter-spacing:3px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.14s}
-.mpt-signout:hover{border-color:#c9a96e;color:#c9a96e}
-
-/* Sections */
-.mp-body{flex:1;overflow-y:auto;padding:28px 32px}
-.mp-sec{display:none}
-.mp-sec.on{display:block;animation:mp-in 0.22s ease both}
-.mp-chat-sec{display:none;flex-direction:column;overflow:hidden}
-.mp-chat-sec.on{display:flex;height:calc(100vh - 54px)}
-@keyframes mp-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-
-.mp-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
-.mp-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;color:#f5f2ec;margin:0 0 22px;line-height:1.2}
-.mp-card{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:22px;margin-bottom:12px;transition:border-color 0.2s}
-.mp-card:hover{border-color:rgba(201,169,110,0.18)}
-.mp-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,110,0.08)}
-.mp-ct{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
-.mp-ca{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;cursor:pointer;opacity:0.7}
-.mp-ca:hover{opacity:1}
-.mp-banner{background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
-.mp-banner-ico{font-size:26px;color:#c9a96e;flex-shrink:0}
-.mp-banner-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px}
-.mp-banner-s{font-size:9px;color:rgba(201,169,110,0.6);letter-spacing:1px}
-.mp-stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.mp-stat{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:18px;cursor:pointer;transition:all 0.15s}
-.mp-stat:hover{border-color:rgba(201,169,110,0.25);transform:translateY(-1px)}
-.mp-stat-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:300;color:#fff;line-height:1;margin-bottom:5px}
-.mp-stat-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
-.mp-stat-s{font-size:9px;color:rgba(201,169,110,0.4);margin-top:3px}
-.mp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.mp-tile{background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:all 0.18s;position:relative}
-.mp-tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.22)}
-.mp-tile-ic{font-size:19px;color:#c9a96e;margin-bottom:9px}
-.mp-tile-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;margin-bottom:4px}
-.mp-tile-s{font-size:9px;color:rgba(201,169,110,0.55);line-height:1.5}
-.mp-ri{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
-.mp-ri:hover{background:rgba(201,169,110,0.03)}
-.mp-ri:last-child{border-bottom:none}
-.mp-rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.mp-rb{flex:1;min-width:0}
-.mp-rt{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.mp-rm{font-size:9px;color:rgba(201,169,110,0.6)}
-.mp-rs{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
-.rs-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
-.rs-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
-.rs-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
-.rs-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
-.rs-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
-.mp-fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mp-f{margin-bottom:0}
-.mp-f label{display:block;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:7px}
-.mp-f input,.mp-f select,.mp-f textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 14px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;transition:border-color 0.15s;border-radius:0;-webkit-appearance:none}
-.mp-f input:focus,.mp-f select:focus,.mp-f textarea:focus{border-color:#c9a96e;background:rgba(201,169,110,0.02)}
-.mp-f select option{background:#141414}
-.mp-f textarea{resize:vertical;min-height:120px;line-height:1.8}
-.mp-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:12px 30px;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 18px rgba(201,169,110,0.25)}
-.mp-btn:hover{box-shadow:0 6px 26px rgba(201,169,110,0.4);transform:translateY(-1px)}
-.mp-ok{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71}
-.mp-err{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c}
-.mp-upl{border:1px dashed rgba(201,169,110,0.2);padding:26px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15)}
-.mp-upl:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
-.mp-upl-ic{font-size:24px;color:rgba(201,169,110,0.3);margin-bottom:8px}
-.mp-upl-l{font-size:11px;color:rgba(201,169,110,0.65);letter-spacing:1px}
-.mp-upl-s{font-size:9px;color:rgba(201,169,110,0.35);margin-top:4px}
-.mp-prog{display:none;margin-top:10px}
-.mp-prog-t{height:2px;background:rgba(201,169,110,0.1);margin-bottom:6px}
-.mp-prog-b{height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5a3);width:0%;transition:width 0.4s}
-.mp-prog-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
-.mp-vi{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
-.mp-vi:hover{background:rgba(201,169,110,0.03)}
-.mp-vi:last-child{border-bottom:none}
-.mp-vic{width:34px;height:34px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:13px;flex-shrink:0}
-.mp-vn{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.mp-vm{font-size:9px;color:rgba(201,169,110,0.6)}
-.mp-vb{display:flex;gap:6px}
-.mp-vbtn{background:transparent;border:1px solid rgba(201,169,110,0.16);color:rgba(201,169,110,0.65);padding:5px 11px;font-size:7px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s;text-decoration:none;display:inline-block}
-.mp-vbtn:hover{border-color:#c9a96e;color:#c9a96e}
-.mp-chat-hdr{padding:13px 20px;border-bottom:1px solid rgba(201,169,110,0.1);background:#080808;display:flex;align-items:center;gap:12px;flex-shrink:0}
-.mp-chat-av{width:30px;height:30px;border:1px solid rgba(201,169,110,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:13px}
-.mp-chat-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
-.mp-chat-st{font-size:8px;color:#2ecc71;display:flex;align-items:center;gap:4px}
-.mp-chat-st::before{content:'';width:4px;height:4px;background:#2ecc71;border-radius:50%;display:inline-block}
-.mp-chat-enc{margin-left:auto;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.45)}
-.mp-msgs{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:11px}
-.mp-msg{max-width:70%;display:flex;flex-direction:column;gap:3px}
-.mp-msg.me{align-self:flex-end;align-items:flex-end}
-.mp-msg.them{align-self:flex-start;align-items:flex-start}
-.mp-bubble{padding:10px 15px;font-size:12px;line-height:1.8}
-.mp-msg.me .mp-bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:14px 14px 2px 14px}
-.mp-msg.them .mp-bubble{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:14px 14px 14px 2px}
-.mp-msg-t{font-size:8px;color:rgba(201,169,110,0.32);letter-spacing:0.5px}
-.mp-chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:14px 20px;display:flex;gap:10px;background:#060606;flex-shrink:0}
-.mp-chat-in{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:42px;transition:border-color 0.15s}
-.mp-chat-in:focus{border-color:#c9a96e}
-.mp-chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:0 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;flex-shrink:0;transition:opacity 0.15s}
-.mp-chat-send:hover{opacity:0.85}
-.mp-pg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mp-sc{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)}
-.mp-sc:last-child{border-bottom:none}
-.mp-si{color:#2ecc71;font-size:13px;flex-shrink:0}
-.mp-st{font-size:12px;color:#d0ccc8}
-.mp-empty{text-align:center;padding:40px 20px}
-.mp-empty-ic{font-size:26px;color:rgba(201,169,110,0.13);margin-bottom:10px}
-.mp-empty-t{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.32)}
-#otpModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:19999;backdrop-filter:blur(8px)}
-#otpModal.active{display:flex}
-.mp-otp-box{background:#141414;border:1px solid rgba(201,169,110,0.25);padding:38px;max-width:460px;width:90%;position:relative;animation:mp-in 0.2s ease;box-shadow:0 30px 80px rgba(0,0,0,0.8)}
-.mp-otp-close{position:absolute;top:13px;right:15px;background:none;border:none;color:rgba(201,169,110,0.4);font-size:19px;cursor:pointer;line-height:1}
-.mp-otp-close:hover{color:#c9a96e}
-</style>
-<style>
-#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
-#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px;z-index:2}
-.aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
-.aps-logo svg{display:block}
-.aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
-.aps-pill{margin:12px 12px 6px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:11px 13px;display:flex;align-items:center;gap:10px}
-.aps-av{width:32px;height:32px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:#c9a96e;flex-shrink:0}
-.aps-name{font-size:11px;color:#f0ede8;margin-bottom:2px}
-.aps-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
-#apNav{flex:1;padding:6px 0;overflow-y:auto}
-.ap-ng{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:12px 15px 4px}
-.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
-.ap-ni:hover{background:rgba(201,169,110,0.04)}
-.ap-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
-.ap-ni.on .ani-ic{color:#c9a96e}
-.ap-ni.on .ani-tx{color:#f0ede8}
-.ani-ic{font-size:12px;color:rgba(201,169,110,0.45);width:14px;text-align:center;flex-shrink:0}
-.ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
-.ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
-#apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
-#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0;width:100%;position:relative;z-index:0}
-#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
-.apt-left{display:flex;align-items:center;gap:10px}
-.apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
-.apt-sep{color:rgba(201,169,110,0.18);font-size:10px}
-.apt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
-.apt-right{display:flex;align-items:center;gap:12px}
-#apDate{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(201,169,110,0.7)}
-.apt-live{display:flex;align-items:center;gap:5px;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
-.apt-live::before{content:'';width:5px;height:5px;background:#2ecc71;border-radius:50%;display:block;animation:enc-pulse 2.5s ease infinite}
-.ap-body{flex:1;overflow-y:auto;padding:24px 28px}
-.ap-sec{display:none;animation:mp-in 0.2s ease both}
-.ap-sec.on{display:block}
-.ap-chat-wrap{display:none;flex-direction:column;overflow:hidden}
-.ap-chat-wrap.on{display:flex;height:calc(100vh - 54px)}
-.ap-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
-.ap-ph{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:#f5f2ec;margin:0 0 20px;line-height:1.2}
-.ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
-.ap-stat{background:#111;border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:border-color 0.15s}
-.ap-stat:hover{border-color:rgba(201,169,110,0.25)}
-.ap-stat-top{display:flex;justify-content:space-between;margin-bottom:11px}
-.ap-stat-ic{font-size:12px;color:rgba(201,169,110,0.4)}
-.ap-stat-arr{font-size:10px;color:rgba(201,169,110,0.25)}
-.ap-stat-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
-.ap-stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
-.ap-card{background:#111;border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:9px}
-.ap-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid rgba(201,169,110,0.07)}
-.ap-ct{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
-.ap-ql{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(201,169,110,0.05);cursor:pointer}
-.ap-ql:last-child{border-bottom:none;padding-bottom:0}
-.ap-ql-title{font-size:12px;color:#f0ede8;margin-bottom:2px}
-.ap-ql-sub{font-size:9px;color:rgba(201,169,110,0.55)}
-.ap-ql-arr{color:rgba(201,169,110,0.3);transition:color 0.14s}
-.ap-ql:hover .ap-ql-arr{color:#c9a96e}
-.ap-sys{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(201,169,110,0.05)}
-.ap-sys:last-child{border-bottom:none}
-.ap-sys-l{font-size:11px;color:rgba(201,169,110,0.65)}
-.ap-b{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
-.ab-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
-.ab-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
-.ab-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
-.ab-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
-.ab-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
-.ap-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:9px 18px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:opacity 0.15s}
-.ap-btn:hover{opacity:0.85}
-.ap-btn-g{background:transparent;border:1px solid rgba(201,169,110,0.2);color:rgba(201,169,110,0.65);padding:7px 15px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s}
-.ap-btn-g:hover,.ap-btn-g.on{border-color:#c9a96e;color:#c9a96e}
-.ap-btn-g.on{background:rgba(201,169,110,0.07)}
-.ap-sel{background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;padding:7px 10px;font-size:9px;font-family:'Montserrat',sans-serif;cursor:pointer;outline:none}
-.ap-sel:focus{border-color:#c9a96e}
-.ap-row{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
-.ap-row:hover{background:rgba(201,169,110,0.025)}
-.ap-row:last-child{border-bottom:none}
-.ap-row-main{flex:1;min-width:0}
-.ap-row-title{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.ap-row-meta{font-size:9px;color:rgba(201,169,110,0.55)}
-.ap-mc{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
-.ap-mc:hover{background:rgba(201,169,110,0.025)}
-.ap-mc:last-child{border-bottom:none}
-.ap-mc-av{width:34px;height:34px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#c9a96e;flex-shrink:0}
-.ap-eq{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;padding:14px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
-.ap-eq:hover{background:rgba(201,169,110,0.025)}
-.ap-eq:last-child{border-bottom:none}
-.ap-eq-name{font-size:13px;color:#f0ede8;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ap-eq-meta{font-size:9px;color:rgba(201,169,110,0.55);margin-bottom:2px}
-.ap-fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
-.ap-empty{text-align:center;padding:32px 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.38)}
-.ap-cl{background:#111;border-right:1px solid rgba(201,169,110,0.08);display:flex;flex-direction:column;overflow:hidden;width:220px;flex-shrink:0}
-.ap-cl-head{padding:11px 13px;border-bottom:1px solid rgba(201,169,110,0.07);font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
-.ap-cl-items{flex:1;overflow-y:auto}
-.ap-cl-item{padding:11px 13px;cursor:pointer;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
-.ap-cl-item:hover,.ap-cl-item.on{background:rgba(201,169,110,0.06)}
-.ap-cl-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
-.ap-cl-prev{font-size:9px;color:rgba(201,169,110,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ap-cm{background:#141414;display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
-.ap-cm-ph{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-.ap-cm-ph-ic{width:40px;height:40px;border:1px solid rgba(201,169,110,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(201,169,110,0.3);font-size:17px}
-.ap-cm-ph-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.3)}
-.ap-chat-area{display:none;flex-direction:column;height:100%}
-.ap-chat-hdr{padding:11px 14px;border-bottom:1px solid rgba(201,169,110,0.08);background:#111;display:flex;align-items:center;gap:9px;flex-shrink:0}
-.ap-ca-av{width:26px;height:26px;border:1px solid rgba(201,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:11px}
-.ap-ca-name{font-size:11px;color:#f0ede8;margin-bottom:1px;font-weight:500}
-.ap-ca-st{font-size:8px;color:#2ecc71}
-.ap-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
-.ap-msg{max-width:72%;display:flex;flex-direction:column;gap:3px}
-.ap-msg.fm{align-self:flex-start}
-.ap-msg.fa{align-self:flex-end}
-.ap-msg-b{padding:9px 13px;font-size:12px;line-height:1.7}
-.ap-msg.fm .ap-msg-b{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.08);border-radius:10px 10px 10px 2px}
-.ap-msg.fa .ap-msg-b{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:10px 10px 2px 10px}
-.ap-msg-t{font-size:8px;color:rgba(201,169,110,0.28)}
-.ap-chat-bar{border-top:1px solid rgba(201,169,110,0.08);padding:12px 13px;display:flex;gap:8px;background:#0f0f0f;flex-shrink:0}
-.ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(201,169,110,0.14);color:#f0ede8;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
-.ap-chat-inp:focus{border-color:#c9a96e}
-</style>
 </head>
 <body>
 
@@ -1709,7 +1428,7 @@ footer {
     <p class="hero-slogan">This is how the world's most private people live.</p>
 
     <p class="hero-desc">
-      Cipher Private is Australia's most exclusive lifestyle management firm. Built for the few who understand that genuine service cannot be scaled — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
+      Cipher Private is Australia's most exclusive lifestyle management firm. We serve a permanent maximum of 50 members — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
     </p>
 
     <div class="hero-actions">
@@ -1922,7 +1641,7 @@ footer {
       <div class="section-line"></div>
       <span class="section-tag">Membership · By Referral Only</span>
     </div>
-    <h2 class="section-title">Three Tiers.<br><span class="gold">Built for the Few.</span></h2>
+    <h2 class="section-title">Three Tiers.<br><span class="gold">Fifty Members. Total.</span></h2>
     <p style="max-width:600px;margin:0 auto;font-size:13px;color:var(--silver);line-height:2">Cipher Private permanently limits membership to 50 individuals across Australia. New members require a formal introduction from an existing member. Each application is reviewed personally by our founding director.</p>
   </div>
 
@@ -1934,7 +1653,7 @@ footer {
         <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Membership Status</span>
       </div>
       <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
-      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Built for the Few · Accepting Introductions</span>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Currently Accepting Introductions</span>
       <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
       <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">3 Places Remaining</span>
     </div>
@@ -2035,7 +1754,7 @@ footer {
         <div class="blog-content">
           <div class="blog-category">Cipher Intelligence</div>
           <h3 class="blog-title">Why Australia's Ultra-Wealthy Are Quietly Moving Away From Global Concierge Firms</h3>
-          <p class="blog-excerpt">Built for the few. The mathematics of genuine service demand a choice between scale and quality — and we made ours without hesitation.</p>
+          <p class="blog-excerpt">The world's largest concierge firms serve tens of thousands. We serve fifty. The mathematics of genuine service demand a choice — and we have made ours.</p>
           <div class="blog-meta">
             <span>May 2026</span>
             <span>·</span>
@@ -2180,7 +1899,7 @@ footer {
         <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">50</div>
         <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The 50 Member Rule</div>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Permanent Membership Cap. No Exceptions.</h3>
-        <p style="font-size:12px;color:var(--silver);line-height:1.9">The leading global concierge firms serve tens of thousands. Cipher Private is built for the few — fifty individuals, permanently. When we reach capacity, we close. Every member receives undivided attention not because we say so, but because the mathematics make it impossible to do otherwise.</p>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">The leading global concierge firms serve tens of thousands of members. We serve fifty. When we reach capacity, we close. Every member receives undivided attention — not because we say so, but because the mathematics make it impossible to do otherwise.</p>
       </div>
 
       <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
@@ -2430,6 +2149,169 @@ footer {
 
 <!-- ==================== MEMBER PORTAL ==================== -->
 <div id="memberPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#060606">
+<style>
+/* Member Portal — isolated CSS, no modal-overlay dependency */
+#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+
+/* ── SIDEBAR ── */
+#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px}
+#mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
+.mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
+.mps-card::after{content:'◆';position:absolute;right:-8px;bottom:-14px;font-size:60px;color:rgba(201,169,110,0.04);line-height:1;pointer-events:none}
+.mps-av{width:42px;height:42px;background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.05));border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#c9a96e;margin-bottom:10px}
+.mps-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px;line-height:1.2}
+.mps-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:10px}
+.mps-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:10px}
+.mps-stat{text-align:center}
+.mps-stat+.mps-stat{border-left:1px solid rgba(201,169,110,0.1)}
+.mps-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#fff;display:block;line-height:1}
+.mps-lbl{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);display:block;margin-top:3px}
+.mps-enc{margin:0 14px 4px;padding:7px 12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:7px}
+.mps-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;flex-shrink:0;animation:enc-pulse 2.5s ease infinite}
+@keyframes enc-pulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(46,204,113,0.6)}50%{opacity:0.4;box-shadow:0 0 4px rgba(46,204,113,0.1)}}
+.mps-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.mps-nav{flex:1;padding:6px 0;overflow-y:auto}
+.mps-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:13px 16px 5px}
+.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative}
+.mps-ni:hover{background:rgba(201,169,110,0.04)}
+.mps-ni:hover .mni-ic{color:rgba(201,169,110,0.8)}
+.mps-ni:hover .mni-tx{color:rgba(240,237,232,0.75)}
+.mps-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.mps-ni.on .mni-ic{color:#c9a96e}
+.mps-ni.on .mni-tx{color:#f0ede8}
+.mni-ic{font-size:12px;color:rgba(201,169,110,0.4);width:15px;text-align:center;flex-shrink:0}
+.mni-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mni-badge{margin-left:auto;background:#c9a96e;color:#060606;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+.mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
+
+/* ── MAIN ── */
+#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%}
+
+/* Topbar */
+#mpTopbar{height:54px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mpt-left{display:flex;align-items:center;gap:10px}
+.mpt-section{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.mpt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.mpt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.mpt-right{display:flex;align-items:center;gap:14px}
+#mpActiveBadge{display:none;align-items:center;gap:6px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.25);padding:5px 12px}
+#mpActiveBadge-dot{width:5px;height:5px;border-radius:50%;background:#e67e22;box-shadow:0 0 6px rgba(230,126,34,0.5)}
+#mpActiveBadge-txt{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8}
+.mpt-enc{display:flex;align-items:center;gap:5px}
+.mpt-enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.5)}
+.mpt-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+#mpClock{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:rgba(201,169,110,0.65)}
+.mpt-signout{background:transparent;border:1px solid rgba(201,169,110,0.15);color:rgba(201,169,110,0.55);font-family:'Montserrat',sans-serif;font-size:7px;letter-spacing:3px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.14s}
+.mpt-signout:hover{border-color:#c9a96e;color:#c9a96e}
+
+/* Sections */
+.mp-body{flex:1;overflow-y:auto;padding:28px 32px}
+.mp-sec{display:none}
+.mp-sec.on{display:block;animation:mp-in 0.22s ease both}
+.mp-chat-sec{display:none;flex-direction:column;overflow:hidden}
+.mp-chat-sec.on{display:flex;height:calc(100vh - 54px)}
+@keyframes mp-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+.mp-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.mp-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;color:#f5f2ec;margin:0 0 22px;line-height:1.2}
+.mp-card{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:22px;margin-bottom:12px;transition:border-color 0.2s}
+.mp-card:hover{border-color:rgba(201,169,110,0.18)}
+.mp-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mp-ct{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
+.mp-ca{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;cursor:pointer;opacity:0.7}
+.mp-ca:hover{opacity:1}
+.mp-banner{background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.mp-banner-ico{font-size:26px;color:#c9a96e;flex-shrink:0}
+.mp-banner-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px}
+.mp-banner-s{font-size:9px;color:rgba(201,169,110,0.6);letter-spacing:1px}
+.mp-stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.mp-stat{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:18px;cursor:pointer;transition:all 0.15s}
+.mp-stat:hover{border-color:rgba(201,169,110,0.25);transform:translateY(-1px)}
+.mp-stat-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:300;color:#fff;line-height:1;margin-bottom:5px}
+.mp-stat-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
+.mp-stat-s{font-size:9px;color:rgba(201,169,110,0.4);margin-top:3px}
+.mp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mp-tile{background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:all 0.18s;position:relative}
+.mp-tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.22)}
+.mp-tile-ic{font-size:19px;color:#c9a96e;margin-bottom:9px}
+.mp-tile-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;margin-bottom:4px}
+.mp-tile-s{font-size:9px;color:rgba(201,169,110,0.55);line-height:1.5}
+.mp-ri{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-ri:hover{background:rgba(201,169,110,0.03)}
+.mp-ri:last-child{border-bottom:none}
+.mp-rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mp-rb{flex:1;min-width:0}
+.mp-rt{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-rm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-rs{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.rs-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.rs-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.rs-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.rs-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.rs-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.mp-fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-f{margin-bottom:0}
+.mp-f label{display:block;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:7px}
+.mp-f input,.mp-f select,.mp-f textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 14px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;transition:border-color 0.15s;border-radius:0;-webkit-appearance:none}
+.mp-f input:focus,.mp-f select:focus,.mp-f textarea:focus{border-color:#c9a96e;background:rgba(201,169,110,0.02)}
+.mp-f select option{background:#141414}
+.mp-f textarea{resize:vertical;min-height:120px;line-height:1.8}
+.mp-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:12px 30px;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 18px rgba(201,169,110,0.25)}
+.mp-btn:hover{box-shadow:0 6px 26px rgba(201,169,110,0.4);transform:translateY(-1px)}
+.mp-ok{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71}
+.mp-err{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c}
+.mp-upl{border:1px dashed rgba(201,169,110,0.2);padding:26px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15)}
+.mp-upl:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
+.mp-upl-ic{font-size:24px;color:rgba(201,169,110,0.3);margin-bottom:8px}
+.mp-upl-l{font-size:11px;color:rgba(201,169,110,0.65);letter-spacing:1px}
+.mp-upl-s{font-size:9px;color:rgba(201,169,110,0.35);margin-top:4px}
+.mp-prog{display:none;margin-top:10px}
+.mp-prog-t{height:2px;background:rgba(201,169,110,0.1);margin-bottom:6px}
+.mp-prog-b{height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5a3);width:0%;transition:width 0.4s}
+.mp-prog-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mp-vi{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-vi:hover{background:rgba(201,169,110,0.03)}
+.mp-vi:last-child{border-bottom:none}
+.mp-vic{width:34px;height:34px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:13px;flex-shrink:0}
+.mp-vn{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-vm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-vb{display:flex;gap:6px}
+.mp-vbtn{background:transparent;border:1px solid rgba(201,169,110,0.16);color:rgba(201,169,110,0.65);padding:5px 11px;font-size:7px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s;text-decoration:none;display:inline-block}
+.mp-vbtn:hover{border-color:#c9a96e;color:#c9a96e}
+.mp-chat-hdr{padding:13px 20px;border-bottom:1px solid rgba(201,169,110,0.1);background:#080808;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mp-chat-av{width:30px;height:30px;border:1px solid rgba(201,169,110,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:13px}
+.mp-chat-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.mp-chat-st{font-size:8px;color:#2ecc71;display:flex;align-items:center;gap:4px}
+.mp-chat-st::before{content:'';width:4px;height:4px;background:#2ecc71;border-radius:50%;display:inline-block}
+.mp-chat-enc{margin-left:auto;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.45)}
+.mp-msgs{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:11px}
+.mp-msg{max-width:70%;display:flex;flex-direction:column;gap:3px}
+.mp-msg.me{align-self:flex-end;align-items:flex-end}
+.mp-msg.them{align-self:flex-start;align-items:flex-start}
+.mp-bubble{padding:10px 15px;font-size:12px;line-height:1.8}
+.mp-msg.me .mp-bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:14px 14px 2px 14px}
+.mp-msg.them .mp-bubble{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:14px 14px 14px 2px}
+.mp-msg-t{font-size:8px;color:rgba(201,169,110,0.32);letter-spacing:0.5px}
+.mp-chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:14px 20px;display:flex;gap:10px;background:#060606;flex-shrink:0}
+.mp-chat-in{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:42px;transition:border-color 0.15s}
+.mp-chat-in:focus{border-color:#c9a96e}
+.mp-chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:0 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;flex-shrink:0;transition:opacity 0.15s}
+.mp-chat-send:hover{opacity:0.85}
+.mp-pg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-sc{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)}
+.mp-sc:last-child{border-bottom:none}
+.mp-si{color:#2ecc71;font-size:13px;flex-shrink:0}
+.mp-st{font-size:12px;color:#d0ccc8}
+.mp-empty{text-align:center;padding:40px 20px}
+.mp-empty-ic{font-size:26px;color:rgba(201,169,110,0.13);margin-bottom:10px}
+.mp-empty-t{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.32)}
+#otpModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:19999;backdrop-filter:blur(8px)}
+#otpModal.active{display:flex}
+.mp-otp-box{background:#141414;border:1px solid rgba(201,169,110,0.25);padding:38px;max-width:460px;width:90%;position:relative;animation:mp-in 0.2s ease;box-shadow:0 30px 80px rgba(0,0,0,0.8)}
+.mp-otp-close{position:absolute;top:13px;right:15px;background:none;border:none;color:rgba(201,169,110,0.4);font-size:19px;cursor:pointer;line-height:1}
+.mp-otp-close:hover{color:#c9a96e}
+</style>
 
 <div id="mpWrap">
   <!-- ═══ SIDEBAR ═══════════════════════════════════════════════════ -->
@@ -2648,6 +2530,122 @@ footer {
 </div>
 
 <div id="adminPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#090909">
+<style>
+#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif}
+#apSide{background:#060606;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px}
+.aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.aps-logo svg{display:block}
+.aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
+.aps-pill{margin:12px 12px 6px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:11px 13px;display:flex;align-items:center;gap:10px}
+.aps-av{width:32px;height:32px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:#c9a96e;flex-shrink:0}
+.aps-name{font-size:11px;color:#f0ede8;margin-bottom:2px}
+.aps-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
+#apNav{flex:1;padding:6px 0;overflow-y:auto}
+.ap-ng{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:12px 15px 4px}
+.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s}
+.ap-ni:hover{background:rgba(201,169,110,0.04)}
+.ap-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.ap-ni.on .ani-ic{color:#c9a96e}
+.ap-ni.on .ani-tx{color:#f0ede8}
+.ani-ic{font-size:12px;color:rgba(201,169,110,0.45);width:14px;text-align:center;flex-shrink:0}
+.ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+.ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+#apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
+#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0d0d0d;min-width:0;width:100%}
+#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.apt-left{display:flex;align-items:center;gap:10px}
+.apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.apt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.apt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.apt-right{display:flex;align-items:center;gap:12px}
+#apDate{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(201,169,110,0.7)}
+.apt-live{display:flex;align-items:center;gap:5px;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.apt-live::before{content:'';width:5px;height:5px;background:#2ecc71;border-radius:50%;display:block;animation:enc-pulse 2.5s ease infinite}
+.ap-body{flex:1;overflow-y:auto;padding:24px 28px}
+.ap-sec{display:none;animation:mp-in 0.2s ease both}
+.ap-sec.on{display:block}
+.ap-chat-wrap{display:none;flex-direction:column;overflow:hidden}
+.ap-chat-wrap.on{display:flex;height:calc(100vh - 54px)}
+.ap-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.ap-ph{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:#f5f2ec;margin:0 0 20px;line-height:1.2}
+.ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
+.ap-stat{background:#111;border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:border-color 0.15s}
+.ap-stat:hover{border-color:rgba(201,169,110,0.25)}
+.ap-stat-top{display:flex;justify-content:space-between;margin-bottom:11px}
+.ap-stat-ic{font-size:12px;color:rgba(201,169,110,0.4)}
+.ap-stat-arr{font-size:10px;color:rgba(201,169,110,0.25)}
+.ap-stat-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
+.ap-stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.ap-card{background:#111;border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:9px}
+.ap-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid rgba(201,169,110,0.07)}
+.ap-ct{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.ap-ql{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(201,169,110,0.05);cursor:pointer}
+.ap-ql:last-child{border-bottom:none;padding-bottom:0}
+.ap-ql-title{font-size:12px;color:#f0ede8;margin-bottom:2px}
+.ap-ql-sub{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-ql-arr{color:rgba(201,169,110,0.3);transition:color 0.14s}
+.ap-ql:hover .ap-ql-arr{color:#c9a96e}
+.ap-sys{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(201,169,110,0.05)}
+.ap-sys:last-child{border-bottom:none}
+.ap-sys-l{font-size:11px;color:rgba(201,169,110,0.65)}
+.ap-b{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.ab-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.ab-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.ab-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.ab-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.ab-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.ap-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:9px 18px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.ap-btn:hover{opacity:0.85}
+.ap-btn-g{background:transparent;border:1px solid rgba(201,169,110,0.2);color:rgba(201,169,110,0.65);padding:7px 15px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s}
+.ap-btn-g:hover,.ap-btn-g.on{border-color:#c9a96e;color:#c9a96e}
+.ap-btn-g.on{background:rgba(201,169,110,0.07)}
+.ap-sel{background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;padding:7px 10px;font-size:9px;font-family:'Montserrat',sans-serif;cursor:pointer;outline:none}
+.ap-sel:focus{border-color:#c9a96e}
+.ap-row{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-row:hover{background:rgba(201,169,110,0.025)}
+.ap-row:last-child{border-bottom:none}
+.ap-row-main{flex:1;min-width:0}
+.ap-row-title{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ap-row-meta{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-mc{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-mc:hover{background:rgba(201,169,110,0.025)}
+.ap-mc:last-child{border-bottom:none}
+.ap-mc-av{width:34px;height:34px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#c9a96e;flex-shrink:0}
+.ap-eq{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;padding:14px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-eq:hover{background:rgba(201,169,110,0.025)}
+.ap-eq:last-child{border-bottom:none}
+.ap-eq-name{font-size:13px;color:#f0ede8;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ap-eq-meta{font-size:9px;color:rgba(201,169,110,0.55);margin-bottom:2px}
+.ap-fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.ap-empty{text-align:center;padding:32px 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.38)}
+.ap-cl{background:#111;border-right:1px solid rgba(201,169,110,0.08);display:flex;flex-direction:column;overflow:hidden;width:220px;flex-shrink:0}
+.ap-cl-head{padding:11px 13px;border-bottom:1px solid rgba(201,169,110,0.07);font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+.ap-cl-items{flex:1;overflow-y:auto}
+.ap-cl-item{padding:11px 13px;cursor:pointer;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-cl-item:hover,.ap-cl-item.on{background:rgba(201,169,110,0.06)}
+.ap-cl-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.ap-cl-prev{font-size:9px;color:rgba(201,169,110,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-cm{background:#141414;display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
+.ap-cm-ph{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.ap-cm-ph-ic{width:40px;height:40px;border:1px solid rgba(201,169,110,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(201,169,110,0.3);font-size:17px}
+.ap-cm-ph-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.3)}
+.ap-chat-area{display:none;flex-direction:column;height:100%}
+.ap-chat-hdr{padding:11px 14px;border-bottom:1px solid rgba(201,169,110,0.08);background:#111;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.ap-ca-av{width:26px;height:26px;border:1px solid rgba(201,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:11px}
+.ap-ca-name{font-size:11px;color:#f0ede8;margin-bottom:1px;font-weight:500}
+.ap-ca-st{font-size:8px;color:#2ecc71}
+.ap-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
+.ap-msg{max-width:72%;display:flex;flex-direction:column;gap:3px}
+.ap-msg.fm{align-self:flex-start}
+.ap-msg.fa{align-self:flex-end}
+.ap-msg-b{padding:9px 13px;font-size:12px;line-height:1.7}
+.ap-msg.fm .ap-msg-b{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.08);border-radius:10px 10px 10px 2px}
+.ap-msg.fa .ap-msg-b{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:10px 10px 2px 10px}
+.ap-msg-t{font-size:8px;color:rgba(201,169,110,0.28)}
+.ap-chat-bar{border-top:1px solid rgba(201,169,110,0.08);padding:12px 13px;display:flex;gap:8px;background:#0f0f0f;flex-shrink:0}
+.ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(201,169,110,0.14);color:#f0ede8;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
+.ap-chat-inp:focus{border-color:#c9a96e}
+</style>
 
 <div id="apWrap">
   <!-- SIDEBAR -->
@@ -3613,12 +3611,12 @@ const ARTICLES = {
       <p>At Cipher Private, we have built our model around the things we believe the industry has consistently failed to deliver:</p>
       <ul>
         <li>A single, permanent lifestyle director — not a team, not a rotation</li>
-        <li>Built for the few — fifty members, permanently — because genuine service cannot be scaled</li>
+        <li>A permanent membership cap of fifty individuals — mathematics as a service guarantee</li>
         <li>AES-256 encrypted document vault, OTP-secured sharing, end-to-end encrypted communications</li>
         <li>A contractual response guarantee of under three minutes, written into your membership agreement</li>
         <li>Referral-only membership — every new member is introduced by an existing one</li>
       </ul>
-      <p>We are not the largest concierge firm in Australia. We are not trying to be. Cipher Private is built for the few — fifty people, always. And that is precisely why each of those fifty receives something that scale makes impossible elsewhere.</p>`,
+      <p>We are not the largest concierge firm in Australia. We are not trying to be. We serve fifty people. We always will. And we believe that is precisely why each of those fifty receives something that scale makes impossible elsewhere.</p>`,
     cta: 'If this is the standard you expect, we invite an introduction.'
   },
 
@@ -3646,8 +3644,8 @@ const ARTICLES = {
       </ul>
       <h2>The Distinction That Changes Everything</h2>
       <p>The distinction between a good lifestyle manager and an exceptional one is not capability. It is knowledge. An exceptional lifestyle manager knows you — not from a file, but from sustained proximity to your world over time. They anticipate what you need before you articulate it. They know which things matter and which things do not. They earn the trust that makes genuine service possible.</p>
-      <p>This is why Cipher Private is built for the few — one director, permanently assigned, who truly knows your world. Not as a policy. As a philosophy.</p>`,
-    cta: 'Cipher Private. Built for the few. One director. By referral only.'
+      <p>This is why Cipher Private assigns one director permanently to each of our fifty members. Not as a policy. As a philosophy.</p>`,
+    cta: 'Cipher Private. Fifty members. One director. By referral only.'
   },
 
   'document-security': {
