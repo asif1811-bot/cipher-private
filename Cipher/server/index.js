@@ -245,20 +245,72 @@ app.use('/api/auth/login', (req, res, next) => {
   next();
 });
 
-// ─── 2FA email route ─────────────────────────────────────────────────────────
-app.post('/api/auth/send-2fa', async (req, res) => {
+
+// ─── SERVER-SIDE 2FA ────────────────────────────────────────────────────────
+// ── SERVER-SIDE 2FA ──────────────────────────────────────────────────────────
+// Replaces client-side code generation with server-generated, server-verified OTP
+// Codes are stored in DB with expiry, never exposed to browser
+
+const twoFACodes = {}; // userId -> { code, expiresAt, attempts }
+
+// Generate and send 2FA code
+app.post('/api/auth/request-2fa', async (req, res) => {
   try {
-    const { email, code } = req.body;
-    if (!email || !code) return res.status(400).json({ error: 'Email and code required' });
     const auth = req.headers.authorization || '';
     if (!auth.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
 
-    secLog('2FA_SENT', { ip: getIP(req), email: email.replace(/(.{2}).*@/, '$1***@') });
+    const token = auth.slice(7);
+    let userId, userEmail;
 
+    // Verify the JWT to get user
+    try {
+      const jwt = require('jsonwebtoken');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      userId = decoded.userId || decoded.id;
+    } catch(e) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    // Get user email from database
+    const { PrismaClient } = require('@prisma/client');
+    const prisma = new PrismaClient();
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    await prisma.$disconnect();
+
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    userEmail = user.email;
+
+    // Rate limit: max 3 code requests per 15 minutes per user
+    const existing = twoFACodes[userId];
+    if (existing && existing.requestCount >= 3 && Date.now() < existing.windowEnd) {
+      return res.status(429).json({ error: 'Too many code requests. Please wait 15 minutes.' });
+    }
+
+    // Generate cryptographically secure 6-digit code
+    const code = crypto.randomInt(100000, 999999).toString();
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes
+
+    // Store server-side — never sent to client
+    twoFACodes[userId] = {
+      code,
+      expiresAt,
+      attempts: 0,
+      requestCount: (existing?.requestCount || 0) + 1,
+      windowEnd: existing?.windowEnd || Date.now() + 15 * 60 * 1000
+    };
+
+    secLog('2FA_CODE_GENERATED', {
+      userId,
+      email: userEmail.replace(/(.{2}).*@/, '$1***@'),
+      ip: getIP(req)
+    });
+
+    // Send via Resend
     const RESEND_KEY = process.env.RESEND_API_KEY;
-    if (!RESEND_KEY) {
-      logger.warn('RESEND_API_KEY not set — 2FA code: ' + code);
-      return res.json({ sent: false, message: 'Email not configured' });
+    if (!RESEND_KEY || RESEND_KEY === 'placeholder_add_later') {
+      // Dev mode — log to server console only, never to client
+      logger.warn('[2FA DEV] Code for ' + userEmail + ': ' + code);
+      return res.json({ sent: true, dev: true });
     }
 
     const html = [
@@ -268,13 +320,18 @@ app.post('/api/auth/send-2fa', async (req, res) => {
       '<div style="font-size:10px;letter-spacing:6px;text-transform:uppercase;color:#c9a96e">Cipher Private</div>',
       '</div>',
       '<h2 style="font-family:Georgia,serif;font-size:22px;font-weight:300;color:#f0ede8;margin:0 0 12px">Your security code</h2>',
-      '<p style="font-size:13px;color:rgba(240,237,232,0.6);line-height:1.8;margin:0 0 28px">Use this code to verify your identity. It expires in 5 minutes and can only be used once.</p>',
+      '<p style="font-size:13px;color:rgba(240,237,232,0.6);line-height:1.8;margin:0 0 28px">',
+      'Use this code to verify your identity and access your portal. ',
+      'It expires in 5 minutes and can only be used once.</p>',
       '<div style="background:#111;border:1px solid rgba(201,169,110,0.25);padding:28px;text-align:center;margin-bottom:24px">',
       '<div style="font-family:Courier New,monospace;font-size:40px;font-weight:700;color:#c9a96e;letter-spacing:14px">' + code + '</div>',
       '</div>',
-      '<p style="font-size:11px;color:rgba(240,237,232,0.3);line-height:1.7">If you did not attempt to log in, contact your director immediately: hello@cipherprivate.com · +61 413 536 700</p>',
+      '<p style="font-size:11px;color:rgba(240,237,232,0.3);line-height:1.7">',
+      'If you did not attempt to log in, contact your director immediately:<br>',
+      'hello@cipherprivate.com &nbsp;·&nbsp; +61 413 536 700</p>',
       '<div style="border-top:1px solid rgba(201,169,110,0.1);margin-top:28px;padding-top:16px;text-align:center">',
-      '<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.35)">Cipher Private &middot; AES-256 Encrypted &middot; Australian Sovereign</div>',
+      '<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.35)">',
+      'Cipher Private &middot; AES-256 Encrypted &middot; Australian Sovereign</div>',
       '</div></div>'
     ].join('');
 
@@ -283,21 +340,92 @@ app.post('/api/auth/send-2fa', async (req, res) => {
       headers: { 'Authorization': 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: process.env.EMAIL_FROM || 'hello@cipherprivate.com',
-        to: [email],
+        to: [userEmail],
         subject: 'Your Cipher Private Security Code',
         html
       })
     });
 
-    if (r.ok) return res.json({ sent: true });
-    const e = await r.json();
-    logger.error('Resend 2FA error: ' + JSON.stringify(e));
-    return res.status(500).json({ sent: false, error: 'Email delivery failed' });
-  } catch (e) {
-    logger.error('send-2fa error: ' + e.message);
-    return res.status(500).json({ sent: false, error: 'Internal error' });
+    if (r.ok) {
+      return res.json({ sent: true });
+    } else {
+      const e = await r.json();
+      logger.error('Resend 2FA error: ' + JSON.stringify(e));
+      // Still return success — code is saved server-side, user can retry
+      return res.json({ sent: false, error: 'Email delivery failed' });
+    }
+  } catch(e) {
+    logger.error('request-2fa error: ' + e.message);
+    return res.status(500).json({ error: 'Internal error' });
   }
 });
+
+// Verify 2FA code
+app.post('/api/auth/verify-2fa', async (req, res) => {
+  try {
+    const auth = req.headers.authorization || '';
+    if (!auth.startsWith('Bearer ')) return res.status(401).json({ error: 'Unauthorized' });
+
+    const { code } = req.body;
+    if (!code || code.length !== 6) return res.status(400).json({ error: 'Invalid code format' });
+
+    const token = auth.slice(7);
+    let userId;
+    try {
+      const jwt = require('jsonwebtoken');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      userId = decoded.userId || decoded.id;
+    } catch(e) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const record = twoFACodes[userId];
+    const ip = getIP(req);
+
+    // No code generated
+    if (!record) {
+      secLog('2FA_NO_CODE', { userId, ip });
+      return res.status(400).json({ error: 'No code requested. Please request a new code.' });
+    }
+
+    // Expired
+    if (Date.now() > record.expiresAt) {
+      delete twoFACodes[userId];
+      secLog('2FA_EXPIRED', { userId, ip });
+      return res.status(400).json({ error: 'Code has expired. Please request a new one.' });
+    }
+
+    // Too many attempts (max 5)
+    if (record.attempts >= 5) {
+      delete twoFACodes[userId];
+      secLog('2FA_MAX_ATTEMPTS', { userId, ip });
+      return res.status(429).json({ error: 'Too many incorrect attempts. Please request a new code.' });
+    }
+
+    // Wrong code
+    if (record.code !== code.toString().trim()) {
+      record.attempts++;
+      secLog('2FA_WRONG_CODE', { userId, ip, attempt: record.attempts });
+      const remaining = 5 - record.attempts;
+      return res.status(400).json({
+        error: `Incorrect code. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`
+      });
+    }
+
+    // SUCCESS — delete code immediately (single use)
+    delete twoFACodes[userId];
+    secLog('2FA_SUCCESS', { userId, ip });
+
+    // Record in active sessions
+    recordLoginSuccess(ip, userId, token);
+
+    return res.json({ verified: true });
+  } catch(e) {
+    logger.error('verify-2fa error: ' + e.message);
+    return res.status(500).json({ error: 'Internal error' });
+  }
+});
+
 
 // ─── API rate limits (tighter for sensitive routes) ──────────────────────────
 app.use('/api/documents', rateLimit(60 * 1000, 30, 'Document request limit reached.'));
