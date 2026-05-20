@@ -3761,11 +3761,11 @@ function closeArticle() {
 <script>
 
 // ═══════════════════════════════════════════════════════════════════
-// 2FA / OTP LOGIN VERIFICATION
+// 2FA / OTP LOGIN VERIFICATION — SERVER-SIDE
+// Code generated on server using crypto.randomInt(), never sent to browser
 // ═══════════════════════════════════════════════════════════════════
 let _2faToken = null;   // JWT from successful login (held until 2FA verified)
 let _2faUser  = null;   // User object from login
-let _2faCode  = null;   // The OTP code we generate client-side for demo
 let _2faTimer = null;
 
 // Intercept loginMember to add 2FA step
@@ -3804,16 +3804,7 @@ async function loginMember() {
   }
 }
 
-function show2FA(email) {
-  // Generate a 6-digit code
-  _2faCode = Math.floor(100000 + Math.random() * 900000).toString();
-  console.log('[Cipher 2FA] Code for demo:', _2faCode); // In production this would be emailed
-
-  // Show the hint email (masked)
-  const parts = email.split('@');
-  const masked = parts[0].substring(0,2) + '***@' + parts[1];
-  document.getElementById('tfaEmailHint').textContent = 'Code sent to: ' + masked;
-
+async function show2FA(email) {
   // Reset digits
   for (let i=0;i<6;i++) {
     const el = document.getElementById('tfa'+i);
@@ -3821,36 +3812,36 @@ function show2FA(email) {
   }
   document.getElementById('tfaErr').style.display='none';
   const btn=document.getElementById('tfaBtn');
-  if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+  if(btn){btn.disabled=true;btn.textContent='Sending Code...';}
+
+  // Show masked email hint
+  const parts = email.split('@');
+  const masked = parts[0].substring(0,2) + '***@' + parts[1];
+  document.getElementById('tfaEmailHint').textContent = 'Sending code to: ' + masked;
 
   // Show modal
   document.getElementById('twoFAModal').classList.add('active');
-  setTimeout(()=>{document.getElementById('tfa0').focus();},200);
 
-  // Start 5-minute timer
-  startTFATimer(300);
-
-  // Send 2FA code via email using Resend API through our server
-  if (_2faToken) {
-    fetch('/api/auth/send-2fa', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_2faToken},
-      body:JSON.stringify({email:email, code:_2faCode})
-    }).then(async r=>{
-      if(r.ok){
-        console.log('[Cipher 2FA] Code emailed to', email);
-      } else {
-        // Fallback: try the OTP email route
-        console.log('[Cipher 2FA] Primary route failed, code is:', _2faCode);
-        // Show code hint in timer for testing
-        const t=document.getElementById('tfaTimer');
-        if(t) t.textContent += ' (Dev: check console for code)';
-      }
-    }).catch(()=>{
-      console.log('[Cipher 2FA] Email unavailable. Code:', _2faCode);
-      const t=document.getElementById('tfaTimer');
-      if(t) t.textContent += ' · Dev mode: check browser console';
+  try {
+    // Request code from SERVER — code never touches the browser
+    const r = await fetch('/api/auth/request-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken }
     });
+    const data = await r.json();
+
+    if (r.ok) {
+      document.getElementById('tfaEmailHint').textContent = 'Code sent to: ' + masked;
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+      setTimeout(()=>{ const d=document.getElementById('tfa0'); if(d)d.focus(); },200);
+      startTFATimer(300);
+    } else {
+      showTFAErr(data.error || 'Failed to send code. Please try again.');
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
+    if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
   }
 }
 
@@ -3877,27 +3868,38 @@ async function verify2FA() {
   btn.disabled=true; btn.textContent='Verifying…';
   document.getElementById('tfaErr').style.display='none';
 
-  // Check code matches
-  if(code===_2faCode) {
-    // Correct — open portal
-    if(_2faTimer) clearInterval(_2faTimer);
-    document.getElementById('twoFAModal').classList.remove('active');
-    window._cipherToken = _2faToken;
-    window._cipherUser  = _2faUser;
-    _2faToken=null; _2faUser=null; _2faCode=null;
-    document.getElementById('memberPortal').style.display='block'; loadPortalData();
-  } else {
-    showTFAErr('Incorrect code. Please try again or request a new one.');
+  try {
+    // Verify against SERVER — code comparison happens server-side only
+    const r = await fetch('/api/auth/verify-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken },
+      body: JSON.stringify({ code })
+    });
+    const data = await r.json();
+
+    if (r.ok && data.verified) {
+      // Verified server-side — open portal
+      if(_2faTimer) clearInterval(_2faTimer);
+      document.getElementById('twoFAModal').classList.remove('active');
+      window._cipherToken = _2faToken;
+      window._cipherUser  = _2faUser;
+      _2faToken=null; _2faUser=null;
+      document.getElementById('memberPortal').style.display='block'; loadPortalData();
+    } else {
+      showTFAErr(data.error || 'Incorrect code. Please try again.');
+      btn.disabled=false; btn.textContent='Verify & Enter Portal';
+      for(let i=0;i<6;i++){const el=document.getElementById('tfa'+i);if(el)el.value='';}
+      document.getElementById('tfa0').focus();
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
     btn.disabled=false; btn.textContent='Verify & Enter Portal';
-    // Clear all digits
-    for(let i=0;i<6;i++){const el=document.getElementById('tfa'+i);if(el)el.value='';}
-    document.getElementById('tfa0').focus();
   }
 }
 
 function resend2FA() {
-  if(!_2faUser) return;
-  const email=_2faUser.email||document.getElementById('memberEmail').value;
+  if(!_2faToken) return;
+  const email=_2faUser ? _2faUser.email : document.getElementById('memberEmail').value;
   show2FA(email);
 }
 
