@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Submit Bill — Consiere Vendor Portal</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#faf8f5;font-family:'DM Sans',Arial,sans-serif;color:#1c1917;min-height:100vh;display:flex;flex-direction:column}
+:root{--copper:#b87333;--dark:#1c1917;--border:#e8e0d4;--muted:#78716c;--bg:#faf8f5}
+nav{background:#1c1917;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{color:#b87333;font-size:17px;font-family:Georgia,serif;letter-spacing:1px}
+.hero{background:#1c1917;padding:40px 24px;text-align:center}
+.hero-tag{font-size:9px;letter-spacing:4px;color:#b87333;text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-family:Georgia,serif;font-size:26px;color:#fff;font-weight:400}
+.container{max-width:520px;margin:0 auto;padding:32px 20px;flex:1}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:20px}
+.card-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--dark);outline:none;transition:border-color 0.15s}
+.field input:focus{border-color:var(--copper)}
+.field input[readonly]{background:#faf8f5;color:var(--muted)}
+.calc-box{background:#faf8f5;border-radius:8px;padding:16px 20px;margin:16px 0}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px}
+.calc-row.total{border-top:1px solid var(--border);margin-top:6px;padding-top:10px;font-weight:600;font-size:14px}
+.calc-row.refund{color:#16a34a;font-weight:500}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.btn:disabled{opacity:0.6;cursor:not-allowed}
+.err{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;font-size:13px;color:#dc2626;margin-bottom:12px;display:none}
+.success{display:none;text-align:center;padding:32px 20px}
+.success-ic{width:60px;height:60px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px}
+.info-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;font-size:13px;color:var(--muted)}
+.info-row b{color:var(--dark)}
+footer{background:#1c1917;padding:16px 24px;text-align:center;font-size:11px;color:#555;margin-top:auto}
+</style>
+</head>
+<body>
+<nav><span class="logo">Consiere</span><span style="font-size:11px;color:#555;letter-spacing:1px">VENDOR PORTAL</span></nav>
+<div class="hero">
+  <div class="hero-tag">Bill Submission</div>
+  <h1>Submit your invoice</h1>
+</div>
+
+<div class="container">
+  <div id="loadingView" class="card" style="text-align:center;padding:40px">
+    <div style="color:var(--muted);font-size:14px">Loading request details...</div>
+  </div>
+
+  <div id="mainView" style="display:none">
+    <div class="card" id="requestDetails">
+      <div class="card-title">Request Details</div>
+      <div class="info-row"><div><b id="reqTitle">—</b></div></div>
+      <div class="info-row">Category: <b id="reqCategory">—</b></div>
+      <div class="info-row">Member: <b id="reqMember">—</b></div>
+      <div class="info-row">Deposit paid: <b style="color:#16a34a">$20.00 AUD ✓</b></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Submit Invoice Amount</div>
+      <div class="err" id="err"></div>
+
+      <div class="field">
+        <label>Total Bill Amount (AUD) *</label>
+        <input type="number" id="billAmount" placeholder="e.g. 250.00" min="1" step="0.01" oninput="calcCommission()">
+      </div>
+
+      <div class="calc-box" id="calcBox" style="display:none">
+        <div class="calc-row"><span>Total bill amount</span><span id="c-bill">$0.00</span></div>
+        <div class="calc-row"><span>Consiere commission (10%)</span><span id="c-comm">$0.00</span></div>
+        <div class="calc-row"><span>Deposit already paid by client</span><span>$20.00</span></div>
+        <div class="calc-row refund" id="refund-row" style="display:none"><span>↩ Refund to client</span><span id="c-refund">$0.00</span></div>
+        <div class="calc-row total"><span>Client pays you directly</span><span id="c-vendor">$0.00</span></div>
+      </div>
+
+      <div class="field">
+        <label>Invoice / Reference Number (optional)</label>
+        <input type="text" id="invoiceRef" placeholder="INV-001">
+      </div>
+
+      <div class="field">
+        <label>Notes (optional)</label>
+        <input type="text" id="notes" placeholder="Any notes for Consiere admin">
+      </div>
+
+      <button class="btn" id="submitBtn" onclick="submitBill()" disabled>Submit Invoice</button>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">Once submitted, the client will be notified and any refund processed automatically.</p>
+    </div>
+  </div>
+
+  <div class="success" id="successView">
+    <div class="success-ic">✓</div>
+    <h2 style="font-family:Georgia,serif;font-size:22px;font-weight:400;margin-bottom:10px">Invoice submitted</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:16px">Thank you. The client has been notified and any applicable refund has been processed automatically.</p>
+    <div class="calc-box" id="successSummary"></div>
+  </div>
+
+  <div id="errorView" style="display:none;text-align:center;padding:40px">
+    <div style="font-size:32px;margin-bottom:12px">⚠️</div>
+    <h3 style="font-family:Georgia,serif;font-weight:400;margin-bottom:8px">Invalid link</h3>
+    <p style="color:var(--muted);font-size:14px">This link is invalid or has already been used. Please contact hello@consiere.com.au</p>
+  </div>
+</div>
+
+<footer>Cipher Concierge Group Pty Ltd · consiere.com.au · hello@consiere.com.au</footer>
+
+<script>
+var params = new URLSearchParams(window.location.search);
+var requestId = params.get('r');
+var vendorToken = params.get('t');
+
+async function loadRequest() {
+  if (!requestId || !vendorToken) {
+    document.getElementById('loadingView').style.display='none';
+    document.getElementById('errorView').style.display='block';
+    return;
+  }
+  try {
+    var res = await fetch('/api/stripe/deposit-status/' + requestId + '?t=' + vendorToken);
+    var d = await res.json();
+    if (!res.ok || !d.depositPaid) {
+      document.getElementById('loadingView').style.display='none';
+      document.getElementById('errorView').style.display='block';
+      return;
+    }
+    if (d.vendorBillAmt) {
+      document.getElementById('loadingView').style.display='none';
+      document.getElementById('errorView').innerHTML = '<div style="font-size:32px;margin-bottom:12px">✓</div><h3 style="font-family:Georgia,serif;font-weight:400;margin-bottom:8px">Already submitted</h3><p style="color:var(--muted);font-size:14px">This invoice has already been submitted.</p>';
+      document.getElementById('errorView').style.display='block';
+      return;
+    }
+    // Load request details
+    var r2 = await fetch('/api/stripe/request-details/' + requestId + '?t=' + vendorToken);
+    var req = await r2.json();
+    document.getElementById('reqTitle').textContent = req.title || req.description?.substring(0,60) || 'Service Request';
+    document.getElementById('reqCategory').textContent = req.category || '—';
+    document.getElementById('reqMember').textContent = req.memberName || '—';
+    document.getElementById('loadingView').style.display='none';
+    document.getElementById('mainView').style.display='block';
+    var bankRef = document.getElementById('bank-ref');
+    if (bankRef) bankRef.textContent = 'CONS-' + (requestId||'').substring(0,8).toUpperCase();
+  } catch(e) {
+    document.getElementById('loadingView').innerHTML = '<div style="color:#dc2626;font-size:14px">Error loading request. Please contact hello@consiere.com.au</div>';
+  }
+}
+
+function calcCommission() {
+  var amt = parseFloat(document.getElementById('billAmount').value);
+  var btn = document.getElementById('submitBtn');
+  if (!amt || amt <= 0) { document.getElementById('calcBox').style.display='none'; btn.disabled=true; return; }
+  var commission = Math.round(amt * 0.10 * 100) / 100;
+  var refund = Math.max(0, Math.round((20 - commission) * 100) / 100);
+  var vendorGets = Math.max(0, Math.round((amt - 20 + refund) * 100) / 100);
+  document.getElementById('calcBox').style.display='block';
+  document.getElementById('c-bill').textContent = '$' + amt.toFixed(2);
+  document.getElementById('c-comm').textContent = '$' + commission.toFixed(2);
+  document.getElementById('c-vendor').textContent = '$' + vendorGets.toFixed(2);
+  if (refund > 0) {
+    document.getElementById('refund-row').style.display='flex';
+    document.getElementById('c-refund').textContent = '$' + refund.toFixed(2);
+  } else {
+    document.getElementById('refund-row').style.display='none';
+  }
+  btn.disabled = false;
+}
+
+async function submitBill() {
+  var amt = parseFloat(document.getElementById('billAmount').value);
+  var err = document.getElementById('err');
+  var btn = document.getElementById('submitBtn');
+  err.style.display='none';
+  if (!amt || amt <= 0) { err.textContent='Please enter a valid bill amount.'; err.style.display='block'; return; }
+  btn.textContent='Submitting...'; btn.disabled=true;
+  try {
+    var res = await fetch('/api/stripe/vendor-bill', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ requestId, vendorToken, billAmount: amt, invoiceRef: document.getElementById('invoiceRef').value, notes: document.getElementById('notes').value })
+    });
+    var d = await res.json();
+    if (res.ok) {
+      document.getElementById('mainView').style.display='none';
+      document.getElementById('successView').style.display='block';
+      document.getElementById('successSummary').innerHTML =
+        '<div class="calc-row"><span>Bill amount</span><span>$' + d.billAmount.toFixed(2) + '</span></div>' +
+        '<div class="calc-row"><span>Commission (10%)</span><span>$' + d.commission.toFixed(2) + '</span></div>' +
+        (d.refund > 0 ? '<div class="calc-row refund"><span>Client refund</span><span>$' + d.refund.toFixed(2) + '</span></div>' : '') +
+        '<div class="calc-row total"><span>Client pays you</span><span>$' + d.vendorReceives.toFixed(2) + '</span></div>';
+    } else {
+      err.textContent = d.error || 'Submission failed. Please try again.';
+      err.style.display='block';
+      btn.textContent='Submit Invoice'; btn.disabled=false;
+    }
+  } catch(e) {
+    err.textContent='Connection error. Please contact hello@consiere.com.au';
+    err.style.display='block';
+    btn.textContent='Submit Invoice'; btn.disabled=false;
+  }
+}
+
+loadRequest();
+</script>
+</body>
+</html>

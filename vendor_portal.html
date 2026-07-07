@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vendor Portal — Consiere</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--copper:#b87333;--dark:#1c1917;--bg:#faf8f5;--white:#fff;--border:#e8e0d4;--muted:#78716c;--mid:#44403c;--light:#f5ede0;--green:#16a34a;--red:#dc2626;--blue:#1d4ed8}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--bg);color:var(--dark);font-size:13px}
+#login-view{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#1c1917,#0a0c10);padding:20px}
+.login-card{background:rgba(10,12,16,0.95);border:1px solid rgba(184,115,51,0.2);border-radius:16px;padding:40px 32px;width:100%;max-width:400px}
+.login-logo{text-align:center;margin-bottom:32px}
+.login-logo .brand{font-family:Georgia,serif;font-size:22px;color:#f0ede8;letter-spacing:2px}
+.login-logo .brand span{color:var(--copper)}
+.login-logo .sub{font-size:10px;letter-spacing:4px;color:rgba(184,115,51,0.5);text-transform:uppercase;margin-top:4px}
+.lf{margin-bottom:14px}
+.lf label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(184,115,51,0.7);margin-bottom:6px}
+.lf input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(184,115,51,0.2);color:#f0ede8;border-radius:8px;font-size:13px;font-family:inherit;outline:none;transition:border-color 0.15s}
+.lf input:focus{border-color:var(--copper)}
+.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:8px}
+.login-err{display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:6px;padding:10px 14px;color:#f87171;font-size:12px;margin-top:10px}
+#portal-view{display:none;min-height:100vh}
+.top-nav{background:var(--dark);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{font-family:Georgia,serif;font-size:16px;color:#f0ede8}
+.nav-brand span{color:var(--copper)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-vendor{font-size:12px;color:rgba(255,255,255,0.5)}
+.nav-vendor b{color:rgba(255,255,255,0.85)}
+.signout-btn{background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:5px 12px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit}
+.signout-btn:hover{border-color:var(--copper);color:var(--copper)}
+.tab-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tab{padding:14px 18px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;font-weight:500;transition:all 0.15s}
+.tab.active{color:var(--copper);border-bottom-color:var(--copper)}
+.content{padding:24px;max-width:1100px;margin:0 auto}
+.pg{display:none}
+.pg.active{display:block}
+.page-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
+.page-title{font-family:Georgia,serif;font-size:24px;font-weight:400;margin-bottom:20px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:24px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.stat .num{font-family:Georgia,serif;font-size:28px;color:var(--copper);line-height:1}
+.stat .lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-hdr h3{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.card-body{padding:18px}
+.inq-row{border:1px solid var(--border);border-radius:8px;margin-bottom:10px;transition:box-shadow 0.15s}
+.inq-row:hover{box-shadow:0 2px 8px rgba(184,115,51,0.1)}
+.inq-hdr{padding:13px 16px;background:var(--bg);display:flex;align-items:center;gap:12px;cursor:pointer}
+.inq-cat{font-size:9px;letter-spacing:2px;text-transform:uppercase;background:var(--light);color:var(--copper);padding:3px 8px;border-radius:4px;font-weight:600;flex-shrink:0}
+.inq-title{flex:1;font-size:13px;font-weight:500;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inq-date{font-size:11px;color:var(--muted);flex-shrink:0}
+.badge{display:inline-block;font-size:10px;padding:3px 9px;border-radius:100px;font-weight:500;flex-shrink:0}
+.b-sent{background:#fef3c7;color:#92400e}
+.b-quoted{background:#dbeafe;color:#1e40af}
+.b-accepted{background:#dcfce7;color:#166534}
+.b-declined{background:#fee2e2;color:#991b1b}
+.b-delivered{background:#d1fae5;color:#065f46}
+.inq-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease;border-top:0 solid var(--border)}
+.inq-body.open{max-height:2000px;padding:16px;border-top:1px solid var(--border)}
+.brief-box{background:var(--bg);border-left:3px solid var(--copper);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:14px;font-size:12px;line-height:1.9;color:var(--mid)}
+.ff{margin-bottom:12px}
+.ff label{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ff input,.ff textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;color:var(--dark);outline:none;background:var(--white);transition:border-color 0.15s}
+.ff input:focus,.ff textarea:focus{border-color:var(--copper)}
+.ff textarea{resize:vertical;min-height:70px;line-height:1.6}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{padding:9px 18px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;border:none;transition:all 0.15s}
+.btn-copper{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-outline:hover{border-color:var(--copper);color:var(--copper)}
+.btn-red{background:transparent;border:1px solid rgba(220,38,38,0.3);color:var(--red)}
+.btn-green{background:#16a34a;color:#fff}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.msg-err{display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:8px 12px;color:var(--red);font-size:12px;margin-top:8px}
+.msg-ok{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:8px 12px;color:var(--green);font-size:12px;margin-top:8px}
+.calc-box{background:var(--bg);border-radius:8px;padding:14px 16px;margin:12px 0}
+.cr{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.cr:last-child{border-bottom:none;font-weight:600;font-size:13px;padding-top:8px}
+.cr.refund{color:var(--green)}
+.cr.owes{color:var(--red)}
+.alert-box{border-radius:8px;padding:12px 16px;font-size:12px;margin-top:10px}
+.alert-accepted{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.alert-quoted{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.alert-delivered{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pf{background:var(--bg);border-radius:8px;padding:12px 16px}
+.pf .lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pf .val{font-size:14px;font-weight:500;color:var(--dark)}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty .icon{font-size:36px;margin-bottom:12px}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-view">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="brand">Consiere <span>Vendors</span></div>
+      <div class="sub">Vendor Portal</div>
+    </div>
+    <div class="lf"><label>Email</label><input type="email" id="l-email" placeholder="your@business.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="lf"><label>Password</label><input type="password" id="l-pass" placeholder="Your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="login-btn" onclick="doLogin()" id="login-btn">Sign In to Portal</button>
+    <div class="login-err" id="l-err"></div>
+    <p style="font-size:11px;color:rgba(255,255,255,0.2);text-align:center;margin-top:20px">Access provided by Consiere admin<br>Contact hello@consiere.com.au for help</p>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal-view">
+  <nav class="top-nav">
+    <div class="nav-brand">Consiere <span>·</span> Vendor Portal</div>
+    <div class="nav-right">
+      <div class="nav-vendor">Signed in as <b id="nav-name">—</b></div>
+      <button class="signout-btn" onclick="signOut()">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="tab-bar">
+    <div class="tab active" onclick="switchTab('dashboard',this)" id="tab-dashboard">Dashboard</div>
+    <div class="tab" onclick="switchTab('pending',this)" id="tab-pending">New Requests <span id="badge-pending" style="background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:10px;font-size:10px;margin-left:4px">0</span></div>
+    <div class="tab" onclick="switchTab('active',this)" id="tab-active">Active Orders</div>
+    <div class="tab" onclick="switchTab('all',this)" id="tab-all">All Orders</div>
+    <div class="tab" onclick="switchTab('delivered',this)" id="tab-delivered">Delivered</div>
+    <div class="tab" onclick="switchTab('profile',this)" id="tab-profile">Profile</div>
+  </div>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="pg active" id="pg-dashboard">
+      <div class="page-eyebrow">Overview</div>
+      <div class="page-title">Welcome back, <span id="dash-name" style="color:var(--copper)">Vendor</span></div>
+      <div class="stats-row">
+        <div class="stat"><div class="num" id="s-total">—</div><div class="lbl">Total Orders</div></div>
+        <div class="stat"><div class="num" id="s-pending" style="color:#92400e">—</div><div class="lbl">Awaiting Quote</div></div>
+        <div class="stat"><div class="num" id="s-active" style="color:var(--blue)">—</div><div class="lbl">Active</div></div>
+        <div class="stat"><div class="num" id="s-delivered" style="color:var(--green)">—</div><div class="lbl">Delivered</div></div>
+        <div class="stat"><div class="num" id="s-revenue">$—</div><div class="lbl">Total Revenue</div></div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><h3>Recent Orders</h3><span style="font-size:11px;color:var(--copper);cursor:pointer" onclick="switchTab('all',document.getElementById('tab-all'))">View all →</span></div>
+        <div class="card-body" id="recent-list"><div class="loading">Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- PENDING -->
+    <div class="pg" id="pg-pending">
+      <div class="page-eyebrow">Action Required</div>
+      <div class="page-title">New Requests — Submit Your Quote</div>
+      <div id="pending-list"><div class="loading">Loading...</div></div>
+    </div>
+
+    <!-- ACTIVE -->
+    <div class="pg" id="pg-active">
+      <div class="page-eyebrow">In Progress</div>
+      <div class="page-title">Active Orders</div>
+      <div id="active-list"><div class="loading">Loading...</div></div>
+    </div>
+
+    <!-- ALL -->
+    <div class="pg" id="pg-all">
+      <div class="page-eyebrow">History</div>
+      <div class="page-title">All Orders</div>
+      <div id="all-list"><div class="loading">Loading...</div></div>
+    </div>
+
+    <!-- DELIVERED -->
+    <div class="pg" id="pg-delivered">
+      <div class="page-eyebrow">Completed</div>
+      <div class="page-title">Delivered Orders</div>
+      <div id="delivered-list"><div class="loading">Loading...</div></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="pg" id="pg-profile">
+      <div class="page-eyebrow">Account</div>
+      <div class="page-title">Your Profile</div>
+      <div class="card">
+        <div class="card-hdr"><h3>Business Details</h3></div>
+        <div class="card-body"><div class="profile-grid" id="profile-grid"></div></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="card-hdr"><h3>Bank Account Details</h3><span style="font-size:11px;color:var(--muted)">For commission payments from Consiere</span></div>
+        <div class="card-body">
+          <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.7">When Consiere owes you a commission refund, we will transfer to the account below. When you owe Consiere commission, please use these details as reference.</p>
+          <div class="fg2">
+            <div class="ff"><label>Account Name</label><input type="text" id="bank-name" placeholder="Your business name"></div>
+            <div class="ff"><label>BSB</label><input type="text" id="bank-bsb" placeholder="000-000" maxlength="7"></div>
+            <div class="ff"><label>Account Number</label><input type="text" id="bank-acc" placeholder="XXXXXXXXXX"></div>
+            <div class="ff"><label>Bank Name</label><input type="text" id="bank-bank" placeholder="e.g. Commonwealth Bank"></div>
+          </div>
+          <button class="btn btn-copper" onclick="saveBankDetails()" style="margin-top:8px">Save Bank Details</button>
+          <div class="msg-err" id="bank-err"></div>
+          <div class="msg-ok" id="bank-ok">Bank details saved. Consiere admin has been notified.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="card-hdr"><h3>Change Password</h3></div>
+        <div class="card-body">
+          <div class="fg2">
+            <div class="ff"><label>New Password</label><input type="password" id="np" placeholder="Min 8 characters"></div>
+            <div class="ff"><label>Confirm Password</label><input type="password" id="cp" placeholder="Repeat password"></div>
+          </div>
+          <button class="btn btn-copper" onclick="changePass()">Update Password</button>
+          <div class="msg-err" id="pe"></div>
+          <div class="msg-ok" id="po">Password updated.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var TK = sessionStorage.getItem('vt');
+var VD = null;
+var INQ = [];
+var H = {'Content-Type':'application/json'};
+
+function setToken(t){ TK=t; sessionStorage.setItem('vt',t); H={'Content-Type':'application/json','Authorization':'Bearer '+t}; }
+
+async function doLogin(){
+  var email=document.getElementById('l-email').value.trim();
+  var pass=document.getElementById('l-pass').value;
+  var err=document.getElementById('l-err');
+  var btn=document.getElementById('login-btn');
+  err.style.display='none';
+  if(!email||!pass){err.textContent='Please enter email and password.';err.style.display='block';return;}
+  btn.textContent='Signing in...';btn.disabled=true;
+  try{
+    var r=await fetch('/api/vendors/portal/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+    var d=await r.json();
+    if(r.ok){setToken(d.token);VD=d.vendor;showPortal();}
+    else{err.textContent=d.error||'Login failed';err.style.display='block';btn.textContent='Sign In to Portal';btn.disabled=false;}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';btn.textContent='Sign In to Portal';btn.disabled=false;}
+}
+
+function signOut(){ sessionStorage.removeItem('vt'); location.reload(); }
+
+function showPortal(){
+  document.getElementById('login-view').style.display='none';
+  document.getElementById('portal-view').style.display='block';
+  document.getElementById('nav-name').textContent=VD.name;
+  document.getElementById('dash-name').textContent=VD.contactName||VD.name;
+  loadData();
+}
+
+async function loadData(){
+  try{
+    var r=await fetch('/api/vendors/portal/dashboard',{headers:H});
+    var d=await r.json();
+    if(!r.ok){signOut();return;}
+    VD=d.vendor; INQ=d.inquiries||[];
+    var s=d.stats;
+    document.getElementById('s-total').textContent=s.total;
+    document.getElementById('s-pending').textContent=s.pending;
+    document.getElementById('s-active').textContent=(s.quoted||0)+(s.accepted||0);
+    document.getElementById('s-delivered').textContent=s.delivered;
+    document.getElementById('s-revenue').textContent='$'+(s.totalRevenue||0).toLocaleString('en-AU',{minimumFractionDigits:0});
+    document.getElementById('badge-pending').textContent=s.pending;
+    renderList('recent-list',INQ.slice(0,5));
+    renderList('pending-list',INQ.filter(i=>i.status==='SENT'));
+    renderList('active-list',INQ.filter(i=>['QUOTED','ACCEPTED'].includes(i.status)));
+    renderList('all-list',INQ);
+    renderList('delivered-list',INQ.filter(i=>i.status==='DELIVERED'));
+  }catch(e){console.error(e);}
+}
+
+function switchTab(name,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  if(el)el.classList.add('active');
+  var pg=document.getElementById('pg-'+name);
+  if(pg)pg.classList.add('active');
+  if(name==='profile')loadProfile();
+}
+
+var BADGE={SENT:'b-sent',QUOTED:'b-quoted',ACCEPTED:'b-accepted',DECLINED:'b-declined',DELIVERED:'b-delivered'};
+var LABEL={SENT:'New Request',QUOTED:'Quote Sent',ACCEPTED:'Accepted',DECLINED:'Declined',DELIVERED:'Delivered'};
+
+function renderList(elId, items){
+  var el=document.getElementById(elId);
+  if(!el)return;
+  if(!items||!items.length){el.innerHTML='<div class="empty"><div class="icon">✓</div><p>Nothing here yet.</p></div>';return;}
+  el.innerHTML=items.map(i=>renderRow(i, elId)).join('');
+}
+
+function renderRow(i, listId){
+  var pfx=(listId||'x').replace('-list','');
+  var date=new Date(i.emailSentAt).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+  var title=i.requestDescription||i.requestTitle||i.quoteDetails||'Service request';
+  if(title.length>120)title=title.substring(0,120)+'...';
+
+  // Build delivery info block
+  var deliveryHtml='';
+  if(i.deliveryAddress||i.recipientName||i.recipientPhone){
+    deliveryHtml=`<div style="background:#fff8f0;border:1px solid #f0d9b5;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:12px;line-height:1.9">
+      <div style="font-size:10px;letter-spacing:2px;color:#b87333;font-weight:700;margin-bottom:6px">DELIVERY DETAILS</div>
+      ${i.deliveryAddress?`<div>📍 <strong>Address:</strong> ${i.deliveryAddress}</div>`:''}
+      ${i.recipientName?`<div>👤 <strong>Recipient:</strong> ${i.recipientName}</div>`:''}
+      ${i.recipientPhone?`<div>📱 <strong>Contact:</strong> ${i.recipientPhone}</div>`:''}
+      ${i.deliveryNotes?`<div>📝 <strong>Notes:</strong> ${i.deliveryNotes}</div>`:''}
+    </div>`;
+  }
+
+  var actionHtml='';
+
+  if(i.status==='SENT'){
+    actionHtml=`<div style="margin-top:14px">
+      <div class="fg2">
+        <div class="ff">
+        <label>Your Quote (enter in your local currency)</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="number" id="qa-${i.id}" placeholder="0.00" min="1" step="0.01" style="flex:1">
+          <select id="qc-${i.id}" style="padding:8px;border:1px solid #e0d5c8;border-radius:6px;font-size:12px;background:#fff">
+            <option value="AUD">AUD (A$)</option>
+            <option value="INR">INR (₹)</option>
+            <option value="AED">AED (د.إ)</option>
+            <option value="SGD">SGD (S$)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="CAD">CAD (C$)</option>
+          </select>
+        </div>
+        <div style="font-size:10px;color:#b87333;margin-top:3px">We automatically convert to AUD + 20% international service fee</div>
+      </div>
+        <div class="ff"><label>Availability / ETA</label><input type="text" id="qe-${i.id}" placeholder="e.g. Today 3pm, Tomorrow morning"></div>
+      </div>
+      <div class="ff"><label>Quote Details — what is included</label>
+        <textarea id="qd-${i.id}" rows="3" placeholder="Describe exactly what is included — service details, delivery terms, any conditions..."></textarea></div>
+      <div class="btns">
+        <button class="btn btn-copper" onclick="submitQuote('${i.id}')">Submit Quote</button>
+        <button class="btn btn-red" onclick="declineInq('${i.id}')">Decline</button>
+      </div>
+      <div class="msg-err" id="qe-err-${i.id}"></div>
+      <div class="msg-ok" id="qe-ok-${i.id}">Quote submitted! Consiere will present it to the member.</div>
+    </div>`;
+  } else if(i.status==='ACCEPTED'){
+    actionHtml=`<div class="alert-box alert-accepted" style="margin-top:12px">
+      <b>✓ Order Accepted</b> — Please complete the order and mark as delivered below.
+    </div>
+    <div style="margin-top:14px">
+      <div class="fg2">
+        <div class="ff"><label>Final Bill Amount (AUD $)</label>
+          <input type="number" id="ba-${i.id}" placeholder="0.00" min="1" step="0.01" oninput="calcSettle('${i.id}')"></div>
+        <div class="ff"><label>Delivery Note</label>
+          <input type="text" id="dn-${i.id}" placeholder="e.g. Delivered at 2:30pm, signed by client"></div>
+      </div>
+      <div id="settle-${i.id}"></div>
+      <div class="btns">
+        <button class="btn btn-green" onclick="markDelivered('${i.id}')">✓ Mark as Delivered & Submit Bill</button>
+      </div>
+      <div class="msg-err" id="de-err-${i.id}"></div>
+      <div class="msg-ok" id="de-ok-${i.id}"></div>
+    </div>`;
+  } else if(i.status==='QUOTED'){
+    actionHtml=`<div class="alert-box alert-quoted" style="margin-top:12px">
+      <b>Quote submitted: $${(i.quoteAmount||0).toLocaleString()} AUD</b><br>
+      Waiting for client approval through Consiere admin.
+    </div>`;
+  } else if(i.status==='DELIVERED'){
+    actionHtml=`<div class="alert-box alert-delivered" style="margin-top:12px">
+      ✓ <b>Delivered</b> on ${i.deliveredAt?new Date(i.deliveredAt).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}):'confirmed'}
+      ${i.billAmount?'<br><b>Bill submitted:</b> $'+i.billAmount.toLocaleString()+' AUD':''}
+      ${i.deliveryNote?'<br><b>Note:</b> '+i.deliveryNote:''}
+    </div>`;
+  }
+
+  return `<div class="inq-row">
+    <div class="inq-hdr" onclick="toggleRow('${pfx}-${i.id}')">
+      <span class="inq-cat">${i.category||'REQUEST'}</span>
+      <span class="inq-title">${title}</span>
+      <span class="inq-date">${date}</span>
+      <span class="badge ${BADGE[i.status]||'b-sent'}">${LABEL[i.status]||i.status}</span>
+    </div>
+    <div class="inq-body" id="body-${pfx}-${i.id}">
+      <div class="brief-box">
+        <b>Request:</b> ${i.quoteDetails||'Service request from Consiere member'}<br>
+        ${i.quoteAmount?'<b>Your quote:</b> $'+i.quoteAmount.toLocaleString()+' AUD<br>':''}
+        ${i.respondedAt?'<b>Responded:</b> '+new Date(i.respondedAt).toLocaleDateString('en-AU'):''}
+      </div>
+      <div style="margin:8px 0 4px">
+        ${i.requestDescription ? '<div style="font-size:12px;color:#44403c;background:#faf8f5;border-left:3px solid #b87333;padding:8px 12px;margin:8px 0;line-height:1.7"><strong>Request:</strong> '+i.requestDescription+'</div>' : ''}
+        ${(i.deliveryAddress||i.recipientName||i.recipientPhone) ? `<div style="background:#fff8f0;border:1px solid #f0d9b5;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:12px;line-height:1.9"><div style="font-size:10px;letter-spacing:2px;color:#b87333;font-weight:700;margin-bottom:4px">DELIVERY DETAILS</div>${i.deliveryAddress?'<div>📍 <b>Address:</b> '+i.deliveryAddress+'</div>':''}${i.recipientName?'<div>👤 <b>Recipient:</b> '+i.recipientName+'</div>':''}${i.recipientPhone?'<div>📱 <b>Contact:</b> '+i.recipientPhone+'</div>':''}</div>` : ''}
+      </div>
+      ${actionHtml}
+    </div>
+  </div>`;
+}
+
+function toggleRow(id){
+  var b=document.getElementById('body-'+id);
+  if(b)b.classList.toggle('open');
+}
+
+function calcSettle(id){
+  var amt=parseFloat(document.getElementById('ba-'+id)?.value);
+  var el=document.getElementById('settle-'+id);
+  if(!el||!amt||amt<=0){if(el)el.innerHTML='';return;}
+  var comm=Math.round(amt*0.10*100)/100;
+  var vo=Math.max(0,Math.round((comm-20)*100)/100);
+  var cp=Math.max(0,Math.round((20-comm)*100)/100);
+  var cv=Math.max(0,Math.round((amt-20)*100)/100);
+  el.innerHTML=`<div class="calc-box">
+    <div class="cr"><span>Bill amount</span><span>$${amt.toFixed(2)} AUD</span></div>
+    <div class="cr"><span>Consiere commission (10%)</span><span>$${comm.toFixed(2)} AUD</span></div>
+    <div class="cr"><span>Deposit received from client</span><span style="color:var(--green)">$20.00 AUD ✓</span></div>
+    ${cp>0?'<div class="cr refund"><span>↩ Consiere refunds you</span><span>$'+cp.toFixed(2)+' AUD</span></div>':''}
+    ${vo>0?'<div class="cr owes"><span>⚠ You pay Consiere (bank transfer)</span><span>$'+vo.toFixed(2)+' AUD</span></div>':''}
+    <div class="cr"><span>Client pays you directly</span><span>$${cv.toFixed(2)} AUD</span></div>
+  </div>`;
+}
+
+async function submitQuote(id){
+  var amt=document.getElementById('qa-'+id)?.value;
+  var det=document.getElementById('qd-'+id)?.value?.trim();
+  var eta=document.getElementById('qe-'+id)?.value?.trim();
+  var err=document.getElementById('qe-err-'+id);
+  var ok=document.getElementById('qe-ok-'+id);
+  if(!amt||parseFloat(amt)<=0){err.textContent='Please enter a valid quote amount.';err.style.display='block';return;}
+  if(!det){err.textContent='Please provide quote details.';err.style.display='block';return;}
+  var full=det+(eta?' | ETA: '+eta:'');
+  try{
+    var r=await fetch('/api/vendors/portal/quote/'+id,{method:'POST',headers:H,body:JSON.stringify({localCurrency:document.getElementById('qc-'+id)?.value||'AUD',quoteAmount:parseFloat(amt),quoteDetails:full})});
+    var d=await r.json();
+    if(r.ok){ok.style.display='block';err.style.display='none';setTimeout(()=>loadData(),2000);}
+    else{err.textContent=d.error||'Failed to submit.';err.style.display='block';}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';}
+}
+
+async function declineInq(id){
+  if(!confirm('Are you sure you want to decline this request?'))return;
+  try{
+    var r=await fetch('/api/vendors/portal/decline/'+id,{method:'POST',headers:H});
+    if(r.ok)loadData();
+  }catch(e){}
+}
+
+async function markDelivered(id){
+  var amt=document.getElementById('ba-'+id)?.value;
+  var note=document.getElementById('dn-'+id)?.value?.trim();
+  var err=document.getElementById('de-err-'+id);
+  var ok=document.getElementById('de-ok-'+id);
+  if(!amt||parseFloat(amt)<=0){err.textContent='Please enter the final bill amount.';err.style.display='block';return;}
+  try{
+    var r=await fetch('/api/vendors/portal/deliver/'+id,{method:'POST',headers:H,body:JSON.stringify({billAmount:parseFloat(amt),deliveryNote:note||''})});
+    var d=await r.json();
+    if(r.ok){ok.textContent='✓ Delivered. '+d.message;ok.style.display='block';err.style.display='none';setTimeout(()=>loadData(),2000);}
+    else{err.textContent=d.error||'Failed.';err.style.display='block';}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';}
+}
+
+function loadProfile(){
+  if(!VD)return;
+  var el=document.getElementById('profile-grid');
+  var fields=[['Business Name',VD.name],['Contact Person',VD.contactName],['Email',VD.email],['Category',VD.category],['Service Areas',VD.cities||'—'],['Status',VD.isActive?'✓ Active':'⚠ Suspended']];
+  el.innerHTML=fields.map(f=>`<div class="pf"><div class="lbl">${f[0]}</div><div class="val">${f[1]||'—'}</div></div>`).join('');
+}
+
+async function saveBankDetails(){
+  var name=document.getElementById('bank-name').value.trim();
+  var bsb=document.getElementById('bank-bsb').value.trim();
+  var acc=document.getElementById('bank-acc').value.trim();
+  var bank=document.getElementById('bank-bank').value.trim();
+  var err=document.getElementById('bank-err');
+  var ok=document.getElementById('bank-ok');
+  err.style.display='none'; ok.style.display='none';
+  if(!name||!bsb||!acc){err.textContent='Please fill in account name, BSB and account number.';err.style.display='block';return;}
+  try{
+    var r=await fetch('/api/vendors/portal/bank-details',{method:'POST',headers:H,body:JSON.stringify({accountName:name,bsb,accountNumber:acc,bankName:bank})});
+    var d=await r.json();
+    if(r.ok){ok.style.display='block';}
+    else{err.textContent=d.error||'Failed to save.';err.style.display='block';}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';}
+}
+
+async function changePass(){
+  var np=document.getElementById('np').value;
+  var cp=document.getElementById('cp').value;
+  var err=document.getElementById('pe');
+  var ok=document.getElementById('po');
+  err.style.display='none';ok.style.display='none';
+  if(!np||np.length<8){err.textContent='Password must be at least 8 characters.';err.style.display='block';return;}
+  if(np!==cp){err.textContent='Passwords do not match.';err.style.display='block';return;}
+  try{
+    var r=await fetch('/api/vendors/portal/change-password',{method:'POST',headers:H,body:JSON.stringify({password:np})});
+    var d=await r.json();
+    if(r.ok){ok.style.display='block';document.getElementById('np').value='';document.getElementById('cp').value='';}
+    else{err.textContent=d.error||'Failed.';err.style.display='block';}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';}
+}
+
+// Auto-login if token exists
+if(TK){
+  H={'Content-Type':'application/json','Authorization':'Bearer '+TK};
+  fetch('/api/vendors/portal/dashboard',{headers:H}).then(r=>{
+    if(r.ok)return r.json().then(d=>{VD=d.vendor;showPortal();});
+    else sessionStorage.removeItem('vt');
+  }).catch(()=>{});
+}
+</script>
+</body>
+</html>

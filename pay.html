@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirm Payment — Consiere</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:#faf8f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#fff;border:1px solid #e8e0d4;border-radius:12px;overflow:hidden;max-width:460px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,0.06)}
+.top{background:#1c1917;padding:22px;text-align:center}
+.logo{font-size:10px;letter-spacing:6px;color:#b87333;text-transform:uppercase}
+.body{padding:28px}
+h1{font-family:Georgia,serif;font-size:21px;color:#1c1917;font-weight:400;margin-bottom:6px}
+.sub{font-size:13px;color:#78716c;margin-bottom:18px;line-height:1.7}
+.ref{font-size:10px;color:#b87333;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:600}
+.box{background:#faf8f5;border:1px solid #e8e0d4;border-radius:8px;padding:18px;margin-bottom:16px}
+.lbl{font-size:10px;color:#78716c;margin-bottom:3px;text-transform:uppercase;letter-spacing:1px}
+.val{font-size:14px;color:#1c1917;font-weight:500;margin-bottom:12px}
+.val:last-child{margin-bottom:0}
+.amt{font-size:34px;font-family:Georgia,serif;color:#b87333;margin-bottom:3px}
+.amtnote{font-size:11px;color:#78716c}
+.notice{background:#fff8f0;border:1px solid rgba(184,115,51,0.2);border-radius:8px;padding:12px 14px;font-size:12px;color:#78716c;margin-bottom:20px;line-height:1.7}
+.btn{display:block;width:100%;padding:14px;background:#b87333;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;text-align:center}
+.btn:disabled{opacity:0.6;cursor:not-allowed}
+.err{display:none;margin-top:10px;padding:9px 12px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);border-radius:6px;font-size:12px;color:#dc2626}
+.loader{display:none;text-align:center;padding:8px;color:#78716c;font-size:13px}
+footer{background:#faf8f5;padding:12px;text-align:center;border-top:1px solid #e8e0d4;font-size:11px;color:#a8a29e}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="top"><div class="logo">Consiere</div></div>
+  <div class="body" id="main"></div>
+  <footer>Consiere &middot; hello@consiere.com.au &middot; Secure payment by Stripe</footer>
+</div>
+<script>
+var params=new URLSearchParams(location.search);
+var q=params.get("q"),t=params.get("t"),paid=params.get("paid");
+
+function setMain(html){document.getElementById("main").innerHTML=html;}
+
+async function load(){
+  if(!q||!t){setMain("<div style='padding:32px;text-align:center;color:#dc2626'>Invalid payment link. Contact hello@consiere.com.au</div>");return;}
+  if(paid==="1"){setMain("<div style='padding:32px;text-align:center'><div style='font-size:48px;margin-bottom:12px'>&#10003;</div><h2 style='font-family:Georgia;font-size:20px;color:#1c1917;font-weight:400;margin-bottom:8px'>Payment confirmed!</h2><p style='font-size:13px;color:#78716c'>Check your email for your receipt. Your order is now in progress.</p></div>");return;}
+  setMain("<div style='padding:40px;text-align:center;color:#78716c'>Loading your quote...</div>");
+  try{
+    var r=await fetch("/api/pay/quote-details?q="+q+"&t="+t);
+    var d=await r.json();
+    if(!r.ok||d.error){setMain("<div style='padding:32px;text-align:center'><p style='color:#dc2626;margin-bottom:8px'>"+(d.error||"Link expired.")+"</p><p style='font-size:12px;color:#78716c'>Contact hello@consiere.com.au</p></div>");return;}
+    if(d.paid){setMain("<div style='padding:32px;text-align:center'><div style='font-size:48px;margin-bottom:12px'>&#10003;</div><h2 style='font-family:Georgia;font-size:20px;color:#1c1917;font-weight:400;margin-bottom:8px'>Already paid</h2><p style='font-size:13px;color:#78716c'>Your order is in progress. Check your email for confirmation.</p></div>");return;}
+    var isProcurement=["PROCUREMENT","SHOPPING"].includes((d.category||"").toUpperCase());
+    var amt=isProcurement?d.quoteAmount:10;
+    var amtNote=isProcurement?"Full payment — no further charges":"$10 booking deposit — balance of $"+(d.quoteAmount-10).toFixed(2)+" AUD paid to vendor on delivery";
+    setMain(
+      "<h1>Confirm your order</h1>"+
+      "<p class='sub'>Review your quote and pay to confirm.</p>"+
+      "<div class='ref'>Order ref: "+(d.orderRef||q.substring(0,8).toUpperCase())+"</div>"+
+      "<div class='box'>"+
+        "<div class='lbl'>Service</div><div class='val'>"+(d.requestTitle||"Your request").substring(0,80)+"</div>"+
+        "<div class='lbl'>Provided by</div><div class='val'>"+(d.vendorName||"Consiere Partner")+"</div>"+
+        "<div class='lbl'>Quote details</div><div class='val' style='font-weight:400'>"+(d.quoteDetails||"").substring(0,150)+"</div>"+
+        "<div class='lbl'>Amount due now</div>"+
+        "<div class='amt'>$"+parseFloat(amt).toFixed(2)+" AUD</div>"+
+        "<div class='amtnote'>"+amtNote+"</div>"+
+      "</div>"+
+      "<div class='notice'>&#9432; You will receive a receipt by email after payment. No account required.</div>"+
+      "<button class='btn' id='paybtn' onclick='pay()'>Pay $"+parseFloat(amt).toFixed(2)+" AUD &rarr;</button>"+
+      "<div class='loader' id='ldr'>Redirecting to secure payment...</div>"+
+      "<div class='err' id='errmsg'></div>"
+    );
+  }catch(e){setMain("<div style='padding:32px;text-align:center;color:#dc2626'>Error loading quote. Please try again.</div>");}
+}
+
+async function pay(){
+  var btn=document.getElementById("paybtn");
+  var ldr=document.getElementById("ldr");
+  var err=document.getElementById("errmsg");
+  btn.disabled=true;btn.textContent="Processing...";ldr.style.display="block";err.style.display="none";
+  try{
+    var r=await fetch("/api/pay/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:q,t:t})});
+    var d=await r.json();
+    if(d.url){window.location.href=d.url;}
+    else{err.textContent=d.error||"Payment failed. Please try again.";err.style.display="block";btn.disabled=false;btn.textContent="Try Again";ldr.style.display="none";}
+  }catch(e){err.textContent="Connection error. Please try again.";err.style.display="block";btn.disabled=false;ldr.style.display="none";}
+}
+
+load();
+</script>
+</body>
+</html>

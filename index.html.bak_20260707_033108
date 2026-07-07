@@ -1,0 +1,3937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cipher Private | Ultra-Luxury Concierge & Lifestyle Management | Australia</title>
+<meta name="description" content="Your time is irreplaceable. Your life, handled invisibly. Cipher Private is Australia's most exclusive concierge and lifestyle management firm for ultra-high-net-worth individuals — by invitation only.">
+<meta name="keywords" content="luxury concierge Australia, UHNW concierge, private lifestyle management, exclusive concierge Sydney, ultra luxury services Australia, Cipher Private">
+<meta property="og:title" content="Cipher Private | Your Life, Handled Invisibly">
+<meta property="og:description" content="Your time is irreplaceable. Your life, handled invisibly. Australia's most exclusive concierge for UHNW individuals — by invitation only.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://cipherprivate.com">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+<!-- Schema Markup for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Cipher Private",
+  "description": "Ultra-luxury concierge and lifestyle management for UHNW individuals in Australia",
+  "url": "https://cipherprivate.com",
+  "telephone": "+61413536700",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Sydney",
+    "addressRegion": "NSW",
+    "addressCountry": "AU"
+  },
+  "priceRange": "$$$$",
+  "serviceType": "Luxury Concierge Service"
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --obsidian: #0a0a0a;
+  --deep-black: #111111;
+  --charcoal: #1a1a1a;
+  --gold: #c9a96e;
+  --gold-light: #e8d5a3;
+  --gold-dim: #8a6f3e;
+  --platinum: #e8d5a3;
+  --silver: #aaaaaa;
+  --white: #f5f3ef;
+  --cream: #faf8f4;
+  --accent: #c9a96e;
+  --text-primary: #f5f3ef;
+  --text-secondary: #a8a8a8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--obsidian);
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+
+/* Force pointer on all interactive elements */
+a, button, [onclick], input[type="submit"], input[type="button"],
+.nav-links a, .nav-cta a, .btn-outline, .btn-gold,
+.mp-nav-item, .ap-ni, .mp-tile, .mp-stat, .ap-stat,
+.mp-card-action, .ap-ql, .mp-submit, .mp-primary-btn,
+.mp-vault-btn, .mp-chat-send, .ap-btn, .ap-btn-g {
+  cursor: pointer !important;
+}
+
+/* Custom Cursor */
+.cursor { display: none !important; }
+.cursor-ring { display: none !important; }
+
+/* ==================== NAVIGATION ==================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 28px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(20px);
+  padding: 18px 60px;
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 44px; height: 44px;
+  position: relative;
+}
+
+.logo-mark svg { width: 100%; height: 100%; }
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.logo-sub {
+  font-size: 8px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--silver);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-outline {
+  border: 1px solid rgba(201,169,110,0.6);
+  color: var(--gold);
+  background: transparent;
+  padding: 10px 24px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: rgba(201,169,110,0.1);
+  border-color: var(--gold);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #111111;
+  border: 1px solid var(--gold);
+  padding: 10px 24px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+}
+
+/* ==================== HERO ==================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,169,110,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,169,110,0.04) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(10,10,10,0.85) 0%, rgba(17,17,17,0.80) 50%, rgba(13,13,13,0.85) 100%),
+    url('https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero2_02bb27c1.jpg') center/cover no-repeat;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(201,169,110,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,169,110,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+  padding-top: 120px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.eyebrow-text {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero-headline .italic { font-style: italic; color: var(--gold); letter-spacing: -0.5px; }
+
+.hero-slogan {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 1s 0.65s forwards;
+}
+
+.hero-desc {
+  max-width: 560px;
+  font-size: 13px;
+  line-height: 2;
+  color: var(--silver);
+  letter-spacing: 0.5px;
+  margin-bottom: 56px;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 1s 1s forwards;
+}
+
+.btn-primary {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 16px 40px;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+.btn-primary:hover {
+  color: var(--obsidian);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0);
+}
+
+.btn-ghost {
+  color: var(--silver);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.btn-ghost:hover { color: var(--white); }
+
+.hero-badge {
+  position: absolute;
+  right: 60px;
+  bottom: 80px;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+  text-align: center;
+}
+
+.badge-circle {
+  width: 120px; height: 120px;
+  border: 1px solid rgba(201,169,110,0.3);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  animation: rotateSlow 20s linear infinite;
+}
+
+.badge-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.badge-label {
+  font-size: 7px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 1.4s forwards;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+
+.scroll-text {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  writing-mode: vertical-lr;
+}
+
+/* ==================== MARQUEE ==================== */
+.marquee-section {
+  border-top: 1px solid rgba(201,169,110,0.1);
+  border-bottom: 1px solid rgba(201,169,110,0.1);
+  padding: 20px 0;
+  overflow: hidden;
+  background: rgba(201,169,110,0.03);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+.marquee-dot {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* ==================== ABOUT / PHILOSOPHY ==================== */
+.section {
+  padding: 120px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+}
+
+.section-line {
+  width: 30px; height: 1px;
+  background: var(--gold-dim);
+}
+
+.section-tag {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.section-title .gold { color: var(--gold); font-style: italic; }
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.philosophy-text p {
+  font-size: 13px;
+  line-height: 2.2;
+  color: var(--silver);
+  margin-bottom: 20px;
+}
+
+.philosophy-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(201,169,110,0.1);
+}
+
+.stat-card {
+  background: var(--deep-black);
+  padding: 40px;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  color: var(--gold);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+/* ==================== SERVICES ==================== */
+.services-full {
+  background: var(--deep-black);
+  padding: 120px 0;
+}
+
+.services-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: end;
+}
+
+.services-desc {
+  font-size: 13px;
+  line-height: 2;
+  color: var(--silver);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(201,169,110,0.08);
+}
+
+.service-card {
+  background: var(--deep-black);
+  padding: 50px 40px;
+  transition: background 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover { background: rgba(201,169,110,0.04); }
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 28px;
+  opacity: 0.7;
+}
+
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.service-desc {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--silver);
+}
+
+/* ==================== MEMBERSHIP ==================== */
+.membership-section {
+  padding: 140px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.membership-intro {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.membership-intro .section-eyebrow { justify-content: center; }
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(201,169,110,0.15);
+}
+
+.plan-card {
+  background: var(--deep-black);
+  padding: 60px 40px;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.plan-card.featured {
+  background: linear-gradient(160deg, #1a1608 0%, #111 100%);
+  border-top: 2px solid var(--gold);
+}
+
+.plan-featured-tag {
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #111111;
+  font-size: 7px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  font-weight: 600;
+}
+
+.plan-tier {
+  font-size: 8px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.plan-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.plan-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  color: var(--gold);
+  font-weight: 300;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.plan-price-note {
+  font-size: 10px;
+  color: var(--silver);
+  letter-spacing: 1px;
+  margin-bottom: 32px;
+}
+
+.plan-divider {
+  width: 40px; height: 1px;
+  background: rgba(201,169,110,0.3);
+  margin-bottom: 32px;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 40px;
+}
+
+.plan-features li {
+  font-size: 11px;
+  color: var(--silver);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(201,169,110,0.06);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.6;
+}
+
+.feature-check {
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.plan-btn {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 1px solid rgba(201,169,110,0.4);
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.plan-btn:hover, .plan-card.featured .plan-btn {
+  background: var(--gold);
+  color: #111111;
+  border-color: var(--gold);
+}
+
+.membership-note {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+/* ==================== BLOG ==================== */
+.blog-section {
+  background: var(--deep-black);
+  padding: 120px 0;
+}
+
+.blog-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2px;
+}
+
+.blog-card {
+  background: #141414;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.blog-card:hover { transform: translateY(-4px); }
+
+.blog-img {
+  width: 100%; 
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-img-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #1a1605 0%, #1a1a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-img-placeholder svg {
+  opacity: 0.15;
+}
+
+.blog-card:first-child .blog-img-placeholder {
+  aspect-ratio: 16/10;
+}
+
+.blog-content {
+  padding: 28px 32px 36px;
+}
+
+.blog-category {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.blog-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.blog-card:first-child .blog-title {
+  font-size: 26px;
+}
+
+.blog-excerpt {
+  font-size: 11px;
+  color: var(--silver);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 9px;
+  color: var(--gold-dim);
+  letter-spacing: 1px;
+}
+
+/* ==================== SECURITY ==================== */
+.security-section {
+  padding: 120px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.security-visual {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.security-ring-outer {
+  position: absolute;
+  width: 380px; height: 380px;
+  border: 1px solid rgba(201,169,110,0.15);
+  border-radius: 50%;
+  animation: rotateSlow 30s linear infinite;
+}
+
+.security-ring-mid {
+  position: absolute;
+  width: 280px; height: 280px;
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 50%;
+  animation: rotateSlow 20s linear infinite reverse;
+}
+
+.security-ring-inner {
+  position: absolute;
+  width: 180px; height: 180px;
+  border: 1px solid rgba(201,169,110,0.4);
+  border-radius: 50%;
+  animation: rotateSlow 15s linear infinite;
+}
+
+.security-core {
+  width: 90px; height: 90px;
+  background: radial-gradient(circle, rgba(201,169,110,0.15), transparent);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.security-features {
+  display: grid;
+  gap: 24px;
+}
+
+.security-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  border: 1px solid rgba(201,169,110,0.08);
+  background: rgba(201,169,110,0.02);
+  transition: border-color 0.3s;
+}
+
+.security-item:hover { border-color: rgba(201,169,110,0.2); }
+
+.security-icon {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,169,110,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.security-item-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.security-item-desc {
+  font-size: 11px;
+  color: var(--silver);
+  line-height: 1.8;
+}
+
+/* ==================== TESTIMONIAL ==================== */
+.testimonial-section {
+  background: #141414;
+  padding: 100px 60px;
+  text-align: center;
+}
+
+.testimonial-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  max-width: 800px;
+  margin: 0 auto 32px;
+  line-height: 1.5;
+}
+
+.testimonial-gold { color: var(--gold); }
+
+.testimonial-author {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+/* ==================== CTA SECTION ==================== */
+.cta-section {
+  padding: 140px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.cta-text .section-title { margin-bottom: 20px; }
+.cta-text p { font-size: 13px; color: var(--silver); line-height: 2; margin-bottom: 40px; }
+
+.cta-form {
+  background: var(--deep-black);
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 48px;
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.form-subtitle {
+  font-size: 10px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,169,110,0.15);
+  color: var(--white);
+  padding: 12px 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  transition: border-color 0.3s;
+  outline: none;
+  cursor: pointer;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: rgba(201,169,110,0.5);
+}
+
+.form-group select option { background: var(--deep-black); }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: #111111;
+  border: none;
+  padding: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 8px;
+}
+
+.form-submit:hover { background: var(--gold-light); }
+
+/* ==================== FOOTER ==================== */
+footer {
+  background: var(--obsidian);
+  border-top: 1px solid rgba(201,169,110,0.1);
+  padding: 80px 60px 40px;
+}
+
+.footer-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-brand p {
+  font-size: 11px;
+  color: var(--silver);
+  line-height: 1.9;
+  margin-top: 20px;
+  max-width: 280px;
+}
+
+.footer-col-title {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  font-size: 11px;
+  color: var(--silver);
+  text-decoration: none;
+  transition: color 0.3s;
+  letter-spacing: 0.5px;
+}
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(201,169,110,0.08);
+}
+
+.footer-copy {
+  font-size: 10px;
+  color: var(--gold-dim);
+  letter-spacing: 1px;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal a {
+  font-size: 10px;
+  color: var(--gold-dim);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.footer-legal a:hover { color: var(--gold); }
+
+/* ==================== MODALS ==================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.modal-overlay.active { display: flex; }
+
+/* ═══ PORTAL BASE — completely isolated from modal system ═══ */
+#memberPortal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: #060606 !important;
+  padding: 0 !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+  backdrop-filter: none !important;
+  flex-direction: unset !important;
+}
+#adminPortal {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: #090909 !important;
+  padding: 0 !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+  backdrop-filter: none !important;
+  flex-direction: unset !important;
+}
+/* When shown, use block — grid children handle their own layout */
+#memberPortal[style*="block"],
+#memberPortal[style*="flex"] {
+  display: block !important;
+}
+#adminPortal[style*="block"],
+#adminPortal[style*="flex"] {
+  display: block !important;
+}
+/* Grid wrappers — these control the actual layout */
+#mpWrap {
+  display: grid !important;
+  grid-template-columns: 260px 1fr !important;
+  height: 100vh !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+#apWrap {
+  display: grid !important;
+  grid-template-columns: 230px 1fr !important;
+  height: 100vh !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+
+
+.modal {
+  background: var(--deep-black);
+  border: 1px solid rgba(201,169,110,0.2);
+  width: 90%;
+  max-width: 460px;
+  padding: 48px;
+  position: relative;
+  animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none;
+  border: none;
+  color: var(--silver);
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.modal-close:hover { color: var(--gold); }
+
+.modal-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  text-align: center;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.modal-subtitle {
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 36px;
+}
+
+.modal-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+  margin-bottom: 28px;
+}
+
+.modal-tab {
+  flex: 1;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+  cursor: pointer;
+  transition: color 0.3s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.modal-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.modal-form-content { display: none; }
+.modal-form-content.active { display: block; }
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes scrollAnim {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.3; transform: scaleY(0.5); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== BLOG ARTICLE PAGE ==================== */
+.blog-hero {
+  padding: 160px 60px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.article-page { display: none; }
+.article-page.active { display: block; }
+.main-page { display: block; }
+.main-page.hidden { display: none; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  nav { padding: 20px 30px; }
+  nav.scrolled { padding: 16px 30px; }
+  .section, .membership-section, .security-section, .cta-section { padding: 80px 30px; }
+  .services-full { padding: 80px 0; }
+  .services-inner, .blog-inner { padding: 0 30px; }
+  .philosophy-grid, .security-grid, .cta-section { grid-template-columns: 1fr; gap: 40px; }
+  .services-grid, .membership-grid { grid-template-columns: 1fr; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .nav-links { display: none; }
+  .hero-badge { display: none; }
+  .hero-content { padding: 0 30px; padding-top: 120px; }
+}
+</style>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is Australia's most exclusive concierge and lifestyle management firm. Built for the few — an intentionally limited circle of ultra-high-net-worth individuals, each assigned one dedicated lifestyle director for life, operating exclusively under Australian law."}},
+      {"@type":"Question","name":"How do I join Cipher Private?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private membership is by referral only. New members must be introduced by an existing member who sponsors the relationship. Applications are reviewed personally by the founding director within 48 hours."}},
+      {"@type":"Question","name":"How many members does Cipher Private accept?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private is built for the few — membership is permanently limited. Built for the few. When capacity is reached, membership closes permanently — not a waitlist, not a queue."}},
+      {"@type":"Question","name":"What services does Cipher Private provide?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private provides comprehensive lifestyle management including private aviation, estate management, medical concierge, dining and event access, travel architecture, and an AES-256 encrypted document vault."}},
+      {"@type":"Question","name":"What is the response time guarantee?","acceptedAnswer":{"@type":"Answer","text":"Cipher Private guarantees a response to every request in under 3 minutes, 24 hours a day, written into the membership agreement as a contractual obligation."}},
+      {"@type":"Question","name":"Is Cipher Private data stored in Australia?","acceptedAnswer":{"@type":"Answer","text":"Yes. All Cipher Private data is held exclusively on Australian-sovereign infrastructure, subject to the Privacy Act 1988. No foreign government or foreign court order can compel access."}}
+    ]
+  }
+  </script>
+
+<!-- Portal CSS (moved to head for reliable rendering) -->
+<style>
+/* Member Portal — isolated CSS, no modal-overlay dependency */
+#mpWrap{display:grid;grid-template-columns:260px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
+
+/* ── SIDEBAR ── */
+#mpSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;width:260px;min-width:260px;max-width:260px;z-index:2}
+#mpSide::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent)}
+.mps-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mps-card{margin:14px 14px 8px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:15px;position:relative;overflow:hidden}
+.mps-card::after{content:'◆';position:absolute;right:-8px;bottom:-14px;font-size:60px;color:rgba(201,169,110,0.04);line-height:1;pointer-events:none}
+.mps-av{width:42px;height:42px;background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.05));border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#c9a96e;margin-bottom:10px}
+.mps-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px;line-height:1.2}
+.mps-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:10px}
+.mps-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:10px}
+.mps-stat{text-align:center}
+.mps-stat+.mps-stat{border-left:1px solid rgba(201,169,110,0.1)}
+.mps-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#fff;display:block;line-height:1}
+.mps-lbl{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);display:block;margin-top:3px}
+.mps-enc{margin:0 14px 4px;padding:7px 12px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:7px}
+.mps-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;flex-shrink:0;animation:enc-pulse 2.5s ease infinite}
+@keyframes enc-pulse{0%,100%{opacity:1;box-shadow:0 0 8px rgba(46,204,113,0.6)}50%{opacity:0.4;box-shadow:0 0 4px rgba(46,204,113,0.1)}}
+.mps-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.mps-nav{flex:1;padding:6px 0;overflow-y:auto}
+.mps-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:13px 16px 5px}
+.mps-ni{display:flex;align-items:center;gap:11px;padding:10px 16px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
+.mps-ni:hover{background:rgba(201,169,110,0.04)}
+.mps-ni:hover .mni-ic{color:rgba(201,169,110,0.8)}
+.mps-ni:hover .mni-tx{color:rgba(240,237,232,0.75)}
+.mps-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.mps-ni.on .mni-ic{color:#c9a96e}
+.mps-ni.on .mni-tx{color:#f0ede8}
+.mni-ic{font-size:12px;color:rgba(201,169,110,0.4);width:15px;text-align:center;flex-shrink:0}
+.mni-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mni-badge{margin-left:auto;background:#c9a96e;color:#070707;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+.mps-foot{padding:6px 0;border-top:1px solid rgba(201,169,110,0.08)}
+
+/* ── MAIN ── */
+#mpMain{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a;min-width:0;width:100%;position:relative;z-index:0}
+
+/* Topbar */
+#mpTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
+.mpt-left{display:flex;align-items:center;gap:10px}
+.mpt-section{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.mpt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.mpt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.mpt-right{display:flex;align-items:center;gap:14px}
+#mpActiveBadge{display:none;align-items:center;gap:6px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.25);padding:5px 12px}
+#mpActiveBadge-dot{width:5px;height:5px;border-radius:50%;background:#e67e22;box-shadow:0 0 6px rgba(230,126,34,0.5)}
+#mpActiveBadge-txt{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8}
+.mpt-enc{display:flex;align-items:center;gap:5px}
+.mpt-enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.5)}
+.mpt-enc-txt{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+#mpClock{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:rgba(201,169,110,0.65)}
+.mpt-signout{background:transparent;border:1px solid rgba(201,169,110,0.15);color:rgba(201,169,110,0.55);font-family:'Montserrat',sans-serif;font-size:7px;letter-spacing:3px;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all 0.14s}
+.mpt-signout:hover{border-color:#c9a96e;color:#c9a96e}
+
+/* Sections */
+.mp-body{flex:1;overflow-y:auto;padding:28px 32px}
+.mp-sec{display:none}
+.mp-sec.on{display:block;animation:mp-in 0.22s ease both}
+.mp-chat-sec{display:none;flex-direction:column;overflow:hidden}
+.mp-chat-sec.on{display:flex;height:calc(100vh - 54px)}
+@keyframes mp-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+.mp-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.mp-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;color:#f5f2ec;margin:0 0 22px;line-height:1.2}
+.mp-card{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:22px;margin-bottom:12px;transition:border-color 0.2s}
+.mp-card:hover{border-color:rgba(201,169,110,0.18)}
+.mp-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.mp-ct{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
+.mp-ca{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;cursor:pointer;opacity:0.7}
+.mp-ca:hover{opacity:1}
+.mp-banner{background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.mp-banner-ico{font-size:26px;color:#c9a96e;flex-shrink:0}
+.mp-banner-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:#f5f2ec;margin-bottom:3px}
+.mp-banner-s{font-size:9px;color:rgba(201,169,110,0.6);letter-spacing:1px}
+.mp-stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.mp-stat{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:18px;cursor:pointer;transition:all 0.15s}
+.mp-stat:hover{border-color:rgba(201,169,110,0.25);transform:translateY(-1px)}
+.mp-stat-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:300;color:#fff;line-height:1;margin-bottom:5px}
+.mp-stat-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.75)}
+.mp-stat-s{font-size:9px;color:rgba(201,169,110,0.4);margin-top:3px}
+.mp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mp-tile{background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:all 0.18s;position:relative}
+.mp-tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.22)}
+.mp-tile-ic{font-size:19px;color:#c9a96e;margin-bottom:9px}
+.mp-tile-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;margin-bottom:4px}
+.mp-tile-s{font-size:9px;color:rgba(201,169,110,0.55);line-height:1.5}
+.mp-ri{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-ri:hover{background:rgba(201,169,110,0.03)}
+.mp-ri:last-child{border-bottom:none}
+.mp-rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mp-rb{flex:1;min-width:0}
+.mp-rt{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-rm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-rs{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.rs-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.rs-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.rs-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.rs-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.rs-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.mp-fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-f{margin-bottom:0}
+.mp-f label{display:block;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:7px}
+.mp-f input,.mp-f select,.mp-f textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 14px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;transition:border-color 0.15s;border-radius:0;-webkit-appearance:none}
+.mp-f input:focus,.mp-f select:focus,.mp-f textarea:focus{border-color:#c9a96e;background:rgba(201,169,110,0.02)}
+.mp-f select option{background:#141414}
+.mp-f textarea{resize:vertical;min-height:120px;line-height:1.8}
+.mp-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#070707;border:none;padding:12px 30px;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 18px rgba(201,169,110,0.25)}
+.mp-btn:hover{box-shadow:0 6px 26px rgba(201,169,110,0.4);transform:translateY(-1px)}
+.mp-ok{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71}
+.mp-err{padding:12px 16px;font-size:11px;margin-top:12px;display:none;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c}
+.mp-upl{border:1px dashed rgba(201,169,110,0.2);padding:26px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15)}
+.mp-upl:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
+.mp-upl-ic{font-size:24px;color:rgba(201,169,110,0.3);margin-bottom:8px}
+.mp-upl-l{font-size:11px;color:rgba(201,169,110,0.65);letter-spacing:1px}
+.mp-upl-s{font-size:9px;color:rgba(201,169,110,0.35);margin-top:4px}
+.mp-prog{display:none;margin-top:10px}
+.mp-prog-t{height:2px;background:rgba(201,169,110,0.1);margin-bottom:6px}
+.mp-prog-b{height:2px;background:linear-gradient(90deg,#c9a96e,#e8d5a3);width:0%;transition:width 0.4s}
+.mp-prog-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6)}
+.mp-vi{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.06);transition:background 0.12s}
+.mp-vi:hover{background:rgba(201,169,110,0.03)}
+.mp-vi:last-child{border-bottom:none}
+.mp-vic{width:34px;height:34px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:13px;flex-shrink:0}
+.mp-vn{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.mp-vm{font-size:9px;color:rgba(201,169,110,0.6)}
+.mp-vb{display:flex;gap:6px}
+.mp-vbtn{background:transparent;border:1px solid rgba(201,169,110,0.16);color:rgba(201,169,110,0.65);padding:5px 11px;font-size:7px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s;text-decoration:none;display:inline-block}
+.mp-vbtn:hover{border-color:#c9a96e;color:#c9a96e}
+.mp-chat-hdr{padding:13px 20px;border-bottom:1px solid rgba(201,169,110,0.1);background:#0a0a0a;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mp-chat-av{width:30px;height:30px;border:1px solid rgba(201,169,110,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:13px}
+.mp-chat-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.mp-chat-st{font-size:8px;color:#2ecc71;display:flex;align-items:center;gap:4px}
+.mp-chat-st::before{content:'';width:4px;height:4px;background:#2ecc71;border-radius:50%;display:inline-block}
+.mp-chat-enc{margin-left:auto;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.45)}
+.mp-msgs{flex:1;overflow-y:auto;padding:18px 22px;display:flex;flex-direction:column;gap:11px}
+.mp-msg{max-width:70%;display:flex;flex-direction:column;gap:3px}
+.mp-msg.me{align-self:flex-end;align-items:flex-end}
+.mp-msg.them{align-self:flex-start;align-items:flex-start}
+.mp-bubble{padding:10px 15px;font-size:12px;line-height:1.8}
+.mp-msg.me .mp-bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#070707;border-radius:14px 14px 2px 14px}
+.mp-msg.them .mp-bubble{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:14px 14px 14px 2px}
+.mp-msg-t{font-size:8px;color:rgba(201,169,110,0.32);letter-spacing:0.5px}
+.mp-chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:14px 20px;display:flex;gap:10px;background:#070707;flex-shrink:0}
+.mp-chat-in{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:42px;transition:border-color 0.15s}
+.mp-chat-in:focus{border-color:#c9a96e}
+.mp-chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#070707;border:none;padding:0 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif;flex-shrink:0;transition:opacity 0.15s}
+.mp-chat-send:hover{opacity:0.85}
+.mp-pg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mp-sc{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)}
+.mp-sc:last-child{border-bottom:none}
+.mp-si{color:#2ecc71;font-size:13px;flex-shrink:0}
+.mp-st{font-size:12px;color:#d0ccc8}
+.mp-empty{text-align:center;padding:40px 20px}
+.mp-empty-ic{font-size:26px;color:rgba(201,169,110,0.13);margin-bottom:10px}
+.mp-empty-t{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.32)}
+#otpModal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:19999;backdrop-filter:blur(8px)}
+#otpModal.active{display:flex}
+.mp-otp-box{background:#141414;border:1px solid rgba(201,169,110,0.25);padding:38px;max-width:460px;width:90%;position:relative;animation:mp-in 0.2s ease;box-shadow:0 30px 80px rgba(0,0,0,0.8)}
+.mp-otp-close{position:absolute;top:13px;right:15px;background:none;border:none;color:rgba(201,169,110,0.4);font-size:19px;cursor:pointer;line-height:1}
+.mp-otp-close:hover{color:#c9a96e}
+</style>
+<style>
+#apWrap{display:grid;grid-template-columns:230px 1fr;height:100vh;width:100%;overflow:hidden;font-family:'Montserrat','Helvetica Neue',sans-serif;isolation:isolate}
+#apSide{background:#070707;border-right:1px solid rgba(201,169,110,0.12);display:flex;flex-direction:column;height:100vh;overflow:hidden;width:230px;min-width:230px;max-width:230px;z-index:2}
+.aps-logo{padding:18px 16px 14px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.aps-logo svg{display:block}
+.aps-admin-lbl{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.55);margin-top:7px}
+.aps-pill{margin:12px 12px 6px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:11px 13px;display:flex;align-items:center;gap:10px}
+.aps-av{width:32px;height:32px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:#c9a96e;flex-shrink:0}
+.aps-name{font-size:11px;color:#f0ede8;margin-bottom:2px}
+.aps-role{font-size:6px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.55)}
+#apNav{flex:1;padding:6px 0;overflow-y:auto}
+.ap-ng{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.35);padding:12px 15px 4px}
+.ap-ni{display:flex;align-items:center;gap:10px;padding:10px 15px;cursor:pointer;border-left:2px solid transparent;transition:all 0.14s;position:relative;z-index:1;pointer-events:all}
+.ap-ni:hover{background:rgba(201,169,110,0.04)}
+.ap-ni.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e}
+.ap-ni.on .ani-ic{color:#c9a96e}
+.ap-ni.on .ani-tx{color:#f0ede8}
+.ani-ic{font-size:12px;color:rgba(201,169,110,0.45);width:14px;text-align:center;flex-shrink:0}
+.ani-tx{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+.ani-ct{margin-left:auto;background:rgba(201,169,110,0.15);color:#c9a96e;font-size:7px;font-weight:700;padding:2px 6px;display:none;line-height:1.4}
+#apFoot{border-top:1px solid rgba(201,169,110,0.08);padding:5px 0}
+#apMain{display:flex;flex-direction:column;overflow:hidden;background:#0f0f0f;min-width:0;width:100%;position:relative;z-index:0}
+#apTopbar{height:54px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.1);padding:0 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:1}
+.apt-left{display:flex;align-items:center;gap:10px}
+.apt-sect{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.4)}
+.apt-sep{color:rgba(201,169,110,0.18);font-size:10px}
+.apt-page{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#f0ede8;font-weight:500}
+.apt-right{display:flex;align-items:center;gap:12px}
+#apDate{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(201,169,110,0.7)}
+.apt-live{display:flex;align-items:center;gap:5px;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.apt-live::before{content:'';width:5px;height:5px;background:#2ecc71;border-radius:50%;display:block;animation:enc-pulse 2.5s ease infinite}
+.ap-body{flex:1;overflow-y:auto;padding:24px 28px}
+.ap-sec{display:none;animation:mp-in 0.2s ease both}
+.ap-sec.on{display:block}
+.ap-chat-wrap{display:none;flex-direction:column;overflow:hidden}
+.ap-chat-wrap.on{display:flex;height:calc(100vh - 54px)}
+.ap-ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+.ap-ph{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:#f5f2ec;margin:0 0 20px;line-height:1.2}
+.ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px}
+.ap-stat{background:#111;border:1px solid rgba(201,169,110,0.1);padding:17px;cursor:pointer;transition:border-color 0.15s}
+.ap-stat:hover{border-color:rgba(201,169,110,0.25)}
+.ap-stat-top{display:flex;justify-content:space-between;margin-bottom:11px}
+.ap-stat-ic{font-size:12px;color:rgba(201,169,110,0.4)}
+.ap-stat-arr{font-size:10px;color:rgba(201,169,110,0.25)}
+.ap-stat-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:#fff;line-height:1;margin-bottom:4px}
+.ap-stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.ap-card{background:#111;border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:9px}
+.ap-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;padding-bottom:11px;border-bottom:1px solid rgba(201,169,110,0.07)}
+.ap-ct{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.ap-ql{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(201,169,110,0.05);cursor:pointer}
+.ap-ql:last-child{border-bottom:none;padding-bottom:0}
+.ap-ql-title{font-size:12px;color:#f0ede8;margin-bottom:2px}
+.ap-ql-sub{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-ql-arr{color:rgba(201,169,110,0.3);transition:color 0.14s}
+.ap-ql:hover .ap-ql-arr{color:#c9a96e}
+.ap-sys{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(201,169,110,0.05)}
+.ap-sys:last-child{border-bottom:none}
+.ap-sys-l{font-size:11px;color:rgba(201,169,110,0.65)}
+.ap-b{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border:1px solid;white-space:nowrap}
+.ab-green{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.ab-gold{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.ab-amber{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.ab-blue{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.ab-red{color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.06)}
+.ap-btn{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#070707;border:none;padding:9px 18px;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-family:'Montserrat',sans-serif;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.ap-btn:hover{opacity:0.85}
+.ap-btn-g{background:transparent;border:1px solid rgba(201,169,110,0.2);color:rgba(201,169,110,0.65);padding:7px 15px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',sans-serif;cursor:pointer;transition:all 0.14s}
+.ap-btn-g:hover,.ap-btn-g.on{border-color:#c9a96e;color:#c9a96e}
+.ap-btn-g.on{background:rgba(201,169,110,0.07)}
+.ap-sel{background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;padding:7px 10px;font-size:9px;font-family:'Montserrat',sans-serif;cursor:pointer;outline:none}
+.ap-sel:focus{border-color:#c9a96e}
+.ap-row{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-row:hover{background:rgba(201,169,110,0.025)}
+.ap-row:last-child{border-bottom:none}
+.ap-row-main{flex:1;min-width:0}
+.ap-row-title{font-size:12px;color:#f0ede8;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ap-row-meta{font-size:9px;color:rgba(201,169,110,0.55)}
+.ap-mc{display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-mc:hover{background:rgba(201,169,110,0.025)}
+.ap-mc:last-child{border-bottom:none}
+.ap-mc-av{width:34px;height:34px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;color:#c9a96e;flex-shrink:0}
+.ap-eq{display:flex;align-items:flex-start;justify-content:space-between;gap:13px;padding:14px 15px;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-eq:hover{background:rgba(201,169,110,0.025)}
+.ap-eq:last-child{border-bottom:none}
+.ap-eq-name{font-size:13px;color:#f0ede8;margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ap-eq-meta{font-size:9px;color:rgba(201,169,110,0.55);margin-bottom:2px}
+.ap-fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.ap-empty{text-align:center;padding:32px 20px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.38)}
+.ap-cl{background:#111;border-right:1px solid rgba(201,169,110,0.08);display:flex;flex-direction:column;overflow:hidden;width:220px;flex-shrink:0}
+.ap-cl-head{padding:11px 13px;border-bottom:1px solid rgba(201,169,110,0.07);font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.65)}
+.ap-cl-items{flex:1;overflow-y:auto}
+.ap-cl-item{padding:11px 13px;cursor:pointer;border-bottom:1px solid rgba(201,169,110,0.05);transition:background 0.12s}
+.ap-cl-item:hover,.ap-cl-item.on{background:rgba(201,169,110,0.06)}
+.ap-cl-name{font-size:11px;color:#f0ede8;margin-bottom:2px;font-weight:500}
+.ap-cl-prev{font-size:9px;color:rgba(201,169,110,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-cm{background:#141414;display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
+.ap-cm-ph{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.ap-cm-ph-ic{width:40px;height:40px;border:1px solid rgba(201,169,110,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(201,169,110,0.3);font-size:17px}
+.ap-cm-ph-l{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.3)}
+.ap-chat-area{display:none;flex-direction:column;height:100%}
+.ap-chat-hdr{padding:11px 14px;border-bottom:1px solid rgba(201,169,110,0.08);background:#111;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.ap-ca-av{width:26px;height:26px;border:1px solid rgba(201,169,110,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:11px}
+.ap-ca-name{font-size:11px;color:#f0ede8;margin-bottom:1px;font-weight:500}
+.ap-ca-st{font-size:8px;color:#2ecc71}
+.ap-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
+.ap-msg{max-width:72%;display:flex;flex-direction:column;gap:3px}
+.ap-msg.fm{align-self:flex-start}
+.ap-msg.fa{align-self:flex-end}
+.ap-msg-b{padding:9px 13px;font-size:12px;line-height:1.7}
+.ap-msg.fm .ap-msg-b{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.08);border-radius:10px 10px 10px 2px}
+.ap-msg.fa .ap-msg-b{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#070707;border-radius:10px 10px 2px 10px}
+.ap-msg-t{font-size:8px;color:rgba(201,169,110,0.28)}
+.ap-chat-bar{border-top:1px solid rgba(201,169,110,0.08);padding:12px 13px;display:flex;gap:8px;background:#0f0f0f;flex-shrink:0}
+.ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(201,169,110,0.14);color:#f0ede8;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
+.ap-chat-inp:focus{border-color:#c9a96e}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH521J8F3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KCH521J8F3');
+</script>
+</head>
+<body>
+<div style="background:#f59e0b;color:#000;text-align:center;padding:6px;font-size:11px;font-weight:700;letter-spacing:1px;font-family:monospace">⚠️ TEST Mode — Website Under Development — Not Live Yet</div>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="showMainPage()">
+    <div class="logo-mark" style="padding:0;background:none;border:none;width:36px;height:36px"><svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><polygon points="16,2 26,7.8 26,19.2 16,25 6,19.2 6,7.8" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/><polygon points="16,5 23.5,9.3 23.5,17.7 16,22 8.5,17.7 8.5,9.3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.8"/><polygon points="16,8.5 21.5,11.7 21.5,18.3 16,21.5 10.5,18.3 10.5,11.7" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="1.2"/><path d="M 17.5,10 A 5.8,5.8 0 1,0 17.5,22 L 15.5,22 A 3.8,3.8 0 1,1 15.5,10 Z" fill="#c9a96e"/></svg></div>
+    <div class="logo-text">
+      <span class="logo-name">Cipher</span>
+      <span class="logo-sub">Private</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#membership">Membership</a></li>
+    <li><a href="#journal">Journal</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-cta">
+    <a href="/portal" class="btn-outline">Member Portal</a>
+    <a href="#membership" class="btn-gold">Apply for Membership</a>
+  </div>
+</nav>
+
+<!-- ==================== MAIN PAGE ==================== -->
+<div class="main-page" id="mainPage">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">By Referral Only · Australia · Est. 2024</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Your Time is<br>
+      Irreplaceable.<br>
+      Your Life, <span class="italic">Handled Invisibly.</span>
+    </h1>
+
+    <p class="hero-slogan">This is how the world's most private people live.</p>
+
+    <p class="hero-desc">
+      Cipher Private is Australia's most exclusive lifestyle management firm. Built for the few who understand that genuine service cannot be scaled — each assigned one dedicated director for life, bound by Australian privacy law, protected by military-grade encryption.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#membership" class="btn-primary">Request an Introduction</a>
+      <a href="#services" class="btn-ghost">
+        Discover Our Services 
+        <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M0 4H14M14 4L10 1M14 4L10 7" stroke="#a8a8a8" stroke-width="0.8"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-badge">
+    <div class="badge-circle">
+      <span class="badge-num">24</span>
+      <span class="badge-label">Hour</span>
+      <span class="badge-label">Concierge</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item"><span class="marquee-dot"></span>Private Aviation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Superyacht Charters</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Estate Management</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Medical Concierge</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Art Acquisition</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Private Dining</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Security Detail</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Family Office Support</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Bespoke Travel</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Investment Introductions</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span>Private Aviation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Superyacht Charters</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Estate Management</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Medical Concierge</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Art Acquisition</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Private Dining</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Security Detail</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Family Office Support</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Bespoke Travel</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Investment Introductions</span>
+  </div>
+</div>
+
+<!-- Cinematic Image Strip -->
+<section style="display:grid;grid-template-columns:2fr 1fr 1fr;height:480px;gap:2px;background:var(--obsidian)">
+  <div style="position:relative;overflow:hidden">
+    <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg" alt="Private Aviation" 
+         style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8) contrast(1.1);object-position:center;transition:transform 0.8s ease"
+         onmouseover="this.style.transform='scale(1.03)'" 
+         onmouseout="this.style.transform='scale(1)'">
+    <div style="position:absolute;bottom:28px;left:28px">
+      <div style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:6px">Private Aviation</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#f4f4f4;font-weight:300">Sydney to anywhere.<br>Without compromise.</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:2px">
+    <div style="position:relative;overflow:hidden">
+      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_events_4b5703a7.jpg"
+           alt="Private Dining"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Private Dining</div>
+    </div>
+    <div style="position:relative;overflow:hidden">
+      <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg"
+           alt="Estate Management"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Estate Management</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:2px">
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=85&auto=format"
+           alt="Cipher Vault"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55) contrast(1.1);transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Cipher Vault</div>
+    </div>
+    <div style="position:relative;overflow:hidden">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=85&auto=format"
+           alt="Medical Concierge"
+           style="width:100%;height:100%;object-fit:cover;filter:brightness(0.65) contrast(1.05);object-position:center;transition:transform 0.8s ease"
+           onmouseover="this.style.transform='scale(1.05)'"
+           onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute;bottom:16px;left:16px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#f4f4f4;font-weight:300">Medical Concierge</div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<section id="philosophy">
+  <div class="section">
+    <div class="philosophy-grid reveal">
+      <div class="philosophy-text">
+        <div class="section-eyebrow">
+          <span class="section-num">01</span>
+          <div class="section-line"></div>
+          <span class="section-tag">Our Philosophy</span>
+        </div>
+        <h2 class="section-title">The Art of<br><span class="gold">Invisible Excellence</span></h2>
+        <p>Cipher Private was founded on a conviction that most concierge services have missed entirely: that genuine luxury means being truly known. Not managed — known.</p>
+        <p>Cipher Private is built for the few — a permanent circle, never expanded. Every member is assigned one dedicated lifestyle director — not a team, not a rotating manager — one person who attends your events, remembers your preferences, and treats your affairs with the same gravity you do.</p>
+        <p>We are Australian-founded, Australian-sovereign, and Australian-law protected. For clients who value discretion above all else, jurisdiction is not a detail — it is a foundation.</p>
+      </div>
+      <div class="philosophy-stats">
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:48px;letter-spacing:2px">Few</div>
+          <div class="stat-label">Built for the Few. Always.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Director. For Life.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">&lt;3min</div>
+          <div class="stat-label">Guaranteed Response</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">AUS</div>
+          <div class="stat-label">Sovereign Data. Always.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="services-full">
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-eyebrow">
+          <span class="section-num">02</span>
+          <div class="section-line"></div>
+          <span class="section-tag">Our Services</span>
+        </div>
+        <h2 class="section-title">A Life Curated<br>in <span class="gold">Every Dimension</span></h2>
+      </div>
+      <p class="services-desc">From the extraordinary to the everyday, our team of dedicated lifestyle managers orchestrates every facet of your world — so you are free to inhabit it fully.</p>
+    </div>
+
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">Private Aviation & Superyachts</div>
+        <p class="service-desc">Seamless access to curated private jet charters, helicopter transfers, and superyacht arrangements worldwide. We manage every detail from departure to destination.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">Bespoke Travel & Expeditions</div>
+        <p class="service-desc">Ultra-exclusive itineraries crafted with rare access — private island buyouts, closed museum evenings, polar expeditions, and experiences inaccessible to the general public.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">Estate & Property Management</div>
+        <p class="service-desc">Comprehensive stewardship of your primary residences, holiday homes, and investment properties. Staffing, maintenance, security, and logistics — handled invisibly.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-title">Medical Concierge & Wellness</div>
+        <p class="service-desc">Priority access to the world's leading specialists, executive health screenings, bespoke wellness retreats, and dedicated medical coordination for you and your family.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-title">Art, Jewellery & Acquisition</div>
+        <p class="service-desc">Expert guidance on fine art collection, rare jewellery, classic automobiles, and significant acquisitions. We connect you with the right curators, galleries, and auction houses.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-title">Event Architecture & Dining</div>
+        <p class="service-desc">From intimate private dinners with Michelin-starred chefs to landmark milestone celebrations — conceptualised, produced, and executed to flawless completion.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">07</div>
+        <div class="service-title">Family Office & Advisory</div>
+        <p class="service-desc">Discreet support for family governance, philanthropic structuring, next-generation mentoring, and trusted introductions to aligned professionals.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">08</div>
+        <div class="service-title">Security & Personal Protection</div>
+        <p class="service-desc">Vetted security professionals, residential security audits, digital privacy consultations, and discreet personal protection — when and where it matters most.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">09</div>
+        <div class="service-title">Everyday Lifestyle Management</div>
+        <p class="service-desc">The details that consume your day — reservations, procurement, gifting, household coordination — managed with the same precision as your most critical affairs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Membership -->
+<section id="membership" class="membership-section">
+  <div class="membership-intro reveal">
+    <div class="section-eyebrow" style="justify-content:center">
+      <span class="section-num">03</span>
+      <div class="section-line"></div>
+      <span class="section-tag">Membership · By Referral Only</span>
+    </div>
+    <h2 class="section-title">Three Tiers.<br><span class="gold">Built for the Few.</span></h2>
+    <p style="max-width:600px;margin:0 auto;font-size:13px;color:var(--silver);line-height:2">Cipher Private is built for the few — a permanent circle across Australia. New members require a formal introduction from an existing member. Each application is reviewed personally by our founding director.</p>
+  </div>
+
+  <!-- Scarcity indicator -->
+  <div style="text-align:center;margin-bottom:48px" class="reveal">
+    <div style="display:inline-flex;align-items:center;gap:20px;background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.15);padding:16px 40px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;background:#c9a96e;border-radius:50%;animation:pulse 2s infinite"></div>
+        <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">Membership Status</span>
+      </div>
+      <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)">Built for the Few · Accepting Introductions</span>
+      <div style="width:1px;height:20px;background:rgba(201,169,110,0.15)"></div>
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--silver)">3 Places Remaining</span>
+    </div>
+  </div>
+
+  <div class="membership-grid reveal">
+    <!-- Tier 1 -->
+    <div class="plan-card">
+      <div class="plan-tier">Tier I</div>
+      <div class="plan-name">Cipher</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">By Application</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="feature-check">◆</span>Dedicated lifestyle manager (business hours)</li>
+        <li><span class="feature-check">◆</span>Up to 40 concierge requests per month</li>
+        <li><span class="feature-check">◆</span>Travel planning & restaurant reservations</li>
+        <li><span class="feature-check">◆</span>Event ticketing & access</li>
+        <li><span class="feature-check">◆</span>Secure member portal with document vault</li>
+        <li><span class="feature-check">◆</span>OTP-secured document sharing</li>
+        <li><span class="feature-check">◆</span>Annual lifestyle review</li>
+        <li><span class="feature-check">◆</span>Cipher Journal (quarterly)</li>
+      </ul>
+      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Request an Introduction</a>
+    </div>
+
+    <!-- Tier 2 – Featured -->
+    <div class="plan-card featured">
+      <div class="plan-featured-tag">Most Selected</div>
+      <div class="plan-tier">Tier II</div>
+      <div class="plan-name">Cipher Black</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">By Application</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="feature-check">◆</span>Dedicated lifestyle manager (24/7 priority)</li>
+        <li><span class="feature-check">◆</span>Unlimited concierge requests</li>
+        <li><span class="feature-check">◆</span>Private aviation sourcing & coordination</li>
+        <li><span class="feature-check">◆</span>Medical concierge & priority specialists</li>
+        <li><span class="feature-check">◆</span>Estate management (up to 2 properties)</li>
+        <li><span class="feature-check">◆</span>Encrypted vault — unlimited documents</li>
+        <li><span class="feature-check">◆</span>Secure encrypted chat & live request line</li>
+        <li><span class="feature-check">◆</span>Annual Cipher Black member event</li>
+        <li><span class="feature-check">◆</span>Security consultation (annual)</li>
+        <li><span class="feature-check">◆</span>Priority boarding — no waitlists</li>
+      </ul>
+      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Request an Introduction</a>
+    </div>
+
+    <!-- Tier 3 -->
+    <div class="plan-card">
+      <div class="plan-tier">Tier III</div>
+      <div class="plan-name">Cipher Sovereign</div>
+      <div class="plan-price" style="font-size:28px;letter-spacing:2px">Bespoke</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><span class="feature-check">◆</span>Senior director as personal point of contact</li>
+        <li><span class="feature-check">◆</span>All Cipher Black services, expanded</li>
+        <li><span class="feature-check">◆</span>Family office support & advisory</li>
+        <li><span class="feature-check">◆</span>Personal security detail coordination</li>
+        <li><span class="feature-check">◆</span>Multiple property & estate stewardship</li>
+        <li><span class="feature-check">◆</span>Philanthropic & legacy planning support</li>
+        <li><span class="feature-check">◆</span>Global network access & introductions</li>
+        <li><span class="feature-check">◆</span>Bespoke reporting & family governance</li>
+        <li><span class="feature-check">◆</span>White-glove onboarding & annual review</li>
+      </ul>
+      <a href="#" class="plan-btn" onclick="openModal('enquiry')">Request Private Consultation</a>
+    </div>
+  </div>
+
+  <div class="membership-note">
+    
+    Cipher Private operates under Australian Privacy Act 1988 and complies with APP Guidelines.<br>
+    <strong style="color:var(--gold)">Membership is limited. Applications are reviewed within 5 business days.</strong>
+  </div>
+</section>
+
+<!-- Blog / Journal -->
+<section id="journal" class="blog-section">
+  <div class="blog-inner">
+    <div class="blog-header reveal">
+      <div>
+        <div class="section-eyebrow">
+          <span class="section-num">04</span>
+          <div class="section-line"></div>
+          <span class="section-tag">Quarterly Intelligence</span>
+        </div>
+        <h2 class="section-title">Cipher<br><span class="gold">Intelligence</span></h2>
+      </div>
+      <a href="#journal" class="btn-outline" style="align-self:flex-end">View All Articles</a>
+    </div>
+
+    <div class="blog-grid reveal">
+      <!-- Article 1 — SEO: private concierge Australia -->
+      <a href="#" class="blog-card" onclick="showArticle('global-firms'); return false;">
+        <div style="width:100%;aspect-ratio:16/10;overflow:hidden;position:relative">
+          <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero2_02bb27c1.jpg" alt="Private Concierge Australia" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.75) contrast(1.05)">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.6))"></div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-category">Cipher Intelligence</div>
+          <h3 class="blog-title">Why Australia's Ultra-Wealthy Are Quietly Moving Away From Global Concierge Firms</h3>
+          <p class="blog-excerpt">Built for the few. The mathematics of genuine service demand a choice between scale and quality — and we made ours without hesitation.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span>·</span>
+            <span>6 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2 — SEO: lifestyle manager UHNW -->
+      <a href="#" class="blog-card" onclick="showArticle('cost-of-complexity'); return false;">
+        <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
+          <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg" alt="Lifestyle Manager Sydney" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7) contrast(1.05)">
+        </div>
+        <div class="blog-content">
+          <div class="blog-category">Cipher Intelligence</div>
+          <h3 class="blog-title">The Real Cost of a Poorly Managed Life</h3>
+          <p class="blog-excerpt">There is a calculation most ultra-high-net-worth individuals never make — not because they lack the ability, but because the cost is invisible. Until it isn't.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span>·</span>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3 — SEO: encrypted document vault UHNW -->
+      <a href="#" class="blog-card" onclick="showArticle('document-security'); return false;">
+        <div style="width:100%;aspect-ratio:4/3;overflow:hidden">
+          <img src="https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg" alt="Encrypted Document Vault" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7) contrast(1.05)">
+        </div>
+        <div class="blog-content">
+          <div class="blog-category">Cipher Intelligence</div>
+          <h3 class="blog-title">Why the World's Most Private People Are Rethinking How They Store Documents</h3>
+          <p class="blog-excerpt">Your passports, NDAs, property titles, and medical records deserve the same standard as your affairs. Most storage solutions fall dangerously short.</p>
+          <div class="blog-meta">
+            <span>May 2026</span>
+            <span>·</span>
+            <span>5 min read</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Security Section -->
+<div style="height:65vh;min-height:420px;background:url('https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg') center/cover no-repeat;position:relative;display:flex;align-items:flex-end;overflow:hidden">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.3) 60%, transparent 100%)"></div>
+  <div style="position:relative;z-index:2;max-width:1400px;width:100%;padding:60px;margin:0 auto">
+    <div style="font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Private Aviation & Superyachts</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,72px);font-weight:300;color:var(--white);line-height:1.1;max-width:700px">The World is Your<br><em style="color:var(--gold)">Departure Lounge</em></h2>
+    <p style="font-size:13px;color:rgba(245,243,239,0.75);margin-top:20px;max-width:480px;line-height:2">From ultra-long-range private jets to crewed superyachts on Australia's most spectacular coastline — arranged with absolute precision.</p>
+  </div>
+</div>
+
+<section id="security" class="security-section">
+  <div class="security-grid reveal">
+    <div>
+      <div class="section-eyebrow">
+        <span class="section-num">05</span>
+        <div class="section-line"></div>
+        <span class="section-tag">Security & Privacy</span>
+      </div>
+      <h2 class="section-title">Your Privacy is<br>Our <span class="gold">Architecture</span></h2>
+      <p style="font-size:13px;color:var(--silver);line-height:2;margin-bottom:24px">Every interaction with Cipher Private is engineered with the security frameworks trusted by the most privacy-conscious institutions in the world. We are not merely compliant — we are exemplary.</p>
+      <div style="background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:12px">
+        <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0"></div>
+        <span style="font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase">Proudly Australian — Not UK. Not US. Not anywhere else.</span>
+      </div>
+
+      <div class="security-features">
+        <div class="security-item">
+          <div class="security-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L14 4V8C14 11.5 11.5 14.5 8 15.5C4.5 14.5 2 11.5 2 8V4L8 1Z" stroke="#c9a96e" stroke-width="0.8"/></svg>
+          </div>
+          <div>
+            <div class="security-item-title">AES-256 Document Encryption</div>
+            <div class="security-item-desc">All documents uploaded to your Cipher Vault are encrypted at rest and in transit using military-grade AES-256 encryption. Your files are never stored in plain text.</div>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="7" width="12" height="8" rx="1" stroke="#c9a96e" stroke-width="0.8"/><path d="M5 7V5C5 3.34 6.34 2 8 2C9.66 2 11 3.34 11 5V7" stroke="#c9a96e" stroke-width="0.8"/></svg>
+          </div>
+          <div>
+            <div class="security-item-title">OTP-Secured Document Sharing</div>
+            <div class="security-item-desc">Send sensitive documents to any verified recipient via one-time passcode authentication. Every share is logged, time-stamped, and auditable.</div>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c9a96e" stroke-width="0.8"/><path d="M8 5V9L10 11" stroke="#c9a96e" stroke-width="0.8"/></svg>
+          </div>
+          <div>
+            <div class="security-item-title">Australian Privacy Act Compliant</div>
+            <div class="security-item-desc">We operate under the Privacy Act 1988 and Australian Privacy Principles. Your data is stored on Australian soil and never shared with third parties.</div>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4H14M2 8H14M2 12H8" stroke="#c9a96e" stroke-width="0.8"/></svg>
+          </div>
+          <div>
+            <div class="security-item-title">End-to-End Encrypted Chat</div>
+            <div class="security-item-desc">All communication through the Cipher Portal is fully encrypted. Your requests, conversations, and service history are visible only to you and your designated lifestyle manager.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="security-visual">
+      <div class="security-ring-outer"></div>
+      <div class="security-ring-mid"></div>
+      <div class="security-ring-inner"></div>
+      <div class="security-core">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <path d="M18 2L32 9V18C32 26 26 32.5 18 35C10 32.5 4 26 4 18V9L18 2Z" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+          <text x="18" y="24" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="14" fill="#c9a96e">C</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Differentiators Section -->
+<section style="background:var(--deep-black);padding:120px 0;overflow:hidden">
+  <div style="max-width:1400px;margin:0 auto;padding:0 60px">
+    
+    <div class="reveal" style="text-align:center;margin-bottom:80px">
+      <div class="section-eyebrow" style="justify-content:center">
+        <span class="section-num">—</span>
+        <div class="section-line"></div>
+        <span class="section-tag">Why Cipher Private</span>
+      </div>
+      <h2 class="section-title">What No Other<br>Concierge <span class="gold">Can Offer</span></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(201,169,110,0.06)" class="reveal">
+      
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,169,110,0.03) 0%,transparent 70%)"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">50</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The 50 Member Rule</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Permanent Membership Cap. No Exceptions.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">The leading global concierge firms serve tens of thousands. Cipher Private is built for the few — fifty individuals, permanently. When we reach capacity, we close. Every member receives undivided attention not because we say so, but because the mathematics make it impossible to do otherwise.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">1</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">One Director For Life</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Not a Team. Not a Rotation. One Person.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Your lifestyle director is assigned at onboarding and never changes. They attend your events. They know your preferences before you articulate them. They manage your affairs with the same gravity you apply to your own. This is not a service — it is a relationship.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">AU</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Australian Sovereign Data</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Built Under Australian Law. Not London. Not Anywhere Else.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">The world's largest concierge firms are UK and US-headquartered corporations. Cipher Private is Australian-born, Australian-sovereign, and operates exclusively under the Privacy Act 1988. For clients managing sensitive legal, financial, and personal affairs — jurisdiction is not a detail. It is everything.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">AES</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Military-Grade Security</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">The Only Concierge With an Encrypted Document Vault.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">Your passports, NDAs, property titles, medical records, and sensitive correspondence are encrypted at rest using AES-256 — the same standard used by intelligence agencies. Share documents with anyone via one-time OTP. Every access is logged, timestamped, and auditable. No competitor offers this.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">&lt;3</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Response Guarantee</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">Under 3 Minutes. In Writing. In Your Agreement.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">We contractually guarantee a response to every request in under 3 minutes, 24 hours a day. If we breach it, you receive a service credit. No other concierge firm in Australia puts their response commitment in a legal document. We do.</p>
+      </div>
+
+      <div style="background:var(--deep-black);padding:48px;position:relative;overflow:hidden">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:56px;color:rgba(201,169,110,0.08);font-weight:300;position:absolute;top:20px;right:32px;line-height:1">◆</div>
+        <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">The Welcome Experience</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:16px;line-height:1.3">New Members Receive a Physical Cipher Box.</h3>
+        <p style="font-size:12px;color:var(--silver);line-height:1.9">On approval, a hand-couriered obsidian box arrives at your address — sealed with a Cipher wax mark, containing your welcome letter, your director's private direct line, and your encrypted portal access credentials. In a digital world, permanence is felt in the physical.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial -->
+<div class="testimonial-section" style="background:linear-gradient(rgba(26,6,5,0.9),rgba(10,10,10,0.95)),url('https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero2_02bb27c1.jpg') center/cover no-repeat">
+  <p class="testimonial-quote reveal">
+    "After more than a decade with the world's leading concierge firms, the difference with Cipher Private is not the service — it is the <span class="testimonial-gold">relationship</span>. My director knows my world. That cannot be manufactured."
+  </p>
+  <div class="testimonial-author">— Founding Member · Private Equity Principal, Sydney</div>
+</div>
+
+<!-- Contact / CTA -->
+<div style="height:55vh;min-height:360px;background:url('https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center">
+  <div style="position:absolute;inset:0;background:rgba(10,10,10,0.72)"></div>
+  <div style="position:relative;z-index:2;text-align:center;padding:0 40px">
+    <div style="font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px">Estate & Property Management</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,64px);font-weight:300;color:var(--white);line-height:1.15">Every Residence,<br><em style="color:var(--gold)">Always Ready</em></h2>
+  </div>
+</div>
+
+<section id="contact" class="cta-section">
+  <div class="cta-text reveal">
+    <div class="section-eyebrow">
+      <span class="section-num">06</span>
+      <div class="section-line"></div>
+      <span class="section-tag">Begin the Conversation</span>
+    </div>
+    <h2 class="section-title">We Accept<br>Introductions From<br><span class="gold">Members Only</span></h2>
+    <p>Cipher Private does not advertise and does not accept cold applications. New members must be introduced by an existing member, who sponsors the relationship. We have 3 places remaining across all tiers.</p>
+    <p style="font-size:11px;color:var(--gold-dim);letter-spacing:1px">All introductions are reviewed personally by our founding director within 48 hours. Your information is protected under Australian Privacy Act 1988 and stored exclusively on Australian-sovereign infrastructure.</p>
+  </div>
+  <div class="cta-form reveal">
+    <div class="form-title">Request an Introduction</div>
+    <div class="form-subtitle">Referral Required · Strictly Confidential</div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your legal name">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Private email">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" placeholder="+61">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Preferred Membership Tier</label>
+      <select>
+        <option value="">Select tier</option>
+        <option>Cipher</option>
+        <option>Cipher Black</option>
+        <option>Cipher Sovereign — Bespoke</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Referring Member (Required)</label>
+      <input type="text" placeholder="Name of the member introducing you">
+    </div>
+    <button class="form-submit" onclick="submitApplication(event)">Submit Application</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:16px;display:inline-flex" onclick="showMainPage()">
+        <div class="logo-mark" style="padding:0;background:none;border:none;width:36px;height:36px"><svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><polygon points="16,2 26,7.8 26,19.2 16,25 6,19.2 6,7.8" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/><polygon points="16,5 23.5,9.3 23.5,17.7 16,22 8.5,17.7 8.5,9.3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.8"/><polygon points="16,8.5 21.5,11.7 21.5,18.3 16,21.5 10.5,18.3 10.5,11.7" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="1.2"/><path d="M 17.5,10 A 5.8,5.8 0 1,0 17.5,22 L 15.5,22 A 3.8,3.8 0 1,1 15.5,10 Z" fill="#c9a96e"/></svg></div>
+        <div class="logo-text">
+          <span class="logo-name">Cipher</span>
+          <span class="logo-sub">Private</span>
+        </div>
+      </a>
+      <p>Australia's most exclusive concierge and lifestyle management service. By application only. Serving UHNW individuals across Australia and globally.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#services">Private Aviation</a></li>
+        <li><a href="#services">Travel & Expeditions</a></li>
+        <li><a href="#services">Estate Management</a></li>
+        <li><a href="#services">Medical Concierge</a></li>
+        <li><a href="#services">Art & Acquisition</a></li>
+        <li><a href="#services">Event Architecture</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Membership</div>
+      <ul class="footer-links">
+        <li><a href="#membership">Cipher</a></li>
+        <li><a href="#membership">Cipher Black</a></li>
+        <li><a href="#membership">Cipher Sovereign</a></li>
+        <li><a href="/portal">Member Portal</a></li>
+        <li><a href="#contact">Apply Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#philosophy">About Us</a></li>
+        <li><a href="#security">Privacy & Security</a></li>
+        <li><a href="#journal">Cipher Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+      <div style="margin-top:24px">
+        <div class="footer-col-title">Contact</div>
+        <p style="font-size:11px;color:var(--silver);line-height:2">
+          <a href="mailto:hello@cipherprivate.com" style="color:var(--gold-dim);text-decoration:none">hello@cipherprivate.com</a><br>
+          <a href="tel:+61413536700" style="color:var(--silver);text-decoration:none">+61 413 536 700</a><br>
+          <span style="color:var(--gold-dim)">Sydney, NSW · By appointment</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Cipher Private Pty Ltd. All rights reserved. ABN XX XXX XXX XXX</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
+</div><!-- end main-page -->
+
+<!-- ==================== ARTICLE PAGE ==================== -->
+<div class="article-page" id="articlePage">
+  <div style="padding-top:120px;min-height:100vh;max-width:860px;margin:0 auto;padding:140px 60px 80px">
+    <a href="#" onclick="showMainPage(); return false;" style="display:inline-flex;align-items:center;gap:10px;color:var(--gold-dim);font-size:9px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;margin-bottom:40px">
+      <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M16 4H2M2 4L6 1M2 4L6 7" stroke="#8a6f3e" stroke-width="0.8"/></svg>
+      Back to Cipher Private
+    </a>
+    <div id="articleContent"></div>
+  </div>
+</div>
+
+<!-- ==================== LOGIN MODAL ==================== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('login')">✕</button>
+    <div class="modal-logo">
+      <svg width="40" height="40" viewBox="0 0 44 44" fill="none"><polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1" fill="none"/><text x="22" y="26" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" fill="#c9a96e">C</text></svg>
+    </div>
+    <div class="modal-title">Member Access</div>
+    <div class="modal-subtitle">Cipher Private Portal</div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('member')">Member Login</button>
+      <button class="modal-tab" onclick="switchTab('admin')">Admin Access</button>
+    </div>
+    <div class="modal-form-content active" id="memberForm">
+      <div class="form-group">
+        <label>Member Email</label>
+        <input type="email" placeholder="your@email.com" id="memberEmail">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" id="memberPass">
+      </div>
+      <button class="form-submit" onclick="loginMember()" style="margin-top:20px">Access My Portal</button>
+      <p style="text-align:center;font-size:10px;color:var(--gold-dim);margin-top:16px;letter-spacing:1px">Forgotten your access? Contact your lifestyle manager.</p>
+    </div>
+    <div class="modal-form-content" id="adminForm">
+      <div class="form-group">
+        <label>Admin Email</label>
+        <input type="email" placeholder="admin@cipherprivate.com.au" id="adminEmail">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" id="adminPass">
+      </div>
+      <button class="form-submit" onclick="loginAdmin()" style="margin-top:20px">Access Admin Portal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ENQUIRY MODAL ==================== -->
+<div class="modal-overlay" id="enquiryModal">
+  <div class="modal" style="max-width:500px">
+    <button class="modal-close" onclick="closeModal('enquiry')">✕</button>
+    <div class="modal-title">Request Membership</div>
+    <div class="modal-subtitle">Strictly Confidential</div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your legal name">
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" placeholder="Private email">
+    </div>
+    <div class="form-group">
+      <label>Preferred Tier</label>
+      <select>
+        <option>Cipher</option>
+        <option>Cipher Black</option>
+        <option>Cipher Sovereign — Bespoke</option>
+      </select>
+    </div>
+    <button class="form-submit" onclick="closeModal('enquiry');alert('Application received. Our membership director will contact you privately within 48 hours.')">Submit Application</button>
+  </div>
+</div>
+
+
+<!-- ==================== MEMBER PORTAL ==================== -->
+<div id="memberPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#060606">
+
+<div id="mpWrap">
+  <!-- ═══ SIDEBAR ═══════════════════════════════════════════════════ -->
+  <div id="mpSide">
+    <!-- Logo -->
+    <div class="mps-logo"><svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+  <polygon points="18,7 29,13.5 29,26.5 18,33 7,26.5 7,13.5" stroke="#c9a96e" stroke-width="0.4" fill="none" opacity="0.35"/>
+  <text x="18" y="25" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="14" fill="#c9a96e" font-weight="300">C</text>
+  <text x="44" y="22" font-family="Montserrat,Helvetica,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4" font-weight="400">CIPHER</text>
+  <text x="45" y="33" font-family="Montserrat,Helvetica,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5" font-weight="300">PRIVATE</text>
+</svg></div>
+
+    <!-- Member identity card -->
+    <div class="mps-card">
+      <div class="mps-av" id="mpAvatar">—</div>
+      <div class="mps-name" id="mpSidebarName">Loading…</div>
+      <span class="mps-tier" id="portalTier">—</span>
+      <div class="mps-stats">
+        <div class="mps-stat"><span class="mps-num" id="mpS1">0</span><span class="mps-lbl">Requests</span></div>
+        <div class="mps-stat"><span class="mps-num" id="mpS2">0</span><span class="mps-lbl">Active</span></div>
+        <div class="mps-stat"><span class="mps-num" id="mpS3">0</span><span class="mps-lbl">Docs</span></div>
+      </div>
+    </div>
+
+    <!-- Encrypted badge -->
+    <div class="mps-enc"><div class="mps-dot"></div><span class="mps-enc-txt">Encrypted Session</span></div>
+
+    <!-- Nav -->
+    <nav class="mps-nav">
+      <div class="mps-grp">Main</div>
+      <div class="mps-ni on" id="mpni-dashboard" onclick="mpGo('dashboard')"><span class="mni-ic">⬡</span><span class="mni-tx">Dashboard</span></div>
+      <div class="mps-ni" id="mpni-requests" onclick="mpGo('requests')"><span class="mni-ic">◈</span><span class="mni-tx">My Requests</span><span class="mni-badge" id="nb-req">0</span></div>
+      <div class="mps-ni" id="mpni-new" onclick="mpGo('new')"><span class="mni-ic">＋</span><span class="mni-tx">New Request</span></div>
+      <div class="mps-grp">Secure</div>
+      <div class="mps-ni" id="mpni-vault" onclick="mpGo('vault')"><span class="mni-ic">⊡</span><span class="mni-tx">Document Vault</span></div>
+      <div class="mps-ni" id="mpni-chat" onclick="mpGo('chat')"><span class="mni-ic">◎</span><span class="mni-tx">Live Chat</span></div>
+      <div class="mps-grp">Account</div>
+      <div class="mps-ni" id="mpni-refer" onclick="mpGo('refer')"><span class="mni-ic">◇</span><span class="mni-tx">Refer a Contact</span></div>
+      <div class="mps-ni" id="mpni-profile" onclick="mpGo('profile')"><span class="mni-ic">○</span><span class="mni-tx">My Profile</span></div>
+    </nav>
+
+    <div class="mps-foot">
+      <div class="mps-ni" onclick="closeMemberPortal()"><span class="mni-ic" style="font-size:11px">⏻</span><span class="mni-tx">Sign Out</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN ══════════════════════════════════════════════════════ -->
+  <div id="mpMain">
+    <!-- Topbar -->
+    <div id="mpTopbar">
+      <div class="mpt-left">
+        <span class="mpt-section">Cipher Private</span>
+        <span class="mpt-sep">›</span>
+        <span class="mpt-page" id="mpTopTitle">Dashboard</span>
+      </div>
+      <div class="mpt-right">
+        <div id="mpActiveBadge">
+          <div id="mpActiveBadge-dot"></div>
+          <span id="mpActiveBadge-txt"></span>
+        </div>
+        <div class="mpt-enc"><div class="mpt-enc-dot"></div><span class="mpt-enc-txt">Encrypted</span></div>
+        <span id="mpClock"></span>
+        <button class="mpt-signout" onclick="closeMemberPortal()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="mp-body mp-sec on" id="mpsec-dashboard">
+      <div class="mp-ey">Overview</div>
+      <h1 class="mp-h1" id="portalGreeting">Welcome Back</h1>
+      <div class="mp-banner">
+        <div class="mp-banner-ico">◆</div>
+        <div><div class="mp-banner-h" id="mpBannerTitle">Your portal is active</div><div class="mp-banner-s">AES-256 Encrypted · Australian Sovereign · Privacy Act 1988</div></div>
+      </div>
+      <div class="mp-stats3">
+        <div class="mp-stat" onclick="mpGo('requests')"><div class="mp-stat-n" id="mpDS1">0</div><div class="mp-stat-l">Total Requests</div><div class="mp-stat-s">All time</div></div>
+        <div class="mp-stat" onclick="mpGo('requests')"><div class="mp-stat-n" id="mpDS2">0</div><div class="mp-stat-l">Active</div><div class="mp-stat-s">In progress</div></div>
+        <div class="mp-stat" onclick="mpGo('vault')"><div class="mp-stat-n" id="mpDS3">0</div><div class="mp-stat-l">Documents</div><div class="mp-stat-s">Encrypted vault</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="mp-card" style="margin:0">
+          <div class="mp-ch"><span class="mp-ct">Recent Activity</span><span class="mp-ca" onclick="mpGo('requests')">View all →</span></div>
+          <div id="activityList"><div class="mp-empty"><div class="mp-empty-ic">◈</div><div class="mp-empty-t">No activity yet</div></div></div>
+        </div>
+        <div class="mp-card" style="margin:0">
+          <div class="mp-ch"><span class="mp-ct">Quick Actions</span></div>
+          <div class="mp-tiles">
+            <div class="mp-tile" onclick="mpGo('new')"><div class="mp-tile-ic">＋</div><div class="mp-tile-t">New Request</div><div class="mp-tile-s">Submit a concierge request</div></div>
+            <div class="mp-tile" onclick="mpGo('chat')"><div class="mp-tile-ic">◎</div><div class="mp-tile-t">Live Chat</div><div class="mp-tile-s">Message your director</div></div>
+            <div class="mp-tile" onclick="mpGo('vault')"><div class="mp-tile-ic">⊡</div><div class="mp-tile-t">Vault</div><div class="mp-tile-s">Encrypted file storage</div></div>
+            <div class="mp-tile" onclick="mpGo('profile')"><div class="mp-tile-ic">○</div><div class="mp-tile-t">Profile</div><div class="mp-tile-s">Account settings</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY REQUESTS -->
+    <div class="mp-body mp-sec" id="mpsec-requests">
+      <div class="mp-ey">Concierge</div><h1 class="mp-h1">My Service Requests</h1>
+      <div class="mp-card"><div id="requestsList"><div class="mp-empty"><div class="mp-empty-ic">◈</div><div class="mp-empty-t">No requests yet</div></div></div></div>
+    </div>
+
+    <!-- NEW REQUEST -->
+    <div class="mp-body mp-sec" id="mpsec-new">
+      <div class="mp-ey">Concierge</div><h1 class="mp-h1">New Service Request</h1>
+      <div class="mp-card">
+        <div class="mp-fg">
+          <div class="mp-f" style="grid-column:1/-1"><label>Category</label>
+            <select id="reqCategory"><option value="">Select a category</option><option>Travel &amp; Aviation</option><option>Dining &amp; Events</option><option>Estate Management</option><option>Medical Concierge</option><option>Security &amp; Privacy</option><option>Financial &amp; Legal</option><option>Lifestyle &amp; Procurement</option><option>Other</option></select>
+          </div>
+          <div class="mp-f"><label>Priority</label><select id="reqPriority"><option value="STANDARD">Standard</option><option value="URGENT">Urgent</option><option value="CRITICAL">Critical</option></select></div>
+          <div class="mp-f"><label>Preferred Timeline</label><input type="text" id="reqTimeline" placeholder="e.g. This week, ASAP, Flexible"></div>
+          <div class="mp-f" style="grid-column:1/-1"><label>Request Details</label><textarea id="reqDescription" placeholder="Describe your request in detail…"></textarea></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.07)">
+          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:360px">Encrypted and sent directly to your lifestyle director.</span>
+          <button class="mp-btn" onclick="submitRequest()">Submit Request</button>
+        </div>
+        <div class="mp-ok" id="reqSuccess">✓ &nbsp;Request submitted. Your director has been notified.</div>
+        <div class="mp-err" id="reqError"></div>
+      </div>
+    </div>
+
+    <!-- DOCUMENT VAULT -->
+    <div class="mp-body mp-sec" id="mpsec-vault">
+      <div class="mp-ey">Secure Storage</div><h1 class="mp-h1">Document Vault</h1>
+      <div class="mp-card">
+        <div class="mp-ch"><span class="mp-ct">Upload Document</span><span style="font-size:7px;letter-spacing:2px;color:rgba(201,169,110,0.55);text-transform:uppercase">AES-256 Encrypted</span></div>
+        <div class="mp-upl" onclick="document.getElementById('fileUploadInput').click()">
+          <div class="mp-upl-ic">⬆</div><div class="mp-upl-l">Click to upload · PDF, DOCX, PNG, JPG</div><div class="mp-upl-s">Max 10 MB</div>
+        </div>
+        <input type="file" id="fileUploadInput" style="display:none" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" onchange="uploadDocument(this)">
+        <div class="mp-prog" id="uploadProgress"><div class="mp-prog-t"><div class="mp-prog-b" id="uploadBar"></div></div><div class="mp-prog-l">Encrypting &amp; uploading…</div></div>
+      </div>
+      <div class="mp-card" style="margin-top:4px"><div class="mp-ch"><span class="mp-ct">Encrypted Files</span></div><div id="vaultDocs"><div class="mp-empty"><div class="mp-empty-ic">⊡</div><div class="mp-empty-t">No documents yet</div></div></div></div>
+    </div>
+
+    <!-- LIVE CHAT -->
+    <div class="mp-chat-sec" id="mpsec-chat">
+      <div class="mp-chat-hdr">
+        <div class="mp-chat-av">D</div>
+        <div><div class="mp-chat-name">Your Lifestyle Director</div><div class="mp-chat-st">Available</div></div>
+        <span class="mp-chat-enc">End-to-End Encrypted</span>
+      </div>
+      <div class="mp-msgs" id="chatMessages">
+        <div class="mp-msg them"><div class="mp-bubble">Welcome to Cipher Private. I'm your dedicated lifestyle director. How may I assist you today?</div><div class="mp-msg-t">Your Director</div></div>
+      </div>
+      <div class="mp-chat-bar">
+        <textarea class="mp-chat-in" id="memberChatInput" rows="1" placeholder="Type your message…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMemberMessage()}"></textarea>
+        <button class="mp-chat-send" onclick="sendMemberMessage()">Send</button>
+      </div>
+    </div>
+
+    <!-- REFER A CONTACT -->
+    <div class="mp-body mp-sec" id="mpsec-refer">
+      <div class="mp-ey">Membership</div><h1 class="mp-h1">Refer a Contact</h1>
+      <div class="mp-card">
+        <p style="font-size:13px;color:rgba(240,237,232,0.6);line-height:1.9;margin-bottom:18px">As a Cipher Private member, your introduction carries significant weight. New members require a formal sponsor — someone who puts their name to the relationship.</p>
+        <div class="mp-fg">
+          <div class="mp-f"><label>Contact Full Name</label><input type="text" id="referName" placeholder="Full name"></div>
+          <div class="mp-f"><label>Contact Email</label><input type="email" id="referEmail" placeholder="their@email.com"></div>
+          <div class="mp-f"><label>Contact Phone</label><input type="tel" id="referPhone" placeholder="+61 4XX XXX XXX"></div>
+          <div class="mp-f"><label>Their Profession</label><input type="text" id="referProfession" placeholder="e.g. Private equity, Developer"></div>
+          <div class="mp-f" style="grid-column:1/-1"><label>Why are you introducing them?</label><textarea id="referNote" placeholder="Tell us briefly why you feel this person would be an ideal Cipher Private member…" style="min-height:90px"></textarea></div>
+          <div class="mp-f"><label>Preferred Tier</label><select id="referTier"><option value="">Not sure</option><option value="CIPHER">Cipher</option><option value="CIPHER_BLACK">Cipher Black</option><option value="CIPHER_SOVEREIGN">Cipher Sovereign</option></select></div>
+          <div class="mp-f"><label>Are they expecting contact?</label><select id="referExpecting"><option value="yes">Yes — expecting outreach</option><option value="no">No — approach discreetly</option></select></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.07)">
+          <span style="font-size:9px;color:rgba(201,169,110,0.45);line-height:1.7;max-width:360px">Your introduction is held in strict confidence.</span>
+          <button class="mp-btn" onclick="submitReferral()">Submit Introduction</button>
+        </div>
+        <div class="mp-ok" id="referSuccess">✓ &nbsp;Introduction received. Our membership director will be in touch within 48 hours.</div>
+        <div class="mp-err" id="referError"></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="mp-body mp-sec" id="mpsec-profile">
+      <div class="mp-ey">Account</div><h1 class="mp-h1">My Profile</h1>
+      <div class="mp-card">
+        <div class="mp-ch"><span class="mp-ct">Personal Details</span></div>
+        <div class="mp-pg">
+          <div class="mp-f"><label>Full Name</label><input id="profileName" type="text" readonly></div>
+          <div class="mp-f"><label>Email Address</label><input id="profileEmail" type="email" readonly></div>
+          <div class="mp-f"><label>Phone</label><input id="profilePhone" type="tel"></div>
+          <div class="mp-f"><label>Membership Tier</label><input id="profileTier" type="text" readonly style="color:#c9a96e"></div>
+        </div>
+      </div>
+      <div class="mp-card">
+        <div class="mp-ch"><span class="mp-ct">Security Status</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">AES-256 Encryption Active</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">Australian Sovereign Data Storage</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">Privacy Act 1988 Compliant</span></div>
+        <div class="mp-sc"><span class="mp-si">✓</span><span class="mp-st">End-to-End Encrypted Communications</span></div>
+      </div>
+    </div>
+
+  </div><!-- /mpMain -->
+</div><!-- /mpWrap -->
+
+<!-- OTP Modal -->
+<div id="otpModal">
+  <div class="mp-otp-box">
+    <button class="mp-otp-close" onclick="document.getElementById('otpModal').classList.remove('active')">✕</button>
+    <div class="mp-ey" style="margin-bottom:8px">Secure Share</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#f5f2ec;margin-bottom:6px">Share via OTP</div>
+    <div style="font-size:11px;color:rgba(201,169,110,0.55);margin-bottom:20px" id="otpDocName"></div>
+    <div class="mp-f" style="margin-bottom:12px"><label>Recipient Email</label><input type="email" id="otpEmail" placeholder="recipient@example.com"></div>
+    <div class="mp-f" style="margin-bottom:16px"><label>Access Expiry</label><select id="otpExpiry"><option value="24">24 hours</option><option value="48">48 hours</option><option value="168">7 days</option><option value="1">One-time only</option></select></div>
+    <div style="font-size:9px;color:rgba(201,169,110,0.45);margin-bottom:16px;line-height:1.7">An encrypted link + 6-digit OTP will be emailed. All access is logged and auditable.</div>
+    <button class="mp-btn" id="otpSendBtn" onclick="sendOTP()" style="width:100%">Generate &amp; Send OTP</button>
+    <div id="otpResult" style="display:none;margin-top:12px;padding:12px;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);font-size:11px;color:#2ecc71;text-align:center"></div>
+  </div>
+</div>
+</div>
+
+<div id="adminPortal" style="display:none;position:fixed;inset:0;z-index:10000;background:#090909">
+
+<div id="apWrap">
+  <!-- SIDEBAR -->
+  <div id="apSide">
+    <div class="aps-logo"><svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+  <polygon points="18,7 29,13.5 29,26.5 18,33 7,26.5 7,13.5" stroke="#c9a96e" stroke-width="0.4" fill="none" opacity="0.35"/>
+  <text x="18" y="25" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="14" fill="#c9a96e" font-weight="300">C</text>
+  <text x="44" y="22" font-family="Montserrat,Helvetica,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4" font-weight="400">CIPHER</text>
+  <text x="45" y="33" font-family="Montserrat,Helvetica,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5" font-weight="300">PRIVATE</text>
+</svg>
+      <div class="aps-admin-lbl">Administration</div>
+    </div>
+    <div class="aps-pill">
+      <div class="aps-av" id="adminInitial">A</div>
+      <div><div class="aps-name" id="adminName">Admin</div><div class="aps-role">Administrator</div></div>
+    </div>
+    <nav id="apNav">
+      <div class="ap-ng">Overview</div>
+      <div class="ap-ni on" id="apni-dashboard" onclick="apGo('dashboard')"><span class="ani-ic">◆</span><span class="ani-tx">Dashboard</span></div>
+      <div class="ap-ng">Manage</div>
+      <div class="ap-ni" id="apni-clients" onclick="apGo('clients')"><span class="ani-ic">○</span><span class="ani-tx">Clients</span><span class="ani-ct" id="apct-m">0</span></div>
+      <div class="ap-ni" id="apni-requests" onclick="apGo('requests')"><span class="ani-ic">◈</span><span class="ani-tx">Service Requests</span><span class="ani-ct" id="apct-r">0</span></div>
+      <div class="ap-ng">Communicate</div>
+      <div class="ap-ni" id="apni-conversations" onclick="apGo('conversations')"><span class="ani-ic">●</span><span class="ani-tx">Conversations</span></div>
+      <div class="ap-ni" id="apni-enquiries" onclick="apGo('enquiries')"><span class="ani-ic">≈</span><span class="ani-tx">Enquiries</span><span class="ani-ct" id="apct-e">0</span></div>
+    </nav>
+    <div id="apFoot">
+      <div class="ap-ni" onclick="closeAdmin()"><span class="ani-ic">←</span><span class="ani-tx">Public Site</span></div>
+      <div class="ap-ni" onclick="closeAdmin()"><span class="ani-ic">⏻</span><span class="ani-tx">Sign Out</span></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="apMain">
+    <div id="apTopbar">
+      <div class="apt-left">
+        <span class="apt-sect">Admin</span>
+        <span class="apt-sep">›</span>
+        <span class="apt-page" id="apTopbarTitle">Dashboard</span>
+      </div>
+      <div class="apt-right">
+        <span id="apDate"></span>
+        <div class="apt-live">Operational</div>
+      </div>
+    </div>
+
+    <div class="ap-body">
+
+      <!-- DASHBOARD -->
+      <div class="ap-sec on" id="apsec-dashboard">
+        <div class="ap-ey">Overview</div><h2 class="ap-ph">Admin Dashboard</h2>
+        <div class="ap-stats">
+          <div class="ap-stat" onclick="apGo('clients')"><div class="ap-stat-top"><span class="ap-stat-ic">○</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statMembers">0</div><div class="ap-stat-l">Total Members</div></div>
+          <div class="ap-stat" onclick="apGo('requests')"><div class="ap-stat-top"><span class="ap-stat-ic" style="color:#e67e22">◈</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statRequests">0</div><div class="ap-stat-l">Active Requests</div></div>
+          <div class="ap-stat" onclick="apGo('enquiries')"><div class="ap-stat-top"><span class="ap-stat-ic">≈</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statApplications">0</div><div class="ap-stat-l">New Enquiries</div></div>
+          <div class="ap-stat" onclick="apGo('conversations')"><div class="ap-stat-top"><span class="ap-stat-ic" style="color:#2ecc71">●</span><span class="ap-stat-arr">→</span></div><div class="ap-stat-n" id="statMessages">0</div><div class="ap-stat-l">Unread Messages</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="ap-card" style="margin:0">
+            <div class="ap-ch"><span class="ap-ct">Quick Links</span></div>
+            <div class="ap-ql" onclick="apGo('clients')"><div><div class="ap-ql-title">Manage Client Accounts</div><div class="ap-ql-sub">View and update member profiles</div></div><span class="ap-ql-arr">→</span></div>
+            <div class="ap-ql" onclick="apGo('requests')"><div><div class="ap-ql-title">Service Requests</div><div class="ap-ql-sub">Review and update concierge requests</div></div><span class="ap-ql-arr">→</span></div>
+            <div class="ap-ql" onclick="apGo('conversations')"><div><div class="ap-ql-title">Client Conversations</div><div class="ap-ql-sub">Respond to member messages</div></div><span class="ap-ql-arr">→</span></div>
+            <div class="ap-ql" onclick="apGo('enquiries')"><div><div class="ap-ql-title">Membership Enquiries</div><div class="ap-ql-sub">Review applications</div></div><span class="ap-ql-arr">→</span></div>
+          </div>
+          <div class="ap-card" style="margin:0">
+            <div class="ap-ch"><span class="ap-ct">System Status</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Document Vault</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Encrypted Storage</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Email Service</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Authentication</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+            <div class="ap-sys"><span class="ap-sys-l">Chat System</span><span class="ap-b ab-green">OPERATIONAL</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLIENTS -->
+      <div class="ap-sec" id="apsec-clients">
+        <div class="ap-ey">Members</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+          <h2 class="ap-ph" style="margin:0">Client Accounts</h2>
+          <button class="ap-btn" onclick="showAddMember()">＋ Add Member</button>
+        </div>
+        <div class="ap-card" style="padding:0"><div id="adminMembersList"><div class="ap-empty">Loading…</div></div></div>
+      </div>
+
+      <!-- SERVICE REQUESTS -->
+      <div class="ap-sec" id="apsec-requests">
+        <div class="ap-ey">Concierge</div><h2 class="ap-ph">Service Requests</h2>
+        <div class="ap-fbar">
+          <button class="ap-btn" id="aprf-all" onclick="apFilterR('')">All</button>
+          <button class="ap-btn-g" id="aprf-r" onclick="apFilterR('RECEIVED')">Received</button>
+          <button class="ap-btn-g" id="aprf-p" onclick="apFilterR('IN_PROGRESS')">In Progress</button>
+          <button class="ap-btn-g" id="aprf-a" onclick="apFilterR('AWAITING_MEMBER')">Awaiting</button>
+          <button class="ap-btn-g" id="aprf-c" onclick="apFilterR('COMPLETED')">Completed</button>
+        </div>
+        <div class="ap-card" style="padding:0"><div id="adminRequestsList"><div class="ap-empty">Loading…</div></div></div>
+      </div>
+
+      <!-- ENQUIRIES -->
+      <div class="ap-sec" id="apsec-enquiries">
+        <div class="ap-ey">Applications</div><h2 class="ap-ph">Membership Enquiries</h2>
+        <div id="apEnqCount" style="font-size:9px;color:rgba(201,169,110,0.5);margin-bottom:16px;letter-spacing:1px"></div>
+        <div class="ap-card" style="padding:0"><div id="adminApplicationsList"><div class="ap-empty">Loading…</div></div></div>
+      </div>
+
+    </div><!-- /ap-body -->
+
+    <!-- CONVERSATIONS (full height) -->
+    <div class="ap-chat-wrap" id="apsec-conversations">
+      <div style="padding:16px 28px 0;flex-shrink:0">
+        <div class="ap-ey">Communications</div><h2 class="ap-ph" style="margin-bottom:12px">Client Conversations</h2>
+      </div>
+      <div style="display:flex;flex:1;overflow:hidden;margin:0 28px 20px;border:1px solid rgba(201,169,110,0.1)">
+        <div class="ap-cl">
+          <div class="ap-cl-head">Members</div>
+          <div class="ap-cl-items" id="adminChatRoomList"><div class="ap-empty" style="padding:18px">No conversations yet.</div></div>
+        </div>
+        <div class="ap-cm">
+          <div class="ap-cm-ph" id="adminChatPlaceholder">
+            <div class="ap-cm-ph-ic">◎</div>
+            <div class="ap-cm-ph-l">Select a Conversation</div>
+          </div>
+          <div class="ap-chat-area" id="adminChatArea">
+            <div class="ap-chat-hdr">
+              <div class="ap-ca-av" id="adminChatMemberInitial">M</div>
+              <div><div class="ap-ca-name" id="adminChatMemberName">Member</div><div class="ap-ca-st">Active conversation</div></div>
+            </div>
+            <div class="ap-msgs" id="adminChatMessages"></div>
+            <div class="ap-chat-bar">
+              <textarea class="ap-chat-inp" id="adminChatInput" rows="1" onkeydown="handleAdminChatKey(event)" placeholder="Type a reply…"></textarea>
+              <button class="ap-btn" onclick="sendAdminMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /apMain -->
+</div><!-- /apWrap -->
+</div>
+
+<!-- Add Member Modal -->
+<div id="addMemberModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,0.88)">
+  <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#111;border:1px solid rgba(201,169,110,0.25);padding:36px;width:460px;max-width:95vw;z-index:9999999">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <div style="font-family:Georgia,serif;font-size:18px;color:#f0ede8">Add New Member</div>
+        <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-top:3px">Create Member Account</div>
+      </div>
+      <button onclick="document.getElementById('addMemberModal').style.display='none'" style="background:none;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;width:30px;height:30px;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Full Name</div><input id="newMemberName" type="text" placeholder="Full Name" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Email</div><input id="newMemberEmail" type="email" placeholder="member@email.com" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Temporary Password</div><input id="newMemberPassword" type="text" placeholder="Min 8 characters" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:22px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Membership Tier</div><select id="newMemberTier" style="width:100%;padding:11px 14px;background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"><option value="CIPHER">Cipher</option><option value="CIPHER_BLACK">Cipher Black</option><option value="CIPHER_SOVEREIGN">Cipher Sovereign</option></select></div>
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <button onclick="document.getElementById('addMemberModal').style.display='none'" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;font-size:8px;letter-spacing:3px;text-transform:uppercase;cursor:pointer">Cancel</button>
+      <button onclick="createMember()" style="flex:2;padding:12px;background:#c9a96e;border:none;color:#080808;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer">Create Member Account</button>
+    </div>
+    <div id="createMemberMsg" style="display:none;padding:10px;font-size:12px;text-align:center;border:1px solid rgba(231,76,60,0.3);color:#e74c3c;background:rgba(231,76,60,0.07)"></div>
+  </div>
+</div>
+
+<style>
+.portal-nav-btn {
+  display:flex;align-items:center;gap:10px;width:100%;
+  background:none;border:none;color:var(--silver);
+  font-family:'Montserrat',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:12px 12px;cursor:pointer;transition:all 0.2s;
+  text-align:left;
+}
+.portal-nav-btn:hover { color:var(--gold);background:rgba(201,169,110,0.05); }
+.portal-nav-btn.active { color:var(--gold);background:rgba(201,169,110,0.08);border-left:2px solid var(--gold); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
+
+<!-- Add Member Modal -->
+<div class="modal-overlay" id="addMemberModal">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('addMember')">✕</button>
+    <div class="modal-title">Add New Member</div>
+    <div class="modal-subtitle">Create Member Account</div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="Full Name"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="newMemberEmail" placeholder="member@email.com"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" id="newMemberPhone" placeholder="+61 400 000 000"></div>
+    <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
+    <div class="form-group"><label>Membership Tier</label>
+      <select id="newMemberTier" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+        <option value="CIPHER">Cipher</option>
+        <option value="CIPHER_BLACK">Cipher Black</option>
+        <option value="CIPHER_SOVEREIGN">Cipher Sovereign — Bespoke</option>
+      </select>
+    </div>
+    <button onclick="createMember()" class="form-submit" style="margin-top:8px">Create Member Account</button>
+  </div>
+</div>
+
+<style>
+.portal-nav-btn {
+  display:flex;align-items:center;gap:10px;width:100%;
+  background:none;border:none;color:var(--silver);
+  font-family:'Montserrat',sans-serif;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:12px 12px;cursor:pointer;transition:all 0.2s;
+  text-align:left;
+}
+.portal-nav-btn:hover { color:var(--gold);background:rgba(201,169,110,0.05); }
+.portal-nav-btn.active { color:var(--gold);background:rgba(201,169,110,0.08);border-left:2px solid var(--gold); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
+
+
+<script>
+// ── Admin Chat System ─────────────────────────────────────────────────────────
+let _adminSocket = null;
+let _activeAdminRoom = null;
+
+function initAdminChat() {
+  if (!window._cipherToken) return;
+  if (_adminSocket && _adminSocket.connected) return;
+
+  if (!window.io) {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.socket.io/4.7.5/socket.io.min.js';
+    script.onload = () => connectAdminSocket();
+    document.head.appendChild(script);
+  } else {
+    connectAdminSocket();
+  }
+}
+
+function connectAdminSocket() {
+  _adminSocket = io(window.location.origin, {
+    auth: { token: window._cipherToken },
+    transports: ['websocket', 'polling']
+  });
+
+  _adminSocket.on('connect', () => {
+    console.log('Admin chat connected');
+    loadChatRooms();
+  });
+
+  _adminSocket.on('new_message', (msg) => {
+    // If message is for active room, append it
+    if (msg.roomId === _activeAdminRoom && !msg.isAdmin) {
+      appendAdminChatMessage(msg.content, false, msg.sender, msg.createdAt);
+    }
+    // Update room list with unread indicator
+    loadChatRooms();
+  });
+}
+
+async function loadChatRooms() {
+  if (!window._cipherToken) return;
+  try {
+    const res = await fetch('/api/chat/rooms', {
+      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
+    });
+    const rooms = await res.json();
+    const list = document.getElementById('adminChatRoomList');
+    if (!list) return;
+    
+    if (Array.isArray(rooms) && rooms.length > 0) {
+      list.innerHTML = rooms.map(r => `
+        <div onclick="openAdminChatRoom('${r.roomId}','${r.user?.fullName || 'Member'}')" 
+             style="padding:16px;border-bottom:1px solid rgba(201,169,110,0.08);cursor:pointer;transition:background 0.2s;display:flex;align-items:center;gap:12px"
+             onmouseover="this.style.background='rgba(201,169,110,0.05)'" 
+             onmouseout="this.style.background='transparent'">
+          <div style="width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:15px;flex-shrink:0">${(r.user?.fullName||'M')[0]}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:12px;color:var(--white);margin-bottom:2px">${r.user?.fullName || 'Member'}</div>
+            <div style="font-size:10px;color:var(--silver);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.lastMessage?.content?.substring(0,35) || 'No messages'}...</div>
+          </div>
+          <div style="font-size:8px;color:var(--gold-dim)">${r.lastMessage ? new Date(r.lastMessage.createdAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}) : ''}</div>
+        </div>`).join('');
+    } else {
+      list.innerHTML = '<div style="padding:20px;text-align:center;font-size:11px;color:var(--silver)">No active conversations</div>';
+    }
+  } catch(e) { console.error('Load rooms error:', e); }
+}
+
+async function openAdminChatRoom(roomId, memberName) {
+  _activeAdminRoom = roomId;
+  document.getElementById('adminChatMemberName').textContent = memberName;
+  document.getElementById('adminChatArea').style.display = 'flex';
+  document.getElementById('adminChatPlaceholder').style.display = 'none';
+  
+  // Join room via socket
+  if (_adminSocket && _adminSocket.connected) {
+    _adminSocket.emit('join_room', { roomId });
+  }
+
+  // Load history
+  try {
+    const res = await fetch('/api/chat/' + roomId + '/history', {
+      headers: { 'Authorization': 'Bearer ' + window._cipherToken }
+    });
+    const messages = await res.json();
+    const chat = document.getElementById('adminChatMessages');
+    chat.innerHTML = '';
+    if (Array.isArray(messages)) {
+      messages.forEach(msg => {
+        appendAdminChatMessage(msg.content, msg.isAdmin, msg.isAdmin ? 'You (Admin)' : (msg.user?.fullName || memberName), msg.createdAt);
+      });
+    }
+    chat.scrollTop = chat.scrollHeight;
+  } catch(e) { console.error('Load chat history error:', e); }
+}
+
+function appendAdminChatMessage(content, isAdmin, senderName, timestamp) {
+  const chat = document.getElementById('adminChatMessages');
+  if (!chat) return;
+  const time = timestamp ? new Date(timestamp).toLocaleTimeString('en-AU', {hour:'2-digit', minute:'2-digit'}) : 'Now';
+  const div = document.createElement('div');
+  
+  if (isAdmin) {
+    div.style.cssText = 'display:flex;flex-direction:row-reverse;gap:10px;align-items:flex-end;margin-bottom:12px';
+    div.innerHTML = `<div style="max-width:70%"><div style="background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);padding:10px 14px;font-size:12px;color:var(--white);line-height:1.6">${content}</div><div style="font-size:9px;color:var(--gold-dim);margin-top:3px;text-align:right">${time} · Sent</div></div>`;
+  } else {
+    div.style.cssText = 'display:flex;gap:10px;align-items:flex-end;margin-bottom:12px';
+    div.innerHTML = `<div style="width:28px;height:28px;border:1px solid rgba(201,169,110,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:12px;flex-shrink:0">${(senderName||'M')[0]}</div><div style="max-width:70%"><div style="font-size:9px;color:var(--gold-dim);margin-bottom:3px">${senderName}</div><div style="background:var(--charcoal);border:1px solid rgba(201,169,110,0.1);padding:10px 14px;font-size:12px;color:var(--white);line-height:1.6">${content}</div><div style="font-size:9px;color:var(--gold-dim);margin-top:3px">${time}</div></div>`;
+  }
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendAdminMessage() {
+  const input = document.getElementById('adminChatInput');
+  const msg = input.value.trim();
+  if (!msg || !_activeAdminRoom) return;
+  
+  appendAdminChatMessage(msg, true, 'You (Admin)', new Date().toISOString());
+  
+  if (_adminSocket && _adminSocket.connected) {
+    _adminSocket.emit('send_message', { roomId: _activeAdminRoom, content: msg });
+  }
+  
+  input.value = '';
+}
+
+function handleAdminChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAdminMessage(); }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PORTAL JAVASCRIPT — Member + Admin
+// ═══════════════════════════════════════════════════════════════════
+
+// ── Member Portal ─────────────────────────────────────────────────
+const MP_SECS = ['dashboard','requests','new','vault','chat','refer','profile'];
+const MP_TITLES = {dashboard:'Dashboard',requests:'My Requests','new':'New Request',vault:'Document Vault',chat:'Live Chat',refer:'Refer a Contact',profile:'My Profile'};
+
+function mpGo(tab) {
+  MP_SECS.forEach(t => {
+    const el = document.getElementById('mpsec-' + t);
+    if (el) { el.classList.remove('active'); el.style.display=''; }
+    const ni = document.getElementById('mpni-' + t);
+    if (ni) ni.classList.remove('active');
+  });
+  const target = document.getElementById('mpsec-' + tab);
+  if (target) { target.classList.add('active'); if (tab === 'chat') target.style.display = 'flex'; }
+  const ni = document.getElementById('mpni-' + tab);
+  if (ni) ni.classList.add('active');
+  const title = document.getElementById('mpTopTitle');
+  if (title) title.textContent = MP_TITLES[tab] || tab;
+  if (tab === 'requests') mpLoadRequests();
+  if (tab === 'vault')    mpLoadVault();
+  if (tab === 'chat')     initMemberChat();
+}
+
+// Compat shims for old code
+function switchPortalTab(t) { mpGo(t); }
+function switchMemberTab(t) { mpGo(t); }
+
+function closeMemberPortal() {
+  const el = document.getElementById('memberPortal');
+  if (el) el.classList.remove('active');
+  const lm = document.getElementById('loginModal');
+  if (lm) lm.classList.remove('active');
+  window._cipherToken = null;
+  window._cipherUser  = null;
+}
+
+function mpLoadRequests() {
+  if (!window._cipherToken) return;
+  fetch('/api/requests', { headers: {'Authorization': 'Bearer ' + window._cipherToken} })
+    .then(r => r.json()).then(reqs => {
+      const dotC = {RECEIVED:'#c9a96e',IN_PROGRESS:'#e67e22',AWAITING_MEMBER:'#3498db',COMPLETED:'#2ecc71',CANCELLED:'#e74c3c'};
+      const cls  = {RECEIVED:'sb-gold',IN_PROGRESS:'sb-amber',AWAITING_MEMBER:'sb-blue',COMPLETED:'sb-green',CANCELLED:'sb-red'};
+      if (!Array.isArray(reqs) || !reqs.length) {
+        const empty = '<div class="mp-empty"><div class="mp-empty-icon">◈</div><div class="mp-empty-txt">No requests yet</div></div>';
+        ['requestsList','activityList'].forEach(id => { const e=document.getElementById(id); if(e) e.innerHTML=empty; });
+        return;
+      }
+      const html = reqs.map(r => `
+        <div class="mp-req-item">
+          <div class="mp-req-dot" style="background:${dotC[r.status]||'#c9a96e'}"></div>
+          <div class="mp-req-body">
+            <div class="mp-req-title">${r.description||r.title||'Request'}</div>
+            <div class="mp-req-meta">${r.category||''} · ${r.priority||''} · ${new Date(r.createdAt).toLocaleDateString('en-AU')}</div>
+          </div>
+          <div class="mp-status-badge ${cls[r.status]||'sb-gold'}">${(r.status||'').replace(/_/g,' ')}</div>
+        </div>`).join('');
+      ['requestsList','activityList'].forEach(id => { const e=document.getElementById(id); if(e) e.innerHTML=html; });
+      const total  = reqs.length;
+      const active = reqs.filter(r => !['COMPLETED','CANCELLED'].includes(r.status)).length;
+      [['mpDS1',total],['mpDS2',active],['mpS1',total],['mpS2',active]].forEach(([id,v]) => { const e=document.getElementById(id); if(e) e.textContent=v; });
+      const badge = document.getElementById('mpBadge');
+      if (badge) { badge.textContent = active; badge.style.display = active > 0 ? 'inline' : 'none'; }
+      // Also update topbar badge
+      const tbBadge = document.getElementById('mpTopbarBadge');
+      const tbCount = document.getElementById('mpTopbarBadgeCount');
+      if (tbBadge && tbCount) {
+        if (active > 0) {
+          tbCount.textContent = active + ' Active ' + (active === 1 ? 'Request' : 'Requests');
+          tbBadge.style.display = 'flex';
+        } else {
+          tbBadge.style.display = 'none';
+        }
+      }
+    }).catch(() => {});
+}
+
+function mpLoadVault() {
+  if (!window._cipherToken) return;
+  fetch('/api/documents', { headers: {'Authorization': 'Bearer ' + window._cipherToken} })
+    .then(r => r.json()).then(docs => {
+      const count = Array.isArray(docs) ? docs.length : 0;
+      [['mpDS3',count],['mpS3',count]].forEach(([id,v]) => { const e=document.getElementById(id); if(e) e.textContent=v; });
+      const el = document.getElementById('vaultDocs'); if (!el) return;
+      if (!count) { el.innerHTML = '<div class="mp-empty"><div class="mp-empty-icon">⊡</div><div class="mp-empty-txt">No documents yet</div></div>'; return; }
+      el.innerHTML = docs.map(d => `
+        <div class="mp-vault-item">
+          <div class="mp-vault-icon">⊡</div>
+          <div style="flex:1;min-width:0">
+            <div class="mp-vault-name">${d.originalName}</div>
+            <div class="mp-vault-meta">AES-256 · ${Math.round((d.sizeBytes||0)/1024)}KB · ${new Date(d.createdAt).toLocaleDateString('en-AU')}</div>
+          </div>
+          <div class="mp-vault-btns">
+            <button class="mp-vault-btn" onclick="showOTPSend('${d.id}','${d.originalName}')">Share OTP</button>
+            <a class="mp-vault-btn" href="/api/documents/${d.id}/download" download="${d.originalName}">Download</a>
+          </div>
+        </div>`).join('');
+    }).catch(() => {});
+}
+
+async function loadPortalData() {
+  if (!window._cipherToken || !window._cipherUser) return;
+  const u = window._cipherUser;
+  const first = (u.fullName || 'Member').split(' ')[0];
+  const tier  = (u.memberTier || 'CIPHER').replace(/_/g, ' ');
+  const hr    = new Date().getHours();
+  const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+
+  // Sidebar
+  const av = document.getElementById('mpAvatar'); if (av) av.textContent = (u.fullName||'M')[0].toUpperCase();
+  const sn = document.getElementById('mpSidebarName'); if (sn) sn.textContent = u.fullName || 'Member';
+  const pt = document.getElementById('portalTier'); if (pt) pt.textContent = tier;
+  const pg = document.getElementById('mpGreeting'); if (pg) pg.textContent = greet + ', ' + first + '.';
+  const bt = document.getElementById('mpBannerTitle'); if (bt) bt.textContent = 'Welcome back, ' + first;
+
+  // Profile
+  const pn = document.getElementById('profileName'); if (pn) pn.value = u.fullName || '';
+  const pe = document.getElementById('profileEmail'); if (pe) pe.value = u.email || '';
+  const pp = document.getElementById('profilePhone'); if (pp) pp.value = u.phone || '';
+  const ptr= document.getElementById('profileTier'); if (ptr) ptr.value = tier;
+
+  // Clock
+  const ck = document.getElementById('mpClock');
+  if (ck) { const tick = () => { ck.textContent = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit',timeZone:'Australia/Sydney'}); }; tick(); setInterval(tick, 1000); }
+
+  mpLoadRequests();
+  mpLoadVault();
+}
+
+async function uploadDocument(input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const prog = document.getElementById('uploadProgress');
+  const bar  = document.getElementById('uploadBar');
+  if (prog) prog.style.display = 'block';
+  if (bar)  { bar.style.width = '30%'; setTimeout(()=>{bar.style.width='70%'},500); }
+  const fd = new FormData(); fd.append('file', file);
+  try {
+    const res = await fetch('/api/documents/upload', { method:'POST', headers:{'Authorization':'Bearer '+window._cipherToken}, body:fd });
+    if (bar) bar.style.width = '100%';
+    setTimeout(()=>{ if(prog) prog.style.display='none'; if(bar) bar.style.width='0%'; }, 700);
+    if (res.ok) { mpLoadVault(); input.value=''; }
+    else { const d=await res.json(); alert(d.error||'Upload failed'); }
+  } catch(e) { if(prog) prog.style.display='none'; alert('Upload failed. Please try again.'); }
+}
+
+// OTP
+function showOTPSend(docId, filename) {
+  window._currentDocId = docId;
+  const dn = document.getElementById('otpDocName'); if (dn) dn.textContent = filename;
+  const oe = document.getElementById('otpEmail'); if (oe) oe.value = '';
+  const or = document.getElementById('otpResult'); if (or) or.style.display = 'none';
+  const ob = document.getElementById('otpSendBtn'); if (ob) { ob.textContent = 'Generate & Send OTP'; ob.disabled = false; }
+  document.getElementById('otpModal').classList.add('active');
+}
+
+async function sendOTP() {
+  const email = document.getElementById('otpEmail').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!window._currentDocId) { alert('No document selected.'); return; }
+  if (!window._cipherToken)  { alert('Please log in first.'); return; }
+  const btn = document.getElementById('otpSendBtn');
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+  const expMap = {'24':24,'48':48,'168':168,'1':1};
+  const expEl  = document.getElementById('otpExpiry');
+  const expiryHours = expMap[expEl?.value] || 24;
+  try {
+    const res = await fetch('/api/otp/send', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({ documentId: window._currentDocId, recipientEmail: email, expiryHours })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      const or = document.getElementById('otpResult');
+      if (or) { or.textContent = '✓  OTP sent to ' + email; or.style.display = 'block'; }
+      setTimeout(() => document.getElementById('otpModal').classList.remove('active'), 2500);
+    } else {
+      alert('Failed: ' + (data.error || 'Unknown error'));
+      if (btn) { btn.textContent = 'Generate & Send OTP'; btn.disabled = false; }
+    }
+  } catch(e) {
+    alert('Connection error. Please try again.');
+    if (btn) { btn.textContent = 'Generate & Send OTP'; btn.disabled = false; }
+  }
+}
+
+// ── Admin Portal ───────────────────────────────────────────────────
+const AP_SECS   = ['dashboard','clients','requests','conversations','enquiries'];
+const AP_TITLES = {dashboard:'Dashboard',clients:'Client Accounts',requests:'Service Requests',conversations:'Client Conversations',enquiries:'Membership Enquiries'};
+
+function apGo(section) {
+  AP_SECS.forEach(s => {
+    const el = document.getElementById('apsec-' + s);
+    if (el) { el.classList.remove('on'); }
+    const ni = document.getElementById('apni-' + s);
+    if (ni) ni.classList.remove('on');
+  });
+  const target = document.getElementById('apsec-' + section);
+  if (target) target.classList.add('on');
+  const ni = document.getElementById('apni-' + section);
+  if (ni) ni.classList.add('on');
+  const tt = document.getElementById('apTopbarTitle');
+  if (tt) tt.textContent = AP_TITLES[section] || section;
+  if (['clients','requests','enquiries'].includes(section)) loadAdminData();
+  if (section === 'conversations') initAdminChat();
+}
+
+// Compat shims
+function switchAdminSection(s) { apGo(s); }
+function switchAdminTab(t) { apGo(t); }
+
+function apFilterR(status) {
+  const ids = {'':'aprf-all','RECEIVED':'aprf-r','IN_PROGRESS':'aprf-p','AWAITING_MEMBER':'aprf-a','COMPLETED':'aprf-c'};
+  Object.values(ids).forEach(id => { const b=document.getElementById(id); if(b) b.className='ap-btn-g'; });
+  const active = document.getElementById(ids[status]); if(active) active.className='ap-btn';
+  if (!window._cipherToken) return;
+  const url = status ? '/api/admin/requests?status='+status : '/api/admin/requests';
+  fetch(url, {headers:{'Authorization':'Bearer '+window._cipherToken}})
+    .then(r=>r.json()).then(renderAdminReqs).catch(()=>{});
+}
+function filterRequests(s) { apFilterR(s); }
+
+function renderAdminReqs(reqs) {
+  const el = document.getElementById('adminRequestsList'); if (!el) return;
+  const dc = {RECEIVED:'#c9a96e',IN_PROGRESS:'#e67e22',AWAITING_MEMBER:'#3498db',COMPLETED:'#2ecc71',CANCELLED:'#e74c3c'};
+  if (!Array.isArray(reqs) || !reqs.length) { el.innerHTML = '<div class="ap-empty">No requests found</div>'; return; }
+  el.innerHTML = reqs.map(r => `
+    <div class="ap-row">
+      <div style="width:7px;height:7px;border-radius:50%;background:${dc[r.status]||'#c9a96e'};flex-shrink:0"></div>
+      <div class="ap-row-main">
+        <div class="ap-row-title">${(r.description||r.title||'Request').substring(0,80)}</div>
+        <div class="ap-row-meta">${r.user?r.user.fullName+' · ':''}${r.category||''} · ${r.priority||''} · ${new Date(r.createdAt).toLocaleDateString('en-AU')}</div>
+      </div>
+      <select class="ap-sel" onchange="updateRequestStatus('${r.id}',this.value)">
+        <option value="RECEIVED" ${r.status==='RECEIVED'?'selected':''}>Received</option>
+        <option value="IN_PROGRESS" ${r.status==='IN_PROGRESS'?'selected':''}>In Progress</option>
+        <option value="AWAITING_MEMBER" ${r.status==='AWAITING_MEMBER'?'selected':''}>Awaiting Member</option>
+        <option value="COMPLETED" ${r.status==='COMPLETED'?'selected':''}>Completed</option>
+        <option value="CANCELLED" ${r.status==='CANCELLED'?'selected':''}>Cancelled</option>
+      </select>
+    </div>`).join('');
+}
+
+async function updateRequestStatus(id, status) {
+  if (!window._cipherToken) return;
+  try {
+    await fetch('/api/requests/'+id+'/status', {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({status})
+    });
+    apFilterR('');
+  } catch(e) {}
+}
+
+function closeAdmin() {
+  const el = document.getElementById('adminPortal');
+  if (el) el.classList.remove('active');
+  window._cipherToken = null;
+  window._cipherUser  = null;
+}
+
+async function loadAdminData() {
+  if (!window._cipherToken) return;
+  // Date + admin name
+  const dateEl = document.getElementById('apDate');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  if (window._cipherUser) {
+    const n=document.getElementById('adminName'); if(n) n.textContent=window._cipherUser.fullName||'Admin';
+    const i=document.getElementById('adminInitial'); if(i) i.textContent=(window._cipherUser.fullName||'A')[0].toUpperCase();
+  }
+  const H = {'Authorization':'Bearer '+window._cipherToken};
+  try {
+    const [mR,rR,aR] = await Promise.all([
+      fetch('/api/admin/members',{headers:H}),
+      fetch('/api/admin/requests',{headers:H}),
+      fetch('/api/admin/applications',{headers:H})
+    ]);
+    const [members, reqs, apps] = await Promise.all([mR.json(), rR.json(), aR.json()]);
+    const mC = Array.isArray(members)?members.length:0;
+    const rC = Array.isArray(reqs)?reqs.filter(r=>!['COMPLETED','CANCELLED'].includes(r.status)).length:0;
+    const aC = Array.isArray(apps)?apps.filter(a=>!a.status||a.status==='PENDING').length:0;
+    // Stats
+    [['statMembers',mC],['statRequests',rC],['statApplications',aC]].forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.textContent=v;});
+    // Nav counts
+    [['apct-m',mC],['apct-r',rC],['apct-e',aC]].forEach(([id,v])=>{const e=document.getElementById(id);if(e){e.textContent=v;e.style.display=v>0?'inline':'none';}});
+    // Members
+    const mEl = document.getElementById('adminMembersList');
+    if (mEl && Array.isArray(members)) {
+      mEl.innerHTML = members.length ? members.map(m=>`
+        <div class="ap-mc">
+          <div class="ap-mc-av">${(m.fullName||'M')[0].toUpperCase()}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:12px;color:var(--text);margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              ${m.fullName||'—'}
+              <span class="ap-badge ab-gold">${(m.memberTier||'').replace(/_/g,' ')}</span>
+              <span class="ap-badge ${m.isActive?'ab-green':'ab-red'}">${m.isActive?'ACTIVE':'SUSPENDED'}</span>
+            </div>
+            <div style="font-size:9px;color:rgba(201,169,110,0.72)">${m.email}${m._count?' · '+m._count.requests+' requests':''}</div>
+          </div>
+          <button class="ap-btn-g" onclick="toggleMember('${m.id}',${!m.isActive})">${m.isActive?'Suspend':'Activate'}</button>
+        </div>`).join('') : '<div class="ap-empty">No members yet</div>';
+    }
+    // Requests
+    renderAdminReqs(reqs);
+    // Applications
+    const aEl = document.getElementById('adminApplicationsList');
+    const cEl = document.getElementById('apEnqCount');
+    if (cEl) cEl.textContent = Array.isArray(apps) ? apps.length+' total '+(apps.length===1?'enquiry':'enquiries') : '';
+    if (aEl && Array.isArray(apps)) {
+      aEl.innerHTML = apps.length ? apps.map(a=>`
+        <div class="ap-eq">
+          <div style="flex:1">
+            <div class="ap-eq-name">${a.fullName||'—'}<span class="ap-badge ab-gold">${(a.tier||'CIPHER').replace(/_/g,' ')}</span></div>
+            <div class="ap-eq-meta">${a.email}${a.phone?' · '+a.phone:''}</div>
+            <div class="ap-eq-meta">${new Date(a.createdAt).toLocaleString('en-AU',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+            ${a.referral?'<div class="ap-eq-note">"'+a.referral+'"</div>':''}
+          </div>
+          <select class="ap-sel" onchange="updateApplication('${a.id}',this.value)">
+            <option value="PENDING" ${!a.status||a.status==='PENDING'?'selected':''}>New</option>
+            <option value="CONTACTED" ${a.status==='CONTACTED'?'selected':''}>Contacted</option>
+            <option value="APPROVED" ${a.status==='APPROVED'?'selected':''}>✓ Approved</option>
+            <option value="DECLINED" ${a.status==='DECLINED'?'selected':''}>Declined</option>
+          </select>
+        </div>`).join('') : '<div class="ap-empty">No applications yet</div>';
+    }
+  } catch(e) { console.error('Admin data load error:', e); }
+}
+
+async function toggleMember(id, makeActive) {
+  if (!window._cipherToken) return;
+  if (!confirm((makeActive?'Activate':'Suspend')+' this member?')) return;
+  await fetch('/api/admin/members/'+id, {
+    method:'PATCH',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+    body:JSON.stringify({isActive:makeActive})
+  });
+  loadAdminData();
+}
+
+async function updateApplication(id, status) {
+  if (!window._cipherToken) return;
+  await fetch('/api/admin/applications/'+id, {
+    method:'PATCH',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+    body:JSON.stringify({status})
+  });
+  loadAdminData();
+}
+
+// ── Core site functions ────────────────────────────────────────────
+function openModal(type) {
+  const el = document.getElementById(type + 'Modal');
+  if (el) el.classList.add('active');
+}
+function closeModal(type) {
+  const el = document.getElementById(type + 'Modal');
+  if (el) el.classList.remove('active');
+}
+
+function switchTab(tab) {
+  // Switch login modal tabs (member / admin)
+  document.querySelectorAll('.modal-tab').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.modal-form-content').forEach(form => form.classList.remove('active'));
+
+  // Activate clicked tab button
+  const tabs = document.querySelectorAll('.modal-tab');
+  tabs.forEach(btn => {
+    if ((tab === 'member' && btn.textContent.toLowerCase().includes('member')) ||
+        (tab === 'admin'  && btn.textContent.toLowerCase().includes('admin'))) {
+      btn.classList.add('active');
+    }
+  });
+
+  // Show correct form
+  const formId = tab === 'admin' ? 'adminForm' : 'memberForm';
+  const form = document.getElementById(formId);
+  if (form) form.classList.add('active');
+}
+
+async function loginMember() {
+  const email = document.getElementById('memberEmail').value.trim();
+  const pass  = document.getElementById('memberPass').value;
+  if (!email || !pass) { showLoginError('member', 'Please enter your email and password.'); return; }
+  const btn = document.querySelector('#loginModal .form-submit');
+  if (btn) { btn.textContent = 'Signing in…'; btn.disabled = true; }
+  try {
+    const res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password: pass }) });
+    const data = await res.json();
+    if (res.ok) {
+      window._cipherToken = data.token;
+      window._cipherUser  = data.user;
+      document.getElementById('loginModal').classList.remove('active');
+      if (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN') {
+        document.getElementById('adminPortal').style.display='block'; loadAdminData();
+      } else {
+        document.getElementById('memberPortal').style.display='block'; loadPortalData();
+      }
+    } else {
+      showLoginError('member', data.error || 'Invalid credentials. Please try again.');
+      if (btn) { btn.textContent = 'Sign In'; btn.disabled = false; }
+    }
+  } catch(e) {
+    showLoginError('member', 'Connection error. Please try again.');
+    if (btn) { btn.textContent = 'Sign In'; btn.disabled = false; }
+  }
+}
+
+async function loginAdmin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pass  = document.getElementById('adminPass').value;
+  if (!email || !pass) { alert('Please enter email and password.'); return; }
+  try {
+    const res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email, password: pass }) });
+    const data = await res.json();
+    if (res.ok && (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN')) {
+      window._cipherToken = data.token;
+      window._cipherUser  = data.user;
+      document.getElementById('loginModal') && document.getElementById('loginModal').classList.remove('active');
+      document.getElementById('adminPortal').style.display='block'; loadAdminData();
+    } else {
+      alert(data.error || 'Access denied. Admin credentials required.');
+    }
+  } catch(e) { alert('Connection error. Please try again.'); }
+}
+
+function showLoginError(type, msg) {
+  const errEl = document.getElementById(type === 'admin' ? 'adminLoginError' : 'loginError');
+  if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+  else alert(msg);
+}
+
+async function submitRequest() {
+  const desc = document.getElementById('reqDescription').value.trim();
+  const cat  = document.getElementById('reqCategory').value;
+  const pri  = document.getElementById('reqPriority').value;
+  if (!desc || !cat) {
+    const errEl = document.getElementById('reqError');
+    if (errEl) { errEl.textContent = 'Please select a category and describe your request.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (!window._cipherToken) { alert('Please log in first.'); return; }
+  const btn = document.querySelector('.mp-primary-btn');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+  try {
+    const res  = await fetch('/api/requests', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({ description: desc, category: cat, priority: pri || 'STANDARD' })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      const ok = document.getElementById('reqSuccess');
+      if (ok) ok.style.display = 'block';
+      document.getElementById('reqDescription').value = '';
+      document.getElementById('reqCategory').value = '';
+      setTimeout(() => { if (ok) ok.style.display = 'none'; if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; } mpLoadRequests(); }, 3000);
+    } else {
+      const errEl = document.getElementById('reqError');
+      if (errEl) { errEl.textContent = data.error || 'Submission failed.'; errEl.style.display = 'block'; }
+      if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; }
+    }
+  } catch(e) {
+    const errEl = document.getElementById('reqError');
+    if (errEl) { errEl.textContent = 'Connection error. Please try again.'; errEl.style.display = 'block'; }
+    if (btn) { btn.textContent = 'Submit Request'; btn.disabled = false; }
+  }
+}
+
+function showAddMember() {
+  document.getElementById('addMemberModal').style.display='block';
+  document.getElementById('createMemberMsg').style.display='none';
+  ['newMemberName','newMemberEmail','newMemberPassword'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+}
+
+async function createMember() {
+  const email = document.getElementById('newMemberEmail').value.trim();
+  const name  = document.getElementById('newMemberName').value.trim();
+  const pass  = document.getElementById('newMemberPass').value;
+  const tier  = document.getElementById('newMemberTier').value;
+  if (!email || !name || !pass) { alert('Name, email and password are required.'); return; }
+  try {
+    const res  = await fetch('/api/admin/members', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+window._cipherToken},
+      body:JSON.stringify({ email, fullName: name, password: pass, memberTier: tier || 'CIPHER' })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      document.getElementById('addMemberModal').style.display='none';
+      document.getElementById('addMemberModal').style.display='none';loadAdminData();
+      loadAdminData();
+    } else { var m=document.getElementById('createMemberMsg');if(m){m.style.display='block';m.textContent=data.error||'Failed to create member.';} }
+  } catch(e) { var m=document.getElementById('createMemberMsg');if(m){m.style.display='block';m.textContent='Connection error.';} }
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nb = document.getElementById('navbar');
+  if (nb) nb.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Marquee
+const marqueeTrack = document.querySelector('.marquee-track');
+if (marqueeTrack) {
+  marqueeTrack.innerHTML += marqueeTrack.innerHTML;
+}
+
+</script>
+<!-- ==================== ARTICLE MODAL ==================== -->
+<div class="modal-overlay" id="articleModal" style="align-items:flex-start;padding:0;overflow-y:auto" onclick="if(event.target===this)closeArticle()">
+<style>
+.article-wrap{max-width:780px;margin:0 auto;background:#0a0a0a;min-height:100vh;padding:0 0 80px}
+.article-hero{width:100%;height:360px;object-fit:cover;filter:brightness(0.75)}
+.article-inner{padding:48px 56px}
+.article-eyebrow{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.article-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:400;color:#f0ede8;line-height:1.2;margin-bottom:20px}
+.article-meta{font-size:10px;color:rgba(201,169,110,0.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.1)}
+.article-body p{font-size:14px;color:rgba(240,237,232,0.78);line-height:2;margin-bottom:22px}
+.article-body h2{font-family:'Cormorant Garamond',serif;font-size:26px;color:#f0ede8;font-weight:400;margin:40px 0 16px}
+.article-body ul{margin:0 0 22px 24px}
+.article-body ul li{font-size:14px;color:rgba(240,237,232,0.78);line-height:2;margin-bottom:6px}
+.article-body ul li::marker{color:var(--gold)}
+.article-cta{background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);padding:28px 32px;margin-top:48px}
+.article-cta p{font-size:13px;color:rgba(240,237,232,0.7);line-height:1.8;margin-bottom:12px}
+.article-cta a{color:var(--gold);text-decoration:none;font-size:10px;letter-spacing:3px;text-transform:uppercase}
+.article-close{position:fixed;top:20px;right:24px;background:rgba(0,0,0,0.8);border:1px solid rgba(201,169,110,0.3);color:var(--gold);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;z-index:99999;transition:all 0.2s}
+.article-close:hover{background:rgba(201,169,110,0.1)}
+@media(max-width:700px){.article-inner{padding:28px 24px}.article-title{font-size:28px}.article-hero{height:240px}}
+</style>
+<div class="article-wrap" id="articleContent">
+  <button class="article-close" onclick="closeArticle()">✕</button>
+  <img id="articleHero" class="article-hero" src="" alt="">
+  <div class="article-inner">
+    <div class="article-eyebrow" id="articleCategory">Cipher Intelligence</div>
+    <h1 class="article-title" id="articleTitle"></h1>
+    <div class="article-meta" id="articleMeta"></div>
+    <div class="article-body" id="articleBody"></div>
+  </div>
+</div>
+</div>
+<script>
+
+// ── Refer a Contact ───────────────────────────────────────────────
+async function submitReferral() {
+  const name  = document.getElementById('referName').value.trim();
+  const email = document.getElementById('referEmail').value.trim();
+  const note  = document.getElementById('referNote').value.trim();
+  if (!name || !email) {
+    const err = document.getElementById('referError');
+    if (err) { err.textContent = 'Please provide the contact name and email address.'; err.style.display = 'block'; }
+    return;
+  }
+  const btn = document.querySelector('#mpsec-refer .mp-primary-btn');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+
+  try {
+    const res = await fetch('/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window._cipherToken },
+      body: JSON.stringify({
+        fullName: name,
+        email: email,
+        phone: document.getElementById('referPhone').value.trim(),
+        tier: document.getElementById('referTier').value || 'CIPHER',
+        referral: (window._cipherUser ? window._cipherUser.fullName : 'Member') + ' — ' + note,
+        source: 'member_referral'
+      })
+    });
+    if (res.ok) {
+      const ok = document.getElementById('referSuccess');
+      if (ok) ok.style.display = 'block';
+      const err = document.getElementById('referError');
+      if (err) err.style.display = 'none';
+      ['referName','referEmail','referPhone','referNote'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+      if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+    } else {
+      const data = await res.json();
+      const err = document.getElementById('referError');
+      if (err) { err.textContent = data.error || 'Submission failed. Please try again.'; err.style.display = 'block'; }
+      if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+    }
+  } catch(e) {
+    const err = document.getElementById('referError');
+    if (err) { err.textContent = 'Connection error. Please try again.'; err.style.display = 'block'; }
+    if (btn) { btn.textContent = 'Submit Introduction'; btn.disabled = false; }
+  }
+}
+
+// ── Article content ───────────────────────────────────────────────
+const ARTICLES = {
+
+  'global-firms': {
+    category: 'Cipher Intelligence',
+    title: "Why Australia\'s Ultra-Wealthy Are Quietly Moving Away From Global Concierge Firms",
+    meta: 'May 2026  ·  6 min read  ·  Private Concierge Australia',
+    hero: 'https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero2_02bb27c1.jpg',
+    body: `
+      <p>There is a question that a growing number of Australia\'s ultra-high-net-worth individuals are asking — not loudly, and rarely in public. It goes something like this: if I am paying for the world\'s best concierge service, why do I feel like a number?</p>
+      <p>It is a question worth sitting with. The global concierge industry has grown enormously over the past two decades, serving hundreds of thousands of members across the world. That scale, as any experienced private client professional knows, is fundamentally at odds with what discretion and genuine service actually require.</p>
+      <h2>The Problem With Scale</h2>
+      <p>The world\'s largest concierge firms operate with rotating teams. Your request today is handled by one person. Your request next month is handled by someone who has read a file about you, rather than actually knowing you. A year in, you may have spoken to a dozen different people — none of whom truly understands the texture of your life, your preferences, your priorities, or the things you would never want repeated.</p>
+      <p>For most clients, this is acceptable. For ultra-high-net-worth individuals managing complex affairs — multiple properties, family offices, sensitive legal matters, time-critical medical requirements — it is not. It is a liability.</p>
+      <h2>The Australian Jurisdiction Advantage</h2>
+      <p>What rarely gets discussed in the concierge industry is data. Specifically: where your data lives, who can access it, and under which legal framework it is protected.</p>
+      <p>The leading global concierge firms are headquartered in London and New York. Their data infrastructure spans multiple jurisdictions, subject to foreign law, and theoretically accessible under foreign government orders. For Australian clients managing sensitive personal, financial, and legal affairs, this is not a theoretical risk — it is a material one.</p>
+      <p>Australia\'s Privacy Act 1988 and Australian Privacy Principles provide robust protections for personal data held by Australian entities on Australian infrastructure. A concierge firm that operates exclusively within this framework offers something the global players cannot: genuine sovereign protection of your most sensitive information.</p>
+      <h2>What a Private Concierge in Australia Should Actually Offer</h2>
+      <p>At Cipher Private, we have built our model around the things we believe the industry has consistently failed to deliver:</p>
+      <ul>
+        <li>A single, permanent lifestyle director — not a team, not a rotation</li>
+        <li>Built for the few — fifty members, permanently — because genuine service cannot be scaled</li>
+        <li>AES-256 encrypted document vault, OTP-secured sharing, end-to-end encrypted communications</li>
+        <li>A contractual response guarantee of under three minutes, written into your membership agreement</li>
+        <li>Referral-only membership — every new member is introduced by an existing one</li>
+      </ul>
+      <p>We are not the largest concierge firm in Australia. We are not trying to be. Cipher Private is built for the few — fifty people, always. And that is precisely why each of those fifty receives something that scale makes impossible elsewhere.</p>`,
+    cta: 'If this is the standard you expect, we invite an introduction.'
+  },
+
+  'cost-of-complexity': {
+    category: 'Cipher Intelligence',
+    title: 'The Real Cost of a Poorly Managed Life',
+    meta: 'May 2026  ·  5 min read  ·  Lifestyle Manager Sydney',
+    hero: 'https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_estate_8f205af0.jpg',
+    body: `
+      <p>There is a calculation that most ultra-high-net-worth individuals never make — not because they lack the analytical ability, but because the cost is diffuse, invisible, and accumulated across thousands of small moments.</p>
+      <p>It is the cost of complexity. The mental overhead of managing a life at a certain level of affluence is enormous. Multiple properties. A family with competing schedules and requirements. A career or business that demands full cognitive presence. Medical needs that require specialist navigation. A social calendar that is less a pleasure than a logistics exercise.</p>
+      <h2>Time Is the Only Non-Renewable Resource</h2>
+      <p>The wealthiest people in the world share one constraint with everyone else: time. Twenty-four hours. No exceptions. The question is not how to acquire more of it — the question is how much of it is being consumed by things that do not deserve it.</p>
+      <p>Research consistently shows that decision fatigue is real and consequential. Every decision you make — regardless of how small — draws from the same cognitive pool. The executive who spends forty-five minutes arranging a restaurant reservation for a client dinner is not just losing forty-five minutes. They are entering that dinner with a fractionally depleted capacity for the conversation that matters.</p>
+      <p>A lifestyle manager does not simply save time. They protect cognitive presence.</p>
+      <h2>What a Lifestyle Manager Actually Does</h2>
+      <p>The term "lifestyle manager" is used loosely. At the highest level, it encompasses:</p>
+      <ul>
+        <li>Travel architecture — private aviation sourcing, accommodation, ground logistics, visa management</li>
+        <li>Estate management — property oversight, contractor coordination, seasonal preparation across multiple residences</li>
+        <li>Medical concierge — specialist access, appointment management, prescription logistics, medical travel</li>
+        <li>Dining and events — access to fully booked venues, private experiences, international reservations</li>
+        <li>Procurement — sourcing rare items, managing complex purchases, coordinating with specialists worldwide</li>
+        <li>Discretion management — handling sensitive requests without creating unnecessary paper trails</li>
+      </ul>
+      <h2>The Distinction That Changes Everything</h2>
+      <p>The distinction between a good lifestyle manager and an exceptional one is not capability. It is knowledge. An exceptional lifestyle manager knows you — not from a file, but from sustained proximity to your world over time. They anticipate what you need before you articulate it. They know which things matter and which things do not. They earn the trust that makes genuine service possible.</p>
+      <p>This is why Cipher Private is built for the few — one director, permanently assigned, who truly knows your world. Not as a policy. As a philosophy.</p>`,
+    cta: 'Cipher Private. Built for the few. One director. By referral only.'
+  },
+
+  'document-security': {
+    category: 'Cipher Intelligence',
+    title: "Why the World\'s Most Private People Are Rethinking How They Store Documents",
+    meta: 'May 2026  ·  5 min read  ·  Encrypted Document Security',
+    hero: 'https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_hero_7260ac1e.jpg',
+    body: `
+      <p>In 2024, Australia\'s Office of the Australian Information Commissioner received more data breach notifications than in any previous year. The breaches were not limited to small businesses. They included law firms, medical practices, financial advisers, and government agencies — the precise institutions that Australia\'s ultra-wealthy trust with their most sensitive information.</p>
+      <p>The question this raises is straightforward: if the institutions you trust with your passports, your NDAs, your property titles, your medical records, and your family trust documents cannot guarantee their security — where should those documents actually live?</p>
+      <h2>The Problem With Existing Solutions</h2>
+      <p>Cloud storage is convenient but not sovereign. Documents stored with US-headquartered providers are subject to US law, including the CLOUD Act, which allows American authorities to compel disclosure of data held by US companies — regardless of where the data is physically stored.</p>
+      <p>Law firm portals are better, but they are designed for access, not security. Files are typically stored without end-to-end encryption, shared via email, and accessible to multiple staff members whose security practices you cannot audit.</p>
+      <p>Physical storage is the gold standard for a reason — but it does not solve the problem of sharing. When you need to share a document with a counterparty, a solicitor, or a family member overseas, the chain of custody immediately becomes unclear.</p>
+      <h2>The Cipher Vault Approach</h2>
+      <p>Every document stored in the Cipher Private vault is encrypted at rest using AES-256 — the same standard used by intelligence agencies and defence contractors. No Cipher Private staff member can access the contents of your vault without your explicit authorisation.</p>
+      <p>When you need to share a document, you generate a one-time passcode that is sent directly to the recipient\'s email address. The link is time-limited, single-use, and bound to their email address. Every access attempt is logged, timestamped, and auditable by you at any time.</p>
+      <p>The entire infrastructure is hosted on Australian-sovereign servers, subject exclusively to the Privacy Act 1988. No foreign government, no foreign court order, and no parent company in another jurisdiction can compel access.</p>
+      <h2>The Standard Your Information Deserves</h2>
+      <p>For ultra-high-net-worth individuals managing sensitive personal, legal, and financial affairs, this is not a convenience feature. It is the standard that your information deserves — and one that most storage solutions fall dangerously short of providing.</p>`,
+    cta: 'Cipher Private vault access is included in all membership tiers.'
+  }
+};
+
+function showArticle(id) {
+  const art = ARTICLES[id];
+  if (!art) return;
+  document.getElementById('articleHero').src = art.hero;
+  document.getElementById('articleHero').alt = art.title;
+  document.getElementById('articleCategory').textContent = art.category;
+  document.getElementById('articleTitle').textContent = art.title.replace(/\\/g,'');
+  document.getElementById('articleMeta').textContent = art.meta;
+  document.getElementById('articleBody').innerHTML = art.body + `
+    <div class="article-cta">
+      <p>${art.cta}</p>
+      <a href="mailto:hello@cipherprivate.com">hello@cipherprivate.com &rarr;</a>
+    </div>`;
+  const modal = document.getElementById('articleModal');
+  modal.classList.add('active');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeArticle() {
+  document.getElementById('articleModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+</script>
+<!-- 2FA Verification Modal -->
+<div class="modal-overlay" id="twoFAModal" style="align-items:center;justify-content:center;backdrop-filter:blur(8px)">
+<style>
+#twoFABox{
+  background:#0e0e0e;border:1px solid rgba(201,169,110,0.25);
+  padding:48px 44px;max-width:420px;width:90%;text-align:center;
+  animation:mp-fade 0.25s ease;box-shadow:0 40px 100px rgba(0,0,0,0.9);position:relative
+}
+#twoFABox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a96e,transparent)}
+.tfa-diamond{font-size:32px;color:#c9a96e;margin-bottom:14px;animation:enc-pulse 2.5s ease infinite}
+.tfa-title{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:400;color:#f5f2ec;margin-bottom:8px}
+.tfa-sub{font-size:11px;color:rgba(201,169,110,0.6);letter-spacing:0.5px;line-height:1.7;margin-bottom:28px}
+.tfa-email-hint{font-size:10px;color:rgba(201,169,110,0.5);margin-bottom:20px;font-style:italic}
+.tfa-digits{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+.tfa-digit{
+  width:48px;height:60px;background:rgba(0,0,0,0.4);
+  border:1px solid rgba(201,169,110,0.2);color:#c9a96e;
+  font-size:26px;font-family:"Courier New",monospace;font-weight:700;
+  text-align:center;outline:none;transition:all 0.15s;
+  border-radius:0;-webkit-appearance:none;-moz-appearance:none;appearance:none;
+  caret-color:#c9a96e;padding:0
+}
+.tfa-digit::-webkit-outer-spin-button,
+.tfa-digit::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.tfa-digit[type=number]{-moz-appearance:textfield}
+.tfa-digit:focus{border-color:#c9a96e;background:rgba(201,169,110,0.04);box-shadow:0 0 0 1px rgba(201,169,110,0.2)}
+.tfa-verify-btn{
+  width:100%;padding:15px;
+  background:linear-gradient(135deg,#c9a96e,#b8904a);
+  color:#060606;border:none;font-family:"Montserrat",sans-serif;
+  font-size:9px;letter-spacing:4px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:all 0.2s;box-shadow:0 4px 24px rgba(201,169,110,0.3);
+  margin-top:4px
+}
+.tfa-verify-btn:hover{box-shadow:0 8px 32px rgba(201,169,110,0.4)}
+.tfa-verify-btn:disabled{opacity:0.5;cursor:not-allowed;box-shadow:none}
+.tfa-resend{margin-top:16px;font-size:10px;color:rgba(201,169,110,0.4);cursor:pointer;transition:color 0.15s;background:none;border:none;font-family:inherit;width:100%}
+.tfa-resend:hover{color:#c9a96e}
+.tfa-err{margin-top:12px;padding:10px 16px;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.25);color:#e74c3c;font-size:11px;display:none}
+.tfa-timer{font-size:9px;color:rgba(201,169,110,0.4);margin-top:10px;letter-spacing:1px}
+</style>
+<div id="twoFABox">
+  <div class="tfa-diamond" style="color:#c9a96e">◆</div>
+  <div class="tfa-title">Verify Your Identity</div>
+  <div class="tfa-sub">A 6-digit security code has been sent to your registered email address. Enter it below to access your portal.</div>
+  <div class="tfa-email-hint" id="tfaEmailHint"></div>
+  <div class="tfa-digits">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa0" oninput="tfaNxt(this,1)" onkeydown="tfaBk(event,this,0)" pattern="[0-9]" inputmode="numeric">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa1" oninput="tfaNxt(this,2)" onkeydown="tfaBk(event,this,1)" pattern="[0-9]" inputmode="numeric">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa2" oninput="tfaNxt(this,3)" onkeydown="tfaBk(event,this,2)" pattern="[0-9]" inputmode="numeric">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa3" oninput="tfaNxt(this,4)" onkeydown="tfaBk(event,this,3)" pattern="[0-9]" inputmode="numeric">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa4" oninput="tfaNxt(this,5)" onkeydown="tfaBk(event,this,4)" pattern="[0-9]" inputmode="numeric">
+    <input class="tfa-digit" type="tel" maxlength="1" id="tfa5" oninput="tfaChk()" onkeydown="tfaBk(event,this,5)" pattern="[0-9]" inputmode="numeric">
+  </div>
+  <div class="tfa-err" id="tfaErr"></div>
+  <button class="tfa-verify-btn" id="tfaBtn" onclick="verify2FA()">Verify & Enter Portal</button>
+  <button class="tfa-resend" onclick="resend2FA()" id="tfaResend">Didn't receive it? Resend code</button>
+  <div class="tfa-timer" id="tfaTimer"></div>
+</div>
+</div>
+
+<script>
+
+// ═══════════════════════════════════════════════════════════════════
+// 2FA / OTP LOGIN VERIFICATION — SERVER-SIDE
+// Code generated on server using crypto.randomInt(), never sent to browser
+// ═══════════════════════════════════════════════════════════════════
+let _2faToken = null;   // JWT from successful login (held until 2FA verified)
+let _2faUser  = null;   // User object from login
+let _2faTimer = null;
+
+// Intercept loginMember to add 2FA step
+async function loginMember() {
+  const email = document.getElementById('memberEmail').value.trim();
+  const pass  = document.getElementById('memberPass').value;
+  if (!email || !pass) { showLoginError('member','Please enter your email and password.'); return; }
+  const btn = document.querySelector('#loginModal .form-submit');
+  if (btn) { btn.textContent='Verifying…'; btn.disabled=true; }
+
+  try {
+    const res  = await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
+    const data = await res.json();
+    if (res.ok) {
+      // Store credentials — don't open portal yet
+      _2faToken = data.token;
+      _2faUser  = data.user;
+      document.getElementById('loginModal').classList.remove('active');
+
+      if (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN') {
+        // Admins skip 2FA — go straight to admin portal
+        window._cipherToken = _2faToken;
+        window._cipherUser  = _2faUser;
+        document.getElementById('adminPortal').style.display='block'; loadAdminData();
+      } else {
+        // Members go through 2FA
+        show2FA(email);
+      }
+    } else {
+      showLoginError('member', data.error || 'Invalid credentials. Please try again.');
+    }
+  } catch(e) {
+    showLoginError('member','Connection error. Please try again.');
+  } finally {
+    if (btn) { btn.textContent='Access My Portal'; btn.disabled=false; }
+  }
+}
+
+async function show2FA(email) {
+  // Reset digits
+  for (let i=0;i<6;i++) {
+    const el = document.getElementById('tfa'+i);
+    if (el) el.value='';
+  }
+  document.getElementById('tfaErr').style.display='none';
+  const btn=document.getElementById('tfaBtn');
+  if(btn){btn.disabled=true;btn.textContent='Sending Code...';}
+
+  // Show masked email hint
+  const parts = email.split('@');
+  const masked = parts[0].substring(0,2) + '***@' + parts[1];
+  document.getElementById('tfaEmailHint').textContent = 'Sending code to: ' + masked;
+
+  // Show modal
+  document.getElementById('twoFAModal').classList.add('active');
+
+  try {
+    // Request code from SERVER — code never touches the browser
+    const r = await fetch('/api/auth/request-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken }
+    });
+    const data = await r.json();
+
+    if (r.ok) {
+      document.getElementById('tfaEmailHint').textContent = 'Code sent to: ' + masked;
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+      setTimeout(()=>{ const d=document.getElementById('tfa0'); if(d)d.focus(); },200);
+      startTFATimer(300);
+    } else {
+      showTFAErr(data.error || 'Failed to send code. Please try again.');
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
+    if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+  }
+}
+
+function tfaNxt(el,next) {
+  // Keep only last digit entered
+  el.value = el.value.replace(/[^0-9]/g,'').slice(-1);
+  if(el.value && next<=5) document.getElementById('tfa'+next).focus();
+  if(el.value && next>5) tfaChk();
+}
+function tfaBk(e,el,idx) {
+  if(e.key==='Backspace'&&!el.value&&idx>0) document.getElementById('tfa'+(idx-1)).focus();
+  if(e.key==='Enter') verify2FA();
+}
+function tfaChk() {
+  const code=['tfa0','tfa1','tfa2','tfa3','tfa4','tfa5'].map(id=>document.getElementById(id).value).join('');
+  if(code.length===6) verify2FA();
+}
+
+async function verify2FA() {
+  const code=['tfa0','tfa1','tfa2','tfa3','tfa4','tfa5'].map(id=>document.getElementById(id).value).join('');
+  if(code.length!==6){showTFAErr('Please enter all 6 digits.');return;}
+
+  const btn=document.getElementById('tfaBtn');
+  btn.disabled=true; btn.textContent='Verifying…';
+  document.getElementById('tfaErr').style.display='none';
+
+  try {
+    // Verify against SERVER — code comparison happens server-side only
+    const r = await fetch('/api/auth/verify-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken },
+      body: JSON.stringify({ code })
+    });
+    const data = await r.json();
+
+    if (r.ok && data.verified) {
+      // Verified server-side — open portal
+      if(_2faTimer) clearInterval(_2faTimer);
+      document.getElementById('twoFAModal').classList.remove('active');
+      window._cipherToken = _2faToken;
+      window._cipherUser  = _2faUser;
+      _2faToken=null; _2faUser=null;
+      document.getElementById('memberPortal').style.display='block'; loadPortalData();
+    } else {
+      showTFAErr(data.error || 'Incorrect code. Please try again.');
+      btn.disabled=false; btn.textContent='Verify & Enter Portal';
+      for(let i=0;i<6;i++){const el=document.getElementById('tfa'+i);if(el)el.value='';}
+      document.getElementById('tfa0').focus();
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
+    btn.disabled=false; btn.textContent='Verify & Enter Portal';
+  }
+}
+
+function resend2FA() {
+  if(!_2faToken) return;
+  const email=_2faUser ? _2faUser.email : document.getElementById('memberEmail').value;
+  show2FA(email);
+}
+
+function showTFAErr(msg) {
+  const el=document.getElementById('tfaErr');
+  if(el){el.textContent=msg;el.style.display='block';}
+}
+
+function startTFATimer(seconds) {
+  if(_2faTimer) clearInterval(_2faTimer);
+  let remaining=seconds;
+  const timerEl=document.getElementById('tfaTimer');
+  const resendEl=document.getElementById('tfaResend');
+  const update=()=>{
+    if(timerEl){
+      const m=Math.floor(remaining/60), s=remaining%60;
+      timerEl.textContent='Code expires in '+m+':'+(s<10?'0':'')+s;
+    }
+    if(remaining<=0){
+      clearInterval(_2faTimer);
+      if(timerEl) timerEl.textContent='Code expired. Please request a new one.';
+      if(resendEl) resendEl.style.color='#c9a96e';
+    }
+    remaining--;
+  };
+  update();
+  _2faTimer=setInterval(update,1000);
+}
+
+</script>
+</body>
+</html>

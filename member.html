@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Cipher Private - Member Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#080c12;color:#f0ede8;height:100vh;overflow:hidden}
+.topbar{height:52px;background:#0a0a0a;border-bottom:1px solid rgba(201,169,110,0.12);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.brand{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e}
+.enc{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#2ecc71}
+.enc-dot{width:5px;height:5px;border-radius:50%;background:#2ecc71;animation:pulse 2.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 6px rgba(46,204,113,0.6)}50%{opacity:0.4}}
+.layout{display:grid;grid-template-columns:240px 1fr;height:calc(100vh - 52px)}
+.sidebar{background:#070707;border-right:1px solid rgba(201,169,110,0.1);display:flex;flex-direction:column;overflow:hidden}
+.member-card{margin:14px;background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:16px}
+.member-av{width:40px;height:40px;background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;color:#c9a96e;margin-bottom:10px}
+.member-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:#f5f2ec;margin-bottom:3px}
+.member-tier{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:#c9a96e;display:block;margin-bottom:10px}
+.member-stats{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(201,169,110,0.1);padding-top:10px}
+.ms{text-align:center}
+.ms+.ms{border-left:1px solid rgba(201,169,110,0.1)}
+.ms-n{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;display:block;line-height:1}
+.ms-l{font-size:6px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.55);display:block;margin-top:3px}
+.nav-grp{font-size:6px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.3);padding:12px 16px 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.55);border-left:2px solid transparent;transition:all 0.14s}
+.nav-item:hover{background:rgba(201,169,110,0.04);color:rgba(201,169,110,0.8)}
+.nav-item.on{background:rgba(201,169,110,0.07);border-left-color:#c9a96e;color:#c9a96e}
+.nav-foot{border-top:1px solid rgba(201,169,110,0.08);padding:6px 0;margin-top:auto}
+.main{display:flex;flex-direction:column;overflow:hidden;background:#0a0a0a}
+.topbar2{height:52px;background:#080808;border-bottom:1px solid rgba(201,169,110,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0}
+.page-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#f0ede8}
+.clock{font-family:'Cormorant Garamond',serif;font-size:16px;color:rgba(201,169,110,0.65)}
+.content{flex:1;overflow-y:auto;padding:24px 28px}
+.pg{display:none}.pg.on{display:block;animation:fi 0.2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.ey{font-size:7px;letter-spacing:5px;text-transform:uppercase;color:#c9a96e;margin-bottom:5px}
+h1{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:#f5f2ec;margin-bottom:18px}
+.banner{background:linear-gradient(135deg,rgba(201,169,110,0.07),rgba(201,169,110,0.02));border:1px solid rgba(201,169,110,0.12);padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:18px;cursor:pointer;transition:all 0.14s}
+.stat:hover{border-color:rgba(201,169,110,0.22);transform:translateY(-1px)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:#fff;line-height:1;margin-bottom:5px}
+.stat-l{font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tile{background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.1);padding:16px;cursor:pointer;transition:all 0.17s}
+.tile:hover{background:rgba(201,169,110,0.08);border-color:rgba(201,169,110,0.2)}
+.tile-ic{font-size:18px;color:#c9a96e;margin-bottom:8px}
+.tile-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;margin-bottom:3px}
+.tile-s{font-size:9px;color:rgba(201,169,110,0.5);line-height:1.5}
+.card{background:#141414;border:1px solid rgba(201,169,110,0.1);padding:20px;margin-bottom:12px}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(201,169,110,0.08)}
+.card-title{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:rgba(201,169,110,0.7)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(201,169,110,0.06)}
+.row:last-child{border-bottom:none}
+.row:hover{background:rgba(201,169,110,0.02)}
+.tag{font-size:7px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border:1px solid;white-space:nowrap}
+.tg{color:#c9a96e;border-color:rgba(201,169,110,0.3);background:rgba(201,169,110,0.06)}
+.tgr{color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.06)}
+.ta{color:#e67e22;border-color:rgba(230,126,34,0.3);background:rgba(230,126,34,0.06)}
+.tb{color:#3498db;border-color:rgba(52,152,219,0.3);background:rgba(52,152,219,0.06)}
+.empty{text-align:center;padding:32px;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.3)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:11px 14px;font-family:inherit;font-size:12px;outline:none;transition:border-color 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#c9a96e}
+.field select option{background:#141414}
+.field textarea{resize:vertical;min-height:110px;line-height:1.8}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-g{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:12px 28px;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:inherit}
+.ok-msg{display:none;padding:11px;font-size:11px;background:rgba(46,204,113,0.07);border:1px solid rgba(46,204,113,0.2);color:#2ecc71;margin-top:12px}
+.err-msg{display:none;padding:11px;font-size:11px;background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);color:#e74c3c;margin-top:12px}
+.upl{border:1px dashed rgba(201,169,110,0.2);padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(0,0,0,0.15)}
+.upl:hover{border-color:#c9a96e;background:rgba(201,169,110,0.04)}
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 104px)}
+.chat-hdr{padding:12px 20px;border-bottom:1px solid rgba(201,169,110,0.1);background:#080808;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:70%;display:flex;flex-direction:column;gap:3px}
+.msg.me{align-self:flex-end;align-items:flex-end}
+.msg.them{align-self:flex-start;align-items:flex-start}
+.bubble{padding:10px 14px;font-size:12px;line-height:1.8}
+.msg.me .bubble{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border-radius:14px 14px 2px 14px}
+.msg.them .bubble{background:#1a1a1a;color:#f0ede8;border:1px solid rgba(201,169,110,0.1);border-radius:14px 14px 14px 2px}
+.msg-t{font-size:8px;color:rgba(201,169,110,0.3)}
+.chat-bar{border-top:1px solid rgba(201,169,110,0.1);padding:12px 20px;display:flex;gap:10px;background:#060606;flex-shrink:0}
+.chat-in{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:10px 14px;font-family:inherit;font-size:12px;outline:none;resize:none;min-height:42px}
+.chat-in:focus{border-color:#c9a96e}
+.chat-send{background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;padding:0 18px;font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:inherit}
+.signout-btn{background:transparent;border:1px solid rgba(201,169,110,0.18);color:rgba(201,169,110,0.55);padding:6px 14px;font-size:7px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.signout-btn:hover{border-color:#c9a96e;color:#c9a96e}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">&#9670; &nbsp; Cipher Private &nbsp; &middot; &nbsp; Member Portal</div>
+  <div class="enc"><div class="enc-dot"></div>Encrypted Session</div>
+</div>
+<div class="layout">
+  <div class="sidebar">
+    <div class="member-card">
+      <div class="member-av" id="av">?</div>
+      <div class="member-name" id="mname">Loading...</div>
+      <span class="member-tier" id="mtier">CIPHER</span>
+      <div class="member-stats">
+        <div class="ms"><span class="ms-n" id="ms-r">0</span><span class="ms-l">Requests</span></div>
+        <div class="ms"><span class="ms-n" id="ms-a">0</span><span class="ms-l">Active</span></div>
+        <div class="ms"><span class="ms-n" id="ms-d">0</span><span class="ms-l">Docs</span></div>
+      </div>
+    </div>
+    <nav style="flex:1;overflow-y:auto;padding:6px 0">
+      <div class="nav-grp">Main</div>
+      <div class="nav-item on" id="ni-dash" onclick="go('dash')">&#9670; Dashboard</div>
+      <div class="nav-item" id="ni-req" onclick="go('req')">&#9672; My Requests</div>
+      <div class="nav-item" id="ni-new" onclick="go('new')">&#43; New Request</div>
+      <div class="nav-grp">Secure</div>
+      <div class="nav-item" id="ni-vault" onclick="go('vault')">&#8861; Document Vault</div>
+      <div class="nav-item" id="ni-chat" onclick="go('chat')">&#9678; Live Chat</div>
+      <div class="nav-grp">Account</div>
+      <div class="nav-item" id="ni-profile" onclick="go('profile')">&#9675; My Profile</div>
+    </nav>
+    <div class="nav-foot">
+      <div class="nav-item" onclick="signOut()">&#9211; Sign Out</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar2">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.4)">Cipher Private</span>
+        <span style="color:rgba(201,169,110,0.2)">&#8250;</span>
+        <span class="page-label" id="page-title">Dashboard</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="clock" id="clock"></span>
+        <button class="signout-btn" onclick="signOut()">Sign Out</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="pg on" id="pg-dash">
+        <div class="ey">Overview</div>
+        <h1 id="greeting">Welcome back.</h1>
+        <div class="banner">
+          <div style="font-size:24px;color:#c9a96e;flex-shrink:0">&#9670;</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#f5f2ec;margin-bottom:3px" id="banner-name">Your portal is active</div>
+            <div style="font-size:9px;color:rgba(201,169,110,0.6)">AES-256 Encrypted &middot; Australian Sovereign &middot; Privacy Act 1988</div>
+          </div>
+        </div>
+        <div class="stats3">
+          <div class="stat" onclick="go('req')"><div class="stat-n" id="d-total">0</div><div class="stat-l">Total Requests</div></div>
+          <div class="stat" onclick="go('req')"><div class="stat-n" id="d-active">0</div><div class="stat-l">Active</div></div>
+          <div class="stat" onclick="go('vault')"><div class="stat-n" id="d-docs">0</div><div class="stat-l">Documents</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="card">
+            <div class="card-hdr"><span class="card-title">Recent Activity</span><span style="font-size:8px;color:#c9a96e;cursor:pointer" onclick="go('req')">View all</span></div>
+            <div id="recent-list"><div class="empty">No activity yet</div></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><span class="card-title">Quick Actions</span></div>
+            <div class="tiles">
+              <div class="tile" onclick="go('new')"><div class="tile-ic">&#43;</div><div class="tile-t">New Request</div><div class="tile-s">Submit a concierge request</div></div>
+              <div class="tile" onclick="go('chat')"><div class="tile-ic">&#9678;</div><div class="tile-t">Live Chat</div><div class="tile-s">Message your director</div></div>
+              <div class="tile" onclick="go('vault')"><div class="tile-ic">&#8861;</div><div class="tile-t">Vault</div><div class="tile-s">Encrypted file storage</div></div>
+              <div class="tile" onclick="go('profile')"><div class="tile-ic">&#9675;</div><div class="tile-t">Profile</div><div class="tile-s">Account settings</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pg" id="pg-req">
+        <div class="ey">Concierge</div><h1>My Service Requests</h1>
+        <div class="card" style="padding:0"><div id="req-list"><div class="empty">Loading...</div></div></div>
+      </div>
+      <div class="pg" id="pg-new">
+        <div class="ey">Concierge</div><h1>New Service Request</h1>
+        <div class="card">
+          <div class="fg2">
+            <div class="field" style="grid-column:1/-1"><label>Category</label>
+              <select id="req-cat"><option value="">Select a category</option><option>Travel &amp; Aviation</option><option>Dining &amp; Events</option><option>Estate Management</option><option>Medical Concierge</option><option>Security &amp; Privacy</option><option>Financial &amp; Legal</option><option>Lifestyle &amp; Procurement</option><option>Other</option></select>
+            </div>
+            <div class="field"><label>Priority</label><select id="req-pri"><option value="STANDARD">Standard</option><option value="URGENT">Urgent</option><option value="CRITICAL">Critical</option></select></div>
+            <div class="field"><label>Timeline</label><input type="text" id="req-time" placeholder="e.g. This week, ASAP"></div>
+            <div class="field" style="grid-column:1/-1"><label>Request Details</label><textarea id="req-desc" placeholder="Describe your request in detail..."></textarea></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid rgba(201,169,110,0.07)">
+            <span style="font-size:9px;color:rgba(201,169,110,0.4)">Encrypted and sent directly to your lifestyle director.</span>
+            <button class="btn-g" onclick="submitReq()">Submit Request</button>
+          </div>
+          <div class="ok-msg" id="req-ok">&#10003; Request submitted. Your director has been notified.</div>
+          <div class="err-msg" id="req-err"></div>
+        </div>
+      </div>
+      <div class="pg" id="pg-vault">
+        <div class="ey">Secure Storage</div><h1>Document Vault</h1>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Upload Document</span><span style="font-size:7px;letter-spacing:2px;color:rgba(201,169,110,0.5);text-transform:uppercase">AES-256 Encrypted</span></div>
+          <div class="upl" onclick="document.getElementById('file-inp').click()">
+            <div style="font-size:24px;color:rgba(201,169,110,0.3);margin-bottom:8px">&#8679;</div>
+            <div style="font-size:11px;color:rgba(201,169,110,0.6)">Click to upload &middot; PDF, DOCX, PNG, JPG &middot; Max 10MB</div>
+          </div>
+          <input type="file" id="file-inp" style="display:none" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" onchange="uploadFile(this)">
+        </div>
+        <div class="card" style="padding:0">
+          <div class="card-hdr" style="padding:14px 18px"><span class="card-title">Encrypted Files</span></div>
+          <div id="vault-list"><div class="empty">No documents yet</div></div>
+        </div>
+      </div>
+      <div class="pg" id="pg-chat" style="padding:0;margin:-24px -28px">
+        <div class="chat-wrap">
+          <div class="chat-hdr">
+            <div style="width:30px;height:30px;border:1px solid rgba(201,169,110,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a96e;font-family:'Cormorant Garamond',serif;font-size:13px">D</div>
+            <div>
+              <div style="font-size:11px;color:#f0ede8;font-weight:500;margin-bottom:2px">Your Lifestyle Director</div>
+              <div style="font-size:8px;color:#2ecc71">&#9679; Available</div>
+            </div>
+            <span style="margin-left:auto;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.4)">End-to-End Encrypted</span>
+          </div>
+          <div class="msgs" id="chat-msgs">
+            <div class="msg them"><div class="bubble">Welcome to Cipher Private. I am your dedicated lifestyle director. How may I assist you today?</div><div class="msg-t">Your Director</div></div>
+          </div>
+          <div class="chat-bar">
+            <textarea class="chat-in" id="chat-in" rows="1" placeholder="Type your message..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+            <button class="chat-send" onclick="sendMsg()">Send</button>
+          </div>
+        </div>
+      </div>
+      <div class="pg" id="pg-profile">
+        <div class="ey">Account</div><h1>My Profile</h1>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Personal Details</span></div>
+          <div class="fg2">
+            <div class="field"><label>Full Name</label><input type="text" id="p-name" readonly></div>
+            <div class="field"><label>Email</label><input type="email" id="p-email" readonly></div>
+            <div class="field"><label>Membership Tier</label><input type="text" id="p-tier" readonly style="color:#c9a96e"></div>
+            <div class="field"><label>Member Since</label><input type="text" id="p-since" readonly></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Security Status</span></div>
+          <div style="padding:0 4px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)"><span style="color:#2ecc71">&#10003;</span><span style="font-size:12px;color:#d0ccc8">AES-256 Encryption Active</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)"><span style="color:#2ecc71">&#10003;</span><span style="font-size:12px;color:#d0ccc8">Australian Sovereign Data Storage</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,169,110,0.07)"><span style="color:#2ecc71">&#10003;</span><span style="font-size:12px;color:#d0ccc8">Privacy Act 1988 Compliant</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0"><span style="color:#2ecc71">&#10003;</span><span style="font-size:12px;color:#d0ccc8">Two-Factor Authentication Enabled</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var TK   = sessionStorage.getItem('cipher_token');
+var USER = {};
+try { USER = JSON.parse(sessionStorage.getItem('cipher_user') || '{}'); } catch(e) {}
+if (!TK) { window.location.href = '/portal'; }
+
+var H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK };
+var PAGES  = ['dash','req','new','vault','chat','profile'];
+var TITLES = { dash:'Dashboard', req:'My Requests', new:'New Request', vault:'Document Vault', chat:'Live Chat', profile:'My Profile' };
+
+setInterval(function(){
+  var el = document.getElementById('clock');
+  if (el) el.textContent = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+}, 1000);
+
+function init() {
+  var name = USER.fullName || 'Member';
+  var h = new Date().getHours();
+  var gr = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = gr + ', ' + name.split(' ')[0] + '.';
+  document.getElementById('banner-name').textContent = 'Welcome back, ' + name;
+  document.getElementById('mname').textContent = name;
+  document.getElementById('av').textContent = name[0].toUpperCase();
+  document.getElementById('mtier').textContent = (USER.memberTier || 'CIPHER').replace(/_/g,' ');
+  document.getElementById('p-name').value = name;
+  document.getElementById('p-email').value = USER.email || '';
+  document.getElementById('p-tier').value = (USER.memberTier || 'CIPHER').replace(/_/g,' ');
+  document.getElementById('p-since').value = USER.createdAt ? new Date(USER.createdAt).toLocaleDateString('en-AU') : 'Member';
+  loadRequests();
+  loadDocs();
+}
+
+async function loadRequests() {
+  try {
+    var r = await fetch('/api/requests', { headers: H });
+    if (r.status === 401) { signOut(); return; }
+    var d = await r.json();
+    var reqs = Array.isArray(d) ? d : (d.requests || []);
+    var active = reqs.filter(function(x){ return x.status !== 'COMPLETED' && x.status !== 'CANCELLED'; });
+    document.getElementById('ms-r').textContent = reqs.length;
+    document.getElementById('ms-a').textContent = active.length;
+    document.getElementById('d-total').textContent = reqs.length;
+    document.getElementById('d-active').textContent = active.length;
+    var rl = document.getElementById('recent-list');
+    if (!reqs.length) { rl.innerHTML = '<div class="empty">No activity yet</div>'; }
+    else {
+      rl.innerHTML = reqs.slice(0,4).map(function(x) {
+        var dot = x.status==='COMPLETED'?'#2ecc71':x.status==='IN_PROGRESS'?'#3498db':'#c9a96e';
+        var tc  = x.status==='COMPLETED'?'tgr':x.status==='IN_PROGRESS'?'tb':'tg';
+        return '<div class="row"><div style="width:7px;height:7px;border-radius:50%;background:'+dot+';flex-shrink:0"></div><div style="flex:1;min-width:0"><div style="font-size:12px;color:#f0ede8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500">'+(x.title||x.description||'Request').substring(0,40)+'</div><div style="font-size:9px;color:rgba(201,169,110,0.55)">'+(x.category||'')+'</div></div><span class="tag '+tc+'">'+(x.status||'').replace(/_/g,' ')+'</span></div>';
+      }).join('');
+    }
+    var reqList = document.getElementById('req-list');
+    if (!reqs.length) { reqList.innerHTML = '<div class="empty">No requests yet</div>'; }
+    else {
+      reqList.innerHTML = reqs.map(function(x) {
+        var tc = x.status==='COMPLETED'?'tgr':x.status==='IN_PROGRESS'?'tb':'tg';
+        return '<div class="row"><div style="flex:1;min-width:0"><div style="font-size:12px;color:#f0ede8;font-weight:500;margin-bottom:2px">'+(x.title||x.description||'Request').substring(0,60)+'</div><div style="font-size:9px;color:rgba(201,169,110,0.55)">'+(x.category||'')+' &middot; '+(x.priority||'STANDARD')+' &middot; '+new Date(x.createdAt).toLocaleDateString('en-AU')+'</div></div><span class="tag '+tc+'">'+(x.status||'').replace(/_/g,' ')+'</span></div>';
+      }).join('');
+    }
+  } catch(e) { console.error(e); }
+}
+
+async function loadDocs() {
+  try {
+    var r = await fetch('/api/documents', { headers: H });
+    var d = await r.json();
+    var docs = Array.isArray(d) ? d : (d.documents || []);
+    document.getElementById('ms-d').textContent = docs.length;
+    document.getElementById('d-docs').textContent = docs.length;
+    var vl = document.getElementById('vault-list');
+    if (!docs.length) { vl.innerHTML = '<div class="empty">No documents yet</div>'; return; }
+    vl.innerHTML = docs.map(function(doc) {
+      return '<div class="row"><div style="width:34px;height:34px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.14);display:flex;align-items:center;justify-content:center;color:#c9a96e;font-size:13px;flex-shrink:0">&#8861;</div><div style="flex:1;min-width:0"><div style="font-size:12px;color:#f0ede8;font-weight:500">'+(doc.name||doc.fileName||'Document')+'</div><div style="font-size:9px;color:rgba(201,169,110,0.55)">'+new Date(doc.createdAt).toLocaleDateString('en-AU')+' &middot; AES-256 Encrypted</div></div>' +
+        '<a href="/api/documents/'+doc.id+'/download" style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;text-decoration:none;border:1px solid rgba(201,169,110,0.2);padding:5px 10px;margin-right:6px">Download</a>' +
+        '<button onclick="shareDoc(\'' + doc.id + '\', \'' + (doc.name||doc.fileName||'Document') + '\')" style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#f0ede8;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);padding:5px 10px;cursor:pointer;font-family:inherit">Share via OTP</button>' +
+      '</div>';
+    }).join('');
+  } catch(e) {}
+}
+
+async function submitReq() {
+  var cat  = document.getElementById('req-cat').value;
+  var desc = document.getElementById('req-desc').value.trim();
+  var ok   = document.getElementById('req-ok');
+  var err  = document.getElementById('req-err');
+  ok.style.display='none'; err.style.display='none';
+  if (!cat || !desc) { err.textContent='Please select a category and describe your request.'; err.style.display='block'; return; }
+  try {
+    var res = await fetch('/api/requests', { method:'POST', headers:H, body:JSON.stringify({ category:cat, priority:document.getElementById('req-pri').value, description:desc, timeline:document.getElementById('req-time').value }) });
+    var data = await res.json();
+    if (res.ok) { ok.style.display='block'; document.getElementById('req-desc').value=''; loadRequests(); setTimeout(function(){ ok.style.display='none'; }, 4000); }
+    else { err.textContent=data.error||'Failed to submit.'; err.style.display='block'; }
+  } catch(e) { err.textContent='Connection error.'; err.style.display='block'; }
+}
+
+async function uploadFile(inp) {
+  if (!inp.files[0]) return;
+  var fd = new FormData(); fd.append('file', inp.files[0]);
+  try {
+    var res = await fetch('/api/documents/upload', { method:'POST', headers:{'Authorization':'Bearer '+TK}, body:fd });
+    if (res.ok) { loadDocs(); } else { alert('Upload failed.'); }
+  } catch(e) {}
+}
+
+async function sendMsg() {
+  var inp = document.getElementById('chat-in');
+  var txt = inp.value.trim(); if (!txt) return;
+  var msgs = document.getElementById('chat-msgs');
+  var time = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+  msgs.innerHTML += '<div class="msg me"><div class="bubble">'+txt+'</div><div class="msg-t">'+time+'</div></div>';
+  inp.value = ''; msgs.scrollTop = msgs.scrollHeight;
+  var typId = 'typ-'+Date.now();
+  msgs.innerHTML += '<div class="msg them" id="'+typId+'"><div class="bubble" style="opacity:0.6;font-style:italic">Cipher is arranging...</div></div>';
+  msgs.scrollTop = msgs.scrollHeight;
+  try {
+    var res = await fetch('/api/cipherbot/message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK },
+      body: JSON.stringify({ message: txt })
+    });
+    var data = await res.json();
+    var el = document.getElementById(typId); if (el) el.remove();
+    var reply = data.reply || 'I am on it. Your Cipher team will follow up shortly.';
+    var rtime = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+    msgs.innerHTML += '<div class="msg them"><div class="bubble">'+reply+'</div><div class="msg-t">Cipher &middot; '+rtime+'</div></div>';
+    if (data.requestCreated) {
+      msgs.innerHTML += '<div class="msg them"><div class="bubble" style="background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);color:#2ecc71;font-size:11px">&#10003; Service request created and vendors contacted.</div></div>';
+      loadRequests();
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+  } catch(e) {
+    var el = document.getElementById(typId); if (el) el.remove();
+    msgs.innerHTML += '<div class="msg them"><div class="bubble" style="color:#e74c3c">Connection error. Please try again.</div></div>';
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+async function loadChatHistory() {
+  try {
+    var r = await fetch('/api/cipherbot/history', { headers: H });
+    var d = await r.json();
+    var messages = d.messages || [];
+    if (!messages.length) return;
+    var msgs = document.getElementById('chat-msgs');
+    msgs.innerHTML = '';
+    messages.forEach(function(m) {
+      var time = new Date(m.createdAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+      if (m.role === 'user') {
+        msgs.innerHTML += '<div class="msg me"><div class="bubble">'+m.content+'</div><div class="msg-t">'+time+'</div></div>';
+      } else {
+        msgs.innerHTML += '<div class="msg them"><div class="bubble">'+m.content+'</div><div class="msg-t">Cipher &middot; '+time+'</div></div>';
+      }
+    });
+    msgs.scrollTop = msgs.scrollHeight;
+  } catch(e) {}
+}
+
+function go(pg) {
+  PAGES.forEach(function(p){
+    var el=document.getElementById('pg-'+p); if(el) el.classList.remove('on');
+    var ni=document.getElementById('ni-'+p); if(ni) ni.classList.remove('on');
+  });
+  var page=document.getElementById('pg-'+pg); if(page) page.classList.add('on');
+  var nav=document.getElementById('ni-'+pg);  if(nav)  nav.classList.add('on');
+  var t=document.getElementById('page-title'); if(t) t.textContent=TITLES[pg]||pg;
+}
+
+
+var shareDocId = null;
+
+function shareDoc(docId, docName) {
+  shareDocId = docId;
+  document.getElementById('shareDocName').textContent = docName;
+  document.getElementById('shareEmail').value = '';
+  document.getElementById('shareMsg').style.display = 'none';
+  document.getElementById('shareModal').style.display = 'block';
+  setTimeout(function(){ document.getElementById('shareEmail').focus(); }, 100);
+}
+
+async function sendSecureShare() {
+  var email = document.getElementById('shareEmail').value.trim();
+  var expiry = document.getElementById('shareExpiry').value;
+  var msg = document.getElementById('shareMsg');
+  if (!email) { msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)'; msg.textContent='Please enter recipient email.'; return; }
+  try {
+    var res = await fetch('/api/otp/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK },
+      body: JSON.stringify({ documentId: shareDocId, recipientEmail: email, expiryHours: parseInt(expiry) })
+    });
+    var data = await res.json();
+    if (res.ok) {
+      msg.style.cssText='display:block;color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.07)';
+      msg.textContent='Secure link sent to ' + email + '. They will receive a one-time code by email.';
+      setTimeout(function(){ document.getElementById('shareModal').style.display='none'; }, 3000);
+    } else {
+      msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)';
+      msg.textContent = data.error || 'Failed to send. Please try again.';
+    }
+  } catch(e) {
+    msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)';
+    msg.textContent = 'Connection error.';
+  }
+}
+
+
+var shareDocId = null;
+
+function shareDoc(docId, docName) {
+  shareDocId = docId;
+  document.getElementById('shareDocName').textContent = docName;
+  document.getElementById('shareEmail').value = '';
+  document.getElementById('shareMsg').style.display = 'none';
+  document.getElementById('shareModal').style.display = 'block';
+  setTimeout(function(){ document.getElementById('shareEmail').focus(); }, 100);
+}
+
+async function sendSecureShare() {
+  var email = document.getElementById('shareEmail').value.trim();
+  var expiry = document.getElementById('shareExpiry').value;
+  var msg = document.getElementById('shareMsg');
+  if (!email) { msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)'; msg.textContent='Please enter recipient email.'; return; }
+  try {
+    var res = await fetch('/api/otp/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK },
+      body: JSON.stringify({ documentId: shareDocId, recipientEmail: email, expiryHours: parseInt(expiry) })
+    });
+    var data = await res.json();
+    if (res.ok) {
+      msg.style.cssText='display:block;color:#2ecc71;border-color:rgba(46,204,113,0.3);background:rgba(46,204,113,0.07)';
+      msg.textContent='Secure link sent to ' + email + '. They will receive a one-time code by email.';
+      setTimeout(function(){ document.getElementById('shareModal').style.display='none'; }, 3000);
+    } else {
+      msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)';
+      msg.textContent = data.error || 'Failed to send. Please try again.';
+    }
+  } catch(e) {
+    msg.style.cssText='display:block;color:#e74c3c;border-color:rgba(231,76,60,0.3);background:rgba(231,76,60,0.07)';
+    msg.textContent = 'Connection error.';
+  }
+}
+
+function signOut() { sessionStorage.clear(); window.location.href='/portal'; }
+
+init();
+</script>
+
+<div id="shareModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,0.88)">
+  <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#111;border:1px solid rgba(201,169,110,0.25);padding:32px;width:440px;max-width:95vw">
+    <div style="font-family:Georgia,serif;font-size:20px;color:#f0ede8;margin-bottom:4px">Share Document</div>
+    <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:6px" id="shareDocName"></div>
+    <div style="font-size:11px;color:rgba(201,169,110,0.6);margin-bottom:20px;line-height:1.6">The recipient will receive a secure link. They must enter a one-time code sent to their email to access the document.</div>
+    <div style="margin-bottom:14px">
+      <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Recipient Email</div>
+      <input type="email" id="shareEmail" placeholder="recipient@email.com" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:20px">
+      <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Expires In</div>
+      <select id="shareExpiry" style="width:100%;padding:11px 14px;background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box">
+        <option value="1">1 hour</option>
+        <option value="24" selected>24 hours</option>
+        <option value="72">3 days</option>
+        <option value="168">7 days</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <button onclick="document.getElementById('shareModal').style.display='none'" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;font-size:8px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:inherit">Cancel</button>
+      <button onclick="sendSecureShare()" style="flex:2;padding:12px;background:#c9a96e;border:none;color:#080808;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:inherit">Send Secure Link</button>
+    </div>
+    <div id="shareMsg" style="display:none;padding:10px;font-size:12px;text-align:center;border:1px solid;margin-top:8px"></div>
+  </div>
+</div>
+
+
+<div id="shareModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,0.88)">
+  <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#111;border:1px solid rgba(201,169,110,0.25);padding:32px;width:440px;max-width:95vw">
+    <div style="font-family:Georgia,serif;font-size:20px;color:#f0ede8;margin-bottom:4px">Share Document</div>
+    <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:6px" id="shareDocName"></div>
+    <div style="font-size:11px;color:rgba(201,169,110,0.6);margin-bottom:20px;line-height:1.6">The recipient will receive a secure link. They must enter a one-time code sent to their email to access the document.</div>
+    <div style="margin-bottom:14px">
+      <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Recipient Email</div>
+      <input type="email" id="shareEmail" placeholder="recipient@email.com" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:20px">
+      <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Expires In</div>
+      <select id="shareExpiry" style="width:100%;padding:11px 14px;background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box">
+        <option value="1">1 hour</option>
+        <option value="24" selected>24 hours</option>
+        <option value="72">3 days</option>
+        <option value="168">7 days</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <button onclick="document.getElementById('shareModal').style.display='none'" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;font-size:8px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:inherit">Cancel</button>
+      <button onclick="sendSecureShare()" style="flex:2;padding:12px;background:#c9a96e;border:none;color:#080808;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:inherit">Send Secure Link</button>
+    </div>
+    <div id="shareMsg" style="display:none;padding:10px;font-size:12px;text-align:center;border:1px solid;margin-top:8px"></div>
+  </div>
+</div>
+
+</body>
+</html>

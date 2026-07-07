@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1308984621428224');
+fbq('track', 'PageView');
+
+// ── PROFILE ────────────────────────────────────────────────────
+async function loadProfile() {
+  try {
+    var r = await fetch('/api/auth/me', { headers: H });
+    if (!r.ok) return;
+    var d = await r.json();
+    var u = d.user || d;
+    if (!u) return;
+    var el;
+    var tierMap = {'FREE':'Free','CIPHER':'Cipher Member','CIPHER_SOVEREIGN':'Cipher Sovereign','CIPHER_PRIVATE':'Cipher Private'};
+    el = document.getElementById('profName'); if(el) el.textContent = u.fullName || '—';
+    el = document.getElementById('profEmail'); if(el) el.textContent = u.email || '—';
+    el = document.getElementById('profPhone'); if(el) el.textContent = u.phone || 'Not provided';
+    el = document.getElementById('profPlan'); if(el) el.textContent = tierMap[u.memberTier] || (u.memberTier||'—').replace(/_/g,' ');
+    el = document.getElementById('profSince'); if(el) el.textContent = u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    el = document.getElementById('profUsage'); if(el) el.textContent = u.requestsThisMonth !== undefined ? u.requestsThisMonth + ' this month' : '—';
+  } catch(e) { console.error('loadProfile error', e); }
+}
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1308984621428224&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Consiere — Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--copper:#b87333;--cl:#d4956a;--cp:#f0d5c0;--cream:#faf8f5;--dark:#1c1917;--mid:#44403c;--muted:#78716c;--border:rgba(184,115,51,0.15);--green:#22c55e}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(160deg,#fff9f4,var(--cream))}
+.login-card{width:100%;max-width:400px}
+.login-logo{text-align:center;margin-bottom:28px}
+.login-logo-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--copper),#8a5a2e);border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700;margin-bottom:10px}
+.login-logo-text{font-family:'Playfair Display',serif;font-size:20px;color:var(--dark);font-weight:500}
+.login-logo-text span{color:var(--copper)}
+.login-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:0 8px 40px rgba(184,115,51,0.08)}
+.login-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:6px;font-weight:500}
+.field input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--dark);background:#fff;outline:none;transition:border-color 0.15s}
+.field input:focus{border-color:var(--copper)}
+.btn-primary{width:100%;padding:13px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.2s;box-shadow:0 3px 14px rgba(184,115,51,0.25)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(184,115,51,0.35)}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.err-box{display:none;padding:10px 13px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:6px;color:#dc2626;font-size:12px;margin-bottom:12px}
+.ok-box{display:none;padding:10px 13px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:6px;color:#16a34a;font-size:12px;margin-bottom:12px}
+.login-footer{text-align:center;margin-top:16px;font-size:12px;color:var(--muted)}
+.login-footer a{color:var(--copper);text-decoration:none}
+
+/* PORTAL LAYOUT */
+.portal{display:none;height:100vh;overflow:hidden;flex-direction:column}
+.portal.active{display:flex}
+.portal-top{height:56px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.portal-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--dark);font-weight:500}
+.portal-brand span{color:var(--copper)}
+.portal-user{display:flex;align-items:center;gap:12px}
+.portal-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--cp),var(--cl));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#8a5a2e;font-weight:600}
+.portal-name{font-size:13px;color:var(--mid);font-weight:500}
+.plan-badge{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);background:rgba(184,115,51,0.08);border:1px solid rgba(184,115,51,0.2);padding:3px 10px;border-radius:100px}
+.signout-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;font-size:11px;border-radius:6px;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.signout-btn:hover{border-color:var(--copper);color:var(--copper)}
+.portal-body{display:flex;flex:1;overflow:hidden}
+.sidebar{width:220px;min-width:220px;background:#fff;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.nav-section{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(184,115,51,0.5);padding:14px 16px 4px;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;font-size:12px;color:var(--mid);border-left:2px solid transparent;transition:all 0.15s;text-decoration:none}
+.nav-item:hover{background:rgba(184,115,51,0.04);color:var(--dark)}
+.nav-item.on{background:rgba(184,115,51,0.06);border-left-color:var(--copper);color:var(--copper);font-weight:500}
+.nav-icon{font-size:15px;flex-shrink:0}
+.nav-foot{margin-top:auto;border-top:1px solid var(--border);padding:8px 0}
+.main{flex:1;overflow-y:auto;padding:24px 28px;background:var(--cream)}
+.pg{display:none}.pg.on{display:block}
+.page-ey{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:5px;font-weight:500}
+.page-h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:500;color:var(--dark);margin-bottom:18px}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:14px}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
+.card-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:500}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+.stat-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:500;color:var(--dark);line-height:1;margin-bottom:4px}
+.stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(184,115,51,0.06)}
+.row:last-child{border-bottom:none}
+.row:hover{background:rgba(184,115,51,0.02)}
+.tag{font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border:1px solid;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.tg{color:var(--copper);border-color:rgba(184,115,51,0.3);background:rgba(184,115,51,0.06)}
+.tgr{color:#16a34a;border-color:rgba(22,163,74,0.3);background:rgba(22,163,74,0.06)}
+.ta{color:#d97706;border-color:rgba(217,119,6,0.3);background:rgba(217,119,6,0.06)}
+.tb{color:#2563eb;border-color:rgba(37,99,235,0.3);background:rgba(37,99,235,0.06)}
+.empty{text-align:center;padding:32px;font-size:11px;color:var(--muted);letter-spacing:1px}
+.btn-sm{padding:7px 16px;font-size:11px;font-weight:500;border-radius:6px;cursor:pointer;font-family:inherit;transition:all 0.15s;border:none}
+.btn-copper-sm{background:var(--copper);color:#fff}
+.btn-copper-sm:hover{background:#a06528}
+.btn-outline-sm{background:transparent;border:1px solid var(--border);color:var(--mid)}
+.btn-outline-sm:hover{border-color:var(--copper);color:var(--copper)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* REQUEST FORM */
+.req-form{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px}
+.form-field{margin-bottom:16px}
+.form-label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:6px;font-weight:500}
+.form-input,.form-select,.form-textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--dark);background:#fff;outline:none;transition:border-color 0.15s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--copper)}
+.form-select option{background:#fff}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.7}
+.form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 56px);margin:-24px -28px}
+.chat-hdr{padding:14px 20px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.chat-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--cp),var(--cl));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#8a5a2e}
+.chat-name{font-size:13px;font-weight:600;color:var(--dark)}
+.chat-status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px}
+.chat-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px;background:var(--cream)}
+.msg{display:flex;gap:8px;max-width:72%}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.bubble{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.7;word-break:break-word;overflow-wrap:break-word;max-width:100%}
+.msg.them .bubble{background:#fff;color:var(--dark);border:1px solid var(--border);border-radius:4px 14px 14px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.msg.me .bubble{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border-radius:14px 4px 14px 14px}
+.msg-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.msg.them .msg-av{background:linear-gradient(135deg,var(--cp),var(--cl));color:#8a5a2e}
+.msg.me .msg-av{background:rgba(184,115,51,0.15);color:var(--copper)}
+.msg-time{font-size:9px;color:var(--muted);margin-top:3px}
+.msg.me .msg-time{text-align:right}
+.chat-bar{border-top:1px solid var(--border);padding:12px 20px;display:flex;gap:10px;background:#fff;flex-shrink:0}
+.chat-input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;color:var(--dark);outline:none;resize:none;min-height:42px;transition:border-color 0.15s}
+.chat-input:focus{border-color:var(--copper)}
+.chat-send{padding:10px 20px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;white-space:nowrap}
+.typing-bubble{display:flex;gap:4px;align-items:center;padding:2px 4px}
+.typing-bubble span{width:6px;height:6px;border-radius:50%;background:var(--cl);animation:tp 1.2s ease infinite}
+.typing-bubble span:nth-child(2){animation-delay:0.2s}
+.typing-bubble span:nth-child(3){animation-delay:0.4s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-4px);opacity:1}}
+
+/* PLAN */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.plan-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;position:relative;transition:all 0.2s}
+.plan-card:hover{box-shadow:0 6px 24px rgba(184,115,51,0.08)}
+.plan-card.current{border-color:var(--copper);box-shadow:0 4px 20px rgba(184,115,51,0.12)}
+.plan-badge-curr{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--copper);color:#fff;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 12px;border-radius:100px;white-space:nowrap}
+.plan-tier{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:5px}
+.plan-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.plan-price{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--dark);line-height:1;margin:12px 0 4px}
+.plan-price-per{font-size:12px;color:var(--muted)}
+.plan-desc{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.plan-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.plan-feat{display:flex;gap:7px;font-size:12px;color:var(--mid);align-items:flex-start}
+.plan-check{color:var(--copper);flex-shrink:0;margin-top:1px}
+.plan-btn{width:100%;padding:11px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.plan-btn-p{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;box-shadow:0 3px 12px rgba(184,115,51,0.22)}
+.plan-btn-o{background:transparent;border:1.5px solid var(--border);color:var(--dark)}
+.plan-btn-o:hover{border-color:var(--copper);color:var(--copper)}
+.plan-btn-curr{background:rgba(184,115,51,0.08);border:1px solid rgba(184,115,51,0.2);color:var(--copper);cursor:default}
+
+/* 2FA */
+.twofa-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(160deg,#fff9f4,var(--cream))}
+.twofa-card{width:100%;max-width:380px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;box-shadow:0 8px 40px rgba(184,115,51,0.08)}
+.twofa-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.twofa-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.twofa-hint{font-size:12px;color:var(--copper);margin-bottom:20px}
+.twofa-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:24px;letter-spacing:10px;text-align:center;font-family:inherit;color:var(--dark);outline:none;transition:border-color 0.15s;margin-bottom:14px}
+.twofa-input:focus{border-color:var(--copper)}
+.twofa-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:var(--muted)}
+.twofa-resend{background:none;border:none;color:var(--copper);cursor:pointer;font-size:12px;font-family:inherit}
+
+.usage-bar-wrap{background:rgba(184,115,51,0.06);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.usage-bar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.usage-bar-label{font-size:11px;color:var(--muted);font-weight:400}
+.usage-bar-count{font-size:11px;color:var(--copper);font-weight:500}
+.usage-bar-track{height:5px;background:rgba(184,115,51,0.12);border-radius:100px;overflow:hidden}
+.usage-bar-fill{height:100%;background:linear-gradient(90deg,var(--copper),#d4956a);border-radius:100px;transition:width 0.4s ease}
+.usage-bar-fill.full{background:linear-gradient(90deg,#e74c3c,#c0392b)}
+.upgrade-nudge{background:linear-gradient(135deg,rgba(184,115,51,0.08),rgba(184,115,51,0.04));border:1px solid rgba(184,115,51,0.2);border-radius:10px;padding:16px;margin-bottom:14px;display:none}
+.upgrade-nudge.show{display:block}
+.upgrade-nudge-title{font-size:13px;font-weight:500;color:var(--dark);margin-bottom:5px}
+.upgrade-nudge-sub{font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.upgrade-nudge-btns{display:flex;gap:8px}
+.btn-upgrade-std{padding:8px 16px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-upgrade-prem{padding:8px 16px;background:transparent;border:1px solid var(--copper);color:var(--copper);border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cipher">
+  <meta name="theme-color" content="#b87333">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+<script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=YyLHfk"></script>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginScreen">
+  <!-- Login form -->
+  <div class="login-card" id="loginFormCard">
+    <div style="text-align:center;margin-bottom:24px">
+      <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(184,115,51,0.4)" stroke-width="1.2"/><circle cx="26" cy="26" r="16" fill="none" stroke="rgba(184,115,51,0.6)" stroke-width="1.2"/><path d="M 32,10.5 A 16,16 0 1,0 32,41.5" fill="none" stroke="#c9a96e" stroke-width="4.5" stroke-linecap="round"/></svg>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:22px;color:#8a5a2e;font-weight:500;margin-top:8px">Consiere</div>
+    </div>
+    <div style="font-size:20px;font-weight:600;color:#1a1612;margin-bottom:4px">Welcome back</div>
+    <div style="font-size:13px;color:#78716c;margin-bottom:24px">Sign in to your Consiere portal</div>
+    <div class="err-box" id="loginErr" style="display:none"></div>
+    <div style="margin-bottom:14px">
+      <label class="field-label">EMAIL ADDRESS</label>
+      <input type="email" class="field-input" id="loginEmail" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <div style="margin-bottom:20px">
+      <label class="field-label">PASSWORD</label>
+      <input type="password" class="field-input" id="loginPass" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-primary" id="loginBtn" onclick="doLogin()">Sign In</button>
+    <div style="text-align:center;margin-top:16px;font-size:13px;color:#78716c">
+      Don't have an account? <a href="/signup" style="color:var(--copper);text-decoration:none">Sign up free</a>
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <a href="/" style="font-size:12px;color:var(--copper);text-decoration:none">← Back to consiere.com.au</a>
+    </div>
+  </div>
+  <!-- 2FA form -->
+  <div class="login-card" id="twoFACard" style="display:none">
+    <div style="text-align:center;margin-bottom:20px">
+      <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(184,115,51,0.4)" stroke-width="1.2"/><circle cx="26" cy="26" r="16" fill="none" stroke="rgba(184,115,51,0.6)" stroke-width="1.2"/><path d="M 32,10.5 A 16,16 0 1,0 32,41.5" fill="none" stroke="#c9a96e" stroke-width="4.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="twofa-title">Check your email</div>
+    <div class="twofa-sub">We sent a 6-digit security code to</div>
+    <div class="twofa-hint" id="twoFAEmail"></div>
+    <div class="err-box" id="twoFAErr"></div>
+    <input type="tel" class="twofa-input" id="twoFACode" maxlength="6" placeholder="000000" onkeydown="if(event.key==='Enter')doVerify2FA()">
+    <button class="btn-primary" id="twoFABtn" onclick="doVerify2FA()">Verify & Enter Portal</button>
+    <div class="twofa-footer">
+      <span>Expires in <span id="twoFATimer" style="color:var(--copper);font-weight:500">5:00</span></span>
+      <button class="twofa-resend" onclick="doResend2FA()">Resend code</button>
+    </div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div class="portal" id="portal">
+  <div class="portal-top">
+    <div class="portal-brand" style="display:flex;align-items:center;gap:8px"><svg width="24" height="24" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(184,115,51,0.2)" stroke-width="1"/><circle cx="22" cy="22" r="14" fill="none" stroke="rgba(184,115,51,0.35)" stroke-width="1"/><path d="M 28,8.5 A 13.5,13.5 0 1,0 28,35.5" fill="none" stroke="#b87333" stroke-width="4" stroke-linecap="round"/><circle cx="28" cy="8.5" r="2.5" fill="#b87333"/><circle cx="28" cy="35.5" r="2.5" fill="#b87333"/></svg><span style="color:var(--copper)">Consiere</span></div>
+    <div class="portal-user">
+      <div class="portal-av" id="userAv">?</div>
+      <div>
+        <div class="portal-name" id="userName">Loading...</div>
+        <div class="plan-badge" id="userPlan">FREE</div>
+      </div>
+      <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+    </div>
+  </div>
+  <div class="portal-body">
+    <div class="sidebar">
+      <div class="nav-section">Menu</div>
+      <div class="nav-item on" id="nav-home" onclick="go('home',this)"><span class="nav-icon">&#9671;</span>Dashboard</div>
+      <div class="nav-item" id="nav-request" onclick="go('request',this)"><span class="nav-icon">&#43;</span>New Request</div>
+      <div class="nav-item" id="nav-requests" onclick="go('requests',this)"><span class="nav-icon">&#9672;</span>My Requests</div>
+      <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">&#9678;</span>Chat with Alina</div>
+      <div class="nav-section">Account</div>
+      <div class="nav-item" id="nav-payments" onclick="go('payments',this)"><span class="nav-icon">&#128179;</span>Cipher Pay</div>
+      <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">&#9651;</span>My Plan</div>
+      <div class="nav-item" id="nav-profile" onclick="go('profile',this)"><span class="nav-icon">&#9675;</span>Profile</div>
+      <div class="nav-foot">
+        <div class="nav-item" onclick="doSignOut()"><span class="nav-icon">&#9211;</span>Sign Out</div>
+      </div>
+    </div>
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="pg on" id="pg-home">
+        <div class="page-ey">Overview</div>
+        <div class="page-h1" id="greeting">Good morning.</div>
+        <div style="background:linear-gradient(135deg,var(--copper),#8a5a2e);border-radius:12px;padding:20px 24px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:#fff;margin-bottom:4px" id="welcomeName">Welcome back</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.75)">Your personal concierge is ready. What can I arrange today?</div>
+          </div>
+          <button onclick="go('request',document.getElementById('nav-request'))" style="padding:10px 20px;background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap">+ New Request</button>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-n" id="d-total">0</div><div class="stat-l">Total Requests</div></div>
+          <div class="stat-card"><div class="stat-n" id="d-active">0</div><div class="stat-l">Active</div></div>
+          <div class="stat-card"><div class="stat-n" id="d-done" style="color:var(--green)">0</div><div class="stat-l">Completed</div></div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-hdr"><span class="card-title">Recent Activity</span><span style="font-size:11px;color:var(--copper);cursor:pointer" onclick="go('requests',document.getElementById('nav-requests'))">View all</span></div>
+            <div id="recentList"><div class="empty">No requests yet</div></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><span class="card-title">Quick Actions</span></div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <button class="btn-sm btn-copper-sm" style="text-align:left;padding:10px 14px" onclick="go('request',document.getElementById('nav-request'))">&#43; New request</button>
+              <button class="btn-sm btn-outline-sm" style="text-align:left;padding:10px 14px" onclick="go('chat',document.getElementById('nav-chat'))">&#9678; Chat with Alina</button>
+              <button class="btn-sm btn-outline-sm" style="text-align:left;padding:10px 14px" onclick="go('plan',document.getElementById('nav-plan'))">&#9651; Upgrade my plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW REQUEST -->
+      <div class="pg" id="pg-request">
+        <div class="page-ey">Consiere</div>
+        <div class="page-h1">New Request</div>
+        <div class="req-form">
+          <div class="form-grid2">
+            <div class="form-field" style="grid-column:1/-1">
+              <label class="form-label">What do you need?</label>
+              <select class="form-select" id="reqCategory">
+                <option value="">Select a category...</option>
+                <option value="AVIATION">✈ Flight & Private Aviation</option>
+                <option value="TRANSPORT">🚗 Ground Transport & Chauffeur</option>
+                <option value="HOTEL">🏨 Hotel & Accommodation</option>
+                <option value="DINING">🍽 Restaurant & Dining</option>
+                <option value="EVENT">🎟 Events & Tickets</option>
+                <option value="MEDICAL">🏥 Medical & Health</option>
+                <option value="PROCUREMENT">🛍 Shopping & Procurement</option>
+                <option value="RELOCATION">📦 Relocation & Immigration</option>
+                <option value="HOME">🏠 Home & Property</option>
+                <option value="OTHER">💼 Other / Life Admin</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Priority</label>
+              <select class="form-select" id="reqPriority">
+                <option value="STANDARD">Standard</option>
+                <option value="URGENT">Urgent — within 2 hours</option>
+                <option value="CRITICAL">Critical — immediately</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Preferred Timeline</label>
+              <input type="text" class="form-input" id="reqTimeline" placeholder="e.g. This Friday, ASAP, Next week">
+            </div>
+            <div class="form-field" style="grid-column:1/-1">
+              <label class="form-label">Tell us everything</label>
+              <textarea class="form-textarea" id="reqDesc" placeholder="Describe your request in as much detail as possible. The more context you give, the better we can serve you..."></textarea>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:16px;border-top:1px solid var(--border)">
+            <div style="font-size:11px;color:var(--muted)">Your request is encrypted and sent directly to your Consiere team.</div>
+            <button class="btn-sm btn-copper-sm" style="padding:11px 24px;font-size:13px" onclick="submitRequest()">Submit Request</button>
+          </div>
+          <div id="reqOk" style="display:none;margin-top:12px;padding:12px;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.2);border-radius:8px;color:#16a34a;font-size:13px">&#10003; Request submitted. Your request has been submitted and vendors are being contacted.</div>
+          <div id="reqErr" style="display:none;margin-top:12px;padding:12px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:8px;color:#dc2626;font-size:13px"></div>
+        </div>
+      </div>
+
+      <!-- MY REQUESTS -->
+      <div class="pg" id="pg-requests">
+        <div class="page-ey">History</div>
+        <div class="page-h1">My Requests</div>
+        <div class="card" style="padding:0">
+        <!-- USAGE BAR — shown for free tier only -->
+        <div id="usageBarWrap" class="usage-bar-wrap" style="display:none">
+          <div class="usage-bar-top">
+            <span class="usage-bar-label">Monthly Requests</span>
+            <span class="usage-bar-count" id="usageCount">0 / 2 used</span>
+          </div>
+          <div class="usage-bar-track"><div class="usage-bar-fill" id="usageBarFill" style="width:0%"></div></div>
+        </div>
+        <!-- UPGRADE NUDGE — shown when limit reached -->
+        <div id="upgradeNudge" class="upgrade-nudge">
+          <div class="upgrade-nudge-title">You've used both free requests this month</div>
+          <div class="upgrade-nudge-sub">Upgrade to continue making requests. Standard gives you 20 requests/month. Premium is unlimited.</div>
+          <div class="upgrade-nudge-btns">
+            <button class="btn-upgrade-std" onclick="upgradePlan('standard')">Standard — $9.99/mo + GST</button>
+            <button class="btn-upgrade-prem" onclick="upgradePlan('premium')">Premium — $29/mo + GST</button>
+          </div>
+        </div>
+
+        <div id="reqList"><div class="empty">Loading...</div></div></div>
+      </div>
+
+      <!-- CHAT -->
+      <div class="pg" id="pg-chat" style="padding:0;margin:-24px -28px">
+        <div class="chat-wrap">
+          <div class="chat-hdr">
+            <div class="chat-av">CB</div>
+            <div>
+              <div class="chat-name">Alina</div>
+              <div class="chat-status"><div class="chat-dot"></div>Always available</div>
+            </div>
+            <div style="margin-left:auto;font-size:10px;color:var(--muted)">AI Concierge</div>
+          </div>
+          <div class="chat-msgs" id="chatMsgs">
+            <div class="msg them"><div class="msg-av">CB</div><div><div class="bubble">Hello! I'm Alina, your personal AI concierge. I can arrange anything for you — flights, restaurants, hotels, medical appointments, relocation help, and more. What can I sort out for you today?</div><div class="msg-time">Alina</div></div></div>
+          </div>
+          <div class="chat-bar">
+            <textarea class="chat-input" id="chatInput" rows="1" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
+            <button class="chat-send" onclick="sendChat()">Send &#10148;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLAN -->
+
+      <!-- CIPHER PAY PAGE -->
+      <div class="pg" id="pg-payments">
+        <div class="page-ey">Cipher Pay</div>
+        <div class="page-h1">Payments</div>
+
+        <!-- Summary cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
+          <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px">
+            <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:6px">Total Spent</div>
+            <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--dark)" id="pay-total">$0</div>
+            <div style="font-size:10px;color:var(--muted)">All time · AUD</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px">
+            <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:6px">Transactions</div>
+            <div style="font-family:'Playfair Display',serif;font-size:26px;color:var(--dark)" id="pay-count">0</div>
+            <div style="font-size:10px;color:var(--muted)">Completed payments</div>
+          </div>
+        </div>
+
+        <!-- Apple/Google Pay info banner -->
+        <div style="background:linear-gradient(135deg,var(--dark),#292524);border-radius:10px;padding:16px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px">
+          <div style="font-size:28px">&#128179;</div>
+          <div>
+            <div style="font-size:13px;color:#fff;font-weight:500;margin-bottom:3px">Apple Pay &amp; Google Pay accepted</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5)">Pay instantly using your wallet when you tap Pay Now on any confirmed request.</div>
+          </div>
+        </div>
+
+        <!-- Transaction history -->
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:10px">Transaction History</div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden" id="pay-list">
+          <div style="text-align:center;padding:32px;font-size:12px;color:var(--muted)">Loading...</div>
+        </div>
+      </div>
+      <div class="pg" id="pg-plan">
+      <div id="cancel-sub-section" style="margin-top:16px;padding:0 2px"></div>
+        <div class="page-ey">Subscription</div>
+        <div class="page-h1">My Plan</div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:14px">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:12px;font-weight:500">Current Plan</div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--dark);font-weight:500" id="currentPlanName">Essential (Free)</div>
+            <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);background:rgba(184,115,51,0.08);border:1px solid rgba(184,115,51,0.2);padding:3px 10px;border-radius:100px" id="currentPlanBadge">FREE</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:6px">Upgrade below to unlock unlimited requests and all channels.</div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:20px;font-weight:500">Upgrade Your Plan</div>
+          <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1TbQtyQvt2fcZV4mAifaU12O"
+publishable-key="pk_test_51Tb7s8Qvt2fcZV4m7IqCvJpECfpbg9wplb9DnZabwcalCz9pDnWzQHujtleoHafvGZmHqsxw2KXfbv9G729vYsH400D5olDCv9">
+</stripe-pricing-table>
+        </div>
+        <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">Payments secured by Stripe. Cancel any time. No lock-in contracts.</div>
+      </div><!-- /pg-payments -->
+
+      <div class="pg" id="pg-profile">
+        <div class="page-ey">Account</div>
+        <div class="page-h1">My Profile</div>
+        <div class="card" style="padding:22px">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Personal Details</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Full Name</div>
+              <div style="font-size:14px;font-weight:500;color:var(--dark)" id="profName">—</div>
+            </div>
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Email Address</div>
+              <div style="font-size:14px;color:var(--dark)" id="profEmail">—</div>
+            </div>
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Membership Plan</div>
+              <div style="font-size:14px;font-weight:500;color:var(--copper)" id="profPlan">—</div>
+            </div>
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Member Since</div>
+              <div style="font-size:14px;color:var(--dark)" id="profSince">—</div>
+            </div>
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Phone</div>
+              <div style="font-size:14px;color:var(--dark)" id="profPhone">Not provided</div>
+            </div>
+            <div>
+              <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--copper);margin-bottom:5px">Requests This Month</div>
+              <div style="font-size:14px;color:var(--dark)" id="profUsage">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="padding:22px">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Security</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid)"><span style="color:var(--green)">&#10003;</span>Email verified</div>
+            <div style="margin-top:12px"><button id="push-btn" onclick="subscribePush()" style="padding:9px 18px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--dark)">🔔 Enable Notifications</button></div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid)"><span style="color:var(--green)">&#10003;</span>Two-factor authentication enabled</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mid)"><span style="color:var(--green)">&#10003;</span>Australian data sovereignty</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    <div class="pg" id="pg-referral">
+      <div class="page-ey">Grow Together</div>
+      <div class="page-h1">Refer & Earn</div>
+      <div class="card" style="padding:28px;text-align:center;margin-bottom:16px">
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:8px">Your Referral Code</div>
+        <div style="font-size:36px;font-weight:700;color:var(--dark);font-family:Georgia,serif;letter-spacing:6px;margin:12px 0" id="refCode">—</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Share this link with friends and family</div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--mid);margin-bottom:16px;word-break:break-all" id="refUrl">Loading...</div>
+        <button onclick="copyRef()" style="padding:10px 24px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer">Copy Link</button>
+      </div>
+      <div class="card" style="padding:22px;margin-bottom:16px">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">How It Works</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:flex-start;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0">1</div><div><div style="font-size:13px;font-weight:500;color:var(--dark);margin-bottom:2px">Share your link</div><div style="font-size:12px;color:var(--muted)">Send your unique referral link to friends, family, or colleagues</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0">2</div><div><div style="font-size:13px;font-weight:500;color:var(--dark);margin-bottom:2px">They sign up</div><div style="font-size:12px;color:var(--muted)">Your friend joins Consiere using your link</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0">3</div><div><div style="font-size:13px;font-weight:500;color:var(--dark);margin-bottom:2px">You both win</div><div style="font-size:12px;color:var(--muted)">You get 1 month free on your current plan. They get 1 month free too.</div></div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:22px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div><div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Friends Referred</div><div style="font-size:28px;font-weight:700;color:var(--copper);font-family:Georgia,serif" id="refCount">0</div></div>
+          <div style="font-size:32px;opacity:0.3">&#10024;</div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+var TK = sessionStorage.getItem('cc_token');
+var USER = {};
+try { USER = JSON.parse(sessionStorage.getItem('cc_user') || '{}'); } catch(e) {}
+var H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK };
+var pendingToken = null, pendingUser = null, twoFAInterval = null;
+
+// Auto-login if token exists
+// Handle quote acceptance from email link
+var urlParams = new URLSearchParams(window.location.search);
+var acceptQuoteId = urlParams.get('acceptQuote');
+var acceptQuoteToken = urlParams.get('token');
+var paymentSuccess = urlParams.get('payment');
+
+if (acceptQuoteId && acceptQuoteToken && TK) {
+  // Auto-trigger payment for accepted quote
+  fetch('/api/stripe/quote-checkout', {
+    method: 'POST', headers: H,
+    body: JSON.stringify({ inquiryId: acceptQuoteId, token: acceptQuoteToken })
+  }).then(r => r.json()).then(d => {
+    if (d.url) { window.location.href = d.url; }
+    else { console.error('Quote checkout error:', d.error); }
+  }).catch(e => console.error('Quote checkout error:', e));
+}
+
+if (paymentSuccess === 'success') {
+  setTimeout(() => {
+    var el = document.getElementById('requests-list') || document.body;
+    var banner = document.createElement('div');
+    banner.style.cssText = 'background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin:16px;font-size:13px;color:#166534;';
+    banner.innerHTML = '✓ Payment confirmed! Your order is now in progress. You will be notified when it is delivered.';
+    el.insertBefore(banner, el.firstChild);
+    setTimeout(() => banner.remove(), 8000);
+  }, 500);
+}
+
+if (TK) { showPortal(); }
+
+async function doLogin() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass  = document.getElementById('loginPass').value;
+  var err   = document.getElementById('loginErr');
+  var btn   = document.getElementById('loginBtn');
+  if (!email || !pass) { err.textContent='Please enter your email and password.'; err.style.display='block'; return; }
+  btn.textContent = 'Signing in...'; btn.disabled = true; err.style.display = 'none';
+  try {
+    var res = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email,password:pass}) });
+    var data = await res.json();
+    if (res.ok && data.token) {
+      if (data.user.role === 'ADMIN') {
+        sessionStorage.setItem('cc_token', data.token);
+        sessionStorage.setItem('cc_user', JSON.stringify(data.user));
+        showPortal();
+      } else {
+        pendingToken = data.token; pendingUser = data.user;
+        await send2FA(data.token, data.user.email);
+        document.getElementById('loginFormCard').style.display = 'none';
+        document.getElementById('twoFACard').style.display = 'flex';
+      }
+    } else {
+      err.textContent = data.error || 'Invalid credentials.'; err.style.display = 'block';
+      btn.textContent = 'Sign In'; btn.disabled = false;
+    }
+  } catch(e) { err.textContent='Connection error.'; err.style.display='block'; btn.textContent='Sign In'; btn.disabled=false; }
+}
+
+async function send2FA(token, email) {
+  var parts = email.split('@');
+  document.getElementById('twoFAEmail').textContent = parts[0].substring(0,2) + '***@' + parts[1];
+  await fetch('/api/auth/request-2fa', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token} });
+  var secs = 300;
+  clearInterval(twoFAInterval);
+  twoFAInterval = setInterval(function() {
+    secs--;
+    var m = Math.floor(secs/60), s = secs%60;
+    var el = document.getElementById('twoFATimer');
+    if (el) el.textContent = m + ':' + (s<10?'0':'')+s;
+    if (secs <= 0) clearInterval(twoFAInterval);
+  }, 1000);
+}
+
+async function doVerify2FA() {
+  var code = document.getElementById('twoFACode').value.trim();
+  var err  = document.getElementById('twoFAErr');
+  var btn  = document.getElementById('twoFABtn');
+  if (code.length !== 6) { err.textContent='Enter the 6-digit code.'; err.style.display='block'; return; }
+  btn.textContent='Verifying...'; btn.disabled=true; err.style.display='none';
+  try {
+    var res = await fetch('/api/auth/verify-2fa', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+pendingToken}, body:JSON.stringify({code}) });
+    var data = await res.json();
+    if (res.ok && data.verified) {
+      clearInterval(twoFAInterval);
+      sessionStorage.setItem('cc_token', pendingToken);
+      sessionStorage.setItem('cc_user', JSON.stringify(pendingUser));
+      TK = pendingToken; USER = pendingUser;
+      H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK };
+      document.getElementById('twoFACard').style.display = 'none';
+      showPortal();
+    } else {
+      err.textContent = data.error || 'Incorrect code.'; err.style.display='block';
+      btn.textContent='Verify & Enter Portal'; btn.disabled=false;
+    }
+  } catch(e) { err.textContent='Connection error.'; err.style.display='block'; btn.textContent='Verify & Enter Portal'; btn.disabled=false; }
+}
+
+async function doResend2FA() {
+  document.getElementById('twoFACode').value = '';
+  document.getElementById('twoFAErr').style.display = 'none';
+  await send2FA(pendingToken, pendingUser.email);
+}
+
+function showPortal() {
+  TK = sessionStorage.getItem('cc_token');
+  try { USER = JSON.parse(sessionStorage.getItem('cc_user') || '{}'); } catch(e) {}
+  H = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TK };
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('portal').classList.add('active');
+  var name = USER.fullName || 'Member';
+  var h = new Date().getHours();
+  var greeting = h<12 ? 'Good morning' : h<17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = greeting + ', ' + name.split(' ')[0] + '.';
+  document.getElementById('welcomeName').textContent = 'Welcome back, ' + name;
+  document.getElementById('userAv').textContent = name[0].toUpperCase();
+  document.getElementById('userName').textContent = name;
+  document.getElementById('userPlan').textContent = (USER.memberTier||'FREE').replace(/_/g,' ');
+  // Profile fields (now divs not inputs)
+  var pn = document.getElementById('profName');
+  var pe = document.getElementById('profEmail');
+  var pp = document.getElementById('profPlan');
+  var ps = document.getElementById('profSince');
+  var ph = document.getElementById('profPhone');
+  var pu = document.getElementById('profUsage');
+  if(pn) pn.textContent = USER.fullName || '—';
+  if(pe) pe.textContent = USER.email || '—';
+  var tierLabels = {'CIPHER':'Free','CIPHER_BLACK':'Standard — $9.99/mo + GST','CIPHER_SOVEREIGN':'Premium — $29/mo + GST'};
+  if(pp) pp.textContent = tierLabels[USER.memberTier] || 'Free';
+  if(ps) ps.textContent = USER.createdAt ? new Date(USER.createdAt).toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}) : '—';
+  if(ph) ph.textContent = USER.phone || 'Not provided';
+  // Load usage
+  fetch('/api/requests/usage',{headers:H}).then(function(r){return r.json();}).then(function(d){
+    if(pu) pu.textContent = d.unlimited ? 'Unlimited' : (d.used||0)+' of '+(d.limit||2)+' used';
+  }).catch(function(){});
+  // Profile already populated above via textContent
+  var stripeTbl = document.getElementById('stripePricingTable');
+  if (stripeTbl && USER.email) stripeTbl.setAttribute('customer-email', USER.email);
+  
+  loadDashboard();
+  loadChatHistory();
+  loadPayments();
+  loadProfile();
+}
+
+function go(pg, navEl) {
+  document.querySelectorAll('.pg').forEach(function(el){ el.classList.remove('on'); });
+  document.querySelectorAll('.nav-item').forEach(function(el){ el.classList.remove('on'); });
+  var page = document.getElementById('pg-'+pg);
+  if (page) page.classList.add('on');
+  if (navEl) navEl.classList.add('on');
+  if (pg === 'requests') loadRequests();
+  if (pg === 'payments') loadPayments();
+  if (pg === 'profile') loadProfile();
+}
+
+async function loadDashboard() {
+  try {
+    var r = await fetch('/api/requests', { headers: H });
+    if (r.status === 401) { doSignOut(); return; }
+    var d = await r.json();
+    var reqs = Array.isArray(d) ? d : (d.requests || []);
+    var active = reqs.filter(function(x){ return x.status !== 'COMPLETED' && x.status !== 'CANCELLED'; });
+    var done   = reqs.filter(function(x){ return x.status === 'COMPLETED'; });
+    document.getElementById('d-total').textContent = reqs.length;
+    document.getElementById('d-active').textContent = active.length;
+    document.getElementById('d-done').textContent = done.length;
+    var rl = document.getElementById('recentList');
+    if (!reqs.length) { rl.innerHTML = '<div class="empty">No requests yet — submit your first one above</div>'; return; }
+    rl.innerHTML = reqs.slice(0,4).map(function(x) {
+      var tc = x.status==='COMPLETED'?'tgr':x.status==='IN_PROGRESS'?'tb':x.status==='RECEIVED'?'tg':'ta';
+      var pendingQuote=(x.inquiries||[]).find(function(i){return i.status==='QUOTED'&&i.quoteAmount;});
+      var quoteDetails=pendingQuote&&pendingQuote.quoteDetails?'<div style="font-size:11px;color:#44403c;margin-top:4px;padding:6px 8px;background:#faf8f5;border-left:2px solid #b87333;border-radius:0 4px 4px 0">'+pendingQuote.quoteDetails.substring(0,120)+'</div>':'';
+      var quoteBtn=pendingQuote?'<button onclick="acceptQuote(\''+pendingQuote.id+'\',\''+((pendingQuote.vendor&&pendingQuote.vendor.name)||'vendor').replace(/\'/g,'')+'\','+pendingQuote.quoteAmount+')" style="margin-left:8px;padding:4px 10px;background:#22c55e;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600">Accept $'+parseFloat(pendingQuote.quoteAmount).toFixed(2)+'</button>':'';
+      var hasQuote = x.adminNote && x.adminNote.indexOf('$') > -1;
+      var canPay = (x.status==='IN_PROGRESS' || x.status==='RECEIVED') && x.paymentUrl && !x.depositPaid;
+      var desc = (x.title||x.description||'').replace(/'/g,'').substring(0,50);
+      var note = (x.adminNote||'').replace(/'/g,'');
+      return '<div class="row"><div style="flex:1;min-width:0"><div style="font-size:12px;color:var(--dark);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(x.title||x.description||'').substring(0,45)+'</div><div style="font-size:10px;color:var(--muted)">'+(x.category||'')+' &middot; '+new Date(x.createdAt).toLocaleDateString('en-AU')+'</div>'+(x.adminNote?'<div style="font-size:10px;color:var(--copper);margin-top:2px">'+x.adminNote.substring(0,60)+'</div>':'')+'</div><span class="tag '+tc+'">'+(x.status||'').replace(/_/g,' ')+'</span>'+quoteBtn+(canPay?'<button data-rid="'+x.id+'" data-note="'+encodeURIComponent(x.adminNote||'')+'" data-desc="'+encodeURIComponent(x.title||x.description||'')+'" class="cipher-pay-btn" style="padding:5px 10px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:500;cursor:pointer;white-space:nowrap">&#128179; Pay</button>':'')+quoteDetails+'</div>';
+    }).join('');
+  } catch(e) {}
+}
+
+
+async function loadUsage() {
+  try {
+    var r = await fetch('/api/requests/usage', { headers: H });
+    var d = await r.json();
+    if (d.unlimited || d.tier !== 'CIPHER') return; // paid tier — no bar needed
+    var wrap = document.getElementById('usageBarWrap');
+    var fill = document.getElementById('usageBarFill');
+    var count = document.getElementById('usageCount');
+    var nudge = document.getElementById('upgradeNudge');
+    if (!wrap) return;
+    wrap.style.display = 'block';
+    var pct = Math.min(100, (d.used / d.limit) * 100);
+    fill.style.width = pct + '%';
+    if (pct >= 100) fill.classList.add('full');
+    count.textContent = d.used + ' / ' + d.limit + ' used';
+    if (d.used >= d.limit) {
+      nudge.classList.add('show');
+      // Disable the new request button
+      var newReqBtn = document.getElementById('newReqBtn') || document.querySelector('[onclick*="showNewRequest"]') || document.querySelector('[onclick*="newRequest"]');
+      if (newReqBtn) { newReqBtn.disabled = true; newReqBtn.style.opacity = '0.4'; newReqBtn.title = 'Upgrade to make more requests'; }
+    }
+  } catch(e) {}
+}
+
+async function loadRequests() {
+  var el = document.getElementById('reqList');
+  el.innerHTML = '<div class="empty">Loading...</div>';
+  try {
+    var r = await fetch('/api/requests', { headers: H });
+    var d = await r.json();
+    var reqs = Array.isArray(d) ? d : (d.requests || []);
+    if (!reqs.length) { el.innerHTML = '<div class="empty">No requests yet</div>'; return; }
+    el.innerHTML = reqs.map(function(x) {
+      var tc = x.status==='COMPLETED'?'tgr':x.status==='IN_PROGRESS'?'tb':x.status==='RECEIVED'?'tg':'ta';
+      var hasQuote2 = x.adminNote && x.adminNote.indexOf('$') > -1;
+      var canPay2 = (x.status==='IN_PROGRESS' || x.status==='RECEIVED') && x.paymentUrl && !x.depositPaid;
+      var desc2 = (x.title||x.description||'').replace(/'/g,'').substring(0,50);
+      var note2 = (x.adminNote||'').replace(/'/g,'');
+      return '<div class="row"><div style="flex:1;min-width:0"><div style="font-size:13px;color:var(--dark);font-weight:500;margin-bottom:2px">'+(x.title||x.description||'').substring(0,60)+'</div><div style="font-size:10px;color:var(--muted)">'+(x.category||'')+' &middot; '+(x.priority||'STANDARD')+' &middot; '+new Date(x.createdAt).toLocaleDateString('en-AU')+'</div>'+(x.adminNote?'<div style="font-size:10px;color:var(--copper);margin-top:2px">'+x.adminNote.substring(0,80)+'</div>':'')+'</div><span class="tag '+tc+'">'+(x.status||'').replace(/_/g,' ')+'</span>'+(canPay2?'<button data-rid="'+x.id+'" data-note="'+encodeURIComponent(x.adminNote||'')+'" data-desc="'+encodeURIComponent(x.title||x.description||'')+'" class="cipher-pay-btn" style="padding:5px 10px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:6px;font-size:10px;font-weight:500;cursor:pointer;white-space:nowrap">&#128179; Pay</button>':'')+'</div>';
+    }).join('');
+  } catch(e) { el.innerHTML = '<div class="empty">Failed to load</div>'; }
+}
+
+async function submitRequest() {
+  var cat  = document.getElementById('reqCategory').value;
+  var pri  = document.getElementById('reqPriority').value;
+  var desc = document.getElementById('reqDesc').value.trim();
+  var time = document.getElementById('reqTimeline').value.trim();
+  var ok   = document.getElementById('reqOk');
+  var err  = document.getElementById('reqErr');
+  ok.style.display='none'; err.style.display='none';
+  if (!cat || !desc) { err.textContent='Please select a category and describe your request.'; err.style.display='block'; return; }
+  try {
+    var res = await fetch('/api/requests', { method:'POST', headers:H, body:JSON.stringify({category:cat,priority:pri,description:desc,timeline:time}) });
+    var data = await res.json();
+    if (res.ok) {
+      ok.style.display='block';
+      document.getElementById('reqCategory').value='';
+      document.getElementById('reqDesc').value='';
+      document.getElementById('reqTimeline').value='';
+      loadDashboard();
+      setTimeout(function(){ ok.style.display='none'; }, 5000);
+    } else { err.textContent=data.error||'Failed to submit.'; err.style.display='block'; }
+  } catch(e) { err.textContent='Connection error.'; err.style.display='block'; }
+}
+
+async function sendChat() {
+  var inp = document.getElementById('chatInput');
+  var txt = inp.value.trim(); if (!txt) return;
+  var msgs = document.getElementById('chatMsgs');
+  var time = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+  msgs.innerHTML += '<div class="msg me"><div class="msg-av">Me</div><div><div class="bubble">'+txt+'</div><div class="msg-time">'+time+'</div></div></div>';
+  inp.value = ''; msgs.scrollTop = msgs.scrollHeight;
+  var tid = 'typ'+Date.now();
+  msgs.innerHTML += '<div class="msg them" id="'+tid+'"><div class="msg-av">CB</div><div><div class="bubble"><div class="typing-bubble"><span></span><span></span><span></span></div></div></div></div>';
+  msgs.scrollTop = msgs.scrollHeight;
+  try {
+    var res = await fetch('/api/cipherbot/message', { method:'POST', headers:H, body:JSON.stringify({message:txt}) });
+    var data = await res.json();
+    var el = document.getElementById(tid); if (el) el.remove();
+    var reply = data.reply || 'I am on it. Consiere will follow up shortly.';
+    var rt = new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+    // Render Stripe pay button if present
+let displayReply = reply;
+let payBtn = '';
+const stripeMatch = reply.match(/\[STRIPE_PAY:(https[^\]]+)\]/);
+if(stripeMatch) {
+  displayReply = reply.replace(/\[STRIPE_PAY:https[^\]]+\]/, '').trim();
+  payBtn = '<a href="'+stripeMatch[1]+'" target="_blank" style="display:inline-block;margin-top:10px;padding:10px 20px;background:linear-gradient(135deg,#b87333,#8a5a2e);color:#fff;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.3px">💳 Pay $10 deposit →</a>';
+}
+msgs.innerHTML += '<div class="msg them"><div class="msg-av">CB</div><div><div class="bubble">'+displayReply+(payBtn?'<div style="margin-top:8px">'+payBtn+'</div>':'')+'</div><div class="msg-time">Alina &middot; '+rt+'</div></div></div>';
+    if (data.requestCreated) {
+      var eta = data.isInternational ? '30 minutes' : '15 minutes';
+      var payBtnHtml = data.paymentUrl ? '<div style="margin-top:10px"><a href="'+data.paymentUrl+'" target="_blank" style="display:inline-block;padding:10px 22px;background:linear-gradient(135deg,#b87333,#8a5a2e);color:#fff;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.3px">&#128179; Pay $10 deposit &#8594;</a></div>' : '';
+      msgs.innerHTML += '<div class="msg them"><div class="msg-av">CB</div><div><div class="bubble" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:#16a34a;font-size:12px">' +
+        '<div style="font-weight:600;margin-bottom:4px">&#10003; Request logged. Vendors contacted.</div>' +
+        '<div style="font-size:11px;color:#15803d;margin-top:2px">&#9201; Estimated response time: <b>' + eta + '</b></div>' +
+        '<div style="font-size:10px;color:#166534;margin-top:2px;opacity:0.8">We will notify you as soon as a vendor responds with a quote.</div>' +
+        (payBtnHtml||'') +
+        '</div></div></div>';
+      loadDashboard();
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+  } catch(e) { var el=document.getElementById(tid); if(el) el.remove(); }
+}
+
+async function loadChatHistory() {
+  try {
+    var r = await fetch('/api/cipherbot/history', { headers: H });
+    var d = await r.json();
+    var messages = d.messages || [];
+    if (!messages.length) return;
+    var msgs = document.getElementById('chatMsgs');
+    msgs.innerHTML = '';
+    messages.forEach(function(m) {
+      var time = new Date(m.createdAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+      if (m.role === 'user') {
+        msgs.innerHTML += '<div class="msg me"><div class="msg-av">Me</div><div><div class="bubble">'+m.content+'</div><div class="msg-time">'+time+'</div></div></div>';
+      } else {
+        // Handle STRIPE_PAY token in history messages
+let hContent = m.content || '';
+let hPayBtn = '';
+const hMatch = hContent.match(/\[STRIPE_PAY:(https[^\]]+)\]/);
+if(hMatch) {
+  hContent = hContent.replace(/\[STRIPE_PAY:https[^\]]+\]/, '').trim();
+  hPayBtn = '<div style="margin-top:8px"><a href="'+hMatch[1]+'" target="_blank" style="display:inline-block;padding:10px 20px;background:linear-gradient(135deg,#b87333,#8a5a2e);color:#fff;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none">💳 Pay $10 deposit →</a></div>';
+}
+msgs.innerHTML += '<div class="msg them"><div class="msg-av">CB</div><div><div class="bubble">'+hContent+(hPayBtn||'')+'</div><div class="msg-time">Alina &middot; '+time+'</div></div></div>';
+      }
+    });
+    msgs.scrollTop = msgs.scrollHeight;
+  } catch(e) {}
+}
+
+async function upgradePlan(plan) {
+  try {
+    var btn = event.target;
+    btn.textContent = 'Redirecting...'; btn.disabled = true;
+    var res = await fetch('/api/stripe/subscribe', {
+      method: 'POST',
+      headers: H,
+      body: JSON.stringify({ plan: plan })
+    });
+    var data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.error || 'Stripe not configured yet. Contact hello@consiere.com.au to upgrade.');
+      btn.textContent = plan === 'standard' ? 'Upgrade — $9.99/mo + GST' : 'Upgrade — $9.99/mo + GST + GST';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    alert('Unable to process upgrade. Please contact hello@consiere.com.au');
+  }
+}
+
+function showSignup() {
+  alert('Member signup coming soon. Contact hello@consiere.com.au to get started.');
+}
+
+
+// Handle Stripe payment return
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('payment') === 'success') {
+  setTimeout(function(){
+    var msgs = document.getElementById('chatMsgs');
+    if (msgs) msgs.innerHTML += '<div class="msg them"><div class="msg-av">CB</div><div><div class="bubble" style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);color:#16a34a">&#10003; Payment received. Your service request is now in progress. Consiere will be in touch shortly.</div></div></div>';
+  }, 1000);
+}
+if (urlParams.get('subscription') === 'success') {
+  setTimeout(function(){
+    var el = document.getElementById('userPlan');
+    if (el) el.textContent = 'UPGRADED';
+  }, 500);
+}
+
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(r) {
+      deferredPrompt = null;
+      document.getElementById('pwaInstallBtn').style.display = 'none';
+    });
+  } else {
+    alert('To install: tap Share (iOS) or the menu icon (Android) and select "Add to Home Screen"');
+  }
+}
+
+
+// ── CIPHER PAY ──────────────────────────────────────────────────
+async function loadPayments() {
+  try {
+    var r = await fetch('/api/stripe/my-payments', { headers: H });
+    if (!r.ok) {
+      document.getElementById('pay-list').innerHTML = '<div style="text-align:center;padding:32px;font-size:12px;color:var(--muted)">Payment history unavailable. Stripe not configured.</div>';
+      return;
+    }
+    var d = await r.json();
+    var payments = d.payments || [];
+    var total = d.totalSpent || 0;
+
+    document.getElementById('pay-total').textContent = '$' + total.toLocaleString('en-AU', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('pay-count').textContent = payments.filter(function(p){return p.status==='PAID';}).length;
+
+    if (!payments.length) {
+      document.getElementById('pay-list').innerHTML = '<div style="text-align:center;padding:32px;font-size:12px;color:var(--muted)">No payments yet. Use Pay Now on a confirmed request to get started.</div>';
+      return;
+    }
+
+    document.getElementById('pay-list').innerHTML = payments.map(function(p) {
+      var isPaid = p.status === 'PAID';
+      var date = new Date(p.createdAt).toLocaleDateString('en-AU', {day:'numeric',month:'short',year:'numeric'});
+      var statusColor = isPaid ? '#16a34a' : p.status === 'PENDING' ? 'var(--copper)' : '#dc2626';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)">' +
+        '<div style="width:36px;height:36px;border-radius:8px;background:'+(isPaid?'rgba(22,163,74,0.08)':'rgba(184,115,51,0.08)')+';display:grid;place-items:center;font-size:16px;flex-shrink:0">'+(isPaid?'&#10003;':'&#128336;')+'</div>' +
+        '<div style="flex:1;min-width:0">' +
+          '<div style="font-size:13px;color:var(--dark);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (p.description||'Service Payment') + '</div>' +
+          '<div style="font-size:10px;color:var(--muted);margin-top:1px">' + date + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;flex-shrink:0">' +
+          '<div style="font-size:14px;font-weight:600;color:var(--dark)">$' + p.amount.toLocaleString('en-AU',{minimumFractionDigits:2}) + '</div>' +
+          '<div style="font-size:9px;letter-spacing:1px;text-transform:uppercase;color:'+statusColor+'">' + p.status + '</div>' +
+        '</div>' +
+        (isPaid ? '<a href="/api/stripe/invoice/'+p.stripeSessionId+'" target="_blank" style="font-size:10px;color:var(--copper);text-decoration:none;flex-shrink:0">Receipt</a>' : '') +
+      '</div>';
+    }).join('');
+  } catch(e) {
+    document.getElementById('pay-list').innerHTML = '<div style="text-align:center;padding:32px;font-size:12px;color:var(--muted)">Unable to load payments.</div>';
+  }
+}
+
+
+// Pay Now button — event delegation (avoids quote issues in dynamic HTML)
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.cipher-pay-btn');
+  if (!btn) return;
+  var requestId = btn.dataset.rid;
+  var adminNote = decodeURIComponent(btn.dataset.note || '');
+  var title = decodeURIComponent(btn.dataset.desc || '');
+  payNow(requestId, adminNote, title);
+});
+
+async function payNow(requestId, adminNote, title) {
+  // Extract amount from adminNote e.g. "Quote from Quay: $250 AUD"
+  var amountMatch = adminNote.match(/\$([\d,]+(?:\.\d{2})?)/);
+  var amount = amountMatch ? parseFloat(amountMatch[1].replace(',','')) : null;
+
+  if (!amount) {
+    // Ask for amount if not in note
+    var input = prompt('Enter the agreed amount in AUD (e.g. 250):', '');
+    if (!input) return;
+    amount = parseFloat(input);
+  }
+
+  if (!amount || isNaN(amount) || amount <= 0) {
+    alert('Invalid amount. Please contact hello@consiere.com.au.');
+    return;
+  }
+
+  var description = title || 'Consiere Service';
+  if (!confirm('Pay $' + amount.toFixed(2) + ' AUD for:\n' + description + '\n\nApple Pay and Google Pay accepted.')) return;
+
+  try {
+    var r = await fetch('/api/stripe/pay-request', {
+      method: 'POST',
+      headers: H,
+      body: JSON.stringify({ requestId: requestId, amount: amount, description: description })
+    });
+    var d = await r.json();
+    if (d.url) {
+      window.location.href = d.url;
+    } else {
+      alert(d.error || 'Payment unavailable. Please contact hello@consiere.com.au');
+    }
+  } catch(e) {
+    alert('Connection error. Please try again.');
+  }
+}
+// ── END CIPHER PAY ───────────────────────────────────────────────
+
+function doSignOut() {
+  sessionStorage.removeItem('cc_token');
+  sessionStorage.removeItem('cc_user');
+  window.location.reload();
+}
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function(reg) { console.log('[SW] Registered:', reg.scope); })
+      .catch(function(e) { console.log('[SW] Error:', e); });
+  });
+}
+// PWA install prompt
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install button if not already installed
+  var btn = document.getElementById('pwaInstallBtn');
+  if (btn) btn.style.display = 'flex';
+});
+window.addEventListener('appinstalled', function() {
+  deferredPrompt = null;
+  var btn = document.getElementById('pwaInstallBtn');
+  if (btn) btn.style.display = 'none';
+});
+</script>
+</body>
+</html>

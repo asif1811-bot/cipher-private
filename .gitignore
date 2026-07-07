@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+*.bak
+*.bak2
+*.bak3
+*.prefix_*.bak
+node_modules/
+_archived_not_served/
+*.log

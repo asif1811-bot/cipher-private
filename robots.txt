@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /cc-portal
+Disallow: /cc-admin
+Disallow: /portal
+Disallow: /admin
+Disallow: /member
+Sitemap: https://consiere.com.au/sitemap.xml

@@ -1,97 +1,47 @@
-// Cipher Private — Service Worker
-// Enables offline access, fast loading, and PWA installation
+// v1781165746
+const CACHE = 'consiere-v6';
+const ASSETS = ['/manifest.json'];
 
-const CACHE_NAME = 'cipher-private-v1';
-const CACHE_URLS = [
-  '/',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap',
-  'https://cipherluxury-w6kb9hnt.manus.space/manus-storage/cipher_logo_6b0353d1.png'
-];
-
-// Install — cache key assets
-self.addEventListener('install', event => {
-  console.log('[Cipher SW] Installing...');
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(CACHE_URLS).catch(err => {
-        console.log('[Cipher SW] Cache addAll partial failure (ok):', err);
-      });
-    })
-  );
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).catch(()=>{}));
   self.skipWaiting();
 });
 
-// Activate — clean old caches
-self.addEventListener('activate', event => {
-  console.log('[Cipher SW] Activating...');
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
-  );
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
   self.clients.claim();
 });
 
-// Fetch — network first for API, cache first for assets
-self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+});
 
-  // Always go to network for API calls — never cache sensitive data
-  if (url.pathname.startsWith('/api/')) {
-    event.respondWith(fetch(event.request).catch(() =>
-      new Response(JSON.stringify({ error: 'Offline — please reconnect' }), {
-        headers: { 'Content-Type': 'application/json' }
-      })
-    ));
-    return;
-  }
-
-  // Network first for HTML (always get latest site)
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match('/'))
-    );
-    return;
-  }
-
-  // Cache first for fonts and images
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        if (response && response.status === 200) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        }
-        return response;
-      }).catch(() => cached);
+// Push notification handler
+self.addEventListener('push', e => {
+  let data = { title: 'Consiere', body: 'You have an update', url: '/cc-portal', icon: '/icon-192.png' };
+  try { if (e.data) data = { ...data, ...e.data.json() }; } catch(err) {}
+  e.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: data.icon || '/icon-192.png',
+      badge: '/icon-192.png',
+      vibrate: [200, 100, 200],
+      data: { url: data.url },
+      actions: [{ action: 'open', title: 'View in Portal' }]
     })
   );
 });
 
-// Push notifications (for future use)
-self.addEventListener('push', event => {
-  if (!event.data) return;
-  const data = event.data.json();
-  self.registration.showNotification(data.title || 'Cipher Private', {
-    body: data.body || 'You have a new notification.',
-    icon: '/icon-192.png',
-    badge: '/icon-192.png',
-    vibrate: [200, 100, 200],
-    data: { url: data.url || '/' }
-  });
-});
-
-self.addEventListener('notificationclick', event => {
-  event.notification.close();
-  event.waitUntil(clients.openWindow(event.notification.data.url || '/'));
+// Notification click handler
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url || '/cc-portal';
+  e.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(cls => {
+      const existing = cls.find(c => c.url.includes('consiere.com.au'));
+      if (existing) { existing.focus(); existing.navigate(url); }
+      else clients.openWindow('https://consiere.com.au' + url);
+    })
+  );
 });

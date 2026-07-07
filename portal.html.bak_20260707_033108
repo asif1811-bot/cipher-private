@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cipher Private — Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',sans-serif;background:#080c12;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#0f0f0f;border:1px solid rgba(201,169,110,0.15);padding:36px;width:100%;max-width:400px;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c9a96e,transparent)}
+.logo{text-align:center;margin-bottom:28px}
+.logo svg{display:block;margin:0 auto}
+.ey{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:rgba(201,169,110,0.6);margin-bottom:5px}
+.title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#f0ede8;font-weight:300;margin-bottom:22px}
+.lbl{display:block;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:6px}
+.inp{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;padding:12px 14px;font-size:13px;outline:none;font-family:inherit;margin-bottom:14px;display:block}
+.inp:focus{border-color:#c9a96e}
+.btn{width:100%;padding:13px;background:linear-gradient(135deg,#c9a96e,#b8904a);color:#060606;border:none;font-size:9px;letter-spacing:4px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:inherit;display:block}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.err{background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.25);color:#e74c3c;padding:10px;font-size:11px;margin-bottom:12px;display:none}
+.back{display:block;text-align:center;margin-top:14px;font-size:9px;letter-spacing:2px;color:rgba(201,169,110,0.4);text-decoration:none}
+.foot{text-align:center;margin-top:12px;font-size:9px;color:rgba(201,169,110,0.25);letter-spacing:1px}
+.otp-inp{width:100%;padding:14px;border:1px solid rgba(201,169,110,0.15);background:rgba(0,0,0,0.3);color:#c9a96e;font-size:28px;letter-spacing:12px;text-align:center;outline:none;font-family:inherit;margin-bottom:14px;display:block}
+.otp-inp:focus{border-color:#c9a96e}
+.hint{font-size:12px;color:rgba(201,169,110,0.6);margin-bottom:16px}
+.timer{display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:rgba(201,169,110,0.5)}
+.resend{background:none;border:none;color:rgba(201,169,110,0.6);cursor:pointer;font-size:11px;font-family:inherit}
+</style>
+</head>
+<body>
+<div style="background:#f59e0b;color:#000;text-align:center;padding:6px;font-size:11px;font-weight:700;letter-spacing:1px;font-family:monospace">⚠️ TEST Mode — Website Under Development — Not Live Yet</div>
+
+<div id="loginView">
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg" width="160" height="45">
+        <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+        <polygon points="18,7 29,13.5 29,26.5 18,33 7,26.5 7,13.5" stroke="#c9a96e" stroke-width="0.4" fill="none" opacity="0.35"/>
+        <text x="18" y="25" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#c9a96e">C</text>
+        <text x="44" y="22" font-family="Montserrat,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4">CIPHER</text>
+        <text x="44.5" y="33" font-family="Montserrat,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5">PRIVATE</text>
+      </svg>
+    </div>
+    <div class="ey">Secure Access</div>
+    <div class="title">Member Portal</div>
+    <div class="err" id="loginErr"></div>
+    <label class="lbl">Email Address</label>
+    <input class="inp" type="email" id="loginEmail" placeholder="your@email.com">
+    <label class="lbl">Password</label>
+    <input class="inp" type="password" id="loginPass" placeholder="Your password">
+    <button class="btn" id="loginBtn" onclick="doLogin()">Access Portal</button>
+    <a class="back" href="/">Return to cipherprivate.com</a>
+  </div>
+  <div class="foot">AES-256 Encrypted &middot; Australian Sovereign</div>
+</div>
+
+<div id="twoFAView" style="display:none">
+  <div class="card">
+    <div class="logo">
+      <svg viewBox="0 0 180 50" fill="none" xmlns="http://www.w3.org/2000/svg" width="160" height="45">
+        <polygon points="18,2 34,11 34,29 18,38 2,29 2,11" stroke="#c9a96e" stroke-width="1.2" fill="none"/>
+        <text x="18" y="25" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#c9a96e">C</text>
+        <text x="44" y="22" font-family="Montserrat,sans-serif" font-size="11" fill="#f0ede8" letter-spacing="4">CIPHER</text>
+        <text x="44.5" y="33" font-family="Montserrat,sans-serif" font-size="5.5" fill="#c9a96e" letter-spacing="5">PRIVATE</text>
+      </svg>
+    </div>
+    <div class="ey">Security Verification</div>
+    <div class="title">Enter Your Code</div>
+    <div class="hint" id="twoFAHint">Code sent to your email</div>
+    <div class="err" id="twoFAErr"></div>
+    <input class="otp-inp" type="tel" id="twoFACode" maxlength="6" placeholder="000000">
+    <button class="btn" id="twoFABtn" onclick="doVerify()">Verify &amp; Enter Portal</button>
+    <div class="timer">
+      <span>Expires in <span id="countdown" style="color:#c9a96e">5:00</span></span>
+      <button class="resend" onclick="doResend()">Resend code</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var PT = null, PU = null, TI = null;
+
+document.getElementById('loginEmail').onkeydown = function(e){ if(e.key==='Enter') doLogin(); };
+document.getElementById('loginPass').onkeydown  = function(e){ if(e.key==='Enter') doLogin(); };
+document.getElementById('twoFACode').onkeydown  = function(e){ if(e.key==='Enter') doVerify(); };
+
+async function doLogin() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass  = document.getElementById('loginPass').value;
+  var btn   = document.getElementById('loginBtn');
+  var err   = document.getElementById('loginErr');
+  if (!email || !pass) { showErr('loginErr','Please enter your email and password.'); return; }
+  btn.textContent = 'Verifying...'; btn.disabled = true; err.style.display = 'none';
+  try {
+    var res  = await fetch('/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email,password:pass}) });
+    var data = await res.json();
+    if (res.ok && data.token) {
+      PT = data.token; PU = data.user;
+      sessionStorage.setItem('cipher_token', data.token);
+      sessionStorage.setItem('cipher_user', JSON.stringify(data.user));
+      if (data.user.role === 'ADMIN' || data.user.role === 'SUPER_ADMIN') {
+        window.location.href = '/admin';
+      } else {
+        show2FA(data.token, data.user.email);
+      }
+    } else {
+      showErr('loginErr', data.error || 'Invalid credentials.');
+      btn.textContent = 'Access Portal'; btn.disabled = false;
+    }
+  } catch(e) {
+    showErr('loginErr','Connection error. Please try again.');
+    btn.textContent = 'Access Portal'; btn.disabled = false;
+  }
+}
+
+async function show2FA(token, email) {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('twoFAView').style.display = 'block';
+  var p = email.split('@');
+  document.getElementById('twoFAHint').textContent = 'Code sent to ' + p[0].substring(0,2) + '***@' + p[1];
+  try { await fetch('/api/auth/request-2fa',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}}); } catch(e) {}
+  startTimer();
+  setTimeout(function(){ document.getElementById('twoFACode').focus(); }, 200);
+}
+
+function startTimer() {
+  var s = 300; clearInterval(TI);
+  TI = setInterval(function(){
+    s--;
+    var el = document.getElementById('countdown');
+    if (el) el.textContent = Math.floor(s/60) + ':' + (s%60<10?'0':'') + s%60;
+    if (s <= 0) clearInterval(TI);
+  }, 1000);
+}
+
+async function doVerify() {
+  var code = document.getElementById('twoFACode').value.trim();
+  var btn  = document.getElementById('twoFABtn');
+  var err  = document.getElementById('twoFAErr');
+  if (code.length !== 6) { showErr('twoFAErr','Please enter the 6-digit code.'); return; }
+  btn.textContent = 'Verifying...'; btn.disabled = true; err.style.display = 'none';
+  try {
+    var r = await fetch('/api/auth/verify-2fa',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+PT},body:JSON.stringify({code:code})});
+    var d = await r.json();
+    if (r.ok && d.verified) {
+      clearInterval(TI);
+      window.location.href = '/member';
+    } else {
+      showErr('twoFAErr', d.error || 'Incorrect code.');
+      btn.textContent = 'Verify & Enter Portal'; btn.disabled = false;
+    }
+  } catch(e) {
+    showErr('twoFAErr','Connection error.');
+    btn.textContent = 'Verify & Enter Portal'; btn.disabled = false;
+  }
+}
+
+function doResend() {
+  clearInterval(TI);
+  document.getElementById('twoFACode').value = '';
+  document.getElementById('twoFAErr').style.display = 'none';
+  if (PT && PU) show2FA(PT, PU.email);
+}
+
+function showErr(id, msg) {
+  var el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+}
+</script>
+</body>
+</html>

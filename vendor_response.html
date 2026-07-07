@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Consiere — Vendor Response</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--copper:#b87333;--cl:#d4956a;--cp:#f0d5c0;--cream:#faf8f5;--dark:#1c1917;--mid:#44403c;--muted:#78716c;--border:rgba(184,115,51,0.15)}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(160deg,#1c1917,#0a0c10);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.wrap{width:100%;max-width:560px}
+.logo{text-align:center;margin-bottom:28px}
+.logo-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--copper),#8a5a2e);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700;margin-bottom:10px}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;color:#f0ede8;font-weight:300}
+.logo-text span{color:var(--copper)}
+.card{background:rgba(10,12,16,0.9);border:1px solid rgba(201,169,110,0.15);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.4),transparent)}
+.request-brief{background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.15);border-radius:10px;padding:18px;margin-bottom:24px}
+.brief-tag{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--copper);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.brief-tag::before{content:'◆';font-size:10px}
+.brief-title{font-family:'Playfair Display',serif;font-size:18px;color:#f0ede8;margin-bottom:8px;font-weight:400}
+.brief-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.brief-item{font-size:11px;color:rgba(201,169,110,0.6)}
+.brief-item strong{display:block;color:#d0ccc8;font-size:12px;font-weight:500}
+.brief-desc{font-size:13px;color:#a0a0a0;line-height:1.7;padding:12px;background:rgba(0,0,0,0.2);border-radius:6px}
+.section-title{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--copper);margin-bottom:16px;font-weight:500}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.7);margin-bottom:6px;font-weight:500}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.15);color:#f0ede8;font-size:13px;outline:none;font-family:'DM Sans',sans-serif;border-radius:6px;transition:border-color 0.15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--copper)}
+.field select option{background:#1a1a1a}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.price-field{position:relative}
+.price-field .currency{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--copper);font-family:'Playfair Display',serif;font-size:15px;pointer-events:none}
+.price-field input{padding-left:28px}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 20px rgba(184,115,51,0.25);letter-spacing:0.5px}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(184,115,51,0.35)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-decline{width:100%;padding:11px;background:transparent;color:rgba(231,76,60,0.7);border:1px solid rgba(231,76,60,0.2);border-radius:8px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;transition:all 0.2s;letter-spacing:0.5px}
+.btn-decline:hover{border-color:rgba(231,76,60,0.4);color:#e74c3c}
+.err{display:none;padding:10px 13px;background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);border-radius:6px;color:#e74c3c;font-size:12px;margin-top:10px}
+.success-view{display:none;text-align:center;padding:20px 0}
+.success-ic{font-size:52px;margin-bottom:16px}
+.success-title{font-family:'Playfair Display',serif;font-size:24px;color:#f0ede8;margin-bottom:10px;font-style:italic}
+.success-sub{font-size:14px;color:rgba(201,169,110,0.6);line-height:1.7}
+.declined-view{display:none;text-align:center;padding:20px 0}
+.loading-view{text-align:center;padding:40px}
+.loading-spinner{width:32px;height:32px;border:2px solid rgba(201,169,110,0.2);border-top-color:var(--copper);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider{border:none;border-top:1px solid rgba(201,169,110,0.1);margin:20px 0}
+.urgency-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.urgency-URGENT{background:rgba(230,126,34,0.15);border:1px solid rgba(230,126,34,0.3);color:#e67e22}
+.urgency-CRITICAL{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);color:#e74c3c}
+.urgency-STANDARD{background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);color:var(--copper)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="logo">
+    <div><div class="logo-mark">C</div></div>
+    <div class="logo-text">Cipher <span>Concierge</span></div>
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,169,110,0.4);margin-top:4px">Vendor Response Portal</div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="card" id="loadingView">
+    <div class="loading-view">
+      <div class="loading-spinner"></div>
+      <div style="font-size:12px;color:rgba(201,169,110,0.5);letter-spacing:2px;text-transform:uppercase">Loading Request...</div>
+    </div>
+  </div>
+
+  <!-- MAIN FORM -->
+  <div class="card" id="mainView" style="display:none">
+    <div class="request-brief" id="requestBrief">
+      <div class="brief-tag">Client Request Brief</div>
+      <div class="brief-title" id="briefTitle">Loading...</div>
+      <div class="brief-meta">
+        <div class="brief-item"><strong id="briefCategory">—</strong>Category</div>
+        <div class="brief-item"><strong id="briefDate">—</strong>Submitted</div>
+        <div class="brief-item"><strong id="briefLocation">Sydney, AU</strong>Location</div>
+        <div class="brief-item" id="urgencyContainer"></div>
+      </div>
+      <div class="brief-desc" id="briefDesc">—</div>
+    </div>
+
+    <div class="section-title">Your Response</div>
+
+    <div class="err" id="formErr"></div>
+
+    <div class="g2">
+      <div class="field">
+        <label>Quote Amount (AUD)</label>
+        <div class="price-field">
+          <span class="currency">$</span>
+          <input type="number" id="quoteAmount" placeholder="0.00" min="0" step="0.01">
+        </div>
+      </div>
+      <div class="field">
+        <label>Availability</label>
+        <select id="availability">
+          <option value="available">Available — can fulfil</option>
+          <option value="conditional">Available with conditions</option>
+          <option value="waitlist">Waitlist only</option>
+          <option value="unavailable">Unavailable for this request</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="field">
+        <label>Earliest Available</label>
+        <input type="date" id="earliestDate">
+      </div>
+      <div class="field">
+        <label>Response Validity</label>
+        <select id="validity">
+          <option value="24h">24 hours</option>
+          <option value="48h" selected>48 hours</option>
+          <option value="72h">72 hours</option>
+          <option value="7d">7 days</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Quote Details &amp; Notes</label>
+      <textarea id="quoteDetails" placeholder="Describe exactly what is included in your quote — service specifics, terms, inclusions, exclusions, any conditions..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Direct Contact for This Request</label>
+      <input type="text" id="contactPerson" placeholder="Name and phone or email for direct follow-up">
+    </div>
+
+    <hr class="divider">
+
+    <button class="btn-primary" id="submitBtn" onclick="submitQuote()">Submit Quote to Consiere</button>
+    <button class="btn-decline" onclick="showDecline()">Decline This Request</button>
+  </div>
+
+  <!-- DECLINE CONFIRMATION -->
+  <div class="card" id="declineView" style="display:none">
+    <div class="section-title">Decline Request</div>
+    <div style="font-size:13px;color:rgba(201,169,110,0.6);margin-bottom:18px;line-height:1.7">Please let us know why you're unable to fulfil this request so we can improve future matches.</div>
+    <div class="field">
+      <label>Reason for Declining</label>
+      <select id="declineReason">
+        <option value="unavailable">Not available on requested date</option>
+        <option value="capacity">At full capacity</option>
+        <option value="outside_area">Outside our service area</option>
+        <option value="outside_category">Outside our service category</option>
+        <option value="budget">Budget too low for this service</option>
+        <option value="other">Other reason</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Additional Notes (Optional)</label>
+      <textarea id="declineNotes" placeholder="Any context that would help Consiere for future requests..."></textarea>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:4px">
+      <button class="btn-primary" style="flex:1;background:rgba(231,76,60,0.6);box-shadow:none" onclick="submitDecline()">Confirm Decline</button>
+      <button class="btn-primary" style="flex:1" onclick="showMain()">Go Back</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="card" id="successView" style="display:none">
+    <div class="success-view" style="display:block">
+      <div class="success-ic">✓</div>
+      <div class="success-title">Quote Submitted</div>
+      <div class="success-sub">Thank you. Your quote has been sent to Consiere.<br>A director will review and present your offer to the member shortly.<br><br>We'll be in touch if the client wishes to proceed.</div>
+      <div style="margin-top:20px;font-size:11px;color:rgba(201,169,110,0.4)">hello@consiere.com.au</div>
+    </div>
+  </div>
+
+  <!-- DECLINED CONFIRMATION -->
+  <div class="card" id="declinedConfView" style="display:none">
+    <div class="declined-view" style="display:block">
+      <div style="font-size:40px;margin-bottom:14px">○</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;color:#f0ede8;margin-bottom:10px">Request Declined</div>
+      <div style="font-size:13px;color:rgba(201,169,110,0.5);line-height:1.7">Thank you for letting us know. We'll find another vendor for this request. We'll be in touch for future opportunities.</div>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div class="card" id="errorView" style="display:none">
+    <div style="text-align:center;padding:32px">
+      <div style="font-size:40px;margin-bottom:14px">⚠</div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;color:#f0ede8;margin-bottom:10px">Invalid Link</div>
+      <div style="font-size:13px;color:rgba(201,169,110,0.5);line-height:1.7">This vendor response link is invalid or has expired.<br><br>Please contact <span style="color:var(--copper)">hello@consiere.com.au</span> if you received this link from us.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var params = new URLSearchParams(window.location.search);
+var token = params.get('token');
+var inquiryId = params.get('id');
+var requestData = null;
+
+function show(id) {
+  ['loadingView','mainView','declineView','successView','declinedConfView','errorView'].forEach(function(v){
+    document.getElementById(v).style.display = v === id ? 'block' : 'none';
+  });
+}
+
+async function loadRequest() {
+  if (!token || !inquiryId) { show('errorView'); return; }
+  try {
+    var r = await fetch('/api/vendors/inquiry-brief?token='+token+'&id='+inquiryId);
+    if (!r.ok) { show('errorView'); return; }
+    var data = await r.json();
+    requestData = data;
+
+    document.getElementById('briefTitle').textContent = data.request?.title || data.request?.description || 'Service Request';
+    document.getElementById('briefCategory').textContent = data.request?.category || '—';
+    document.getElementById('briefDate').textContent = data.request?.createdAt ? new Date(data.request.createdAt).toLocaleDateString('en-AU') : '—';
+    document.getElementById('briefDesc').textContent = data.request?.description || '—';
+
+    var urgency = data.request?.priority || 'STANDARD';
+    var uc = document.getElementById('urgencyContainer');
+    uc.innerHTML = '<strong><span class="urgency-badge urgency-'+urgency+'">'+urgency+'</span></strong>Priority';
+
+    // Set min date to today
+    document.getElementById('earliestDate').min = new Date().toISOString().split('T')[0];
+    document.getElementById('earliestDate').value = new Date().toISOString().split('T')[0];
+
+    show('mainView');
+  } catch(e) {
+    show('errorView');
+  }
+}
+
+async function submitQuote() {
+  var amount = document.getElementById('quoteAmount').value;
+  var avail = document.getElementById('availability').value;
+  var date = document.getElementById('earliestDate').value;
+  var validity = document.getElementById('validity').value;
+  var details = document.getElementById('quoteDetails').value.trim();
+  var contact = document.getElementById('contactPerson').value.trim();
+  var err = document.getElementById('formErr');
+  var btn = document.getElementById('submitBtn');
+
+  err.style.display = 'none';
+  if (!amount || parseFloat(amount) <= 0) { err.textContent='Please enter a quote amount.'; err.style.display='block'; return; }
+  if (!details) { err.textContent='Please provide quote details.'; err.style.display='block'; return; }
+
+  btn.textContent = 'Submitting...'; btn.disabled = true;
+
+  try {
+    var r = await fetch('/api/vendors/inquiry-respond', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token, inquiryId,
+        status: 'QUOTED',
+        quoteAmount: parseFloat(amount),
+        quoteDetails: details,
+        availability: avail,
+        earliestDate: date,
+        validity: validity,
+        contactPerson: contact
+      })
+    });
+    if (r.ok) { show('successView'); }
+    else {
+      var d = await r.json();
+      err.textContent = d.error || 'Failed to submit. Please try again.';
+      err.style.display = 'block';
+      btn.textContent = 'Submit Quote'; btn.disabled = false;
+    }
+  } catch(e) {
+    err.textContent = 'Connection error. Please try again.';
+    err.style.display = 'block';
+    btn.textContent = 'Submit Quote'; btn.disabled = false;
+  }
+}
+
+function showDecline() { show('declineView'); }
+function showMain() { show('mainView'); }
+
+async function submitDecline() {
+  var reason = document.getElementById('declineReason').value;
+  var notes = document.getElementById('declineNotes').value;
+  try {
+    await fetch('/api/vendors/inquiry-respond', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, inquiryId, status: 'DECLINED', declineReason: reason, declineNotes: notes })
+    });
+    show('declinedConfView');
+  } catch(e) { show('declinedConfView'); }
+}
+
+// Load on page ready
+loadRequest();
+</script>
+</body>
+</html>

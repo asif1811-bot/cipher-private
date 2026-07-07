@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1308984621428224');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1308984621428224&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<link rel="canonical" href="https://consiere.com.au/">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Consiere — Life, Handled.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--copper:#b87333;--copper-light:#d4956a;--copper-pale:#f0d5c0;--cream:#faf8f5;--warm:#fff9f4;--dark:#1c1917;--mid:#44403c;--muted:#78716c;--border:rgba(184,115,51,0.15)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(250,248,245,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--copper),#8a5a2e);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:700}
+.logo-text{font-family:'Playfair Display',serif;font-size:17px;color:var(--dark);font-weight:500}
+.logo-text span{color:var(--copper)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:13px;color:var(--mid);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--copper)}
+.btn-copper{padding:9px 22px;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--copper),#8a5a2e);border:none;cursor:pointer;border-radius:6px;font-weight:500;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 2px 12px rgba(184,115,51,0.25)}
+.btn-copper:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(184,115,51,0.35)}
+.btn-outline{padding:9px 22px;font-size:13px;color:var(--mid);background:none;border:1px solid var(--border);cursor:pointer;border-radius:6px;font-family:'DM Sans',sans-serif;transition:all 0.2s;margin-right:8px}
+.btn-outline:hover{border-color:var(--copper);color:var(--copper)}
+.hero{min-height:100vh;padding:130px 48px 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(184,115,51,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,115,51,0.08);border:1px solid rgba(184,115,51,0.2);padding:6px 14px;border-radius:100px;margin-bottom:24px;font-size:11px;color:var(--copper);font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--copper);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,66px);font-weight:500;line-height:1.1;color:var(--dark);margin-bottom:24px;letter-spacing:-1px}
+h1 em{font-style:italic;color:var(--copper)}
+.hero-sub{font-size:17px;color:var(--muted);line-height:1.8;margin-bottom:36px;font-weight:300}
+.hero-btns{display:flex;gap:14px;margin-bottom:40px}
+.btn-hero{padding:14px 32px;font-size:15px;font-weight:500;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.btn-hero-p{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;box-shadow:0 4px 24px rgba(184,115,51,0.3)}
+.btn-hero-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(184,115,51,0.4)}
+.btn-hero-s{background:transparent;color:var(--dark);border:1.5px solid rgba(28,25,23,0.15)}
+.btn-hero-s:hover{border-color:var(--copper);color:var(--copper)}
+.trust{display:flex;align-items:center;gap:16px}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.trust-ic{color:var(--copper)}
+.trust-div{width:1px;height:14px;background:var(--border)}
+.demo-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 20px 80px rgba(184,115,51,0.1);overflow:hidden}
+.demo-hdr{background:linear-gradient(135deg,var(--copper),#8a5a2e);padding:16px 20px;display:flex;align-items:center;gap:12px}
+.demo-av{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;font-weight:600}
+.demo-name{font-size:13px;font-weight:600;color:#fff}
+.demo-status{font-size:11px;color:rgba(255,255,255,0.75)}
+.online{display:inline-block;width:5px;height:5px;border-radius:50%;background:#4ade80;margin-right:4px}
+.demo-body{padding:18px;display:flex;flex-direction:column;gap:12px;background:#fafafa;min-height:300px}
+.dm{display:flex;gap:8px;max-width:85%}
+.dm.me{align-self:flex-end;flex-direction:row-reverse}
+.bubble{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.6}
+.dm.them .bubble{background:#fff;color:var(--dark);border:1px solid rgba(0,0,0,0.07);border-radius:4px 14px 14px 14px}
+.dm.me .bubble{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border-radius:14px 4px 14px 14px}
+.dm-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+.dm.them .dm-av{background:var(--copper-pale);color:#8a5a2e}
+.dm.me .dm-av{background:rgba(184,115,51,0.15);color:var(--copper)}
+.demo-in{border-top:1px solid var(--border);padding:12px 16px;display:flex;gap:10px;align-items:center;background:#fff}
+.demo-in-txt{flex:1;font-size:12px;color:var(--muted)}
+.demo-send-btn{width:30px;height:30px;background:var(--copper);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;cursor:pointer}
+.typing{display:flex;gap:4px;align-items:center}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--copper-light);animation:t 1.2s ease infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes t{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-4px);opacity:1}}
+.strip{background:linear-gradient(135deg,var(--copper),#8a5a2e);padding:36px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.strip-n{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:#fff;line-height:1;margin-bottom:5px}
+.strip-l{font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:1px;text-transform:uppercase}
+section{padding:80px 48px}
+.sec-tag{display:inline-block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);font-weight:500;margin-bottom:10px}
+h2{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,46px);font-weight:500;color:var(--dark);margin-bottom:14px;line-height:1.15;letter-spacing:-0.5px}
+h2 em{font-style:italic;color:var(--copper)}
+.sub{font-size:16px;color:var(--muted);line-height:1.8;font-weight:300;max-width:540px;margin:0 auto 48px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+.step{text-align:center;padding:0 16px}
+.step-n{width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;background:rgba(184,115,51,0.08)}
+.step-n-i{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--copper)}
+.step h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;color:var(--dark);margin-bottom:8px}
+.step p{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.svc{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;transition:all 0.2s}
+.svc:hover{border-color:var(--copper-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(184,115,51,0.08)}
+.svc-ic{font-size:26px;margin-bottom:12px}
+.svc h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:500;color:var(--dark);margin-bottom:6px}
+.svc p{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300}
+.svc-badge{display:inline-block;margin-top:10px;font-size:10px;color:var(--copper);background:rgba(184,115,51,0.08);padding:3px 10px;border-radius:100px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px}
+.pc{background:#fff;border:1px solid var(--border);border-radius:18px;padding:32px 28px;position:relative;transition:all 0.2s}
+.pc:hover{box-shadow:0 10px 36px rgba(0,0,0,0.06);transform:translateY(-2px)}
+.pc.feat{border-color:var(--copper);background:linear-gradient(160deg,#fff,rgba(184,115,51,0.03));box-shadow:0 6px 36px rgba(184,115,51,0.12)}
+.pc-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap}
+.pc-tier{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:6px}
+.pc-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.pc-price{display:flex;align-items:baseline;gap:3px;margin:16px 0}
+.pc-amt{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--dark);line-height:1}
+.pc-per{font-size:13px;color:var(--muted)}
+.pc-desc{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.6;font-weight:300}
+.pc-feats{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.pc-feat{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--mid);line-height:1.5}
+.pfc{color:var(--copper);flex-shrink:0}
+.pc-btn{width:100%;padding:12px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.pc-btn-p{background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;box-shadow:0 3px 14px rgba(184,115,51,0.25)}
+.pc-btn-p:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(184,115,51,0.35)}
+.pc-btn-o{background:transparent;color:var(--dark);border:1.5px solid rgba(28,25,23,0.15)}
+.pc-btn-o:hover{border-color:var(--copper);color:var(--copper)}
+.ch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.ch{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;transition:all 0.2s}
+.ch:hover{border-color:var(--copper-light);transform:translateY(-2px);box-shadow:0 6px 24px rgba(184,115,51,0.07)}
+.ch-ic{font-size:32px;margin-bottom:12px}
+.ch-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:500;color:var(--dark);margin-bottom:5px}
+.ch-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.vbanner{background:linear-gradient(135deg,var(--dark),#292524);border-radius:22px;padding:52px 56px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;position:relative;overflow:hidden}
+.vbanner::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(184,115,51,0.14) 0%,transparent 70%);pointer-events:none}
+.vbanner h2{font-size:clamp(26px,3vw,36px);color:#fff;margin-bottom:10px}
+.vbanner h2 em{color:var(--copper-light)}
+.vbanner p{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300;max-width:460px}
+.vbanner-perks{display:flex;gap:16px;margin-top:22px;flex-wrap:wrap}
+.vbanner-perk{font-size:12px;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:6px}
+.vbanner-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.btn-vp{padding:13px 28px;background:linear-gradient(135deg,var(--copper),#8a5a2e);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.2s}
+.btn-vp:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(184,115,51,0.4)}
+.btn-vg{padding:13px 28px;background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.15);border-radius:9px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all 0.2s}
+.btn-vg:hover{border-color:rgba(255,255,255,0.35);color:#fff}
+.wl-section{background:linear-gradient(160deg,var(--warm),var(--cream));padding:80px 48px;text-align:center;border-top:1px solid var(--border)}
+.wl-form{display:flex;gap:10px;max-width:460px;margin:28px auto 0}
+.wl-input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--dark);background:#fff;outline:none;transition:border-color 0.2s}
+.wl-input:focus{border-color:var(--copper)}
+.wl-ok{display:none;padding:14px 20px;background:rgba(184,115,51,0.08);border:1px solid rgba(184,115,51,0.2);border-radius:8px;color:var(--copper);font-size:13px;margin:14px auto 0;max-width:460px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.testi{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:24px}
+.stars{color:var(--copper);font-size:12px;margin-bottom:12px;letter-spacing:2px}
+.testi-txt{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--dark);line-height:1.7;margin-bottom:18px}
+.testi-auth{display:flex;align-items:center;gap:10px}
+.testi-av{width:36px;height:36px;border-radius:50%;background:var(--copper-pale);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#8a5a2e;font-weight:600}
+.testi-name{font-size:12px;font-weight:500;color:var(--dark)}
+.testi-role{font-size:11px;color:var(--muted)}
+footer{background:var(--dark);padding:56px 48px 28px}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.ft-logo{font-family:'Playfair Display',serif;font-size:19px;color:#fff;margin-bottom:10px}
+.ft-logo span{color:var(--copper-light)}
+.ft-tag{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:16px;font-weight:300}
+.ft-col h4{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper-light);margin-bottom:14px;font-weight:500}
+.ft-col a{display:block;font-size:12px;color:rgba(255,255,255,0.45);text-decoration:none;margin-bottom:9px;transition:color 0.2s}
+.ft-col a:hover{color:#fff}
+.ft-bot{border-top:1px solid rgba(255,255,255,0.08);padding-top:22px;display:flex;align-items:center;justify-content:space-between}
+.ft-copy{font-size:11px;color:rgba(255,255,255,0.3)}
+.ft-links{display:flex;gap:20px}
+.ft-links a{font-size:11px;color:rgba(255,255,255,0.3);text-decoration:none}
+.ft-links a:hover{color:rgba(255,255,255,0.6)}
+@media(max-width:900px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:100px 20px 56px}
+  .demo-wrap{display:none}
+  section{padding:56px 20px}
+  .steps,.svc-grid,.price-grid,.ch-grid,.testi-grid{grid-template-columns:1fr}
+  .strip{grid-template-columns:1fr 1fr;padding:36px 20px}
+  .vbanner{grid-template-columns:1fr;padding:36px 24px}
+  .ft{grid-template-columns:1fr 1fr}
+  .wl-form{flex-direction:column}
+}
+</style>
+<!-- Google Analytics: replace G-KCH521J8F3 with your real ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH521J8F3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KCH521J8F3');</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark" style="padding:0;background:none;border:none;width:36px;height:36px"><svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="13" fill="none" stroke="rgba(184,115,51,0.2)" stroke-width="0.8"/><circle cx="16" cy="16" r="10" fill="none" stroke="rgba(184,115,51,0.35)" stroke-width="0.8"/><path d="M 20.5,7.8 A 9.5,9.5 0 1,0 20.5,24.2" fill="none" stroke="#b87333" stroke-width="3" stroke-linecap="round"/><circle cx="20.5" cy="7.8" r="1.8" fill="#b87333"/><circle cx="20.5" cy="24.2" r="1.8" fill="#b87333"/><polygon points="16,3 17.5,4.5 16,6 14.5,4.5" fill="#b87333"/><polygon points="16,26 17.5,27.5 16,29 14.5,27.5" fill="#b87333"/></svg></div>
+    <span class="logo-text"><span>Consiere</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:vendors@consiere.com.au?subject=Vendor%20Partnership%20Enquiry">For Vendors</a>
+  </div>
+  <div>
+    <button class="btn-outline" onclick="window.location.href='/signup'">Sign In</button>
+    <button class="btn-copper" onclick="window.location.href='/signup'">Get Started</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-tag"><span class="dot"></span>Now available across Australia</div>
+    <h1>Your life,<br><em>handled.</em></h1>
+    <p class="hero-sub">One message. Anything sorted. From relocating to Australia to booking the impossible restaurant — Alina handles it instantly, 24/7.</p>
+    <div class="hero-btns">
+      <button class="btn-hero btn-hero-p" onclick="window.location.href='/signup'">Start for free</button>
+      <button class="btn-hero btn-hero-s" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
+    </div>
+    <div class="trust">
+      <div class="trust-item"><span class="trust-ic">&#9670;</span>AI-powered</div>
+      <div class="trust-div"></div>
+      <div class="trust-item"><span class="trust-ic">&#9670;</span>Australian-based</div>
+      <div class="trust-div"></div>
+      <div class="trust-item"><span class="trust-ic">&#9670;</span>5-minute response</div>
+    </div>
+  </div>
+  <div class="demo-wrap">
+    <div class="demo-hdr">
+      <div class="demo-av">CC</div>
+      <div>
+        <div class="demo-name">Alina</div>
+        <div class="demo-status"><span class="online"></span>Always available</div>
+      </div>
+    </div>
+    <div class="demo-body" id="db"></div>
+    <div class="demo-in">
+      <div class="demo-in-txt">Type your request...</div>
+      <div class="demo-send-btn">&#10148;</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div><div class="strip-n">5min</div><div class="strip-l">Avg Response</div></div>
+  <div><div class="strip-n">200+</div><div class="strip-l">Verified Vendors</div></div>
+  <div><div class="strip-n">50+</div><div class="strip-l">Task Categories</div></div>
+  <div><div class="strip-n">24/7</div><div class="strip-l">AI Concierge</div></div>
+</div>
+
+<section id="how" style="text-align:center">
+  <div class="sec-tag">Simple by design</div>
+  <h2>Three steps to <em>anything sorted</em></h2>
+  <p class="sub">No forms. No phone trees. No waiting. Send a message and Alina handles everything.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n"><div class="step-n-i">01</div></div><h3>Send a message</h3><p>Tell us what you need in plain English — via WhatsApp, app, web, or email. No forms, no categories.</p></div>
+    <div class="step"><div class="step-n"><div class="step-n-i">02</div></div><h3>AI matches instantly</h3><p>Alina understands your request and connects you with the best verified expert immediately.</p></div>
+    <div class="step"><div class="step-n"><div class="step-n-i">03</div></div><h3>Consider it done</h3><p>Your expert handles everything. Alina keeps you updated in real time.</p></div>
+  </div>
+</section>
+
+<section id="services" style="background:#fff">
+  <div style="text-align:center">
+    <div class="sec-tag">What we handle</div>
+    <h2>Every life task, <em>covered</em></h2>
+    <p class="sub">From the simple to the seemingly impossible.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc"><div class="svc-ic">&#9992;</div><h3>Relocation to Australia</h3><p>Visa coordination, housing, Medicare, TFN, utilities, school enrolment — everything from landing to feeling at home.</p><span class="svc-badge">Most popular</span></div>
+    <div class="svc"><div class="svc-ic">&#127968;</div><h3>Home Operations</h3><p>Tradesperson booking, maintenance, repairs, inspections, renovations across single or multiple properties.</p></div>
+    <div class="svc"><div class="svc-ic">&#128661;</div><h3>Vehicle Management</h3><p>Servicing, rego renewals, roadside, insurance claims, vehicle sourcing and delivery.</p></div>
+    <div class="svc"><div class="svc-ic">&#127808;</div><h3>Personal Shopping</h3><p>Gift sourcing, personal shopping, corporate gifting, hard-to-find procurement, luxury brand access.</p></div>
+    <div class="svc"><div class="svc-ic">&#128747;</div><h3>Travel & Itineraries</h3><p>Hotels with upgrades, flights, complete itinerary planning, packing coordination, disruption recovery.</p></div>
+    <div class="svc"><div class="svc-ic">&#127869;</div><h3>Dining & Events</h3><p>Impossible restaurant reservations, private dining, concert tickets, exclusive event access.</p></div>
+    <div class="svc"><div class="svc-ic">&#128138;</div><h3>Medical Coordination</h3><p>Specialist referrals, appointments, second opinions, private health navigation.</p></div>
+    <div class="svc"><div class="svc-ic">&#128196;</div><h3>Visa & Immigration</h3><p>Visa applications, migration agent coordination, citizenship, student and skilled migration.</p></div>
+    <div class="svc"><div class="svc-ic">&#128188;</div><h3>Executive Life Admin</h3><p>Insurance renewals, subscriptions, appointments, government forms — everything that eats your time.</p></div>
+  </div>
+</section>
+
+<section style="background:var(--warm);text-align:center">
+  <div class="sec-tag">Always reachable</div>
+  <h2>Contact us <em>your way</em></h2>
+  <p class="sub">No new app required to get started.</p>
+  <div class="ch-grid">
+    <!-- WhatsApp — shows QR popup on click -->
+    <div class="ch" onclick="showWAQR()" style="cursor:pointer">
+      <div class="ch-ic">&#128242;</div>
+      <div class="ch-name">WhatsApp</div>
+      <div class="ch-desc">Tap to scan QR and chat with Alina directly.</div>
+    </div>
+    <!-- Mobile App — detects iOS or Android -->
+    <div class="ch" onclick="openApp()" style="cursor:pointer">
+      <div class="ch-ic">&#128241;</div>
+      <div class="ch-name">Mobile App</div>
+      <div class="ch-desc">Download on iOS or Android.</div>
+    </div>
+    <!-- Web Portal -->
+    <a href="/cc-portal" class="ch" style="text-decoration:none">
+      <div class="ch-ic">&#128187;</div>
+      <div class="ch-name">Web Portal</div>
+      <div class="ch-desc">Full dashboard with request management.</div>
+    </a>
+    <!-- Email -->
+    <a href="mailto:hello@consiere.com.au" class="ch" style="text-decoration:none">
+      <div class="ch-ic">&#9993;</div>
+      <div class="ch-name">Email</div>
+      <div class="ch-desc">hello@consiere.com.au</div>
+    </a>
+  </div>
+</section>
+
+<section <section id="pricing" style="text-align:center">
+  <div class="sec-tag">Simple pricing</div>
+  <h2>Plans for <em>every life</em></h2>
+  <p class="sub" style="margin-bottom:0">Start free. Upgrade when you need more. Cancel any time.</p>
+  <p style="font-size:12px;color:var(--copper);margin:8px 0 28px" id="currency-notice">Detecting your location...</p>
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px" class="price-grid">
+
+    <div style="background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:28px 22px;text-align:left">
+      <div class="pc-name">Essential</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">For individuals</div>
+      <div style="display:flex;align-items:baseline;gap:3px;margin:14px 0 4px">
+        <span style="font-size:16px;color:var(--dark);font-weight:600" class="cur-sym">A$</span>
+        <span style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--dark);line-height:1" class="pc-amt" data-aud="29">29</span>
+        <span style="font-size:12px;color:var(--muted)">/mo</span>
+      </div>
+      <div style="font-size:10px;color:var(--copper);margin-bottom:18px" id="note-ess">AUD · billed monthly</div>
+      <ul style="list-style:none;font-size:12px;color:var(--mid);line-height:2.1;margin-bottom:20px">
+        <li>&#10003; 5 requests/month</li>
+        <li>&#10003; Alina AI concierge</li>
+        <li>&#10003; Restaurant &amp; hotel bookings</li>
+        <li>&#10003; Transport &amp; delivery</li>
+        <li>&#10003; Email support</li>
+      </ul>
+      <a href="/signup" style="display:block;padding:11px;background:var(--dark);color:#fff;text-align:center;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none">Get started</a>
+    </div>
+
+    <div style="background:var(--dark);border:1.5px solid var(--copper);border-radius:16px;padding:28px 22px;text-align:left;position:relative">
+      <div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--copper);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap">Most Popular</div>
+      <div class="pc-name" style="color:#fff">Black</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px">For professionals</div>
+      <div style="display:flex;align-items:baseline;gap:3px;margin:14px 0 4px">
+        <span style="font-size:16px;color:var(--copper);font-weight:600" class="cur-sym">A$</span>
+        <span style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--copper);line-height:1" class="pc-amt" data-aud="49">49</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4)">/mo</span>
+      </div>
+      <div style="font-size:10px;color:var(--copper);margin-bottom:18px" id="note-blk">AUD · billed monthly</div>
+      <ul style="list-style:none;font-size:12px;color:rgba(255,255,255,0.65);line-height:2.1;margin-bottom:20px">
+        <li>&#10003; <strong style="color:#fff">Unlimited</strong> requests</li>
+        <li>&#10003; Alina AI concierge</li>
+        <li>&#10003; All 11 categories</li>
+        <li>&#10003; International requests</li>
+        <li>&#10003; Priority support</li>
+        <li>&#10003; Dedicated manager</li>
+      </ul>
+      <a href="/signup" style="display:block;padding:11px;background:var(--copper);color:#fff;text-align:center;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none">Get started</a>
+    </div>
+
+    <div style="background:var(--cream);border:1.5px solid var(--border);border-radius:16px;padding:28px 22px;text-align:left">
+      <div class="pc-name">Sovereign</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">For executives</div>
+      <div style="display:flex;align-items:baseline;gap:3px;margin:14px 0 4px">
+        <span style="font-size:16px;color:var(--dark);font-weight:600" class="cur-sym">A$</span>
+        <span style="font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--dark);line-height:1" class="pc-amt" data-aud="99">99</span>
+        <span style="font-size:12px;color:var(--muted)">/mo</span>
+      </div>
+      <div style="font-size:10px;color:var(--copper);margin-bottom:18px" id="note-sov">AUD · billed monthly</div>
+      <ul style="list-style:none;font-size:12px;color:var(--mid);line-height:2.1;margin-bottom:20px">
+        <li>&#10003; Unlimited requests</li>
+        <li>&#10003; White-glove service</li>
+        <li>&#10003; 24/7 priority hotline</li>
+        <li>&#10003; International coverage</li>
+        <li>&#10003; Personal account manager</li>
+        <li>&#10003; Corporate &amp; family plans</li>
+      </ul>
+      <a href="/signup" style="display:block;padding:11px;background:var(--dark);color:#fff;text-align:center;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none">Contact us</a>
+    </div>
+
+  </div>
+  <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:20px">Enterprise plans available. <a href="#waitlist" style="color:var(--copper);text-decoration:none">Contact us &rarr;</a></p>
+
+  <script>
+  var CURRENCY = {
+    AU:{sym:'A$',code:'AUD',r:[29,49,99]},
+    US:{sym:'$',code:'USD',r:[19,32,65]},
+    CA:{sym:'CA$',code:'CAD',r:[31,53,107]},
+    AE:{sym:'AED ',code:'AED',r:[70,118,239]},
+    SG:{sym:'S$',code:'SGD',r:[26,43,87]},
+    IN:{sym:'₹',code:'INR',r:[1590,2690,5450]},
+    GB:{sym:'£',code:'GBP',r:[15,25,51]},
+    NZ:{sym:'NZ$',code:'NZD',r:[32,54,109]},
+    JP:{sym:'¥',code:'JPY',r:[2900,4900,9900]},
+    HK:{sym:'HK$',code:'HKD',r:[150,255,515]},
+    SA:{sym:'SAR ',code:'SAR',r:[72,122,247]},
+    QA:{sym:'QAR ',code:'QAR',r:[70,118,239]},
+    CH:{sym:'CHF ',code:'CHF',r:[17,28,57]},
+    EU:{sym:'€',code:'EUR',r:[18,30,61]},
+    DE:{sym:'€',code:'EUR',r:[18,30,61]},
+    FR:{sym:'€',code:'EUR',r:[18,30,61]},
+    IT:{sym:'€',code:'EUR',r:[18,30,61]},
+    ES:{sym:'€',code:'EUR',r:[18,30,61]},
+  };
+  async function detectCurrency(){
+    try{
+      var r=await fetch('https://ipapi.co/json/');
+      var d=await r.json();
+      var cc=d.country_code||'AU';
+      var cur=CURRENCY[cc]||CURRENCY['AU'];
+      var amts=document.querySelectorAll('.pc-amt');
+      var syms=document.querySelectorAll('.cur-sym');
+      amts[0].textContent=cur.r[0].toLocaleString();
+      amts[1].textContent=cur.r[1].toLocaleString();
+      amts[2].textContent=cur.r[2].toLocaleString();
+      syms.forEach(function(s){s.textContent=cur.sym;});
+      document.getElementById('note-ess').textContent=cur.code+' · billed monthly';
+      document.getElementById('note-blk').textContent=cur.code+' · billed monthly';
+      document.getElementById('note-sov').textContent=cur.code+' · billed monthly';
+      var notice=document.getElementById('currency-notice');
+      if(cc!=='AU'){
+        notice.innerHTML='&#9432; Prices shown in '+cur.code+'. Billing processed in AUD.';
+      } else {
+        notice.innerHTML='&#9432; Prices in Australian Dollars (AUD)';
+      }
+    }catch(e){
+      document.getElementById('currency-notice').innerHTML='&#9432; Prices in Australian Dollars (AUD)';
+    }
+  }
+  detectCurrency();
+  </script>
+</section>
+
+<section style="background:#fff">
+  <div style="text-align:center;margin-bottom:0">
+    <div class="sec-tag">Early members</div>
+    <h2>What people <em>say</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-txt">"Moved from London to Sydney in March. Consiere sorted Medicare, TFN, rental, and car rego in two weeks. Would have taken me months."</div><div class="testi-auth"><div class="testi-av">JM</div><div><div class="testi-name">James M.</div><div class="testi-role">Software Engineer, relocated from UK</div></div></div></div>
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-txt">"I have three investment properties. The tradespeople coordination alone saves me eight hours a week. Worth every dollar."</div><div class="testi-auth"><div class="testi-av">SR</div><div><div class="testi-name">Sarah R.</div><div class="testi-role">Property Investor, Sydney</div></div></div></div>
+    <div class="testi"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-txt">"Got a table at Quay for our anniversary with two days notice. I'd been trying for weeks. Alina sorted it in 20 minutes."</div><div class="testi-auth"><div class="testi-av">MC</div><div><div class="testi-name">Michael C.</div><div class="testi-role">Partner, Law Firm, Melbourne</div></div></div></div>
+  </div>
+</section>
+
+
+<section id="blog" style="background:#fff">
+  <div style="text-align:center;margin-bottom:0">
+    <div class="sec-tag">Insights & Guides</div>
+    <h2>Life in Australia, <em>expertly navigated</em></h2>
+    <p class="sub">Practical guides on relocating, immigration, lifestyle and property — from the team that handles it every day.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px">
+    <a href="/blog/complete-guide-relocating-to-sydney" style="background:var(--cream);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:block;transition:all 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(184,115,51,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="height:140px;background:linear-gradient(135deg,#1c1917,#2d2520);display:flex;align-items:center;justify-content:center;font-size:40px">🏙</div>
+      <div style="padding:18px">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:7px">Relocation</div>
+        <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--dark);line-height:1.4;margin-bottom:7px;font-weight:500">The Complete Guide to Relocating to Sydney in 2025</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px">Visas, housing, Medicare, TFN, banking and settling in — everything in one guide.</div>
+        <div style="font-size:11px;color:var(--copper);font-weight:500">Read guide &rarr;</div>
+      </div>
+    </a>
+    <a href="/blog/australia-skilled-visa-guide-2025" style="background:var(--cream);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:block;transition:all 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(184,115,51,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="height:140px;background:linear-gradient(135deg,#1a2744,#2a3d6a);display:flex;align-items:center;justify-content:center;font-size:40px">🛂</div>
+      <div style="padding:18px">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:7px">Immigration</div>
+        <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--dark);line-height:1.4;margin-bottom:7px;font-weight:500">Australia Skilled Migration Visas: 189, 190, 491 Explained</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px">A plain-English breakdown of Australia's most popular skilled migration pathways.</div>
+        <div style="font-size:11px;color:var(--copper);font-weight:500">Read guide &rarr;</div>
+      </div>
+    </a>
+    <a href="/blog/best-suburbs-sydney-expats" style="background:var(--cream);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:block;transition:all 0.2s" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(184,115,51,0.1)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      <div style="height:140px;background:linear-gradient(135deg,#1a3a2a,#2a5a3a);display:flex;align-items:center;justify-content:center;font-size:40px">🏡</div>
+      <div style="padding:18px">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--copper);margin-bottom:7px">Relocation</div>
+        <div style="font-family:'Playfair Display',serif;font-size:17px;color:var(--dark);line-height:1.4;margin-bottom:7px;font-weight:500">Best Sydney Suburbs for Expats in 2025</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px">From Bondi to Mosman — a neighbourhood guide for professionals and families.</div>
+        <div style="font-size:11px;color:var(--copper);font-weight:500">Read guide &rarr;</div>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <a href="/blog" style="display:inline-block;padding:11px 28px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--mid);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all 0.2s" onmouseover="this.style.borderColor='var(--copper)';this.style.color='var(--copper)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--mid)'">View all guides &rarr;</a>
+  </div>
+</section>
+
+<section id="vendors">
+  <div class="vbanner">
+    <div>
+      <h2>Are you a vendor?<br><em>Grow with us.</em></h2>
+      <p>Join Australia's fastest growing concierge platform. Get matched with verified clients automatically. No cold calling, no chasing leads.</p>
+      <div class="vbanner-perks">
+        <div class="vbanner-perk"><span style="color:var(--copper-light)">&#10003;</span>Zero upfront cost</div>
+        <div class="vbanner-perk"><span style="color:var(--copper-light)">&#10003;</span>Commission on completed jobs only</div>
+        <div class="vbanner-perk"><span style="color:var(--copper-light)">&#10003;</span>Instant AI-matched leads</div>
+      </div>
+    </div>
+    <div class="vbanner-actions">
+      <button class="btn-vp" href="mailto:vendors@consiere.com.au?subject=Vendor%20Partnership%20Enquiry">Become a Vendor Partner</button>
+      <button class="btn-vg">Learn more</button>
+    </div>
+  </div>
+</section>
+
+<section class="wl-section" id="waitlist">
+  <div class="sec-tag">Join the waitlist</div>
+  <h2>Be first when we launch</h2>
+  <p class="sub" style="margin-bottom:6px">Launching in Sydney first. Join now for early access and 3 months free on any plan.</p>
+  <div class="wl-form">
+    <input class="wl-input" type="email" id="wlEmail" placeholder="your@email.com">
+    <button class="btn-copper" style="padding:12px 22px;border-radius:8px;font-size:13px;font-weight:500;white-space:nowrap" onclick="joinWL()">Join Waitlist</button>
+  </div>
+  <div class="wl-ok" id="wlOk">&#10003; You're on the list. We'll be in touch soon.</div>
+  <p style="font-size:12px;color:var(--muted);margin-top:14px">No spam. Unsubscribe any time.</p>
+</section>
+
+<footer>
+  <div class="ft">
+    <div><div class="ft-logo"><span>Consiere</span></div><div class="ft-tag">Life admin, handled. Available across Australia.</div><div style="font-size:11px;color:rgba(255,255,255,0.3)">hello@consiere.com.au<br>+61489207207</div></div>
+    <div class="ft-col"><h4>Services</h4><a href="#">Relocation</a><a href="#">Home Ops</a><a href="#">Travel</a><a href="#">Medical</a><a href="#">Immigration</a></div>
+    <div class="ft-col"><h4>Company</h4><a href="#">About</a><a href="mailto:vendors@consiere.com.au?subject=Vendor%20Partnership%20Enquiry">Become a Vendor</a><a href="#">Enterprise</a><a href="#">Blog</a></div>
+    <div class="ft-col"><h4>Legal</h4><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/privacy#security">Security</a></div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">&copy; 2026 Cipher Concierge Group Pty Ltd. ABN pending.</div>
+    <div class="ft-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:hello@consiere.com.au">Contact</a></div>
+  </div>
+<div style="text-align:center;padding:12px 0;border-top:1px solid rgba(255,255,255,0.05);margin-top:16px"><a href="/privacy" style="color:#555;font-size:11px;text-decoration:none;margin:0 12px">Privacy Policy</a><a href="/terms" style="color:#555;font-size:11px;text-decoration:none;margin:0 12px">Terms of Service</a></div></footer>
+
+<script>
+var conv=[
+  {r:'me',t:"Just arrived in Sydney from London. Need TFN, Medicare, and a bank account."},
+  {r:'them',t:"Welcome to Sydney! I'll handle all three. For the TFN I need your passport and visa details — I can lodge all three applications within the hour."},
+  {r:'me',t:"Amazing. Also need a 2-bed rental in Bondi or Coogee, under $2,800/month."},
+  {r:'them',t:"On it. Searching Bondi, Coogee and Randwick now. I'll send you 5 shortlisted properties in 10 minutes. ✓"}
+];
+var ci=0, db=document.getElementById('db');
+function addMsg(r,t){var d=document.createElement('div');d.className='dm '+r;var a=document.createElement('div');a.className='dm-av';a.textContent=r==='them'?'CC':'Me';var b=document.createElement('div');b.className='bubble';b.textContent=t;d.appendChild(a);d.appendChild(b);db.appendChild(d);db.scrollTop=db.scrollHeight;}
+function addTyp(){var d=document.createElement('div');d.className='dm them';d.id='typ';var a=document.createElement('div');a.className='dm-av';a.textContent='CC';var b=document.createElement('div');b.className='bubble';var t=document.createElement('div');t.className='typing';t.innerHTML='<span></span><span></span><span></span>';b.appendChild(t);d.appendChild(a);d.appendChild(b);db.appendChild(d);db.scrollTop=db.scrollHeight;}
+function rmTyp(){var t=document.getElementById('typ');if(t)t.remove();}
+function runDemo(){
+  if(ci>=conv.length){setTimeout(function(){db.innerHTML='';ci=0;setTimeout(runDemo,1500);},4000);return;}
+  var m=conv[ci];
+  if(m.r==='me'){setTimeout(function(){addMsg('me',m.t);ci++;addTyp();setTimeout(function(){rmTyp();runDemo();},1800);},1200);}
+  else{addMsg('them',m.t);ci++;setTimeout(runDemo,2800);}
+}
+setTimeout(function(){addMsg('them',"Hello! I'm Alina, your personal concierge. What can I arrange for you today?");setTimeout(runDemo,2000);},1000);
+function joinWL(){var e=document.getElementById('wlEmail').value.trim();if(!e||!e.includes('@')){alert('Please enter a valid email.');return;}document.querySelector('.wl-form').style.display='none';document.getElementById('wlOk').style.display='block';}
+window.addEventListener('scroll',function(){var n=document.querySelector('nav');n.style.boxShadow=window.scrollY>40?'0 4px 24px rgba(0,0,0,0.07)':'none';});
+</script>
+
+<!-- WhatsApp Floating Button -->
+<div id="wa-float" style="position:fixed;bottom:24px;right:24px;z-index:9999">
+  <a href="https://wa.me/61489207207?text=Hi%20Alina%2C%20I%27d%20like%20to%20know%20more%20about%20Consiere" target="_blank"
+     title="Chat with Alina on WhatsApp"
+     style="width:60px;height:60px;background:linear-gradient(135deg,#25D366,#128C7E);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);text-decoration:none">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 2C8.268 2 2 8.268 2 16c0 2.45.636 4.75 1.748 6.748L2 30l7.444-1.716A13.926 13.926 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.535 11.535 0 01-5.876-1.608l-.42-.252-4.42 1.02 1.048-4.308-.276-.444A11.536 11.536 0 014.4 16C4.4 9.592 9.592 4.4 16 4.4S27.6 9.592 27.6 16 22.408 27.6 16 27.6z"/>
+    </svg>
+  </a>
+</div>
+
+
+
+<!-- WhatsApp QR Popup Modal -->
+<div id="wa-qr-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99999;display:none;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;padding:32px;text-align:center;max-width:320px;width:90%;position:relative">
+    <button onclick="document.getElementById('wa-qr-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:#78716c">&times;</button>
+    <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#b87333;margin-bottom:8px">WhatsApp</div>
+    <h3 style="font-family:Georgia,serif;font-size:18px;color:#1c1917;font-weight:400;margin:0 0 16px">Scan to chat with Alina</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fwa.me%2F61489207207&color=1c1917&bgcolor=ffffff&qzone=2" alt="WhatsApp QR" width="220" height="220" style="border-radius:8px;border:1px solid #e8e0d4">
+    <p style="color:#78716c;font-size:12px;margin:12px 0 16px">Or tap the button below</p>
+    <a href="https://wa.me/61489207207?text=Hi%20Alina%2C%20I%27d%20like%20to%20know%20more%20about%20Consiere" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.45.636 4.75 1.748 6.748L2 30l7.444-1.716A13.926 13.926 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2z"/></svg>
+      Open WhatsApp
+    </a>
+    <div style="font-size:11px;color:#a8a29e;margin-top:10px">+61 489 207 207</div>
+  </div>
+</div>
+
+<script>
+function showWAQR() {
+  document.getElementById('wa-qr-modal').style.display = 'flex';
+}
+document.getElementById('wa-qr-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+
+function openApp() {
+  var ua = navigator.userAgent || navigator.vendor || window.opera;
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+    // iOS — App Store link (update when app is live)
+    window.open('https://apps.apple.com/au/app/consiere/id0000000000', '_blank');
+  } else if (/android/i.test(ua)) {
+    // Android — Play Store link (update when app is live)
+    window.open('https://play.google.com/store/apps/details?id=com.consiere.app', '_blank');
+  } else {
+    // Desktop — redirect to portal
+    window.location.href = '/cc-portal';
+  }
+}
+</script>
+
+</body>
+</html>

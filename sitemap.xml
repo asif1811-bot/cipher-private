@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://cipherprivate.com/</loc><lastmod>2026-03-20</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://cipherprivate.com/#about</loc><lastmod>2026-03-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cipherprivate.com/#services</loc><lastmod>2026-03-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cipherprivate.com/#membership</loc><lastmod>2026-03-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://cipherprivate.com/#blog</loc><lastmod>2026-03-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cipherprivate.com/#enquiry</loc><lastmod>2026-03-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://consiere.com.au/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://consiere.com.au/signup</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/vendors</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://consiere.com.au/blog</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://consiere.com.au/blog/complete-guide-relocating-to-sydney</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/australia-skilled-visa-guide-2025</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/best-suburbs-sydney-expats</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/moving-to-australia-checklist</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/sydney-private-members-clubs-restaurants</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/property-investment-sydney-2025</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/private-aviation-australia-guide</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://consiere.com.au/blog/luxury-home-management-sydney</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

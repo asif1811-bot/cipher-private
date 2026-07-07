@@ -8,23 +8,35 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
-  passwordHash  String
-  fullName      String
-  phone         String?
-  role          Role      @default(MEMBER)
-  memberTier    Tier      @default(CIPHER)
-  isActive      Boolean   @default(true)
-  isApproved    Boolean   @default(false)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  requests      Request[]
-  messages      Message[]
-  documents     Document[]
-  otpSends      OtpSend[]
-  sessions      Session[]
+  id                String             @id @default(uuid())
+  email             String             @unique
+  passwordHash      String
+  fullName          String
+  phone             String?
+  role              Role               @default(MEMBER)
+  memberTier        Tier               @default(CIPHER)
+  isActive          Boolean            @default(true)
+  isApproved        Boolean            @default(true)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  platform          String             @default("CONSIERE")
+  referralCode      String?            @unique
+  referredBy        String?
+  stripeCustomerId  String?
+  credits           Int                @default(0)
+  loyaltyTier       String             @default("STANDARD")
+  referralCount     Int                @default(0)
+  retainerBalance   Float              @default(0)
+  savedCardId       String?
+  teamId            String?
+  waitlistPosition  Int?
+  payments          Payment[]
+  documents         Document[]
+  messages          Message[]
+  otpSends          OtpSend[]
+  pushSubscriptions PushSubscription[]
+  requests          Request[]
+  sessions          Session[]
 
   @@map("users")
 }
@@ -41,18 +53,56 @@ model Session {
 }
 
 model Request {
-  id          String        @id @default(uuid())
-  userId      String
-  title       String
-  description String
-  category    String
-  priority    Priority      @default(STANDARD)
-  status      RequestStatus @default(RECEIVED)
-  adminNote   String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                    String          @id @default(uuid())
+  userId                String
+  title                 String
+  description           String
+  category              String
+  priority              Priority        @default(STANDARD)
+  status                RequestStatus   @default(RECEIVED)
+  adminNote             String?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  commissionAmt         Float?
+  completedAt           DateTime?
+  depositAmount         Float           @default(20)
+  depositPaid           Boolean         @default(false)
+  depositRefundAmt      Float?
+  depositRefunded       Boolean         @default(false)
+  depositSessionId      String?
+  refundAmt             Float?
+  refundProcessedAt     DateTime?
+  scheduledAt           DateTime?
+  vendorBillAmt         Float?
+  vendorBillSubmittedAt DateTime?
+  deliveryCountry       String?
+  deliveryCurrency      String?
+  fullPaymentAmt        Float?
+  fullPaymentPaid       Boolean         @default(false)
+  fullPaymentSessionId  String?
+  isInternational       Boolean         @default(false)
+  wiseTransferRef       String?
+  orderRef              String?         @unique
+  inquiries             VendorInquiry[]
+  user                  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  clientRating    Int?
+  isUrgent        Boolean  @default(false)
+  deliveryAddress  String?  @default("")
+  recipientName    String?  @default("")
+  recipientPhone   String?  @default("")
+  deliveryNotes    String?  @default("")
+  deliveryDetailsComplete Boolean @default(false)
+  paymentUrl          String?
+  slaDeadline     DateTime?
+  preApproved     Boolean  @default(false)
+  upsellOffered   Boolean  @default(false)
+  postcodeData    String?
+  redispatchCount Int      @default(0)
+  pendingFulfilment Boolean @default(false)
+  autoCompleted   Boolean  @default(false)
+  flashDealId     String?
+  unregisteredVendorRequests UnregisteredVendorRequest[]
   @@map("requests")
 }
 
@@ -69,7 +119,7 @@ model Message {
 }
 
 model Document {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   userId        String
   filename      String
   originalName  String
@@ -77,8 +127,8 @@ model Document {
   sizeBytes     Int
   encryptedPath String
   iv            String
-  createdAt     DateTime @default(now())
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   otpSends      OtpSend[]
 
   @@map("documents")
@@ -115,6 +165,158 @@ model Application {
   @@map("applications")
 }
 
+model Vendor {
+  id              String          @id @default(uuid())
+  name            String
+  category        String
+  contactName     String
+  email           String
+  phone           String?
+  address         String?
+  description     String?
+  commissionPct   Float           @default(10)
+  isActive        Boolean         @default(true)
+  cities          String          @default("Sydney")
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  suburbs         String?
+  lat             Float?
+  lng             Float?
+  isVerified      Boolean         @default(false)
+  lastLoginAt     DateTime?
+  passwordHash    String?
+  bankAccountName String?
+  bankAccountNum  String?
+  bankBSB         String?
+  bankName        String?
+  referralCode      String?  @unique
+  referredBy        String?
+  referralCount     Int      @default(0)
+  commissionDiscountUntil DateTime?
+  firstJobDiscountUsed    Boolean @default(false)
+  referralRewarded        Boolean @default(false)
+  inquiries       VendorInquiry[]
+}
+
+model VendorInquiry {
+  id               String    @id @default(uuid())
+  requestId        String
+  vendorId         String
+  status           String    @default("SENT")
+  emailSentAt      DateTime  @default(now())
+  respondedAt      DateTime?
+  quoteAmount      Float?
+  quoteDetails     String?
+  commissionAmt    Float?
+  notes            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  memberRating     Int?
+  memberReview     String?
+  responseTimeMs   Int?
+  billAmount       Float?
+  billSubmittedAt  DateTime?
+  deliveredAt      DateTime?
+  deliveryNote     String?
+  paymentPaidAt    DateTime?
+  paymentSessionId String?
+  quoteAcceptedAt  DateTime?
+  quoteToken       String?
+  request          Request   @relation(fields: [requestId], references: [id])
+  vendor           Vendor    @relation(fields: [vendorId], references: [id])
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Payment {
+  id              String    @id @default(uuid())
+  userId          String
+  requestId       String?
+  stripeSessionId String    @unique
+  amount          Float
+  currency        String    @default("AUD")
+  description     String
+  status          String    @default("PENDING")
+  commissionPct   Float     @default(15)
+  commissionAmt   Float?
+  vendorAmount    Float?
+  vendorPaid      Boolean   @default(false)
+  vendorPaidAt    DateTime?
+  paidAt          DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User      @relation(fields: [userId], references: [id])
+}
+
+model PushSubscription {
+  id        String   @id @default(uuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("push_subscriptions")
+}
+
+model Team {
+  id          String       @id @default(uuid())
+  name        String
+  ownerId     String
+  maxMembers  Int          @default(5)
+  priceId     String?
+  stripeSubId String?
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  members     TeamMember[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String   @id @default(uuid())
+  teamId    String
+  userId    String
+  role      String   @default("MEMBER")
+  createdAt DateTime @default(now())
+  team      Team     @relation(fields: [teamId], references: [id])
+
+  @@map("team_members")
+}
+
+model WaitlistEntry {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  phone      String?
+  brand      String   @default("CIPHER_PRIVATE")
+  referredBy String?
+  notes      String?
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+
+  @@map("waitlist_entries")
+}
+
+model VendorFeatured {
+  id        String   @id @default(uuid())
+  vendorId  String   @unique
+  tier      String   @default("FEATURED")
+  paidUntil DateTime
+  amount    Float
+  createdAt DateTime @default(now())
+
+  @@map("vendor_featured")
+}
+
 enum Role {
   MEMBER
   ADMIN
@@ -145,4 +347,408 @@ enum ApplicationStatus {
   PENDING
   APPROVED
   DECLINED
+}
+
+model GiftSubscription {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  fromUserId   String?
+  toEmail      String?
+  months       Int      @default(3)
+  redeemed     Boolean  @default(false)
+  redeemedBy   String?
+  stripePayId  String?
+  createdAt    DateTime @default(now())
+  @@map("gift_subscriptions")
+}
+
+model AffiliateLink {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  ownerEmail   String
+  ownerName    String
+  commissionPct Float   @default(20)
+  totalSignups Int      @default(0)
+  totalRevenue Float    @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  @@map("affiliate_links")
+}
+
+model SLATimer {
+  id          String   @id @default(uuid())
+  requestId   String   @unique
+  tier        String
+  deadlineAt  DateTime
+  escalated   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  @@map("sla_timers")
+}
+
+model TaxInvoice {
+  id            String   @id @default(uuid())
+  paymentId     String   @unique
+  invoiceNumber String   @unique
+  pdfUrl        String?
+  sentAt        DateTime?
+  createdAt     DateTime @default(now())
+  @@map("tax_invoices")
+}
+
+model MemberMemory {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  data      String   @default("{}")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  @@map("member_memories")
+}
+
+model RequestTemplate {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  description String
+  category    String
+  isActive    Boolean  @default(true)
+  useCount    Int      @default(0)
+  createdAt   DateTime @default(now())
+  @@map("request_templates")
+}
+
+model FraudFlag {
+  id        String   @id @default(uuid())
+  userId    String?
+  phone     String?
+  email     String?
+  reason    String
+  severity  String   @default("LOW")
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  @@map("fraud_flags")
+}
+
+model ConversationInsight {
+  id          String   @id @default(uuid())
+  userId      String
+  sentiment   String   @default("NEUTRAL")
+  satisfaction Int     @default(5)
+  unmetNeeds  String?
+  keyTopics   String?
+  createdAt   DateTime @default(now())
+  @@map("conversation_insights")
+}
+
+model GoogleVendorLead {
+  id           String   @id @default(uuid())
+  name         String
+  phone        String?
+  email        String?
+  address      String?
+  city         String?
+  category     String
+  googleRating Float    @default(0)
+  googlePlaceId String?
+  status       String   @default("PENDING_OUTREACH")
+  outreachedAt DateTime?
+  registeredAt DateTime?
+  createdAt    DateTime @default(now())
+  @@map("google_vendor_leads")
+}
+
+model WalletTransaction {
+  id        String   @id @default(uuid())
+  userId    String
+  amount    Float
+  type      String
+  description String?
+  balanceAfter Float
+  createdAt DateTime @default(now())
+  @@map("wallet_transactions")
+}
+
+model VendorMatchLog {
+  id           String   @id @default(uuid())
+  requestId    String
+  vendorId     String
+  score        Int
+  selected     Boolean  @default(false)
+  responseTime Int?
+  outcome      String?
+  createdAt    DateTime @default(now())
+  @@map("vendor_match_logs")
+}
+
+model FlashDeal {
+  id          String   @id @default(uuid())
+  vendorId    String
+  title       String
+  description String
+  discount    Int
+  originalPrice Float?
+  category    String
+  expiresAt   DateTime
+  maxBookings Int      @default(10)
+  bookings    Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  @@map("flash_deals")
+}
+
+model CipherJournal {
+  id        String   @id @default(uuid())
+  userId    String
+  content   String
+  type      String   @default("NOTE")
+  addedBy   String   @default("DIRECTOR")
+  isPrivate Boolean  @default(true)
+  createdAt DateTime @default(now())
+  @@map("cipher_journals")
+}
+
+model VendorWaitlist {
+  id        String   @id @default(uuid())
+  category  String
+  city      String
+  email     String
+  phone     String?
+  name      String
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  @@map("vendor_waitlists")
+}
+
+model PartnerReferral {
+  id           String   @id @default(uuid())
+  partnerType  String
+  partnerName  String
+  code         String   @unique
+  commissionPct Float   @default(0)
+  totalSignups Int      @default(0)
+  totalRevenue Float    @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  @@map("partner_referrals")
+}
+
+model InsurancePolicy {
+  id          String   @id @default(uuid())
+  userId      String
+  stripeSubId String?
+  status      String   @default("ACTIVE")
+  claimsCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  @@map("insurance_policies")
+}
+
+model MemberListing {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  description String
+  category    String
+  price       Float?
+  isFree      Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  bookings    Int      @default(0)
+  createdAt   DateTime @default(now())
+  @@map("member_listings")
+}
+
+model ConsiergeExperience {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  category    String
+  price       Float
+  maxGuests   Int      @default(8)
+  bookedGuests Int     @default(0)
+  eventDate   DateTime
+  location    String
+  isActive    Boolean  @default(true)
+  stripeLink  String?
+  createdAt   DateTime @default(now())
+  @@map("consierge_experiences")
+}
+
+model NPSResponse {
+  id        String   @id @default(uuid())
+  userId    String
+  score     Int
+  feedback  String?
+  requestCount Int   @default(0)
+  createdAt DateTime @default(now())
+  @@map("nps_responses")
+}
+
+model AssetRecord {
+  id          String   @id @default(uuid())
+  userId      String
+  assetType   String
+  assetName   String
+  notes       String?
+  nextService DateTime?
+  reminderSent Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  @@map("asset_records")
+}
+
+model PRRelease {
+  id          String   @id @default(uuid())
+  title       String
+  content     String
+  milestone   String
+  status      String   @default("DRAFT")
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+  @@map("pr_releases")
+}
+
+model CaseStudy {
+  id          String   @id @default(uuid())
+  requestId   String?
+  title       String
+  content     String
+  category    String
+  status      String   @default("DRAFT")
+  createdAt   DateTime @default(now())
+  @@map("case_studies")
+}
+
+model RequestDNA {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  topCategory     String   @default("")
+  avgSpend        Float    @default(0)
+  requestFrequency Float   @default(0)
+  topLocations    String   @default("[]")
+  peakDay         String   @default("")
+  peakHour        Int      @default(19)
+  ltv             Float    @default(0)
+  upsellScore     Int      @default(50)
+  churnRisk       Int      @default(30)
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  @@map("request_dna")
+}
+
+model VendorHealthScore {
+  id              String   @id @default(uuid())
+  vendorId        String   @unique
+  overallScore    Int      @default(50)
+  ratingTrend     Float    @default(0)
+  responseRate    Float    @default(1)
+  capacityUtil    Float    @default(0.5)
+  revenueGrowth   Float    @default(0)
+  weeklyJobs      Int      @default(0)
+  status          String   @default("HEALTHY")
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  @@map("vendor_health_scores")
+}
+
+model ContentPost {
+  id          String   @id @default(uuid())
+  platform    String
+  content     String
+  hashtags    String   @default("")
+  status      String   @default("DRAFT")
+  scheduledAt DateTime?
+  postedAt    DateTime?
+  createdAt   DateTime @default(now())
+  @@map("content_posts")
+}
+
+model TravelBrief {
+  id          String   @id @default(uuid())
+  requestId   String   @unique
+  userId      String
+  destination String
+  content     String
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+  @@map("travel_briefs")
+}
+
+model UnregisteredVendorRequest {
+  id            String   @id @default(uuid())
+  requestId     String
+  request       Request  @relation(fields: [requestId], references: [id])
+  vendorName    String
+  vendorPhone   String?
+  vendorEmail   String?
+  googlePlaceId String?
+  googleRating  Float    @default(0)
+  vendorAddress String?
+  vendorWebsite String?
+  category      String
+  city          String?
+  status        String   @default("OUTREACHED")
+  registrationToken String @unique @default(cuid())
+  expiresAt     DateTime
+  registeredAt  DateTime?
+  acceptedAt    DateTime?
+  createdAt     DateTime @default(now())
+  @@map("unregistered_vendor_requests")
+}
+
+model TermsAcceptance {
+  id          String   @id @default(uuid())
+  userId      String?
+  vendorId    String?
+  type        String
+  version     String   @default("1.0")
+  ipAddress   String?
+  userAgent   String?
+  acceptedAt  DateTime @default(now())
+  @@map("terms_acceptances")
+}
+
+model DisputeCase {
+  id            String   @id @default(uuid())
+  requestId     String?
+  paymentId     String?
+  userId        String
+  vendorId      String?
+  reason        String
+  memberStatement String?
+  vendorStatement String?
+  status        String   @default("OPEN")
+  resolution    String?
+  refundAmount  Float?
+  resolvedAt    DateTime?
+  createdAt     DateTime @default(now())
+  @@map("dispute_cases")
+}
+
+model GDPRExport {
+  id          String   @id @default(uuid())
+  userId      String
+  status      String   @default("PENDING")
+  downloadUrl String?
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  @@map("gdpr_exports")
+}
+
+model VendorOnboardingEmail {
+  id        String   @id @default(uuid())
+  vendorId  String
+  step      Int
+  sentAt    DateTime @default(now())
+  @@map("vendor_onboarding_emails")
+}
+
+model VendorCallLog {
+  id          String   @id @default(uuid())
+  vendorPhone String
+  vendorName  String
+  category    String   @default("GENERAL")
+  requestId   String?
+  callSid     String?
+  status      String   @default("initiated")
+  transcript  String?  @default("")
+  duration    Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

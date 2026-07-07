@@ -1648,6 +1648,14 @@ footer {
 .ap-chat-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(201,169,110,0.14);color:#f0ede8;padding:10px 13px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none;resize:none;min-height:40px;transition:border-color 0.15s}
 .ap-chat-inp:focus{border-color:#c9a96e}
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH521J8F3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KCH521J8F3');
+</script>
 </head>
 <body>
 
@@ -1658,13 +1666,7 @@ footer {
 <!-- Navigation -->
 <nav id="navbar">
   <a href="#" class="nav-logo" onclick="showMainPage()">
-    <div class="logo-mark">
-      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1" fill="none"/>
-        <polygon points="22,8 36,15.5 36,28.5 22,36 8,28.5 8,15.5" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.5"/>
-        <text x="22" y="26" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" fill="#c9a96e" font-weight="400">C</text>
-      </svg>
-    </div>
+    <div class="logo-mark" style="padding:0;background:none;border:none;width:36px;height:36px"><svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><polygon points="16,2 26,7.8 26,19.2 16,25 6,19.2 6,7.8" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/><polygon points="16,5 23.5,9.3 23.5,17.7 16,22 8.5,17.7 8.5,9.3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.8"/><polygon points="16,8.5 21.5,11.7 21.5,18.3 16,21.5 10.5,18.3 10.5,11.7" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="1.2"/><path d="M 17.5,10 A 5.8,5.8 0 1,0 17.5,22 L 15.5,22 A 3.8,3.8 0 1,1 15.5,10 Z" fill="#c9a96e"/></svg></div>
     <div class="logo-text">
       <span class="logo-name">Cipher</span>
       <span class="logo-sub">Private</span>
@@ -1681,7 +1683,7 @@ footer {
   </ul>
 
   <div class="nav-cta">
-    <a href="#" class="btn-outline" onclick="openModal('login')">Member Login</a>
+    <a href="/portal" class="btn-outline">Member Portal</a>
     <a href="#membership" class="btn-gold">Apply for Membership</a>
   </div>
 </nav>
@@ -2289,9 +2291,7 @@ footer {
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="#" class="nav-logo" style="margin-bottom:16px;display:inline-flex" onclick="showMainPage()">
-        <div class="logo-mark">
-          <svg viewBox="0 0 44 44" fill="none"><polygon points="22,2 42,12 42,32 22,42 2,32 2,12" stroke="#c9a96e" stroke-width="1" fill="none"/><polygon points="22,8 36,15.5 36,28.5 22,36 8,28.5 8,15.5" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.5"/><text x="22" y="26" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" fill="#c9a96e" font-weight="400">C</text></svg>
-        </div>
+        <div class="logo-mark" style="padding:0;background:none;border:none;width:36px;height:36px"><svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><polygon points="16,2 26,7.8 26,19.2 16,25 6,19.2 6,7.8" fill="none" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/><polygon points="16,5 23.5,9.3 23.5,17.7 16,22 8.5,17.7 8.5,9.3" fill="none" stroke="rgba(201,169,110,0.6)" stroke-width="0.8"/><polygon points="16,8.5 21.5,11.7 21.5,18.3 16,21.5 10.5,18.3 10.5,11.7" fill="rgba(201,169,110,0.07)" stroke="#c9a96e" stroke-width="1.2"/><path d="M 17.5,10 A 5.8,5.8 0 1,0 17.5,22 L 15.5,22 A 3.8,3.8 0 1,1 15.5,10 Z" fill="#c9a96e"/></svg></div>
         <div class="logo-text">
           <span class="logo-name">Cipher</span>
           <span class="logo-sub">Private</span>
@@ -2316,7 +2316,7 @@ footer {
         <li><a href="#membership">Cipher</a></li>
         <li><a href="#membership">Cipher Black</a></li>
         <li><a href="#membership">Cipher Sovereign</a></li>
-        <li><a href="#" onclick="openModal('login')">Member Login</a></li>
+        <li><a href="/portal">Member Portal</a></li>
         <li><a href="#contact">Apply Now</a></li>
       </ul>
     </div>
@@ -2792,23 +2792,24 @@ footer {
 </div>
 
 <!-- Add Member Modal -->
-<div class="modal-overlay" id="addMemberModal">
-  <div class="modal" style="max-width:480px">
-    <button class="modal-close" onclick="closeModal('addMember')">✕</button>
-    <div class="modal-title">Add New Member</div>
-    <div class="modal-subtitle">Create Member Account</div>
-    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="James Harrington"></div>
-    <div class="form-group"><label>Email</label><input type="email" id="newMemberEmail" placeholder="member@email.com"></div>
-    <div class="form-group"><label>Phone</label><input type="tel" id="newMemberPhone" placeholder="+61 400 000 000"></div>
-    <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
-    <div class="form-group"><label>Membership Tier</label>
-      <select id="newMemberTier" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);color:var(--white);padding:12px 16px;font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-        <option value="CIPHER">Cipher</option>
-        <option value="CIPHER_BLACK">Cipher Black</option>
-        <option value="CIPHER_SOVEREIGN">Cipher Sovereign — Bespoke</option>
-      </select>
+<div id="addMemberModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;background:rgba(0,0,0,0.88)">
+  <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#111;border:1px solid rgba(201,169,110,0.25);padding:36px;width:460px;max-width:95vw;z-index:9999999">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <div style="font-family:Georgia,serif;font-size:18px;color:#f0ede8">Add New Member</div>
+        <div style="font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-top:3px">Create Member Account</div>
+      </div>
+      <button onclick="document.getElementById('addMemberModal').style.display='none'" style="background:none;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;width:30px;height:30px;cursor:pointer;font-size:16px">✕</button>
     </div>
-    <button onclick="createMember()" class="form-submit" style="margin-top:8px">Create Member Account</button>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Full Name</div><input id="newMemberName" type="text" placeholder="Full Name" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Email</div><input id="newMemberEmail" type="email" placeholder="member@email.com" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:13px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Temporary Password</div><input id="newMemberPassword" type="text" placeholder="Min 8 characters" style="width:100%;padding:11px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"></div>
+    <div style="margin-bottom:22px"><div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;margin-bottom:6px">Membership Tier</div><select id="newMemberTier" style="width:100%;padding:11px 14px;background:#1a1a1a;border:1px solid rgba(201,169,110,0.18);color:#f0ede8;font-size:13px;outline:none;box-sizing:border-box"><option value="CIPHER">Cipher</option><option value="CIPHER_BLACK">Cipher Black</option><option value="CIPHER_SOVEREIGN">Cipher Sovereign</option></select></div>
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <button onclick="document.getElementById('addMemberModal').style.display='none'" style="flex:1;padding:12px;background:transparent;border:1px solid rgba(201,169,110,0.2);color:#c9a96e;font-size:8px;letter-spacing:3px;text-transform:uppercase;cursor:pointer">Cancel</button>
+      <button onclick="createMember()" style="flex:2;padding:12px;background:#c9a96e;border:none;color:#080808;font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer">Create Member Account</button>
+    </div>
+    <div id="createMemberMsg" style="display:none;padding:10px;font-size:12px;text-align:center;border:1px solid rgba(231,76,60,0.3);color:#e74c3c;background:rgba(231,76,60,0.07)"></div>
   </div>
 </div>
 
@@ -2832,7 +2833,7 @@ footer {
     <button class="modal-close" onclick="closeModal('addMember')">✕</button>
     <div class="modal-title">Add New Member</div>
     <div class="modal-subtitle">Create Member Account</div>
-    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="James Harrington"></div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="newMemberName" placeholder="Full Name"></div>
     <div class="form-group"><label>Email</label><input type="email" id="newMemberEmail" placeholder="member@email.com"></div>
     <div class="form-group"><label>Phone</label><input type="tel" id="newMemberPhone" placeholder="+61 400 000 000"></div>
     <div class="form-group"><label>Temporary Password</label><input type="text" id="newMemberPassword" placeholder="Min 12 characters"></div>
@@ -3467,8 +3468,9 @@ async function submitRequest() {
 }
 
 function showAddMember() {
-  const el = document.getElementById('addMemberModal');
-  if (el) el.classList.add('active');
+  document.getElementById('addMemberModal').style.display='block';
+  document.getElementById('createMemberMsg').style.display='none';
+  ['newMemberName','newMemberEmail','newMemberPassword'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
 }
 
 async function createMember() {
@@ -3485,11 +3487,11 @@ async function createMember() {
     });
     const data = await res.json();
     if (res.ok) {
-      document.getElementById('addMemberModal').classList.remove('active');
-      alert('Member created successfully. Welcome email sent.');
+      document.getElementById('addMemberModal').style.display='none';
+      document.getElementById('addMemberModal').style.display='none';loadAdminData();
       loadAdminData();
-    } else { alert(data.error || 'Failed to create member.'); }
-  } catch(e) { alert('Connection error.'); }
+    } else { var m=document.getElementById('createMemberMsg');if(m){m.style.display='block';m.textContent=data.error||'Failed to create member.';} }
+  } catch(e) { var m=document.getElementById('createMemberMsg');if(m){m.style.display='block';m.textContent='Connection error.';} }
 }
 
 // Scroll reveal
@@ -3761,11 +3763,11 @@ function closeArticle() {
 <script>
 
 // ═══════════════════════════════════════════════════════════════════
-// 2FA / OTP LOGIN VERIFICATION
+// 2FA / OTP LOGIN VERIFICATION — SERVER-SIDE
+// Code generated on server using crypto.randomInt(), never sent to browser
 // ═══════════════════════════════════════════════════════════════════
 let _2faToken = null;   // JWT from successful login (held until 2FA verified)
 let _2faUser  = null;   // User object from login
-let _2faCode  = null;   // The OTP code we generate client-side for demo
 let _2faTimer = null;
 
 // Intercept loginMember to add 2FA step
@@ -3804,16 +3806,7 @@ async function loginMember() {
   }
 }
 
-function show2FA(email) {
-  // Generate a 6-digit code
-  _2faCode = Math.floor(100000 + Math.random() * 900000).toString();
-  console.log('[Cipher 2FA] Code for demo:', _2faCode); // In production this would be emailed
-
-  // Show the hint email (masked)
-  const parts = email.split('@');
-  const masked = parts[0].substring(0,2) + '***@' + parts[1];
-  document.getElementById('tfaEmailHint').textContent = 'Code sent to: ' + masked;
-
+async function show2FA(email) {
   // Reset digits
   for (let i=0;i<6;i++) {
     const el = document.getElementById('tfa'+i);
@@ -3821,36 +3814,36 @@ function show2FA(email) {
   }
   document.getElementById('tfaErr').style.display='none';
   const btn=document.getElementById('tfaBtn');
-  if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+  if(btn){btn.disabled=true;btn.textContent='Sending Code...';}
+
+  // Show masked email hint
+  const parts = email.split('@');
+  const masked = parts[0].substring(0,2) + '***@' + parts[1];
+  document.getElementById('tfaEmailHint').textContent = 'Sending code to: ' + masked;
 
   // Show modal
   document.getElementById('twoFAModal').classList.add('active');
-  setTimeout(()=>{document.getElementById('tfa0').focus();},200);
 
-  // Start 5-minute timer
-  startTFATimer(300);
-
-  // Send 2FA code via email using Resend API through our server
-  if (_2faToken) {
-    fetch('/api/auth/send-2fa', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+_2faToken},
-      body:JSON.stringify({email:email, code:_2faCode})
-    }).then(async r=>{
-      if(r.ok){
-        console.log('[Cipher 2FA] Code emailed to', email);
-      } else {
-        // Fallback: try the OTP email route
-        console.log('[Cipher 2FA] Primary route failed, code is:', _2faCode);
-        // Show code hint in timer for testing
-        const t=document.getElementById('tfaTimer');
-        if(t) t.textContent += ' (Dev: check console for code)';
-      }
-    }).catch(()=>{
-      console.log('[Cipher 2FA] Email unavailable. Code:', _2faCode);
-      const t=document.getElementById('tfaTimer');
-      if(t) t.textContent += ' · Dev mode: check browser console';
+  try {
+    // Request code from SERVER — code never touches the browser
+    const r = await fetch('/api/auth/request-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken }
     });
+    const data = await r.json();
+
+    if (r.ok) {
+      document.getElementById('tfaEmailHint').textContent = 'Code sent to: ' + masked;
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+      setTimeout(()=>{ const d=document.getElementById('tfa0'); if(d)d.focus(); },200);
+      startTFATimer(300);
+    } else {
+      showTFAErr(data.error || 'Failed to send code. Please try again.');
+      if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
+    if(btn){btn.disabled=false;btn.textContent='Verify & Enter Portal';}
   }
 }
 
@@ -3877,27 +3870,38 @@ async function verify2FA() {
   btn.disabled=true; btn.textContent='Verifying…';
   document.getElementById('tfaErr').style.display='none';
 
-  // Check code matches
-  if(code===_2faCode) {
-    // Correct — open portal
-    if(_2faTimer) clearInterval(_2faTimer);
-    document.getElementById('twoFAModal').classList.remove('active');
-    window._cipherToken = _2faToken;
-    window._cipherUser  = _2faUser;
-    _2faToken=null; _2faUser=null; _2faCode=null;
-    document.getElementById('memberPortal').style.display='block'; loadPortalData();
-  } else {
-    showTFAErr('Incorrect code. Please try again or request a new one.');
+  try {
+    // Verify against SERVER — code comparison happens server-side only
+    const r = await fetch('/api/auth/verify-2fa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + _2faToken },
+      body: JSON.stringify({ code })
+    });
+    const data = await r.json();
+
+    if (r.ok && data.verified) {
+      // Verified server-side — open portal
+      if(_2faTimer) clearInterval(_2faTimer);
+      document.getElementById('twoFAModal').classList.remove('active');
+      window._cipherToken = _2faToken;
+      window._cipherUser  = _2faUser;
+      _2faToken=null; _2faUser=null;
+      document.getElementById('memberPortal').style.display='block'; loadPortalData();
+    } else {
+      showTFAErr(data.error || 'Incorrect code. Please try again.');
+      btn.disabled=false; btn.textContent='Verify & Enter Portal';
+      for(let i=0;i<6;i++){const el=document.getElementById('tfa'+i);if(el)el.value='';}
+      document.getElementById('tfa0').focus();
+    }
+  } catch(e) {
+    showTFAErr('Connection error. Please try again.');
     btn.disabled=false; btn.textContent='Verify & Enter Portal';
-    // Clear all digits
-    for(let i=0;i<6;i++){const el=document.getElementById('tfa'+i);if(el)el.value='';}
-    document.getElementById('tfa0').focus();
   }
 }
 
 function resend2FA() {
-  if(!_2faUser) return;
-  const email=_2faUser.email||document.getElementById('memberEmail').value;
+  if(!_2faToken) return;
+  const email=_2faUser ? _2faUser.email : document.getElementById('memberEmail').value;
   show2FA(email);
 }
 

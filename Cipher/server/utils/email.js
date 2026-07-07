@@ -3,10 +3,10 @@
 const https = require('https');
 const logger = require('./logger');
 
-const SITE_URL = process.env.CLIENT_URL || 'https://cipherprivate.com';
+const SITE_URL = process.env.CLIENT_URL || 'https://consiere.com.au';
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const FROM_NAME = process.env.EMAIL_FROM_NAME || 'Cipher Private';
-const FROM_EMAIL = process.env.EMAIL_FROM || 'hello@cipherprivate.com';
+const FROM_NAME = process.env.EMAIL_FROM_NAME || 'Consiere';
+const FROM_EMAIL = process.env.EMAIL_FROM || 'hello@consiere.com.au';
 const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
 
 // ── SEND VIA RESEND API (HTTPS — never blocked by Railway) ───────────────────
@@ -95,7 +95,7 @@ const notifyAdmin = async (subject, html) => {
 const base = (bodyContent, preheader = '') => `<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cipher Private</title>
+<title>Consiere</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#080808;font-family:'Helvetica Neue',Arial,sans-serif}
@@ -126,17 +126,17 @@ p{font-size:13px;color:#888;line-height:1.95;margin:0 0 16px}
 <body><div class="wrapper"><div class="container">
 <div class="hdr">
   <div style="color:#c9a96e;font-size:24px;margin-bottom:12px">◆</div>
-  <div style="font-size:10px;letter-spacing:10px;text-transform:uppercase;color:#c9a96e">Cipher Private</div>
+  <div style="font-size:10px;letter-spacing:10px;text-transform:uppercase;color:#c9a96e">Consiere</div>
   <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#5a4a2a;margin-top:6px">Your Life. Your Cipher. Our Promise.</div>
 </div>
 <div class="body">${bodyContent}</div>
 <div class="ftr">
-  <strong style="color:#8a6f3e;letter-spacing:2px;font-size:9px;text-transform:uppercase">Cipher Private Pty Ltd</strong><br>
+  <strong style="color:#8a6f3e;letter-spacing:2px;font-size:9px;text-transform:uppercase">Consiere Pty Ltd</strong><br>
   Sydney, NSW, Australia<br><br>
   This message is confidential and intended solely for the named recipient.<br><br>
   <a href="${SITE_URL}/privacy">Privacy Policy</a> &nbsp;·&nbsp;
-  <a href="${SITE_URL}">cipherprivate.com</a> &nbsp;·&nbsp;
-  <a href="mailto:hello@cipherprivate.com">hello@cipherprivate.com</a>
+  <a href="${SITE_URL}/portal">Member Portal</a> &nbsp;·&nbsp;
+  <a href="mailto:hello@consiere.com.au">hello@consiere.com.au</a>
 </div>
 </div></div></body></html>`;
 
@@ -150,18 +150,18 @@ const sendApplicationReceivedEmail = async (application) => {
   const html = base(`
     <h2>Application Received</h2>
     <h1>Thank You, <span class="gold">${firstName}.</span></h1>
-    <p>Your application for Cipher Private membership has been received and is now under personal review by our membership director.</p>
+    <p>Your application for Consiere membership has been received and is now under personal review by our membership director.</p>
     <table class="dt">
       <tr><td>Applied Tier</td><td class="gold">${tierName}</td></tr>
       <tr><td>Status</td><td>Under Review</td></tr>
       <tr><td>Response</td><td>Within 48 business hours</td></tr>
     </table>
-    <div class="info-box"><p>We will contact you at this address. Cipher Private staff will never ask for sensitive personal information via email.</p></div>
+    <div class="info-box"><p>We will contact you at this address. Consiere staff will never ask for sensitive personal information via email.</p></div>
     <div class="divider"></div>
-    <div class="sig-name">The Membership Team</div><div class="sig-title">Cipher Private · Sydney, Australia</div>
-  `, 'Your Cipher Private application has been received.');
+    <div class="sig-name">The Membership Team</div><div class="sig-title">Consiere · Sydney, Australia</div>
+  `, 'Your Consiere application has been received.');
 
-  await sendEmail({ to: application.email, subject: 'Cipher Private — Membership Application Received', html });
+  await sendEmail({ to: application.email, subject: 'Consiere — Membership Application Received', html });
 
   await notifyAdmin('New Application: ' + application.fullName, base(`
     <h2>New Membership Application</h2>
@@ -185,18 +185,18 @@ const sendApplicationApprovedEmail = async (application) => {
 
   const html = base(`
     <h2>Membership Approved</h2>
-    <h1>Welcome to <span class="gold">Cipher Private</span></h1>
+    <h1>Welcome to <span class="gold">Consiere</span></h1>
     <p>Dear ${firstName},</p>
     <p>We are delighted to confirm that your application for <strong class="white">${tierName}</strong> membership has been approved.</p>
     <div style="text-align:center;margin:28px 0"><div class="tier-badge">${tierName} Member</div></div>
     <p>Your dedicated lifestyle manager will contact you within <strong class="white">24 hours</strong> to arrange your personal onboarding call and provide your secure portal access credentials.</p>
-    <div class="info-box"><p>Your login credentials will be sent in a separate secure communication. Cipher Private staff will never ask for your password.</p></div>
-    <div style="text-align:center;margin:28px 0"><a href="${SITE_URL}" class="btn">Visit cipherprivate.com</a></div>
+    <div class="info-box"><p>Your login credentials will be sent in a separate secure communication. Consiere staff will never ask for your password.</p></div>
+    <div style="text-align:center;margin:28px 0"><a href="${SITE_URL}/portal" class="btn">Access Your Member Portal</a></div>
     <div class="divider"></div>
-    <div class="sig-name">The Cipher Private Team</div><div class="sig-title">Cipher Private · Sydney, Australia</div>
-  `, 'Your Cipher Private membership has been approved.');
+    <div class="sig-name">The Consiere Team</div><div class="sig-title">Consiere · Sydney, Australia</div>
+  `, 'Your Consiere membership has been approved.');
 
-  await sendEmail({ to: application.email, subject: 'Cipher Private — Your ' + tierName + ' Membership Has Been Approved', html });
+  await sendEmail({ to: application.email, subject: 'Consiere — Your ' + tierName + ' Membership Has Been Approved', html });
   logger.info('[APPROVAL EMAIL] Sent to: ' + application.email);
 };
 
@@ -206,19 +206,19 @@ const sendWelcomeEmail = async (user) => {
   const firstName = user.fullName.split(' ')[0];
 
   const html = base(`
-    <h2>Welcome to Cipher Private</h2>
+    <h2>Welcome to Consiere</h2>
     <h1>Your Membership is <span class="gold">Now Active</span></h1>
     <p>Dear ${firstName},</p>
-    <p>It is our privilege to welcome you to Cipher Private. Your account is now active and your dedicated lifestyle manager has been notified.</p>
+    <p>It is our privilege to welcome you to Consiere. Your account is now active and your dedicated lifestyle manager has been notified.</p>
     <div style="text-align:center;margin:28px 0"><div class="tier-badge">${tierName} Member</div></div>
     <p>Your secure member portal gives you access to encrypted live chat with your lifestyle manager, your confidential document vault, and real-time service request tracking.</p>
     <div style="text-align:center;margin:28px 0"><a href="${SITE_URL}" class="btn">Access Your Portal Now</a></div>
-    <div class="info-box"><p>Cipher Private staff will never ask for your password. All official communications come exclusively from @cipherprivate.com addresses.</p></div>
+    <div class="info-box"><p>Consiere staff will never ask for your password. All official communications come exclusively from @consiere.com.au addresses.</p></div>
     <div class="divider"></div>
-    <div class="sig-name">The Cipher Private Team</div><div class="sig-title">Cipher Private · Sydney, Australia</div>
-  `, 'Welcome to Cipher Private — your ' + tierName + ' membership is now active.');
+    <div class="sig-name">The Consiere Team</div><div class="sig-title">Consiere · Sydney, Australia</div>
+  `, 'Welcome to Consiere — your ' + tierName + ' membership is now active.');
 
-  await sendEmail({ to: user.email, subject: 'Welcome to Cipher Private — Your ' + tierName + ' Membership is Active', html });
+  await sendEmail({ to: user.email, subject: 'Welcome to Consiere — Your ' + tierName + ' Membership is Active', html });
   logger.info('[WELCOME EMAIL] Sent to: ' + user.email);
 };
 
@@ -231,7 +231,7 @@ const sendOTPEmail = async ({ recipientEmail, otp, documentName, senderName, exp
   const html = base(`
     <h2>Secure Document Share</h2>
     <h1>Encrypted File <span class="gold">Ready for Access</span></h1>
-    <p><strong class="white">${senderName}</strong> has shared a confidential document with you through Cipher Private's AES-256 encrypted vault.</p>
+    <p><strong class="white">${senderName}</strong> has shared a confidential document with you through Consiere's AES-256 encrypted vault.</p>
     <div style="background:#0a0a0a;border:1px solid rgba(201,169,110,0.15);padding:20px 24px;margin:24px 0">
       <p style="font-size:10px;color:#5a4a2a;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Document</p>
       <p style="font-size:15px;color:#f0ede8;font-weight:500;margin:0">${documentName}</p>
@@ -247,7 +247,7 @@ const sendOTPEmail = async ({ recipientEmail, otp, documentName, senderName, exp
     <p style="font-size:11px;color:#555">All access attempts are logged and auditable. If you did not expect this document, do not enter the code.</p>
   `, senderName + ' has shared an encrypted document with you.');
 
-  await sendEmail({ to: recipientEmail, subject: 'Cipher Private — Secure Document: ' + documentName, html });
+  await sendEmail({ to: recipientEmail, subject: 'Consiere — Secure Document: ' + documentName, html });
   logger.info('[OTP EMAIL] Sent to: ' + recipientEmail + ' for doc: ' + documentName);
 };
 
@@ -268,10 +268,10 @@ const sendRequestConfirmationEmail = async (user, request) => {
     </table>
     <div style="text-align:center;margin:28px 0"><a href="${SITE_URL}" class="btn">Track in Your Portal</a></div>
     <div class="divider"></div>
-    <div class="sig-name">The Cipher Private Team</div><div class="sig-title">Cipher Private · Sydney, Australia</div>
+    <div class="sig-name">The Consiere Team</div><div class="sig-title">Consiere · Sydney, Australia</div>
   `, 'Your request [' + refId + '] has been received.');
 
-  await sendEmail({ to: user.email, subject: 'Cipher Private — Request Received [' + refId + ']', html });
+  await sendEmail({ to: user.email, subject: 'Consiere — Request Received [' + refId + ']', html });
 
   await notifyAdmin('New Request from ' + user.fullName + ' [' + refId + ']', base(`
     <h2>New Service Request</h2>
@@ -313,10 +313,10 @@ const sendRequestStatusEmail = async (user, request, newStatus) => {
     ${request.adminNote ? '<p style="font-size:12px;color:#888;margin-top:8px"><strong class="white">Note from your manager:</strong><br>' + request.adminNote + '</p>' : ''}
     <div style="text-align:center;margin:28px 0"><a href="${SITE_URL}" class="btn">View in Your Portal</a></div>
     <div class="divider"></div>
-    <div class="sig-name">The Cipher Private Team</div><div class="sig-title">Cipher Private · Sydney, Australia</div>
+    <div class="sig-name">The Consiere Team</div><div class="sig-title">Consiere · Sydney, Australia</div>
   `, 'Request [' + refId + '] update: ' + statusDisplay);
 
-  await sendEmail({ to: user.email, subject: 'Cipher Private — Request Update [' + refId + ']: ' + statusDisplay, html });
+  await sendEmail({ to: user.email, subject: 'Consiere — Request Update [' + refId + ']: ' + statusDisplay, html });
   logger.info('[STATUS EMAIL] [' + refId + '] → ' + newStatus + ' to ' + user.email);
 };
 
