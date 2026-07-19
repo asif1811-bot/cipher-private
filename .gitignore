@@ -8,3 +8,4 @@
 node_modules/
 _archived_not_served/
 *.log
+uploads/
