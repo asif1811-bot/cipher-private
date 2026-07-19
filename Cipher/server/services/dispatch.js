@@ -226,10 +226,13 @@ async function dispatchToVendors(requestId, description, category, userId, clien
 
     // NO fallback to wrong-city vendors — trigger Google Places for correct city
     if (!vendors.length) {
-      console.log('[DISPATCH] No location-matched vendors — triggering Google Places for:', detectedLocation?.city || classified.location);
+      console.log('[DISPATCH] No location-matched vendors — triggering Google Places for:', globalLoc?.city || detectedLocation?.city || classified.location);
       const { findAndOutreachUnregisteredVendors } = require('./unregistered_vendor');
-      const city = detectedLocation?.city || classified.location || 'Sydney';
-      const country = detectedLocation?.country || 'Australia';
+      // detectedLocation is AU-only (see line 188) — it's always empty for an international
+      // address, which previously made this silently fall back to the literal 'Australia'
+      // even for e.g. a Mumbai request. globalLoc is the one that actually detects country.
+      const city = globalLoc?.city || detectedLocation?.city || classified.location || 'Sydney';
+      const country = globalLoc?.country || detectedLocation?.country || 'AU';
       console.log('[DISPATCH UV] Calling with subcategory:', classified.subcategory, 'city:', city, 'country:', country);
       findAndOutreachUnregisteredVendors(requestId, description, classified.category, String(city||'Sydney'), String(country||'AU'), classified.subcategory)
         .catch(e => console.error('[DISPATCH UV]', e.message));
@@ -524,8 +527,11 @@ async function dispatchToVendors(requestId, description, category, userId, clien
     // If no registered vendors dispatched — outreach to unregistered via Google Places
     if (dispatched === 0) {
       console.log('[DISPATCH] No registered vendors — triggering unregistered vendor outreach');
-      const cityForSearch = detectedLocation || classified.location || 'Sydney';
-      findAndOutreachUnregisteredVendors(requestId, description, classified.category, cityForSearch, detectedLocation?.country || 'Australia', classified.subcategory)
+      // Same fix as above: detectedLocation is AU-only, and was also being passed here as
+      // a whole object instead of its .city — same "Mumbai Australia" bug, plus a second one.
+      const cityForSearch = globalLoc?.city || detectedLocation?.city || classified.location || 'Sydney';
+      const countryForSearch = globalLoc?.country || detectedLocation?.country || 'AU';
+      findAndOutreachUnregisteredVendors(requestId, description, classified.category, cityForSearch, countryForSearch, classified.subcategory)
         .catch(e => console.error('[DISPATCH UV LOCAL]', e.message));
     }
 
