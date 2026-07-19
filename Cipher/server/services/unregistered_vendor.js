@@ -134,18 +134,17 @@ async function findAndOutreachUnregisteredVendors(requestId, description, catego
           expiresAt,
           vendorAddress: place.formatted_address || place.vicinity || null,
           vendorWebsite: (typeof _website !== 'undefined' ? _website : null),
-          status: 'OUTREACHED'
+          status: 'DISCOVERED'
         }
       });
-      // Send outreach
-      // Auto-outreach disabled: leads are logged for admin review.
-      // Outreach (email/WhatsApp) is initiated manually from the admin panel.
-      try { await outreachUnregisteredVendor(uvr, description, category); console.log('[UNREGISTERED] Outreach sent to:', place.name); }
-      catch(e) { console.error('[UNREGISTERED] Outreach failed for', place.name, ':', e.message); }
+      // Auto-outreach disabled — this is a compliance requirement, not an oversight (PRD
+      // section 7: no automated contact to non-consented businesses). Leads sit as
+      // 'DISCOVERED' for admin review; outreach only fires when an admin approves via
+      // POST /api/admin/discovered/:id/invite.
+      console.log('[UNREGISTERED] Logged for review:', place.name);
       outreached++;
-      await new Promise(r => setTimeout(r, 500));
     }
-    console.log('[UNREGISTERED] Outreached to', outreached, 'unregistered vendors');
+    console.log('[UNREGISTERED] Discovered', outreached, 'unregistered vendor leads for review');
     // Schedule auto-escalation after window expires
     setTimeout(() => escalateExpiredRequests(requestId), (REGISTRATION_WINDOW_MINUTES + 1) * 60 * 1000);
     return outreached;
@@ -601,7 +600,7 @@ async function runExpiredVendorCheck() {
 // ── ADMIN: LIST PENDING UNREGISTERED LEADS ────────────────────────────────
 async function getUnregisteredVendorLeads(status) {
   return await prisma.unregisteredVendorRequest.findMany({
-    where: { status: status || 'OUTREACHED' },
+    where: { status: status || 'DISCOVERED' },
     orderBy: [{ googleRating: 'desc' }, { createdAt: 'desc' }],
     take: 50
   });
@@ -609,6 +608,8 @@ async function getUnregisteredVendorLeads(status) {
 
 module.exports = {
   findAndOutreachUnregisteredVendors,
+  outreachUnregisteredVendor,
+  REGISTRATION_WINDOW_MINUTES,
   getRegistrationContext,
   completeRegistrationAndAssign,
   escalateExpiredRequests,

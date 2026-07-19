@@ -3472,11 +3472,13 @@ async function loadDiscovered(requestId, containerId){
     if(!Array.isArray(leads)||!leads.length){ el.innerHTML=''; return; }
     var rows = leads.map(function(l){
       var site = l.vendorWebsite ? '<a href="'+l.vendorWebsite+'" target="_blank" rel="noopener">website</a>' : '-';
-      var btn = l.status==='INVITED'
+      var btn = (l.status==='INVITED'||l.status==='OUTREACHED')
         ? '<span style="color:#2e7d32;font-size:12px">Invited</span>'
-        : (l.vendorEmail
-            ? '<button onclick="inviteLead(\''+l.id+'\',\''+containerId+'\',\''+requestId+'\')" style="background:#b87333;color:#fff;border:0;padding:5px 11px;border-radius:5px;cursor:pointer;font-size:12px">Send invitation</button>'
-            : '<span style="color:#999;font-size:12px">no email - use website</span>');
+        : l.registeredAt
+          ? '<span style="color:#2e7d32;font-size:12px">Registered</span>'
+          : ((l.vendorEmail||l.vendorPhone)
+              ? '<button onclick="inviteLead(\''+l.id+'\',\''+containerId+'\',\''+requestId+'\')" style="background:#b87333;color:#fff;border:0;padding:5px 11px;border-radius:5px;cursor:pointer;font-size:12px">Send invitation</button>'
+              : '<span style="color:#999;font-size:12px">no contact info - use website</span>');
       return '<tr style="border-bottom:1px solid #eee">'+
         '<td style="padding:5px 8px;font-size:13px">'+(l.vendorName||'')+'</td>'+
         '<td style="padding:5px 8px;font-size:12px;color:#666">'+(l.vendorAddress||'-')+'</td>'+
@@ -3490,7 +3492,7 @@ async function loadDiscovered(requestId, containerId){
   }catch(e){ console.error('loadDiscovered',e); }
 }
 async function inviteLead(id, containerId, requestId){
-  if(!confirm('Send a partnership invitation email to this business?')) return;
+  if(!confirm('Send a partnership invitation to this business (email if we have one, WhatsApp otherwise)?')) return;
   try{
     var r = await fetch('/api/admin/discovered/'+id+'/invite',{method:'POST',headers:H});
     var d = await r.json();

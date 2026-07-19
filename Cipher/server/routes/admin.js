@@ -799,36 +799,25 @@ router.get('/discovered/:requestId', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-// ── Send a partnership-invitation email to one discovered lead (admin-triggered) ──
+// ── Admin-approved outreach to one discovered lead: email-first, WhatsApp fallback ──
+// (shares the same logic used for registered-vendor dispatch — see unregistered_vendor.js)
 router.post('/discovered/:id/invite', async (req, res) => {
   try {
-    const lead = await prisma.unregisteredVendorRequest.findUnique({ where: { id: req.params.id } });
-    if (!lead) return res.status(404).json({ error: 'Lead not found' });
-    if (!lead.vendorEmail) return res.status(400).json({ error: 'No email on file — use the website link to contact manually' });
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const CC_URL = process.env.CC_URL || 'https://consiere.com.au';
-    const regLink = CC_URL + '/vendor-register?token=' + lead.registrationToken;
-    const html = [
-      '<div style="font-family:Arial;max-width:560px;margin:0 auto">',
-      '<h2 style="color:#1c1917;font-weight:400">Partnership invitation from Consiere</h2>',
-      '<p style="color:#44403c;line-height:1.7">Hello ' + lead.vendorName + ',</p>',
-      '<p style="color:#44403c;line-height:1.7">Consiere is an AI-powered concierge platform connecting clients with quality local businesses. We would like to invite you to join our vendor network.</p>',
-      '<p style="color:#44403c;line-height:1.7">There is no cost to join. We charge a 10% commission only on jobs you accept and win. You choose which requests to quote on.</p>',
-      '<p style="text-align:center;margin:24px 0"><a href="' + regLink + '" style="background:#b87333;color:#fff;padding:12px 28px;text-decoration:none;border-radius:6px">Register your business</a></p>',
-      '<p style="color:#78716c;font-size:12px">If this is not relevant to you, no action is needed and you will not be contacted again about this request. Consiere · hello@consiere.com.au</p>',
-      '</div>'
-    ].join('');
-    const result = await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Consiere <hello@consiere.com.au>',
-      to: lead.vendorEmail,
-      subject: 'Invitation to join the Consiere vendor network',
-      html
+    const { outreachUnregisteredVendor, REGISTRATION_WINDOW_MINUTES } = require('../services/unregistered_vendor');
+    const lead = await prisma.unregisteredVendorRequest.findUnique({
+      where: { id: req.params.id },
+      include: { request: { select: { description: true } } }
     });
-    if (result.error) return res.status(500).json({ error: JSON.stringify(result.error) });
-    await prisma.unregisteredVendorRequest.update({ where: { id: lead.id }, data: { status: 'INVITED' } });
-    console.log('[DISCOVERY INVITE] Sent to', lead.vendorEmail, 'for', lead.vendorName);
-    res.json({ success: true, invited: lead.vendorName });
+    if (!lead) return res.status(404).json({ error: 'Lead not found' });
+    if (lead.registeredAt) return res.status(400).json({ error: 'This vendor has already registered' });
+    if (!lead.vendorEmail && !lead.vendorPhone) return res.status(400).json({ error: 'No email or phone on file — contact manually' });
+    // Reset the registration window from this approval moment, not from when the lead was
+    // discovered — it may have sat in the review queue for a while before an admin got to it.
+    const expiresAt = new Date(Date.now() + REGISTRATION_WINDOW_MINUTES * 60 * 1000);
+    await prisma.unregisteredVendorRequest.update({ where: { id: lead.id }, data: { expiresAt } });
+    await outreachUnregisteredVendor({ ...lead, expiresAt }, lead.request?.description || '', lead.category);
+    console.log('[DISCOVERY INVITE] Outreach approved and sent for', lead.vendorName);
+    return res.json({ success: true, invited: lead.vendorName });
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
