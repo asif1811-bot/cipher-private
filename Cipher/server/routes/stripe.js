@@ -687,17 +687,22 @@ router.post('/vendor-bill', async (req, res) => {
     if (!request.depositPaid) return res.status(400).json({ error: 'Deposit not yet paid' });
     if (request.vendorBillAmt) return res.status(400).json({ error: 'Bill already submitted' });
 
+    // The vendorToken must match the quoteToken issued to the vendor accepted for this request —
+    // this is the only thing stopping anyone who knows a requestId from submitting a bill and
+    // triggering a refund on someone else's job.
+    const _inq = await prisma.vendorInquiry.findFirst({
+      where: { requestId, status: { in: ['ACCEPTED','QUOTED','DELIVERED'] } },
+      orderBy: { updatedAt: 'desc' }, include: { vendor: true }
+    });
+    if (!_inq || !_inq.quoteToken || _inq.quoteToken !== vendorToken) {
+      return res.status(403).json({ error: 'Invalid vendor token' });
+    }
+
     // Calculate commission and refund — use the accepted vendor's effective rate (referral-aware), not a flat 10%.
     const DEPOSIT = 20;
     let _rate = 10;
-    try {
-      const _inq = await prisma.vendorInquiry.findFirst({
-        where: { requestId, status: { in: ['ACCEPTED','QUOTED','DELIVERED'] } },
-        orderBy: { updatedAt: 'desc' }, include: { vendor: true }
-      });
-      const _v = _inq && _inq.vendor;
-      if (_v) _rate = (_v.commissionDiscountUntil && new Date(_v.commissionDiscountUntil) > new Date()) ? 8 : (typeof _v.commissionPct === 'number' ? _v.commissionPct : 10);
-    } catch(_e) { console.error('[VENDOR-BILL] rate lookup failed, using 10%:', _e.message); }
+    const _v = _inq.vendor;
+    if (_v) _rate = (_v.commissionDiscountUntil && new Date(_v.commissionDiscountUntil) > new Date()) ? 8 : (typeof _v.commissionPct === 'number' ? _v.commissionPct : 10);
     const commission = Math.round(amount * (_rate/100) * 100) / 100;
     const refund = Math.max(0, Math.round((DEPOSIT - commission) * 100) / 100);
     console.log('[VENDOR-BILL] commission', _rate + '% =', commission, 'refund', refund, 'for request', requestId);
@@ -801,9 +806,19 @@ router.post('/vendor-bill', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-// ── Get deposit status for a request ─────────────────────────────
-router.get('/deposit-status/:requestId', authenticate, async (req, res) => {
+// ── Get deposit status for a request (vendor-token auth — this is the vendor-bill page's own
+// status check, vendors never hold a member session, so it can't use `authenticate`) ─────
+router.get('/deposit-status/:requestId', async (req, res) => {
   try {
+    const vendorToken = req.query.t;
+    if (!vendorToken) return res.status(401).json({ error: 'Missing token' });
+    const inquiry = await prisma.vendorInquiry.findFirst({
+      where: { requestId: req.params.requestId, status: { in: ['ACCEPTED','QUOTED','DELIVERED'] } },
+      orderBy: { updatedAt: 'desc' }
+    });
+    if (!inquiry || !inquiry.quoteToken || inquiry.quoteToken !== vendorToken) {
+      return res.status(403).json({ error: 'Invalid vendor token' });
+    }
     const request = await prisma.request.findUnique({
       where: { id: req.params.requestId },
       select: { depositPaid: true, depositAmount: true, depositRefunded: true, depositRefundAmt: true, vendorBillAmt: true, commissionAmt: true, refundAmt: true, status: true }
@@ -814,9 +829,18 @@ router.get('/deposit-status/:requestId', authenticate, async (req, res) => {
 });
 
 
-// Request details for vendor bill page (public — vendor token auth)
+// Request details for vendor bill page — vendor token auth
 router.get('/request-details/:requestId', async (req, res) => {
   try {
+    const vendorToken = req.query.t;
+    if (!vendorToken) return res.status(401).json({ error: 'Missing token' });
+    const inquiry = await prisma.vendorInquiry.findFirst({
+      where: { requestId: req.params.requestId, status: { in: ['ACCEPTED','QUOTED','DELIVERED'] } },
+      orderBy: { updatedAt: 'desc' }
+    });
+    if (!inquiry || !inquiry.quoteToken || inquiry.quoteToken !== vendorToken) {
+      return res.status(403).json({ error: 'Invalid vendor token' });
+    }
     const request = await prisma.request.findUnique({
       where: { id: req.params.requestId },
       include: { user: { select: { fullName: true } } }
