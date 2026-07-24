@@ -65,9 +65,13 @@ module.exports = function(app) {
     } catch(e) { console.error('[VOICE]', e.message); res.status(500).json({ error: e.message }); }
   });
 
-  // 2. TwiML - Alina delivers full scripted information message
+  // 2. TwiML - Alina delivers the opening script, then gathers speech so the vendor can
+  // actually respond -- previously this ended in <Hangup/> with no <Gather>, so the AI
+  // conversation loop in /respond below was built but structurally unreachable: every call
+  // played the announcement and hung up before the vendor could ever say a word.
   app.post('/api/voice/twiml/:sessionId', (req, res) => {
-    const session = activeCalls[req.params.sessionId];
+    const sessionId = req.params.sessionId;
+    const session = activeCalls[sessionId];
     const vendorName = session ? session.vendorName : 'there';
     res.type('text/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?>
@@ -77,8 +81,10 @@ module.exports = function(app) {
   <Say voice="Google.en-AU-Standard-C" language="en-AU">This is Alina, the A.I. concierge from Consiere, a partner you are registered with.</Say>
   <Pause length="1"/>
   <Say voice="Google.en-AU-Standard-C" language="en-AU">We have a client request we would like your help with. Details have been sent to you by message and email.</Say>
-  <Pause length="1"/>
-  <Say voice="Google.en-AU-Standard-C" language="en-AU">If you are able to assist and would like to quote, please reply to that message or open your vendor portal. Thank you very much.</Say>
+  <Gather input="speech" action="${CC_URL}/api/voice/respond/${sessionId}" method="POST" speechTimeout="3" timeout="10" language="en-AU">
+    <Say voice="Google.en-AU-Standard-C" language="en-AU">If you are able to assist and would like to quote, you can tell me now, or reply to the message or open your vendor portal instead. Thank you very much.</Say>
+  </Gather>
+  <Say voice="Google.en-AU-Standard-C" language="en-AU">Thank you for your time. Have a great day!</Say>
   <Hangup/>
 </Response>`);
   });
