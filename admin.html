@@ -740,7 +740,7 @@ function vendorMatchesCountry(v, country) {
   return getVendorCountry(v) === country;
 }
 
-function loadVendors() {
+async function loadVendors() {
   var el=document.getElementById('list-vendors'); el.innerHTML='<div class="empty-state">Loading...</div>';
   try {
     var r=await fetch('/api/vendors',{headers:H}); var d=await r.json(); allVendors=d.vendors||[];
