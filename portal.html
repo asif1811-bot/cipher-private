@@ -119,7 +119,17 @@ async function show2FA(token, email) {
   document.getElementById('twoFAView').style.display = 'block';
   var p = email.split('@');
   document.getElementById('twoFAHint').textContent = 'Code sent to ' + p[0].substring(0,2) + '***@' + p[1];
-  try { await fetch('/api/auth/request-2fa',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}}); } catch(e) {}
+  // The server correctly reports send failures (e.g. email provider outage) -- surface that
+  // instead of silently showing "code sent" and a countdown for a code that never arrives.
+  try {
+    var r = await fetch('/api/auth/request-2fa',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}});
+    var d = await r.json();
+    if (!r.ok || d.sent === false) {
+      showErr('twoFAErr', 'Could not send your security code (' + (d.error || 'delivery failed') + '). Please try again shortly, or contact hello@cipherprivate.com.');
+    }
+  } catch(e) {
+    showErr('twoFAErr', 'Connection error while sending your security code. Please try again.');
+  }
   startTimer();
   setTimeout(function(){ document.getElementById('twoFACode').focus(); }, 200);
 }
