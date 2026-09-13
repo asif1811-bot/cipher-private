@@ -42,12 +42,15 @@ router.post('/webhook', express.urlencoded({ extended: false }), async (req, res
     const phone = rawPhone.startsWith('+') ? rawPhone : '+' + rawPhone;
     const message = Body.trim();
     console.log('[WHATSAPP]', phone, ':', message.substring(0,60));
-    // Check if this is a VENDOR replying to an inquiry
+    // Vendors quote/respond through their web portal (tokenized link or login), not free-text
+    // WhatsApp parsing — that was never built, and calling it crashed silently on every vendor
+    // reply (caught by the outer catch, no response ever sent back to them).
     const vendorByPhone = await prisma.vendor.findFirst({ where: { phone } }).catch(()=>null);
     if (vendorByPhone) {
-      // This is a vendor — handle their WhatsApp reply as a quote
-      await handleVendorWhatsAppReply(phone, message, vendorByPhone, res);
-      return;
+      const portalUrl = (process.env.CC_URL || 'https://consiere.com.au') + '/vendor-portal';
+      await sendWA(phone, 'Hi ' + vendorByPhone.name + '! To view and respond to your active job requests, please log in to your vendor portal: ' + portalUrl);
+      res.set('Content-Type','text/xml');
+      return res.send('<?xml version="1.0" encoding="UTF-8"?><Response></Response>');
     }
 
     // Anti-spam/scam message detection
