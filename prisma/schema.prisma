@@ -143,6 +143,7 @@ model OtpSend {
   token          String    @unique @default(uuid())
   expiresAt      DateTime
   accessedAt     DateTime?
+  attempts       Int       @default(0)
   createdAt      DateTime  @default(now())
   document       Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)

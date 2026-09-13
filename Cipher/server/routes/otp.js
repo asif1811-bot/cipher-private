@@ -76,7 +76,9 @@ router.post('/send', authenticate, otpLimiter, async (req, res) => {
 
 // ── POST /api/otp/verify/:token ──────────────────────────────────────────────
 // Recipient verifies OTP and downloads document (no auth required)
-router.post('/verify/:token', async (req, res) => {
+// Rate-limited per IP, plus a per-token attempt lockout below -- the OTP itself is only a
+// 6-digit code (1,000,000 combinations), and this is the one place it's actually checked.
+router.post('/verify/:token', otpLimiter, async (req, res) => {
   try {
     const { otp } = req.body;
 
@@ -101,8 +103,13 @@ router.post('/verify/:token', async (req, res) => {
       return res.status(410).json({ error: 'This link has already been used' });
     }
 
+    if (otpSend.attempts >= 5) {
+      return res.status(429).json({ error: 'Too many incorrect attempts. Ask the sender for a new link.' });
+    }
+
     if (!verifyOTP(otp, otpSend.otpHash)) {
-      logger.warn(`Failed OTP attempt for token ${req.params.token}`);
+      await prisma.otpSend.update({ where: { id: otpSend.id }, data: { attempts: { increment: 1 } } });
+      logger.warn(`Failed OTP attempt for token ${req.params.token} (attempt ${otpSend.attempts + 1}/5)`);
       return res.status(401).json({ error: 'Incorrect OTP code' });
     }
 
